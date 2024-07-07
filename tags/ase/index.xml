@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ase on 雨的味道</title><link>https://reatang.com/tags/ase/</link><description>Recent content in Ase on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 13 Jan 2017 10:38:15 +0000</lastBuildDate><atom:link href="https://reatang.com/tags/ase/index.xml" rel="self" type="application/rss+xml"/><item><title>js_ase加密php_ase解密</title><link>https://reatang.com/p/old-post-4/</link><pubDate>Fri, 13 Jan 2017 10:38:15 +0000</pubDate><guid>https://reatang.com/p/old-post-4/</guid><description>&lt;p>js部分&lt;/p>
+&lt;p>js使用的是crypto-js进行aes加密&lt;/p>
+&lt;p>github地址：https://github.com/brix/crypto-js&lt;/p>
+&lt;p>加密&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="k">var&lt;/span> &lt;span class="n">md5SecterKey&lt;/span> &lt;span class="o">=&lt;/span>  &lt;span class="s1">&amp;#39;a1d3eaf653ab8d9c2c1d809f13ab5f05&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">var&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">crypto&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">enc&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Utf8&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">md5SecterKey&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">var&lt;/span> &lt;span class="n">iv&lt;/span>  &lt;span class="o">=&lt;/span> &lt;span class="n">crypto&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">enc&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Utf8&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">md5SecterKey&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">var&lt;/span> &lt;span class="n">ciphertext&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">crypto&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">AES&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">encrypt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="n">iv&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">iv&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">mode&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">crypto&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">mode&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CBC&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">padding&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">crypto&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pad&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ZeroPadding&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">console&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ciphertext&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">toString&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>解密&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="k">var&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">crypto&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">enc&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Utf8&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">md5SecterKey&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">var&lt;/span> &lt;span class="n">iv&lt;/span>  &lt;span class="o">=&lt;/span> &lt;span class="n">crypto&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">enc&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Utf8&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">md5SecterKey&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">var&lt;/span> &lt;span class="n">ciphertext&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">localStorage&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">getItem&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ciphertext&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  &lt;span class="k">var&lt;/span> &lt;span class="n">bytes&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">crypto&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">AES&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decrypt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ciphertext&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">toString&lt;/span>&lt;span class="p">(),&lt;/span>  &lt;span class="n">key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="n">iv&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">iv&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">mode&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">crypto&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">mode&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">CBC&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">padding&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">crypto&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pad&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ZeroPadding&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  &lt;span class="k">var&lt;/span> &lt;span class="n">plaintext&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bytes&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">toString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">crypto&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">enc&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Utf8&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  &lt;span class="k">return&lt;/span> &lt;span class="n">plaintext&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>php部分&lt;/p>
+&lt;p>php使用自带的aes解密&lt;/p>
+&lt;p>加密&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$pk = &amp;#34;a1d3eaf653ab8d9c2c1d809f13ab5f05&amp;#34;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$iv = substr($pk, 0, 16);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$t = &amp;#39;reatang&amp;#39;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$encrypted = ( mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $pk, $t, MCRYPT_MODE_CBC,$iv) );
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$base64Str = base64_encode($encrypted).&amp;#39;&amp;lt;br&amp;gt;&amp;#39;;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>解密&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$str_encrypt = base64_decode($base64Str);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$pk = &amp;#34;a1d3eaf653ab8d9c2c1d809f13ab5f05&amp;#34;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$iv = substr($pk, 0, 16);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">echo mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $pk, base64_decode($str_encrypt), MCRYPT_MODE_CBC, $iv);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">exit;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

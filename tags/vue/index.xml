@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vue on 雨的味道</title><link>https://reatang.com/tags/vue/</link><description>Recent content in Vue on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 03 Jun 2019 20:16:39 +0000</lastBuildDate><atom:link href="https://reatang.com/tags/vue/index.xml" rel="self" type="application/rss+xml"/><item><title>【Vue】在requirejs中使用ElementUI</title><link>https://reatang.com/p/old-post-41/</link><pubDate>Mon, 03 Jun 2019 20:16:39 +0000</pubDate><guid>https://reatang.com/p/old-post-41/</guid><description>&lt;p>在很多项目中，有时候无法加入webpack等编译工具，要是想使用ElementUI就非常困难了。&lt;/p>
+&lt;p>不过还好浏览器加载标准requirejs可以解决这个问题。&lt;/p>
+&lt;p>1、关键点在于，requirejs的define函数已经定义的ElementUI组件的名称为 ELEMENT，所以引入的时候必须使用这个名称。&lt;/p>
+&lt;p>2、使用requirejs的时候，ElementUI组件是不会自动注册到Vue中的，必须使用 ELEMENT.install(Vue); 手动注册。&lt;/p>
+&lt;p>代码：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">&amp;lt;!DOCTYPE html&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;html&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;head&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  &amp;lt;title&amp;gt;使用requirejs加载ElementUI&amp;lt;/title&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  &amp;lt;script src=&amp;#34;/js/require.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;/head&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;body&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;div id=&amp;#34;v-app&amp;#34;&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  &amp;lt;div&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &amp;lt;el-date-picker
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      v-model=&amp;#34;value1&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      type=&amp;#34;datetimerange&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      start-placeholder=&amp;#34;开始日期&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      end-placeholder=&amp;#34;结束日期&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      :default-time=&amp;#34;[&amp;#39;12:00:00&amp;#39;]&amp;#34; value-format=&amp;#34;yyyy-MM-dd HH:mm:ss&amp;#34;&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &amp;lt;/el-date-picker&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  &amp;lt;/div&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;/div&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;script&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  require.config({
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    map: { //map告诉RequireJS在任何模块之前，都先载入这个css模块
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        &amp;#39;*&amp;#39;: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">            css: &amp;#39;/js/require-css.js&amp;#39;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    },
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    paths: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      &amp;#39;vue&amp;#39;: &amp;#39;https://unpkg.com/vue/dist/vue&amp;#39;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      &amp;#39;ELEMENT&amp;#39;: &amp;#39;/js/elementui/index&amp;#39;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    },
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    shim: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      &amp;#39;ELEMENT&amp;#39;: {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        deps: [&amp;#39;vue&amp;#39;, &amp;#39;css!/js/elementui/theme-chalk/index.css&amp;#39;]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  });
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;/script&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;script&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  require([&amp;#39;vue&amp;#39;, &amp;#39;ELEMENT&amp;#39;], function (Vue, ELEMENT) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    ELEMENT.install(Vue);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    window.vm = new Vue({
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      el: &amp;#39;#v-app&amp;#39;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      delimiters: [&amp;#39;${&amp;#39;, &amp;#39;}&amp;#39;],
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      data: function () {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        return {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">          value1: []
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      },
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    });
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  });
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;/script&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;/body&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;/html&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

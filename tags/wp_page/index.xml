@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wp_page on 雨的味道</title><link>https://reatang.com/tags/wp_page/</link><description>Recent content in Wp_page on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 09 Jul 2018 14:32:52 +0000</lastBuildDate><atom:link href="https://reatang.com/tags/wp_page/index.xml" rel="self" type="application/rss+xml"/><item><title>【wordpress】文章编辑器中添加分页按钮</title><link>https://reatang.com/p/old-post-37/</link><pubDate>Mon, 09 Jul 2018 14:32:52 +0000</pubDate><guid>https://reatang.com/p/old-post-37/</guid><description>&lt;p>在自己的plugin添加过滤器钩子：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">//添加分页按钮
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">add_filter(&amp;#39;mce_buttons&amp;#39;, function ($btn_lists, $editor_id) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    if (($wp_more_btn_index = array_search(&amp;#39;wp_more&amp;#39;, $btn_lists)) &amp;gt;= 0) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        array_splice($btn_lists, $wp_more_btn_index + 1, 0, &amp;#39;wp_page&amp;#39;);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    return $btn_lists;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}, 10, 2);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

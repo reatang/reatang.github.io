@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Lua on 雨的味道</title><link>https://reatang.com/tags/lua/</link><description>Recent content in Lua on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 20 Nov 2019 19:19:05 +0000</lastBuildDate><atom:link href="https://reatang.com/tags/lua/index.xml" rel="self" type="application/rss+xml"/><item><title>【PHP】Redis 中如何更好的加载Lua脚本</title><link>https://reatang.com/p/old-post-43/</link><pubDate>Wed, 20 Nov 2019 19:19:05 +0000</pubDate><guid>https://reatang.com/p/old-post-43/</guid><description>&lt;p>1、直接使用EVAL执行，不算在“更好”的范围内，不做讨论。&lt;/p>
+&lt;p>2、正常判断式：先判断脚本存不存在，再进行操作。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="o">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">向&lt;/span>&lt;span class="n">Redis注册Lua脚本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="n">param&lt;/span> &lt;span class="n">Redis&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">redis&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="n">param&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">file&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="k">return&lt;/span> &lt;span class="ne">bool&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">mixed&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">function&lt;/span> &lt;span class="n">load_lua_script&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Redis&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">redis&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">file&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">is_file&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">file&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        &lt;span class="k">return&lt;/span> &lt;span class="bp">false&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="o">$&lt;/span>&lt;span class="n">sha1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sha1_file&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">file&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">redis&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">script&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;EXISTS&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">sha1&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        &lt;span class="k">return&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">sha1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        &lt;span class="k">return&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">redis&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">script&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;LOAD&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">file_get_contents&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">file&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">script_sha&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">load_lua_script&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">redis&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;/path/to/lua_script.lua&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">reuslt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">redis&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">evalSha&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">script_sha&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">key_number&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>3、触发式执行：如果执行失败了，才LOAD脚本，并重新运行。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">/**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * 执行Lua脚本
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * @param Redis $redis
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * @param $file
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * @param $args
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * @param $numKeys
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * @return bool|mixed|string
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> */
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">function run_lua_script(Redis $redis, $file, $args, $numKeys) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    if (!is_file($file)) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        return false;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $sha1 = sha1_file($file);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    for ($run_number = 0; $run_number &amp;lt; 3; $run_number++) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        $redis_result = $redis-&amp;gt;evalSha($sha1, $args, $numKeys);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        // 检测脚本是否不存在，如果不存在，则加载，并重新执行
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        if (substr($redis-&amp;gt;getLastError(), 0, 8) === &amp;#39;NOSCRIPT&amp;#39;) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">            echo &amp;#39;LOAD&amp;#39; . PHP_EOL;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">            $sha1 = $redis-&amp;gt;script(&amp;#39;LOAD&amp;#39;, file_get_contents($file));
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">            $redis-&amp;gt;clearLastError();
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">            continue;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        return $redis_result;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    return false;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$reuslt = run_lua_script($redis, &amp;#39;/path/to/lua_script.lua&amp;#39;, $args, $key_number);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>测试：&lt;/p>
+&lt;p>Lua脚本：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">-- lua_script.lua
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">local value = redis.call(&amp;#39;INCRBY&amp;#39;, KEYS[1], ARGV[1])
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">return &amp;#39;hello &amp;#39; .. value
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>二号脚本测试运行10000次：8万次单程 IO 运行 0.9738 秒。&lt;/p>
+&lt;p>三号脚本测试运行10000次：4万次单程 IO 运行 0.6284 秒。&lt;/p>
+&lt;p>显而易见，触发式脚本可以更好的节约IO、以高的性能运行。&lt;/p></description></item></channel></rss>

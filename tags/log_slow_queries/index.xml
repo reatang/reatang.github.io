@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Log_slow_queries on 雨的味道</title><link>https://reatang.com/tags/log_slow_queries/</link><description>Recent content in Log_slow_queries on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 20 Mar 2017 00:16:01 +0000</lastBuildDate><atom:link href="https://reatang.com/tags/log_slow_queries/index.xml" rel="self" type="application/rss+xml"/><item><title>mysql 5.7 unknown variable 'log_slow_queries=/var/log/mysql/mysql-slow.log'</title><link>https://reatang.com/p/old-post-18/</link><pubDate>Mon, 20 Mar 2017 00:16:01 +0000</pubDate><guid>https://reatang.com/p/old-post-18/</guid><description>&lt;p>unknown variable &amp;rsquo;log_slow_queries=/var/log/mysql/mysql-slow.log'&lt;/p>
+&lt;p># mysql5.6版本以上，取消了参数log-slow-queries，更改为slow-query-log-file&lt;/p>
+&lt;p># 还需要加上 slow_query_log = on 否则，还是没用&lt;/p>
+&lt;p>#log-slow-queries = /var/log/mysql/mysql-slow.log&lt;/p>
+&lt;p>slow_query_log = on&lt;/p>
+&lt;p>slow-query-log-file = /var/log/mysql/mysql-slow.log&lt;/p>
+&lt;p>long_query_time = 2&lt;/p></description></item></channel></rss>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>帮助函数 Helpers on 雨的味道</title><link>https://reatang.com/tags/%E5%B8%AE%E5%8A%A9%E5%87%BD%E6%95%B0-helpers/</link><description>Recent content in 帮助函数 Helpers on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 28 Feb 2017 18:18:00 +0000</lastBuildDate><atom:link href="https://reatang.com/tags/%E5%B8%AE%E5%8A%A9%E5%87%BD%E6%95%B0-helpers/index.xml" rel="self" type="application/rss+xml"/><item><title>php把秒数转换为可读的时间函数 sec2date()</title><link>https://reatang.com/p/old-post-14/</link><pubDate>Tue, 28 Feb 2017 18:18:00 +0000</pubDate><guid>https://reatang.com/p/old-post-14/</guid><description>&lt;p>就是一个把秒数 转换为 天:时:分:秒 格式 而已啦&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">/**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * 把秒数转换为时间
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * @param int    $sec      秒数
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * @param string $format   格式化
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * @param bool   $zero_pad
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * @return mixed|string
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> */
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">function sec2date($sec, $format = &amp;#34;:D天:H小时:M分钟:S秒&amp;#34;, $zero_pad = false)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    if (!is_numeric($sec)) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        return false;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $days = floor($sec / 86400);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $tmp = $sec - ($days * 86400);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $hours = floor($tmp / 3600);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $tmp2 = $tmp - ($hours * 3600);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $minute = floor($tmp2 / 60);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $second =  $tmp2 - ($minute * 60);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $fmt = array(&amp;#39;:D&amp;#39; =&amp;gt; $days,&amp;#39;:H&amp;#39; =&amp;gt; $hours,&amp;#39;:M&amp;#39; =&amp;gt; $minute,&amp;#39;:S&amp;#39; =&amp;gt; $second);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    if ($zero_pad === true) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        $fmt = array_map(function($val){
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">            return str_pad($val, 2, STR_PAD_LEFT);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        }, $fmt);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $output = str_replace(array_keys($fmt), array_values($fmt), $format);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    return $output;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Helpers on 雨的味道</title><link>https://reatang.com/tags/helpers/</link><description>Recent content in Helpers on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 22 Mar 2017 18:50:04 +0000</lastBuildDate><atom:link href="https://reatang.com/tags/helpers/index.xml" rel="self" type="application/rss+xml"/><item><title>【常用函数】php 身份证有效性验证函数 check_idcard()</title><link>https://reatang.com/p/old-post-21/</link><pubDate>Wed, 22 Mar 2017 18:50:04 +0000</pubDate><guid>https://reatang.com/p/old-post-21/</guid><description>&lt;p>帮助函数&lt;/p>
+&lt;p>验证18位身份证的校验位&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">/**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * 身份证验证
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * @param $id_card
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * @return bool
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> */
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">function check_id_card($id_card)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $id_card = strtoupper($id_card);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    //验证有效性
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $pattern = &amp;#39;/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/&amp;#39;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $passed = preg_match($pattern, $id_card);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    if ($passed == 0) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        return (bool) $passed;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    if (strlen($id_card) == 15) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        return true;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    //验证校验位
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $a = str_split($id_card, 1);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $w = array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $c = array(1, 0, &amp;#39;X&amp;#39;,  9, 8, 7, 6, 5, 4, 3, 2);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $sum = 0;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    for ($i = 0; $i &amp;lt; 17; $i++) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        $sum += $a[$i] * $w[$i];
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    return $c[$sum % 11] == $a[17];
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>【常用函数】php 身份证信息分析函数 idcard_msg()</title><link>https://reatang.com/p/old-post-20/</link><pubDate>Wed, 22 Mar 2017 18:48:57 +0000</pubDate><guid>https://reatang.com/p/old-post-20/</guid><description>&lt;p>帮助函数&lt;/p>
+&lt;p>分析身份证的：省、市、区、生日、性别&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">/**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * 身份证信息获取
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * @param string $idcard_no
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * @return array
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> */
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">function idcard_msg($idcard_no)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $province = substr($idcard_no, 0, 2);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $city = substr($idcard_no, 2, 2);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $district = substr($idcard_no, 4, 2);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    if (strlen($idcard_no) == 15) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        $year = &amp;#39;19&amp;#39; . substr($idcard_no, 6, 2);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        $month = substr($idcard_no, 8, 2);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        $day = substr($idcard_no, 10, 2);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        $sex_num = substr($idcard_no, 14, 1);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    } else {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        $year = substr($idcard_no, 6, 4);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        $month = substr($idcard_no, 10, 2);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        $day = substr($idcard_no, 12, 2);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        $sex_num = substr($idcard_no, 16, 1);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $birthday = &amp;#34;{$year}-{$month}-{$day}&amp;#34;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $sex = $sex_num % 2 == 1 ? &amp;#39;男&amp;#39; : &amp;#39;女&amp;#39;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    return compact(&amp;#39;province&amp;#39;, &amp;#39;city&amp;#39;, &amp;#39;district&amp;#39;, &amp;#39;birthday&amp;#39;, &amp;#39;sex&amp;#39;);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>【常用函数】将php数组写入文件array_into_file(),可直接用inlcude读取</title><link>https://reatang.com/p/old-post-19/</link><pubDate>Wed, 22 Mar 2017 18:46:56 +0000</pubDate><guid>https://reatang.com/p/old-post-19/</guid><description>&lt;p>帮助函数&lt;/p>
+&lt;p>将php的数组解析为一个可inculde的php文件&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="o">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">将数据输出到文件中&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="err">并可直接&lt;/span>&lt;span class="n">include引入&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="n">param&lt;/span> &lt;span class="n">array&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">input&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="n">param&lt;/span>       &lt;span class="o">$&lt;/span>&lt;span class="n">file_name&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="k">return&lt;/span> &lt;span class="ne">int&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">function&lt;/span> &lt;span class="n">array_into_file&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">array&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">input&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">file_name&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="k">return&lt;/span> &lt;span class="n">file_put_contents&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">file_name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;?php&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s2">return &amp;#34;&lt;/span> &lt;span class="o">.&lt;/span> &lt;span class="n">var_export&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">input&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="bp">true&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">.&lt;/span> &lt;span class="s2">&amp;#34;;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

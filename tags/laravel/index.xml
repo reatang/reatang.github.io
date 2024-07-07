@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Laravel on 雨的味道</title><link>https://reatang.com/tags/laravel/</link><description>Recent content in Laravel on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 16 Mar 2019 21:15:19 +0000</lastBuildDate><atom:link href="https://reatang.com/tags/laravel/index.xml" rel="self" type="application/rss+xml"/><item><title>【Laravel】单独使用illuminate/view作为模板引擎</title><link>https://reatang.com/p/old-post-39/</link><pubDate>Sat, 16 Mar 2019 21:15:19 +0000</pubDate><guid>https://reatang.com/p/old-post-39/</guid><description>&lt;p>Laravel用习惯了以后，再用别的小框架总是想把Laravel的东西摘过去。。。这次摘一下视图层view&lt;/p>
+&lt;p>目录结构&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">├── compiled
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│   └── .gitkeep
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── composer.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── composer.lock
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── start.php
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└── views
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    └── welcome.blade.php
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>安装composer包：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">composer require illuminate/view 5.7.\*
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>关键代码：&lt;/p>
+&lt;p>start.php&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt"> 10
+&lt;/span>&lt;span class="lnt"> 11
+&lt;/span>&lt;span class="lnt"> 12
+&lt;/span>&lt;span class="lnt"> 13
+&lt;/span>&lt;span class="lnt"> 14
+&lt;/span>&lt;span class="lnt"> 15
+&lt;/span>&lt;span class="lnt"> 16
+&lt;/span>&lt;span class="lnt"> 17
+&lt;/span>&lt;span class="lnt"> 18
+&lt;/span>&lt;span class="lnt"> 19
+&lt;/span>&lt;span class="lnt"> 20
+&lt;/span>&lt;span class="lnt"> 21
+&lt;/span>&lt;span class="lnt"> 22
+&lt;/span>&lt;span class="lnt"> 23
+&lt;/span>&lt;span class="lnt"> 24
+&lt;/span>&lt;span class="lnt"> 25
+&lt;/span>&lt;span class="lnt"> 26
+&lt;/span>&lt;span class="lnt"> 27
+&lt;/span>&lt;span class="lnt"> 28
+&lt;/span>&lt;span class="lnt"> 29
+&lt;/span>&lt;span class="lnt"> 30
+&lt;/span>&lt;span class="lnt"> 31
+&lt;/span>&lt;span class="lnt"> 32
+&lt;/span>&lt;span class="lnt"> 33
+&lt;/span>&lt;span class="lnt"> 34
+&lt;/span>&lt;span class="lnt"> 35
+&lt;/span>&lt;span class="lnt"> 36
+&lt;/span>&lt;span class="lnt"> 37
+&lt;/span>&lt;span class="lnt"> 38
+&lt;/span>&lt;span class="lnt"> 39
+&lt;/span>&lt;span class="lnt"> 40
+&lt;/span>&lt;span class="lnt"> 41
+&lt;/span>&lt;span class="lnt"> 42
+&lt;/span>&lt;span class="lnt"> 43
+&lt;/span>&lt;span class="lnt"> 44
+&lt;/span>&lt;span class="lnt"> 45
+&lt;/span>&lt;span class="lnt"> 46
+&lt;/span>&lt;span class="lnt"> 47
+&lt;/span>&lt;span class="lnt"> 48
+&lt;/span>&lt;span class="lnt"> 49
+&lt;/span>&lt;span class="lnt"> 50
+&lt;/span>&lt;span class="lnt"> 51
+&lt;/span>&lt;span class="lnt"> 52
+&lt;/span>&lt;span class="lnt"> 53
+&lt;/span>&lt;span class="lnt"> 54
+&lt;/span>&lt;span class="lnt"> 55
+&lt;/span>&lt;span class="lnt"> 56
+&lt;/span>&lt;span class="lnt"> 57
+&lt;/span>&lt;span class="lnt"> 58
+&lt;/span>&lt;span class="lnt"> 59
+&lt;/span>&lt;span class="lnt"> 60
+&lt;/span>&lt;span class="lnt"> 61
+&lt;/span>&lt;span class="lnt"> 62
+&lt;/span>&lt;span class="lnt"> 63
+&lt;/span>&lt;span class="lnt"> 64
+&lt;/span>&lt;span class="lnt"> 65
+&lt;/span>&lt;span class="lnt"> 66
+&lt;/span>&lt;span class="lnt"> 67
+&lt;/span>&lt;span class="lnt"> 68
+&lt;/span>&lt;span class="lnt"> 69
+&lt;/span>&lt;span class="lnt"> 70
+&lt;/span>&lt;span class="lnt"> 71
+&lt;/span>&lt;span class="lnt"> 72
+&lt;/span>&lt;span class="lnt"> 73
+&lt;/span>&lt;span class="lnt"> 74
+&lt;/span>&lt;span class="lnt"> 75
+&lt;/span>&lt;span class="lnt"> 76
+&lt;/span>&lt;span class="lnt"> 77
+&lt;/span>&lt;span class="lnt"> 78
+&lt;/span>&lt;span class="lnt"> 79
+&lt;/span>&lt;span class="lnt"> 80
+&lt;/span>&lt;span class="lnt"> 81
+&lt;/span>&lt;span class="lnt"> 82
+&lt;/span>&lt;span class="lnt"> 83
+&lt;/span>&lt;span class="lnt"> 84
+&lt;/span>&lt;span class="lnt"> 85
+&lt;/span>&lt;span class="lnt"> 86
+&lt;/span>&lt;span class="lnt"> 87
+&lt;/span>&lt;span class="lnt"> 88
+&lt;/span>&lt;span class="lnt"> 89
+&lt;/span>&lt;span class="lnt"> 90
+&lt;/span>&lt;span class="lnt"> 91
+&lt;/span>&lt;span class="lnt"> 92
+&lt;/span>&lt;span class="lnt"> 93
+&lt;/span>&lt;span class="lnt"> 94
+&lt;/span>&lt;span class="lnt"> 95
+&lt;/span>&lt;span class="lnt"> 96
+&lt;/span>&lt;span class="lnt"> 97
+&lt;/span>&lt;span class="lnt"> 98
+&lt;/span>&lt;span class="lnt"> 99
+&lt;/span>&lt;span class="lnt">100
+&lt;/span>&lt;span class="lnt">101
+&lt;/span>&lt;span class="lnt">102
+&lt;/span>&lt;span class="lnt">103
+&lt;/span>&lt;span class="lnt">104
+&lt;/span>&lt;span class="lnt">105
+&lt;/span>&lt;span class="lnt">106
+&lt;/span>&lt;span class="lnt">107
+&lt;/span>&lt;span class="lnt">108
+&lt;/span>&lt;span class="lnt">109
+&lt;/span>&lt;span class="lnt">110
+&lt;/span>&lt;span class="lnt">111
+&lt;/span>&lt;span class="lnt">112
+&lt;/span>&lt;span class="lnt">113
+&lt;/span>&lt;span class="lnt">114
+&lt;/span>&lt;span class="lnt">115
+&lt;/span>&lt;span class="lnt">116
+&lt;/span>&lt;span class="lnt">117
+&lt;/span>&lt;span class="lnt">118
+&lt;/span>&lt;span class="lnt">119
+&lt;/span>&lt;span class="lnt">120
+&lt;/span>&lt;span class="lnt">121
+&lt;/span>&lt;span class="lnt">122
+&lt;/span>&lt;span class="lnt">123
+&lt;/span>&lt;span class="lnt">124
+&lt;/span>&lt;span class="lnt">125
+&lt;/span>&lt;span class="lnt">126
+&lt;/span>&lt;span class="lnt">127
+&lt;/span>&lt;span class="lnt">128
+&lt;/span>&lt;span class="lnt">129
+&lt;/span>&lt;span class="lnt">130
+&lt;/span>&lt;span class="lnt">131
+&lt;/span>&lt;span class="lnt">132
+&lt;/span>&lt;span class="lnt">133
+&lt;/span>&lt;span class="lnt">134
+&lt;/span>&lt;span class="lnt">135
+&lt;/span>&lt;span class="lnt">136
+&lt;/span>&lt;span class="lnt">137
+&lt;/span>&lt;span class="lnt">138
+&lt;/span>&lt;span class="lnt">139
+&lt;/span>&lt;span class="lnt">140
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">?&lt;/span>&lt;span class="n">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="n">Created&lt;/span> &lt;span class="n">by&lt;/span> &lt;span class="n">PhpStorm&lt;/span>&lt;span class="o">.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="n">User&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">reatang&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="n">Date&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">2019&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="mi">15&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="n">Time&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="err">下午&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">26&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="n">Author&lt;/span> &lt;span class="n">reatang&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">include&lt;/span> &lt;span class="n">__DIR__&lt;/span> &lt;span class="o">.&lt;/span> &lt;span class="s1">&amp;#39;/vendor/autoload.php&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">//&lt;/span> &lt;span class="err">视图系统&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">use&lt;/span> \&lt;span class="n">Illuminate&lt;/span>\&lt;span class="n">View&lt;/span>\&lt;span class="n">Engines&lt;/span>\&lt;span class="n">EngineResolver&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">use&lt;/span> \&lt;span class="n">Illuminate&lt;/span>\&lt;span class="n">View&lt;/span>\&lt;span class="n">Engines&lt;/span>\&lt;span class="n">FileEngine&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">use&lt;/span> \&lt;span class="n">Illuminate&lt;/span>\&lt;span class="n">View&lt;/span>\&lt;span class="n">Engines&lt;/span>\&lt;span class="n">PhpEngine&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">use&lt;/span> \&lt;span class="n">Illuminate&lt;/span>\&lt;span class="n">View&lt;/span>\&lt;span class="n">Compilers&lt;/span>\&lt;span class="n">BladeCompiler&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">use&lt;/span> \&lt;span class="n">Illuminate&lt;/span>\&lt;span class="n">View&lt;/span>\&lt;span class="n">Engines&lt;/span>\&lt;span class="n">CompilerEngine&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">use&lt;/span> \&lt;span class="n">Illuminate&lt;/span>\&lt;span class="n">View&lt;/span>\&lt;span class="n">FileViewFinder&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">use&lt;/span> \&lt;span class="n">Illuminate&lt;/span>\&lt;span class="n">View&lt;/span>\&lt;span class="n">Factory&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">use&lt;/span> \&lt;span class="n">Illuminate&lt;/span>\&lt;span class="n">View&lt;/span>\&lt;span class="n">View&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">//&lt;/span>&lt;span class="err">文件系统&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">use&lt;/span> \&lt;span class="n">Illuminate&lt;/span>\&lt;span class="n">Filesystem&lt;/span>\&lt;span class="n">Filesystem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">//&lt;/span>&lt;span class="err">事件系统&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">use&lt;/span> \&lt;span class="n">Illuminate&lt;/span>\&lt;span class="n">Events&lt;/span>\&lt;span class="n">Dispatcher&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">配置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">//&lt;/span> &lt;span class="err">模板文件目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;view.paths&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">__DIR__&lt;/span> &lt;span class="o">.&lt;/span> &lt;span class="s1">&amp;#39;/views/&amp;#39;&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">//&lt;/span> &lt;span class="err">编译模板缓存目录&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;view.compiled&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">__DIR__&lt;/span> &lt;span class="o">.&lt;/span> &lt;span class="s1">&amp;#39;/compiled/&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">文件系统抽象&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">GLOBALS&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;__files&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">new&lt;/span> &lt;span class="n">Filesystem&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">事件管理器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">GLOBALS&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;__events&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">new&lt;/span> &lt;span class="n">Dispatcher&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">模板编译器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">resolver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">new&lt;/span> &lt;span class="n">EngineResolver&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">resolver&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">register&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;file&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="k">return&lt;/span> &lt;span class="n">new&lt;/span> &lt;span class="n">FileEngine&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">resolver&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">register&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;php&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="k">return&lt;/span> &lt;span class="n">new&lt;/span> &lt;span class="n">PhpEngine&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">resolver&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">register&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;blade&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="n">use&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="o">$&lt;/span>&lt;span class="n">blade_compiler&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">new&lt;/span> &lt;span class="n">BladeCompiler&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        &lt;span class="o">$&lt;/span>&lt;span class="n">GLOBALS&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;__files&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;view.compiled&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="k">return&lt;/span> &lt;span class="n">new&lt;/span> &lt;span class="n">CompilerEngine&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">blade_compiler&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">模板文件管理器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">finder&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">new&lt;/span> &lt;span class="n">FileViewFinder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">GLOBALS&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;__files&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;view.paths&amp;#39;&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">视图工厂&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">factory&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">new&lt;/span> &lt;span class="n">Factory&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">resolver&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">finder&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">GLOBALS&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;__events&amp;#39;&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">命令&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">清除视图缓存&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">function&lt;/span> &lt;span class="n">view_clear&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="o">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">     &lt;span class="o">*&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="k">var&lt;/span> &lt;span class="n">array&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">config&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">     &lt;span class="o">*&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="k">var&lt;/span> &lt;span class="n">Filesystem&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">__files&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">     &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="n">global&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">__files&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="o">$&lt;/span>&lt;span class="n">path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;view.compiled&amp;#39;&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        &lt;span class="n">throw&lt;/span> &lt;span class="n">new&lt;/span> &lt;span class="n">RuntimeException&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;View path not found.&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="n">foreach&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">__files&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">glob&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;{$path}/*&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="n">as&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">view&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">strpos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">view&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;gitkeep&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="bp">false&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">            &lt;span class="o">$&lt;/span>&lt;span class="n">__files&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">delete&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">view&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">   &lt;span class="n">echo&lt;/span> &lt;span class="s1">&amp;#39;Compiled views cleared!&amp;#39;&lt;/span> &lt;span class="o">.&lt;/span> &lt;span class="n">PHP_EOL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">初始化完成&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="err">弱化：&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="err">、无容器，所以无法使用&lt;/span> &lt;span class="n">class型的事件&lt;/span>&lt;span class="err">，只能用匿名函数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="err">、无多语言，未加载多语言组件（因为也需要容器），无法使用&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="n">lang&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="n">trans&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="err">、没有&lt;/span>&lt;span class="n">auth系统&lt;/span>&lt;span class="err">，所以无法用&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="n">auth&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="n">guest&lt;/span> &lt;span class="err">之类的认证功能&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="err">、没有&lt;/span>&lt;span class="n">session功能&lt;/span>&lt;span class="err">，所有无法使用&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="n">csrf&lt;/span> &lt;span class="err">功能&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="err">、没有容器，无法使用&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="n">inject&lt;/span> &lt;span class="err">功能&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="err">、没有&lt;/span>&lt;span class="n">LaravelCore不能使用&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="n">method&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="err">、还有未知的弱化内容未发现&lt;/span>&lt;span class="o">....&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">//&lt;/span> &lt;span class="err">扩展&lt;/span> &lt;span class="n">Blade&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">/**&lt;/span> &lt;span class="err">@&lt;/span>&lt;span class="k">var&lt;/span> &lt;span class="n">BladeCompiler&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">_compiler&lt;/span> &lt;span class="o">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">_compiler&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">resolver&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">resolve&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;blade&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">getCompiler&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">_compiler&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">directive&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;lalala&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">$&lt;/span>&lt;span class="n">expression&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="k">return&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;?php echo ($expression)-&amp;gt;format(&amp;#39;m/d/Y H:i&amp;#39;); ?&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">//&lt;/span> &lt;span class="err">模板事件可注入参数&lt;/span> &lt;span class="err">模板文件支持通配符&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">factory&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">creator&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;welcome&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">View&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">view&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="o">//&lt;/span> &lt;span class="n">creator&lt;/span> &lt;span class="err">是在视图被&lt;/span>&lt;span class="n">make的时候立马触发&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="o">$&lt;/span>&lt;span class="n">view&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">with&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;creator_var&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;creator 注入&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">factory&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">composer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;welcome&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">View&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">view&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="o">//&lt;/span> &lt;span class="n">composer&lt;/span> &lt;span class="err">是在视图&lt;/span>&lt;span class="n">render时触发&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="o">$&lt;/span>&lt;span class="n">view&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">with&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;composer_var&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;composer 注入&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">//&lt;/span>&lt;span class="err">共享变量特性&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span>&lt;span class="n">factory&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">share&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;global_var1&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;全局共享变量&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">//&lt;/span>&lt;span class="err">渲染&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">echo&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">factory&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">make&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;welcome&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">render&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>welcome.blade.php&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">?&lt;/span>&lt;span class="n">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">$&lt;/span>&lt;span class="n">hello&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;你好&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">?&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;!&lt;/span>&lt;span class="n">doctype&lt;/span> &lt;span class="n">html&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">html&lt;/span> &lt;span class="n">lang&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;zh-CN&amp;#34;&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">head&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">meta&lt;/span> &lt;span class="n">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;UTF-8&amp;#34;&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">meta&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;viewport&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">content&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0&amp;#34;&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">meta&lt;/span> &lt;span class="n">http&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">equiv&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;X-UA-Compatible&amp;#34;&lt;/span> &lt;span class="n">content&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;ie=edge&amp;#34;&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">title&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="err">你好&lt;/span> &lt;span class="n">Blade&lt;/span>&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="n">title&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="n">head&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">body&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{{&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">hello&lt;/span> &lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="n">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">ul&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="n">foreach&lt;/span> &lt;span class="p">([&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="n">as&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">li&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">{{&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="p">}}&lt;/span>&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="n">li&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="n">endforeach&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="n">ul&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{{&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">global_var1&lt;/span> &lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="n">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{{&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">creator_var&lt;/span> &lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="n">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{{&lt;/span> &lt;span class="o">$&lt;/span>&lt;span class="n">composer_var&lt;/span> &lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="n">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">@&lt;/span>&lt;span class="n">lalala&lt;/span>&lt;span class="p">(&lt;/span>\&lt;span class="n">Carbon&lt;/span>\&lt;span class="n">Carbon&lt;/span>&lt;span class="p">::&lt;/span>&lt;span class="n">now&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="n">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="n">body&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="n">html&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>【Laravel】记 laravel/passport 单独调整每种token的有效期的 Hack操作</title><link>https://reatang.com/p/old-post-36/</link><pubDate>Sat, 28 Apr 2018 17:49:07 +0000</pubDate><guid>https://reatang.com/p/old-post-36/</guid><description>&lt;p>最近在为公司设计认证系统，使用laravel当然自动想到使用 laravel/passport 这个包来实现。&lt;/p>
+&lt;p>不过有一个小问题，就是所有类型的token都只统一使用：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">Passport::tokensExpireIn(now()-&amp;gt;addSeconds(3600));
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这种方式来定义有效期。不过对于机器对机器的Client Token 而言，3600s实在是有些短，通过一下午各种hack不得法&amp;hellip;发现了服务提供器已经率先注入了时间，所以直接继承passport包的 PassportServiceProvider 并修改 registerAuthorizationServer 的内容，即可单独设定有效期。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">class PassportServiceProvider extends PassportPassportServiceProvider
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    /**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">     * 单独 调整了 client token 的 时间
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">     *
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">     * @return void
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">     */
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    protected function registerAuthorizationServer()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        $this-&amp;gt;app-&amp;gt;singleton(AuthorizationServer::class, function () {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">            return tap($this-&amp;gt;makeAuthorizationServer(), function ($server) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                $server-&amp;gt;enableGrantType(
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                    $this-&amp;gt;makeAuthCodeGrant(), Passport::tokensExpireIn()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                );
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                $server-&amp;gt;enableGrantType(
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                    $this-&amp;gt;makeRefreshTokenGrant(), Passport::tokensExpireIn()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                );
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                $server-&amp;gt;enableGrantType(
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                    $this-&amp;gt;makePasswordGrant(), Passport::tokensExpireIn()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                );
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                $server-&amp;gt;enableGrantType(
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                    new PersonalAccessGrant, new \DateInterval(&amp;#39;P1Y&amp;#39;)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                );
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                $server-&amp;gt;enableGrantType(
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                    new ClientCredentialsGrant, new \DateInterval(&amp;#39;P1D&amp;#39;)//手动设定时间 Passport::tokensExpireIn()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                );
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                if (Passport::$implicitGrantEnabled) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                    $server-&amp;gt;enableGrantType(
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                        $this-&amp;gt;makeImplicitGrant(), Passport::tokensExpireIn()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                    );
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">                }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">            });
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">        });
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>别忘记了在 config/app.php 中重新设定 provider。&lt;/strong>&lt;/p></description></item></channel></rss>
