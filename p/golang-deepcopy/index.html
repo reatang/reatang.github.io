@@ -87,20 +87,24 @@
 </span><span class=lnt> 8
 </span><span class=lnt> 9
 </span><span class=lnt>10
-</span><span class=lnt>11
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-golang data-lang=golang><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nx>jsoniter</span> <span class=s>&#34;github.com/json-iterator/go&#34;</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>json</span> <span class=p>=</span> <span class=nx>jsoniter</span><span class=p>.</span><span class=nx>ConfigCompatibleWithStandardLibrary</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>p1j</span> <span class=p>=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>Marshal</span><span class=p>(</span><span class=nx>p1</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>p1j</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>Marshal</span><span class=p>(</span><span class=nx>p1</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>	<span class=kd>var</span> <span class=nx>p2</span> <span class=nx>types</span><span class=p>.</span><span class=nx>Person</span>
 </span></span><span class=line><span class=cl>	<span class=nx>err</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>Unmarshal</span><span class=p>(</span><span class=nx>p1j</span><span class=p>,</span> <span class=o>&amp;</span><span class=nx>p2</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></td></tr></table></div></div><p>性能：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>BenchmarkJSON-8   	 1332277	       885.5 ns/op
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># json-iterator 库性能</span>
+</span></span><span class=line><span class=cl>BenchmarkJsonIterJSON-8   	 1332277	       885.5 ns/op
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 标准库性能</span>
+</span></span><span class=line><span class=cl>BenchmarkStdJSON-8   	  541288	      <span class=m>2128</span> ns/op
 </span></span></code></pre></td></tr></table></div></div><h2 id=三k8s提供的deepcopy-gen>三、k8s提供的deepcopy-gen</h2><p>安装生成工具：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>go install k8s.io/code-generator/cmd/deepcopy-gen
 </span></span></code></pre></td></tr></table></div></div><p>添加doc.go文件：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
