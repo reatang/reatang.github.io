@@ -4,7 +4,7 @@
 >Pawel Czerwinski&lt;/a> on &lt;a class="link" href="https://unsplash.com/" target="_blank" rel="noopener"
 >Unsplash&lt;/a>&lt;/p>
 &lt;/blockquote></description></item><item><title>【Golang】让Json自动支持DateTime格式和ISO8601格式的时间</title><link>https://reatang.com/p/golang-json-datetime/</link><pubDate>Wed, 10 Jul 2024 18:52:19 +0800</pubDate><guid>https://reatang.com/p/golang-json-datetime/</guid><description>&lt;p>默认的json使用的时间格式是 &lt;code>json.Time3339&lt;/code>，这个时间的格式为：&lt;code>2006-01-02T15:04:05Z07:00&lt;/code>&lt;/p>
-&lt;p>而我们常用的格式：DateTime：&lt;code>2006-01-02 15:04:05&lt;/code> 和 ISO8601：&lt;code>2006-01-02T15:04:05&lt;/code>&lt;/p>
+&lt;p>而我们常用的格式：DateTime：&lt;code>2006-01-02 15:04:05&lt;/code> 和 ISO8601：&lt;code>2006-01-02T15:04:05+0800&lt;/code>&lt;/p>
 &lt;h2 id="一datatime-解析">一、DataTime 解析
 &lt;/h2>&lt;p>库：&lt;code>github.com/reatang/go-json-datetime&lt;/code>&lt;/p>
 &lt;p>示例代码：&lt;/p>
@@ -4337,7 +4337,7 @@ target="_blank" rel="noopener"
 &lt;p>REQUEST_URI:&amp;quot;/fetch/data.php&amp;quot;&lt;/p>
 &lt;p>//脚本全路径&lt;/p>
 &lt;p>SCRIPT_FILENAME:&amp;quot;/home/vagrant/Code/web/fetch/data.php&amp;quot;&lt;/p>
-&lt;p>SCRIPT_NAME:&amp;quot;/fetch/data.php&amp;quot;&lt;/p></description></item><item><title>好东西传送门</title><link>https://reatang.com/p/old-post-5/</link><pubDate>Fri, 13 Jan 2017 14:39:47 +0000</pubDate><guid>https://reatang.com/p/old-post-5/</guid><description>&lt;h3 id="好站">好站：
+&lt;p>SCRIPT_NAME:&amp;quot;/fetch/data.php&amp;quot;&lt;/p></description></item><item><title>好东西传送门</title><link>https://reatang.com/good-package/</link><pubDate>Fri, 13 Jan 2017 14:39:47 +0000</pubDate><guid>https://reatang.com/good-package/</guid><description>&lt;h3 id="好站">好站：
 &lt;/h3>&lt;p>&lt;a class="link" href="https://code.facebook.com/projects/" target="_blank" rel="noopener"
 >facebook开源系列&lt;/a>&lt;/p>
 &lt;p>&lt;a class="link" href="https://devcenter.heroku.com/articles/platform-api-reference#ranges" target="_blank" rel="noopener"

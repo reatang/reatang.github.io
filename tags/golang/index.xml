@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on 雨的味道</title><link>https://reatang.com/tags/golang/</link><description>Recent content in Golang on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 10 Jul 2024 18:52:19 +0800</lastBuildDate><atom:link href="https://reatang.com/tags/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>【Golang】让Json自动支持DateTime格式和ISO8601格式的时间</title><link>https://reatang.com/p/golang-json-datetime/</link><pubDate>Wed, 10 Jul 2024 18:52:19 +0800</pubDate><guid>https://reatang.com/p/golang-json-datetime/</guid><description>&lt;p>默认的json使用的时间格式是 &lt;code>json.Time3339&lt;/code>，这个时间的格式为：&lt;code>2006-01-02T15:04:05Z07:00&lt;/code>&lt;/p>
-&lt;p>而我们常用的格式：DateTime：&lt;code>2006-01-02 15:04:05&lt;/code> 和 ISO8601：&lt;code>2006-01-02T15:04:05&lt;/code>&lt;/p>
+&lt;p>而我们常用的格式：DateTime：&lt;code>2006-01-02 15:04:05&lt;/code> 和 ISO8601：&lt;code>2006-01-02T15:04:05+0800&lt;/code>&lt;/p>
 &lt;h2 id="一datatime-解析">一、DataTime 解析
 &lt;/h2>&lt;p>库：&lt;code>github.com/reatang/go-json-datetime&lt;/code>&lt;/p>
 &lt;p>示例代码：&lt;/p>
