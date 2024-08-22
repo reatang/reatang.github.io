@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Json on 雨的味道</title><link>https://reatang.com/tags/json/</link><description>Recent content in Json on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 21 Aug 2024 14:40:48 +0800</lastBuildDate><atom:link href="https://reatang.com/tags/json/index.xml" rel="self" type="application/rss+xml"/><item><title>[Golang] yaml解析遇到内嵌结构体的问题</title><link>https://reatang.com/p/golang-yaml-inline/</link><pubDate>Wed, 21 Aug 2024 14:40:48 +0800</pubDate><guid>https://reatang.com/p/golang-yaml-inline/</guid><description>&lt;p>最近在开发中，组员报告了一个问题，读取配置文件的时候内嵌结构体（anonymous field）接收不到配置文件的参数。
-经过排查，发现&lt;code>yaml&lt;/code>编解码包的行为和&lt;code>json&lt;/code>不太一样，其中一个就时对内嵌结构体的赋值策略。&lt;/p>
-&lt;p>上代码：&lt;/p>
+经过排查，发现&lt;code>yaml&lt;/code>编解码包的行为和&lt;code>json&lt;/code>不太一样，这次就是这个差异导致的。&lt;/p>
+&lt;h3 id="yaml对内嵌结构体的赋值策略和json不同">yaml对内嵌结构体的赋值策略和json不同
+&lt;/h3>&lt;p>上代码：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -99,7 +100,7 @@
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">data1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;aaaa&amp;#34;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">subdata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">subdata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 与结构体同名&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">sub1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;bbbb&amp;#34;&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
