@@ -92,6 +92,7 @@
 </span><span class=lnt>80
 </span><span class=lnt>81
 </span><span class=lnt>82
+</span><span class=lnt>83
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=kn>package</span> <span class=nx>logic</span>
 </span></span><span class=line><span class=cl>
@@ -156,7 +157,8 @@
 </span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=nx>header</span> <span class=o>:=</span> <span class=nx>metadata</span><span class=p>.</span><span class=nf>Pairs</span><span class=p>(</span><span class=s>&#34;reload-cache&#34;</span><span class=p>,</span> <span class=s>&#34;true&#34;</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>			<span class=nx>_</span> <span class=p>=</span> <span class=nx>grpc</span><span class=p>.</span><span class=nf>SendHeader</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>header</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>			<span class=c1>// （可选）暂停10ms，防止有请求瞬间未读取到redis数据，也错过 SingleFlight 数据
+</span></span><span class=line><span class=cl>			<span class=c1>// （可选）暂停10ms，防止有请求瞬间未读取到redis数据，
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=c1>// 也错过SingleFlight数据，导致SingleFlight又被唤醒
 </span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>10</span> <span class=o>*</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Millisecond</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>			<span class=c1>// 3、返回数据
