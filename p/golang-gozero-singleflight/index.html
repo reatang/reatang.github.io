@@ -10,89 +10,129 @@
 <svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
 <span>暗色模式</span></li></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/backend/ style=background-color:#2a9d8f;color:#fff>后端技术</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/golang-gozero-singleflight/>[Golang]Gozero Singleflight 库使用</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
 <time class=article-time--published>2024-09-19</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>阅读时长: 2 分钟</time></div></footer></div></header><section class=article-content><blockquote><p>SingleFlight: 单飞/单航。主要用于在并发场景下对多请求读取同一个数据进行控制，只允许其中一个请求真实发起读取，其他请求阻塞等待结果。</p></blockquote><p>缓存三大坑：</p><ol><li>穿透：因为错误的请求，缓存没有数据库也没有，导致一直触发DB操作。<ul><li>应对：</li><li>① 为不存在的数据也构建空缓存。</li><li>② 使用布隆过滤拦截不存在的数据。</li></ul></li><li>击穿：缓存不存在或者过期的瞬间大量请求击穿缓存直接查询DB。<ul><li>应对：</li><li>① 热点数据不设置过期时间，定期执行刷新（也要设计并发脏数据问题），或使用Canal之类的中间件做双写控制。</li><li>② 使用并发控制，如SingleFlight。但是该工具也只应对单机并发，在数百个replicas下还需进一步优化。</li></ul></li><li>雪崩：因为key的过期时间设置问题，导致大量缓存在短时间内失效。<ul><li>应对：</li><li>① 设置宽范围的动态缓存时间</li><li>② 上线预热数据</li><li>③ 多级缓存架构</li></ul></li></ol><p>示例代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span><span class=lnt>25
-</span><span class=lnt>26
-</span><span class=lnt>27
-</span><span class=lnt>28
-</span><span class=lnt>29
-</span><span class=lnt>30
-</span><span class=lnt>31
-</span><span class=lnt>32
-</span><span class=lnt>33
-</span><span class=lnt>34
-</span><span class=lnt>35
-</span><span class=lnt>36
-</span><span class=lnt>37
-</span><span class=lnt>38
-</span><span class=lnt>39
-</span><span class=lnt>40
-</span><span class=lnt>41
-</span><span class=lnt>42
-</span><span class=lnt>43
-</span><span class=lnt>44
-</span><span class=lnt>45
-</span><span class=lnt>46
-</span><span class=lnt>47
-</span><span class=lnt>48
-</span><span class=lnt>49
-</span><span class=lnt>50
-</span><span class=lnt>51
-</span><span class=lnt>52
-</span><span class=lnt>53
-</span><span class=lnt>54
-</span><span class=lnt>55
-</span><span class=lnt>56
-</span><span class=lnt>57
-</span><span class=lnt>58
-</span><span class=lnt>59
-</span><span class=lnt>60
-</span><span class=lnt>61
-</span><span class=lnt>62
-</span><span class=lnt>63
-</span><span class=lnt>64
-</span><span class=lnt>65
-</span><span class=lnt>66
-</span><span class=lnt>67
-</span><span class=lnt>68
-</span><span class=lnt>69
-</span><span class=lnt>70
-</span><span class=lnt>71
-</span><span class=lnt>72
-</span><span class=lnt>73
-</span><span class=lnt>74
-</span><span class=lnt>75
-</span><span class=lnt>76
-</span><span class=lnt>77
-</span><span class=lnt>78
-</span><span class=lnt>79
-</span><span class=lnt>80
-</span><span class=lnt>81
-</span><span class=lnt>82
-</span><span class=lnt>83
+<time class=article-time--reading>阅读时长: 2 分钟</time></div></footer></div></header><section class=article-content><blockquote><p>SingleFlight: 单飞/单航。主要用于在并发场景下对多请求读取同一个数据进行控制，只允许其中一个请求真实发起读取，其他请求阻塞等待结果。</p></blockquote><p>缓存三大坑：</p><ol><li>穿透：因为错误的请求，缓存没有数据库也没有，导致一直触发DB操作。<ul><li>应对：</li><li>① 为不存在的数据也构建空缓存。</li><li>② 使用布隆过滤拦截不存在的数据。</li></ul></li><li>击穿：缓存不存在或者过期的瞬间大量请求击穿缓存直接查询DB。<ul><li>应对：</li><li>① 热点数据不设置过期时间，定期执行刷新（也要设计并发脏数据问题），或使用Canal之类的中间件做双写控制。</li><li>② 使用并发控制，如SingleFlight。但是该工具也只应对单机并发，在数百个replicas下还需进一步优化。</li></ul></li><li>雪崩：因为key的过期时间设置问题，导致大量缓存在短时间内失效。<ul><li>应对：</li><li>① 设置宽范围的动态缓存时间</li><li>② 上线预热数据</li><li>③ 多级缓存架构</li></ul></li></ol><p>示例代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=kn>package</span> <span class=nx>logic</span>
 </span></span><span class=line><span class=cl>
@@ -133,23 +173,63 @@
 </span></span><span class=line><span class=cl>	<span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1>// RedisCache 缓存测试
+</span></span><span class=line><span class=cl><span class=c1>// RedisCache 第一种：完全使用 SingleFlight 承压
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>RedisCacheLogic</span><span class=p>)</span> <span class=nf>RedisCache</span><span class=p>(</span><span class=nx>in</span> <span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Request</span><span class=p>)</span> <span class=p>(</span><span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Response</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>cacheKey</span> <span class=o>:=</span> <span class=s>&#34;cache:&#34;</span> <span class=o>+</span> <span class=nx>in</span><span class=p>.</span><span class=nf>GetKey</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=nx>cacheKey</span> <span class=o>:=</span> <span class=s>&#34;cache:&#34;</span> <span class=o>+</span> <span class=nx>in</span><span class=p>.</span><span class=nf>GetPing</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1>// 直接使用 SingleFlight 减少 redis和db的压力
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>result</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>redisCacheSingleFlight</span><span class=p>.</span><span class=nf>Do</span><span class=p>(</span><span class=nx>cacheKey</span><span class=p>,</span> <span class=kd>func</span><span class=p>()</span> <span class=p>(</span><span class=nx>any</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=kd>var</span> <span class=nx>data</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl>		
+</span></span><span class=line><span class=cl>		<span class=c1>// 1、读取 cache
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=nx>data</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>Get</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>cacheKey</span><span class=p>).</span><span class=nf>Result</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=o>&amp;&amp;</span> <span class=p>!</span><span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span> <span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=s>&#34;&#34;</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>		<span class=c1>// 数据不存在或者过期
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>if</span> <span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span> <span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=c1>// 2、查询数据库
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=nx>data</span> <span class=p>=</span> <span class=nx>strconv</span><span class=p>.</span><span class=nf>Itoa</span><span class=p>(</span><span class=nx>rand</span><span class=p>.</span><span class=nf>Int</span><span class=p>())</span> <span class=c1>// 模拟查询
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>			<span class=c1>// 3、缓存数据
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>SetEX</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>cacheKey</span><span class=p>,</span> <span class=nx>data</span><span class=p>,</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=o>*</span><span class=mi>5</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>			<span class=c1>// （可选）标记读取了源数据
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=nx>header</span> <span class=o>:=</span> <span class=nx>metadata</span><span class=p>.</span><span class=nf>Pairs</span><span class=p>(</span><span class=s>&#34;reload-cache&#34;</span><span class=p>,</span> <span class=s>&#34;true&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=nx>_</span> <span class=p>=</span> <span class=nx>grpc</span><span class=p>.</span><span class=nf>SendHeader</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>header</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=c1>// 4、返回数据
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>return</span> <span class=nx>data</span><span class=p>,</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=p>})</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=o>&amp;</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Response</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>Pong</span><span class=p>:</span> <span class=nx>result</span><span class=p>.(</span><span class=kt>string</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>		<span class=p>},</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// RedisCache2 第二种：redis承压，SingleFlight保护DB
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>RedisCacheLogic</span><span class=p>)</span> <span class=nf>RedisCache2</span><span class=p>(</span><span class=nx>in</span> <span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Request</span><span class=p>)</span> <span class=p>(</span><span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Response</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>cacheKey</span> <span class=o>:=</span> <span class=s>&#34;cache2:&#34;</span> <span class=o>+</span> <span class=nx>in</span><span class=p>.</span><span class=nf>GetKey</span><span class=p>()</span>
 </span></span><span class=line><span class=cl>	<span class=kd>var</span> <span class=nx>data</span> <span class=kt>string</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>	<span class=c1>// 读取 cache
 </span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>cacheResult</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>Get</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>cacheKey</span><span class=p>).</span><span class=nf>Result</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=o>&amp;&amp;</span> <span class=p>!</span><span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=o>&amp;&amp;</span> <span class=p>!</span><span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span> <span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>)</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
 </span></span><span class=line><span class=cl>	<span class=p>}</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span> <span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>)</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>		<span class=c1>// 没有读取到缓存，执行单飞让并发请求中的一个请求去读取，其他请求等待
 </span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=nx>result</span><span class=p>,</span> <span class=nx>_</span> <span class=o>:=</span> <span class=nx>redisCacheSingleFlight</span><span class=p>.</span><span class=nf>Do</span><span class=p>(</span><span class=nx>cacheKey</span><span class=p>,</span> <span class=kd>func</span><span class=p>()</span> <span class=p>(</span><span class=nx>any</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>			<span class=c1>// 1、查询数据库
-</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=nx>dbData</span> <span class=o>:=</span> <span class=nx>strconv</span><span class=p>.</span><span class=nf>Itoa</span><span class=p>(</span><span class=nx>rand</span><span class=p>.</span><span class=nf>Int</span><span class=p>())</span>
-</span></span><span class=line><span class=cl>
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=nx>dbData</span> <span class=o>:=</span> <span class=nx>strconv</span><span class=p>.</span><span class=nf>Itoa</span><span class=p>(</span><span class=nx>rand</span><span class=p>.</span><span class=nf>Int</span><span class=p>())</span> <span class=c1>// 模拟查询
+</span></span></span><span class=line><span class=cl><span class=c1></span>
 </span></span><span class=line><span class=cl>			<span class=c1>// 2、缓存数据
 </span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>SetEX</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>cacheKey</span><span class=p>,</span> <span class=nx>dbData</span><span class=p>,</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=o>*</span><span class=mi>5</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>
