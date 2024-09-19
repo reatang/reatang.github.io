@@ -88,6 +88,10 @@
 </span><span class=lnt>76
 </span><span class=lnt>77
 </span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=kn>package</span> <span class=nx>logic</span>
 </span></span><span class=line><span class=cl>
@@ -130,14 +134,15 @@
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1>// RedisCache 缓存测试
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>RedisCacheLogic</span><span class=p>)</span> <span class=nf>RedisCache</span><span class=p>(</span><span class=nx>in</span> <span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Request</span><span class=p>)</span> <span class=p>(</span><span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Response</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>cacheKey</span> <span class=o>:=</span> <span class=s>&#34;cache:&#34;</span> <span class=o>+</span> <span class=nx>in</span><span class=p>.</span><span class=nf>GetKey</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=kd>var</span> <span class=nx>data</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>	<span class=c1>// 读取 cache
-</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>cacheKey</span> <span class=o>:=</span> <span class=s>&#34;cache:&#34;</span> <span class=o>+</span> <span class=nx>in</span><span class=p>.</span><span class=nf>GetPing</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>	<span class=nx>cacheResult</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>Get</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>cacheKey</span><span class=p>).</span><span class=nf>Result</span><span class=p>()</span>
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>cacheResult</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>Get</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>cacheKey</span><span class=p>).</span><span class=nf>Result</span><span class=p>()</span>
 </span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=o>&amp;&amp;</span> <span class=p>!</span><span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
 </span></span><span class=line><span class=cl>	<span class=p>}</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=kd>var</span> <span class=nx>data</span> <span class=kt>string</span>
 </span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>		<span class=c1>// 没有读取到缓存，执行单飞让并发请求中的一个请求去读取，其他请求等待
 </span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=nx>result</span><span class=p>,</span> <span class=nx>_</span> <span class=o>:=</span> <span class=nx>redisCacheSingleFlight</span><span class=p>.</span><span class=nf>Do</span><span class=p>(</span><span class=nx>cacheKey</span><span class=p>,</span> <span class=kd>func</span><span class=p>()</span> <span class=p>(</span><span class=nx>any</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
@@ -150,6 +155,9 @@
 </span></span><span class=line><span class=cl>			<span class=c1>// （可选）标记读取了源数据
 </span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=nx>header</span> <span class=o>:=</span> <span class=nx>metadata</span><span class=p>.</span><span class=nf>Pairs</span><span class=p>(</span><span class=s>&#34;reload-cache&#34;</span><span class=p>,</span> <span class=s>&#34;true&#34;</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>			<span class=nx>_</span> <span class=p>=</span> <span class=nx>grpc</span><span class=p>.</span><span class=nf>SendHeader</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>header</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>			<span class=c1>// （可选）暂停10ms，防止有请求瞬间未读取到redis数据，也错过 SingleFlight 数据
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>10</span> <span class=o>*</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Millisecond</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>			<span class=c1>// 3、返回数据
 </span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=k>return</span> <span class=nx>dbData</span><span class=p>,</span> <span class=kc>nil</span>
