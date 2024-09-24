@@ -47,7 +47,9 @@ data-flex-grow="271"
 data-flex-basis="651px"
 >&lt;/p>
 &lt;h1 id="二golang的httpclient也支持该种方案">二、golang的http.Client也支持该种方案
-&lt;/h1>&lt;p>示例代码&lt;/p>
+&lt;/h1>&lt;p>&lt;a class="link" href="https://pkg.go.dev/crypto/tls#example-Config-KeyLogWriter" target="_blank" rel="noopener"
+>参考文档&lt;/a>&lt;/p>
+&lt;p>示例代码&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
