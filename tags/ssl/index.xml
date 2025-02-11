@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SSL on 雨的味道</title><link>https://reatang.com/tags/ssl/</link><description>Recent content in SSL on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 24 Sep 2024 10:33:53 +0800</lastBuildDate><atom:link href="https://reatang.com/tags/ssl/index.xml" rel="self" type="application/rss+xml"/><item><title>[Golang] 让wireshark通过SSLKEYLOGFILE环境变量支持https抓包</title><link>https://reatang.com/p/golang-https-sslkeylogfile/</link><pubDate>Tue, 24 Sep 2024 10:33:53 +0800</pubDate><guid>https://reatang.com/p/golang-https-sslkeylogfile/</guid><description>&lt;blockquote>
-&lt;p>本文章通过两章讲解wireshark抓https包&lt;/p>
-&lt;/blockquote>
+&lt;p>本文章通过两章讲解wireshark抓https包&lt;/p>&lt;/blockquote>
 &lt;h1 id="一wireshark抓浏览器的https流量">一、wireshark抓浏览器的https流量
 &lt;/h1>&lt;p>&lt;a class="link" href="https://wiki.wireshark.org/TLS" target="_blank" rel="noopener"
 >参考文档&lt;/a>&lt;/p>
@@ -23,7 +22,7 @@
 &lt;p>&lt;img src="https://reatang.com/p/golang-https-sslkeylogfile/image-1.png"
 width="1368"
 height="760"
-srcset="https://reatang.com/p/golang-https-sslkeylogfile/image-1_hu2321828177794043586.png 480w, https://reatang.com/p/golang-https-sslkeylogfile/image-1_hu6192467708277476180.png 1024w"
+srcset="https://reatang.com/p/golang-https-sslkeylogfile/image-1_hu_9979001eeb75f1b9.png 480w, https://reatang.com/p/golang-https-sslkeylogfile/image-1_hu_5875c8df296870b5.png 1024w"
 loading="lazy"
 alt="配置界面"
 class="gallery-image"
@@ -34,7 +33,7 @@ data-flex-basis="432px"
 &lt;p>&lt;img src="https://reatang.com/p/golang-https-sslkeylogfile/image.png"
 width="3018"
 height="1112"
-srcset="https://reatang.com/p/golang-https-sslkeylogfile/image_hu16179043283323606858.png 480w, https://reatang.com/p/golang-https-sslkeylogfile/image_hu3207545251496724530.png 1024w"
+srcset="https://reatang.com/p/golang-https-sslkeylogfile/image_hu_4b252cd02897138b.png 480w, https://reatang.com/p/golang-https-sslkeylogfile/image_hu_10cb77032f9c767c.png 1024w"
 loading="lazy"
 alt="最终得到整条流"
 class="gallery-image"
@@ -111,8 +110,8 @@ data-flex-basis="651px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">getClient&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Client&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 读取环境配置
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">sslkeyfile&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Getenv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;SSLKEYLOGFILE&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 读取环境配置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">sslkeyfile&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Getenv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;SSLKEYLOGFILE&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">sslkeyfile&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">New&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;no SSLKEYLOGFILE environment variable&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
@@ -125,8 +124,8 @@ data-flex-basis="651px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Transport&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Transport&lt;/span>&lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">TLSClientConfig&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">tls&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Config&lt;/span>&lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">InsecureSkipVerify&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 本篇文章重点，设置Key日志
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">KeyLogWriter&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">keyLogWriter&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 本篇文章重点，设置Key日志&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">KeyLogWriter&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">keyLogWriter&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}},&lt;/span> &lt;span class="kc">nil&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
@@ -134,16 +133,16 @@ data-flex-basis="651px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">client&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">getClient&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 发送 GET 请求
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">resp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">client&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;https://reatang.com&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 发送 GET 请求&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">client&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;https://reatang.com&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Failed to send request:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">defer&lt;/span> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Body&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Close&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 打印响应状态码
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Response status:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Status&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 打印响应状态码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Response status:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">resp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Status&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
