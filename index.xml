@@ -1,8 +1,186 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>雨的味道</title><link>https://reatang.com/</link><description>Recent content on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 11 Feb 2025 14:58:48 +0800</lastBuildDate><atom:link href="https://reatang.com/index.xml" rel="self" type="application/rss+xml"/><item><title>庆祝博客又又又一次复活了</title><link>https://reatang.com/p/hello-world/</link><pubDate>Sun, 07 Jul 2024 00:00:00 +0000</pubDate><guid>https://reatang.com/p/hello-world/</guid><description>&lt;img src="https://reatang.com/p/hello-world/cover.jpg" alt="Featured image of post 庆祝博客又又又一次复活了" />&lt;p>博客挂了两年，终于是在Github上复活了&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>雨的味道</title><link>https://reatang.com/</link><description>Recent content on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 16 Apr 2025 18:08:18 +0800</lastBuildDate><atom:link href="https://reatang.com/index.xml" rel="self" type="application/rss+xml"/><item><title>庆祝博客又又又一次复活了</title><link>https://reatang.com/p/hello-world/</link><pubDate>Sun, 07 Jul 2024 00:00:00 +0000</pubDate><guid>https://reatang.com/p/hello-world/</guid><description>&lt;img src="https://reatang.com/p/hello-world/cover.jpg" alt="Featured image of post 庆祝博客又又又一次复活了" />&lt;p>博客挂了两年，终于是在Github上复活了&lt;/p>
 &lt;blockquote>
 &lt;p>Photo by &lt;a class="link" href="https://unsplash.com/@pawel_czerwinski" target="_blank" rel="noopener"
 >Pawel Czerwinski&lt;/a> on &lt;a class="link" href="https://unsplash.com/" target="_blank" rel="noopener"
->Unsplash&lt;/a>&lt;/p>&lt;/blockquote></description></item><item><title>聊一聊：关于孩子教育</title><link>https://reatang.com/p/children-education/</link><pubDate>Tue, 11 Feb 2025 14:58:48 +0800</pubDate><guid>https://reatang.com/p/children-education/</guid><description>&lt;p>在这个温饱不再是焦虑的时代，启蒙教育的确迎来了百花齐放的局面，各种理念和方法层出不穷。 家长们也更加注重孩子的全面发展，希望孩子不仅仅是学习知识，更能拥有幸福和成功的未来。 在这多元化的启蒙教育中，真正能让孩子受用终身的品质，我认为可以归纳为以下几个方面：&lt;/p>
+>Unsplash&lt;/a>&lt;/p>&lt;/blockquote></description></item><item><title>使用AI分析系统的业务逻辑和架构</title><link>https://reatang.com/p/analysis-system-business/</link><pubDate>Wed, 16 Apr 2025 18:08:18 +0800</pubDate><guid>https://reatang.com/p/analysis-system-business/</guid><description>&lt;p>收到一个新的应用，首先应该从控制器、逻辑层、服务层等各个方面进行分析，现在我们将这个工作交给支持 filesystem mcp 的AI来做，我的提示词如下：
+（这是以java应用为例）&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;span class="lnt">76
+&lt;/span>&lt;span class="lnt">77
+&lt;/span>&lt;span class="lnt">78
+&lt;/span>&lt;span class="lnt">79
+&lt;/span>&lt;span class="lnt">80
+&lt;/span>&lt;span class="lnt">81
+&lt;/span>&lt;span class="lnt">82
+&lt;/span>&lt;span class="lnt">83
+&lt;/span>&lt;span class="lnt">84
+&lt;/span>&lt;span class="lnt">85
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-txt" data-lang="txt">&lt;span class="line">&lt;span class="cl"># 角色设定
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">你是一位顶级的软件架构师和资深业务顾问，拥有卓越的技术洞察力和业务理解力。你不仅能深入分析代码结构和技术实现，更能将技术细节与业务价值紧密结合，洞察系统背后的业务逻辑、关键考量和潜在机会。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 我的背景
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">我是一名新加入 &amp;#34;[请填写项目名称]&amp;#34; 项目的成员，正处于项目熟悉阶段。我希望通过你的专业能力，全面了解项目的技术架构、业务流程以及技术决策背后的业务驱动因素。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 我的目标
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">我希望通过分析项目代码和相关信息，实现以下目标：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1. **技术架构蓝图:** 清晰理解项目的 **技术分层、模块划分、组件构成、技术选型** 等核心技术架构要素。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. **业务流程全景:** 掌握项目支持的 **核心业务流程、用户场景、功能模块** 及其相互关系。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3. **技术-业务双重视角:** 建立 **技术实现与业务目标之间的桥梁**，理解技术决策如何服务于业务，业务需求如何驱动技术选型。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">4. **关键业务考量与风险预警:** 识别项目中 **关键的业务考量因素、潜在的业务风险和技术挑战**，例如安全性、性能、合规性、可扩展性等。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">5. **快速上手与高效贡献:** 通过全面深入的理解，**快速融入项目团队，并能基于业务视角做出更有价值的贡献**。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 任务要求
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">请基于我提供的 &amp;#34;[请填写项目名称]&amp;#34; 项目的代码信息（文件目录结构、关键代码片段、代码注释、技术文档等），进行以下多维度、深度融合的分析：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">**第一阶段：技术架构解析 (Prompt A 核心 + 增强)**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1. **目录结构与模块划分:**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * 分析项目根目录下的 **顶级目录结构**，推断 **技术模块和子系统划分**，例如前端、后端、API 网关、数据库、消息队列等。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * 深入后端代码目录（如 `src/main/java`, `app`, `backend`），识别 **代码模块**，例如 Controller, Service, Repository, Model, Config, Util 等，并推测其 **技术职责**。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **模块命名与业务关联:** 不仅关注技术职责，更要 **从模块命名中初步推测其可能对应的业务领域或功能**。 例如，`OrderService` 可能关联订单业务，`UserService` 可能关联用户管理。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. **Controller 层深度分析:**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **定位 Controller 目录**，识别主要的 Controller 文件和子目录。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **基于 Controller 命名和文件结构，推测其负责的业务功能或用户场景** (用简洁业务语言描述，例如 &amp;#34;处理用户注册流程&amp;#34; 而非 &amp;#34;/users POST 请求&amp;#34;)。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **API Endpoint 业务语义化:** 如果能获取 API Endpoint 信息 (例如 Spring Boot 项目的 `@RequestMapping` 注解)，请 **将技术化的 Endpoint 路径转化为更易懂的业务操作描述**。 例如 `/api/orders/{orderId}/payment` 可以描述为 &amp;#34;订单支付 API&amp;#34;。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **Controller 间的关联与流程初步推演:** 尝试分析 Controller 之间的调用关系 (如果能从代码片段中看出)，初步推演 **简单的业务流程片段**。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3. **关键技术组件识别与技术选型推测:**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **根据目录结构、文件名后缀、配置文件等信息，推测项目使用的编程语言、框架、数据库、消息队列、缓存等核心技术栈**。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * 识别项目中使用的 **关键技术组件或库** (例如 ORM 框架, 日志库, 缓存客户端, 消息队列客户端等)，并 **简述其技术作用**。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **技术选型的业务驱动因素推测:** 尝试 **推测项目技术选型背后的业务考虑**。 例如，选择 NoSQL 数据库可能是为了应对高并发和海量数据，选择微服务架构可能是为了支持业务快速迭代和独立部署。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">**第二阶段：业务流程与关键考量 (Prompt B 核心 + 增强)**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">4. **核心业务流程串联与业务流程图:**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **识别并描述项目中最核心的端到端业务流程** (例如用户下单、商品搜索、支付结算、内容发布等)。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **将业务流程与 Controller, Service 等技术模块关联起来，描述业务流程在技术层面的实现方式**。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **业务流程图 (可选):** 如果条件允许，尝试 **用文字流程图或简单的 Markdown 图表** 描述关键业务流程，更直观地呈现流程步骤和模块交互。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">5. **上下游依赖的业务价值与影响:**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **分析项目依赖的上游服务和组件，并从业务角度解释依赖关系和业务价值** (例如依赖认证服务保障安全，依赖库存服务查询库存)。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **如果可能，了解下游系统如何依赖本项目，以及下游系统依赖本项目的哪些业务能力**。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **依赖稳定性与业务连续性考量:** 分析 **关键依赖的稳定性对项目业务的影响**，例如外部服务故障是否会影响核心业务，是否有熔断降级机制。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">6. **代码注释与业务规则深度挖掘:**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **重点分析代码注释 (Controller, Service, Model 等)，提取业务规则、约束条件、特殊逻辑、重要提示等业务细节**。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **业务规则分类整理:** 将提取的业务规则进行 **分类整理**，例如： 业务校验规则、权限控制规则、数据处理规则、风控规则、计费规则等，方便查阅和理解。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **业务流程中的关键决策点识别:** 从代码和注释中识别 **业务流程中的关键决策点和分支逻辑**，例如不同用户类型的流程差异，不同支付方式的处理分支等。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">7. **关键业务考量、潜在风险与改进建议:**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **识别项目中可能存在的关键业务考量点** (安全性、性能、可扩展性、合规性、数据一致性等)。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **基于代码分析和注释，尝试识别潜在的业务风险或技术挑战**。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **结合技术和业务视角，提出改进建议:** 基于对技术架构和业务流程的理解，**从技术和业务角度出发，提出可能的改进建议**。 例如，性能优化建议、安全加固建议、业务流程优化建议、架构升级建议等。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">**第三阶段：综合总结与价值呈现**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">8. **技术架构与业务价值综合总结:**
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **总结项目在组织或产品线中的核心业务价值和业务定位**。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **技术架构对业务价值的支撑作用:** **阐述项目的技术架构如何支撑其业务价值的实现**。 例如，高性能架构支撑高并发交易，微服务架构支撑业务快速创新。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **项目成功的关键因素与未来展望:** 基于全面分析，**推测项目成功的关键因素，并对项目未来发展方向和潜在机会进行展望**。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 输出格式要求
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">请使用清晰、结构化的 Markdown 格式呈现分析结果，例如使用 **多级标题、列表、表格、代码块、流程图** 等。 **突出显示关键信息，例如使用粗体、颜色标记、引用块等**。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* **技术架构部分：** 侧重 **技术术语和架构图示 (文字描述的架构图)**，清晰描述技术分层、模块构成、技术选型等。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* **业务流程部分：** 侧重 **业务语言和流程图**，清晰描述核心业务流程、用户场景、模块交互等。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* **关键考量与风险部分：** **重点突出业务风险和关键考量点**，并给出相应的 **技术或业务改进建议**。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* **综合总结部分：** **高度概括项目的技术架构和业务价值**，并展望未来。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">**请在每个分析要点后，简要说明你分析的依据** (例如 &amp;#34;基于目录结构分析&amp;#34;, &amp;#34;基于 Controller 代码片段&amp;#34;, &amp;#34;基于代码注释&amp;#34; 等)，以增强分析的可信度和透明度。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 我将提供的信息
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[请你根据实际情况，详细说明你将提供给 AI 的信息，例如：]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* &amp;#34;我会提供项目根目录的 `tree` 命令输出结果。&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* &amp;#34;我会提供 `src/main/java` 目录下的所有 Java 文件内容 (或关键 Controller/Service/Model 文件内容)。&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* &amp;#34;我会提供关键 Controller 和 Service 文件的代码片段和代码注释。&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* &amp;#34;我可以提供项目的技术文档 (如果项目有的话)。&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* &amp;#34;我可以根据你的需要，逐步提供更详细的代码或信息。&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 互动方式
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">请在我提供信息后开始分析。请 **主动提问，引导我提供更精准、更有价值的信息**，以便进行更深入、更全面的分析。 这是一个深度协作的过程，我们共同努力，深入理解项目。
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>聊一聊：关于孩子教育</title><link>https://reatang.com/p/children-education/</link><pubDate>Tue, 11 Feb 2025 14:58:48 +0800</pubDate><guid>https://reatang.com/p/children-education/</guid><description>&lt;p>在这个温饱不再是焦虑的时代，启蒙教育的确迎来了百花齐放的局面，各种理念和方法层出不穷。 家长们也更加注重孩子的全面发展，希望孩子不仅仅是学习知识，更能拥有幸福和成功的未来。 在这多元化的启蒙教育中，真正能让孩子受用终身的品质，我认为可以归纳为以下几个方面：&lt;/p>
 &lt;p>&lt;strong>一、 持续学习和思考的能力 (求知欲和学习力)&lt;/strong>&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>好奇心和求知欲:&lt;/strong> 这是驱动孩子主动探索世界的内在动力。 拥有强烈好奇心的孩子，不会被动接受知识，而是会主动发问、探索、尝试，对世界充满兴趣，这种热情会伴随他们一生，让他们不断学习、进步。&lt;/li>
@@ -2728,7 +2906,7 @@ alt="image.png"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;#34;OEMBackground&amp;#34;=dword:00000001
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>【爬坑】在laravel中使用vue（非laravel-mix）</title><link>https://reatang.com/p/old-post-31/</link><pubDate>Fri, 18 Aug 2017 14:12:14 +0000</pubDate><guid>https://reatang.com/p/old-post-31/</guid><description>&lt;h1 id="laravel_vuejpgzc_blog_hostzb_usersupload201708201708181503043538917387jpg">&lt;img src="https://reatang.com/%7b%5c#ZC_BLOG_HOST%5c#%7dzb_users/upload/2017/08/201708181503043538917387.jpg"
+&lt;/div></description></item><item><title>【爬坑】在laravel中使用vue（非laravel-mix）</title><link>https://reatang.com/p/old-post-31/</link><pubDate>Fri, 18 Aug 2017 14:12:14 +0000</pubDate><guid>https://reatang.com/p/old-post-31/</guid><description>&lt;h1 id="laravel_">&lt;img src="https://reatang.com/%7b%5c#ZC_BLOG_HOST%5c#%7dzb_users/upload/2017/08/201708181503043538917387.jpg"
 loading="lazy"
 alt="laravel_vue.jpg"
 >
