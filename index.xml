@@ -1,8 +1,50 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>雨的味道</title><link>https://reatang.com/</link><description>Recent content on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 16 Apr 2025 18:08:18 +0800</lastBuildDate><atom:link href="https://reatang.com/index.xml" rel="self" type="application/rss+xml"/><item><title>庆祝博客又又又一次复活了</title><link>https://reatang.com/p/hello-world/</link><pubDate>Sun, 07 Jul 2024 00:00:00 +0000</pubDate><guid>https://reatang.com/p/hello-world/</guid><description>&lt;img src="https://reatang.com/p/hello-world/cover.jpg" alt="Featured image of post 庆祝博客又又又一次复活了" />&lt;p>博客挂了两年，终于是在Github上复活了&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>雨的味道</title><link>https://reatang.com/</link><description>Recent content on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 07 May 2025 16:42:08 +0800</lastBuildDate><atom:link href="https://reatang.com/index.xml" rel="self" type="application/rss+xml"/><item><title>庆祝博客又又又一次复活了</title><link>https://reatang.com/p/hello-world/</link><pubDate>Sun, 07 Jul 2024 00:00:00 +0000</pubDate><guid>https://reatang.com/p/hello-world/</guid><description>&lt;img src="https://reatang.com/p/hello-world/cover.jpg" alt="Featured image of post 庆祝博客又又又一次复活了" />&lt;p>博客挂了两年，终于是在Github上复活了&lt;/p>
 &lt;blockquote>
 &lt;p>Photo by &lt;a class="link" href="https://unsplash.com/@pawel_czerwinski" target="_blank" rel="noopener"
 >Pawel Czerwinski&lt;/a> on &lt;a class="link" href="https://unsplash.com/" target="_blank" rel="noopener"
->Unsplash&lt;/a>&lt;/p>&lt;/blockquote></description></item><item><title>使用AI分析系统的业务逻辑和架构</title><link>https://reatang.com/p/analysis-system-business/</link><pubDate>Wed, 16 Apr 2025 18:08:18 +0800</pubDate><guid>https://reatang.com/p/analysis-system-business/</guid><description>&lt;p>收到一个新的应用，首先应该从控制器、逻辑层、服务层等各个方面进行分析，现在我们将这个工作交给支持 filesystem mcp 的AI来做，我的提示词如下：
+>Unsplash&lt;/a>&lt;/p>&lt;/blockquote></description></item><item><title>开发智能体的26个关键要点</title><link>https://reatang.com/p/26-key-points-for-developing-agents/</link><pubDate>Wed, 07 May 2025 16:42:08 +0800</pubDate><guid>https://reatang.com/p/26-key-points-for-developing-agents/</guid><description>&lt;h2 id="第一部分观念转变与认知升级">第一部分：观念转变与认知升级
+&lt;/h2>&lt;ul>
+&lt;li>1） AI 代理不是员工，而是 SOP (标准作业程序) 的延伸： 不要将 AI 代理视为自动化的替代品或员工的复制品。它们更多的是流程的具象化，每个代理负责执行一个或少数几个 SOP。&lt;/li>
+&lt;li>2） 从良好的文档化流程 (SOP) 开始： 训练代理之前，先梳理并优化现有的 SOP。清晰的 SOP 是训练代理的基础，能显著提高训练效率和代理的可靠性。&lt;/li>
+&lt;li>3） 企业主应委托 AI 代理开发者，而非亲自构建： 即使未来出现“一键生成代理”的工具，专业的 AI 代理开发者仍然不可或缺。他们能够确定构建哪些代理，并能最大化代理的价值，正如无代码工具普及后，反而涌现了大量的自动化工程师一样。&lt;/li>
+&lt;li>4） 咨询的重要性：了解客户真正的需求： 企业主可能对 AI 代理有自己的想法，但这些想法未必是最优的。通过咨询，深入了解客户的业务流程和痛点，才能找到更有价值的自动化机会。通过客户旅程绘制，可以更有效地识别潜在的自动化机会，选择更适合的代理构建目标。&lt;/li>
+&lt;li>5） 代理数量不宜过多，精简至上： 过多的代理会增加系统的复杂性，导致维护困难、调试困难、成本上升和响应时间延长。优先构建一个能尽快交付价值的最简化代理，逐步迭代和扩展。&lt;/li>
+&lt;/ul>
+&lt;h2 id="第二部分数据提示工程与集成">第二部分：数据、提示工程与集成
+&lt;/h2>&lt;ul>
+&lt;li>6） 数据驱动，更要将数据与行动相结合： 数据科学的 “GIGO”（garbage in, garbage out）原则同样适用于 AI 代理。更重要的是，将数据与相关行动结合，例如将知识库与 Facebook API 相结合，可以产生更大的价值。同时，要确保收集内外部数据以提升代理性能。&lt;/li>
+&lt;li>7） 提示工程是一门艺术，示例、顺序、迭代至关重要： 提示工程至关重要，它已经成为了一个职业。撰写提示如同撰写博客或论文，需要仔细斟酌每一个词语。提供充足的示例，注意句子和段落的顺序，并不断迭代和测试。最重要的部分放在指令的末尾。&lt;/li>
+&lt;li>8） 集成与能力同等重要： 代理的集成性决定了用户的使用便捷性，便捷性决定了用户的使用意愿，所以决定了代理能否交付实际价值。将代理集成到员工日常使用的系统中，例如 Zendesk，至关重要。&lt;/li>
+&lt;/ul>
+&lt;h2 id="第三部分技术细节与可靠性保障">第三部分：技术细节与可靠性保障
+&lt;/h2>&lt;ul>
+&lt;li>9） 代理可靠性问题由开发者负责： 如果代理不可靠，这不是代理的问题，而是开发人员的问题。Pydantic 数据验证库可以用于验证代理的输入和输出，确保代理不会执行错误的操作。可以重点关注如何借助 Python 和相关框架来实现可靠性。&lt;/li>
+&lt;li>10） 工具是 AI 代理的核心组件：指令、知识与行动缺一不可： 工具是代理提供价值的方式。价值是通过行动产生，而不是通过响应产生。学会构建和组织工具，是构建各种用例代理的关键。&lt;/li>
+&lt;li>11） 每个代理的工具数量不宜超过四到六种： 过多的工具会导致代理产生幻觉、混淆工具的使用，可以通过分离代理来解决。&lt;/li>
+&lt;li>12） 模型成本不再是核心关注： 如果用例有意义，通常从使用 AI 代理中可以获得巨大的投资回报。&lt;/li>
+&lt;/ul>
+&lt;ol start="13">
+&lt;li>客户更关心价值，而非模型选择： 企业更关心代理能否提供价值、数据是否安全，对底层模型并不敏感。Azure OpenAI 等私有部署方案可以满足客户对数据隐私的要求。&lt;/li>
+&lt;/ol>
+&lt;h2 id="第四部分商业模式与扩展策略">第四部分：商业模式与扩展策略
+&lt;/h2>&lt;ul>
+&lt;li>14） 价值被确立之前，不要自动化： 先手动验证流程的价值和可行性，再进行自动化，避免不必要的风险和投入。&lt;/li>
+&lt;li>15） 不要只考虑用例，要考虑 ROI（投资回报率）： 采用公式计算 ROI，关注对业务最有价值的部分。ROI 公式：(速率 * 工时 - 运营成本) / 开发成本。&lt;/li>
+&lt;li>16） 代理开发是一个数据科学竞赛的迭代过程： 尝试不同的架构，对比结果，并从中学习，不断优化代理。&lt;/li>
+&lt;li>17） 使用分而治之的方法：逐步交付解决方案： 将复杂问题分解为可管理的任务，优先交付独立工作的代理，获得客户确认后再继续构建整个系统。按部门进行自动化也是一个不错的策略。&lt;/li>
+&lt;li>18） 评估至关重要（尤其是对于大型企业）： 评估可以帮助跟踪 KPI 和性能，不断改进解决方案。对于小型企业，评估可能并非必需。&lt;/li>
+&lt;li>19） 两种代理：代理与工作流： 结合标准工作流程和自动化与 AI 代理。AI 驱动的步骤嵌入到结构化的工作流程中。&lt;/li>
+&lt;/ul>
+&lt;h2 id="第五部分未来趋势与注意事项">第五部分：未来趋势与注意事项
+&lt;/h2>&lt;ul>
+&lt;li>20） 代理需要适应反馈： 确保代理不仅能修改环境，还能分析结果、了解行动的影响。&lt;/li>
+&lt;li>21） 不要围绕限制构建：拥抱变化、面向未来： 不要基于当前的技术限制构建代理，要预见到技术进步的可能性。&lt;/li>
+&lt;li>22） 部署代理比构建代理更难： 需要花费较长的时间整合到客户的流程中，搭建一个平台以便支持灵活部署。&lt;/li>
+&lt;li>23） 放弃瀑布模型，拥抱敏捷开发： 代理项目具有高度的灵活性，需要不断演进。采用订阅模式，与客户建立合作伙伴关系。&lt;/li>
+&lt;li>24） 在关键任务代理中加入人工环节： 对于容错率低的代理，先加入人工审核环节，待代理成熟后再取消人工干预。比如先让客户在notion审核营销活动，然后逐渐过渡到自动化。&lt;/li>
+&lt;li>25） 2025 年是垂直 AI 代理的年份： 专注于特定领域和用例的代理更易扩展、更具价值。可以逐渐从水平代理过渡到垂直代理。&lt;/li>
+&lt;li>26） 代理不会取代人，而是帮助企业扩大规模： 关注扩大规模和提升价值，而不是裁员。&lt;/li>
+&lt;/ul></description></item><item><title>使用AI分析系统的业务逻辑和架构</title><link>https://reatang.com/p/analysis-system-business/</link><pubDate>Wed, 16 Apr 2025 18:08:18 +0800</pubDate><guid>https://reatang.com/p/analysis-system-business/</guid><description>&lt;p>收到一个新的应用，首先应该从控制器、逻辑层、服务层等各个方面进行分析，现在我们将这个工作交给支持 filesystem mcp 的AI来做，我的提示词如下：
 （这是以java应用为例）&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
