@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深入理解《哈利布朗的永久投资组合》</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+        .header-gradient {
+            background: linear-gradient(to right, #4A90E2, #50E3C2); /* Blue to teal gradient */
+        }
+        .section-title {
+            font-size: 1.75rem; /* 28px */
+            font-weight: 700;
+            color: #2c3e50; /* Dark blue-gray text */
+            margin-bottom: 1.5rem; /* 24px */
+            border-bottom: 3px solid #4A90E2; /* Blue accent line */
+            padding-bottom: 0.5rem; /* 8px */
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 2rem; /* 32px */
+            margin-bottom: 2rem; /* 32px */
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .asset-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .asset-icon {
+            font-size: 3rem; /* 48px */
+            margin-bottom: 1rem; /* 16px */
+            color: #4A90E2; /* Blue icon color */
+        }
+        .list-item::before {
+            content: "✓";
+            color: #50E3C2; /* Teal checkmark */
+            margin-right: 0.5rem; /* 8px */
+            font-weight: bold;
+        }
+        .limit-item::before {
+            content: "✗";
+            color: #E94E77; /* Pinkish-red cross */
+            margin-right: 0.5rem; /* 8px */
+            font-weight: bold;
+        }
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            font-weight: 600;
+        }
+        .tab-button.active {
+            background-color: #4A90E2;
+            color: white;
+        }
+        .tab-button:not(.active) {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .footer {
+            background-color: #2c3e50; /* Dark blue-gray footer */
+            color: #e2e8f0; /* Light gray text */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="header-gradient text-white py-12 sm:py-16 shadow-lg">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl sm:text-5xl font-bold mb-4">深入理解《哈利布朗的永久投资组合》</h1>
+            <p class="text-lg sm:text-xl opacity-90">一种旨在应对所有经济环境的稳健投资策略。</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="core-idea" class="mb-12">
+            <div class="card">
+                <h2 class="section-title">核心理念：应对不确定性</h2>
+                <p class="text-gray-700 leading-relaxed text-lg">
+                    哈利布朗的永久投资组合的核心理念是构建一个能够<strong>长期保值增值</strong>的组合，用以从容应对所有可能的经济环境——无论是经济繁荣、衰退、通货膨胀还是通货紧缩。它不试图预测未来，而是通过均衡配置在不同经济周期下表现各异的资产类别，实现风险对冲。此策略的核心目标是追求<strong>安全与稳定</strong>，而非短期内的最高收益。
+                </p>
+            </div>
+        </section>
+
+        <section id="composition" class="mb-12">
+            <h2 class="section-title text-center">组合构成：四种均衡配置的资产 (各25%)</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="card asset-card">
+                    <div class="asset-icon">📈</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">美国股票</h3>
+                    <p class="text-gray-600 text-sm">代表广泛的股权。在经济繁荣时期提供增长潜力，但风险也较高。通常选择追踪广泛市场指数的ETF。</p>
+                </div>
+                <div class="card asset-card">
+                    <div class="asset-icon">🛡️</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">长期美国国债</h3>
+                    <p class="text-gray-600 text-sm">代表避险和通缩保护。在经济衰退和通货紧缩时期表现良好，提供安全性和收益。</p>
+                </div>
+                <div class="card asset-card">
+                    <div class="asset-icon">💰</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">黄金</h3>
+                    <p class="text-gray-600 text-sm">代表通货膨胀保护。在通货膨胀时期通常表现良好，被视为一种价值储存手段。</p>
+                </div>
+                <div class="card asset-card">
+                    <div class="asset-icon">💵</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">现金</h3>
+                    <p class="text-gray-600 text-sm">代表流动性和再平衡机会。在经济不确定时期提供灵活性，可用于抓住新的投资机会。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="logic" class="mb-12">
+            <div class="card">
+                <h2 class="section-title">剖析背后逻辑：不同经济环境下的表现</h2>
+                <div class="mb-6 flex flex-wrap gap-2 sm:gap-4 justify-center">
+                    <button class="tab-button active" onclick="openTab(event, 'prosperity')">经济繁荣</button>
+                    <button class="tab-button" onclick="openTab(event, 'recession')">经济衰退</button>
+                    <button class="tab-button" onclick="openTab(event, 'inflation')">通货膨胀</button>
+                    <button class="tab-button" onclick="openTab(event, 'deflation')">通货紧缩</button>
+                </div>
+
+                <div id="prosperity" class="tab-content active p-4 bg-blue-50 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2 text-blue-700">经济繁荣 🌱</h3>
+                    <p class="text-gray-700 leading-relaxed">在此阶段，<strong>股票</strong>通常表现最佳，成为主要的增长引擎。企业盈利增加，市场信心高涨，推动股价上扬。</p>
+                </div>
+                <div id="recession" class="tab-content p-4 bg-gray-50 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2 text-gray-700">经济衰退 📉</h3>
+                    <p class="text-gray-700 leading-relaxed"><strong>长期国债</strong>通常表现良好，因为投资者寻求安全资产，且利率可能下降。<strong>现金</strong>也提供了在市场下跌时购买廉价资产的机会。</p>
+                </div>
+                <div id="inflation" class="tab-content p-4 bg-yellow-50 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-700">通货膨胀 🔥</h3>
+                    <p class="text-gray-700 leading-relaxed"><strong>黄金</strong>通常表现良好，因为其价值往往与货币脱钩，能有效对冲货币贬值风险。股票也可能在一定程度上受益，但可能受到通胀上升导致成本增加的影响。</p>
+                </div>
+                <div id="deflation" class="tab-content p-4 bg-indigo-50 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2 text-indigo-700">通货紧缩 ❄️</h3>
+                    <p class="text-gray-700 leading-relaxed"><strong>长期国债</strong>通常表现最佳，因为货币实际价值上升，债券的固定收益变得更具吸引力。<strong>现金</strong>的购买力也随之增强。</p>
+                </div>
+                <p class="text-gray-700 mt-6 leading-relaxed text-lg">
+                    通过持有这四种在不同环境下表现互补的资产，永久投资组合旨在无论宏观经济如何风云变幻，都能保持一定的稳定性和持续的增长潜力。
+                </p>
+            </div>
+        </section>
+
+        <section id="pros-cons" class="mb-12">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h2 class="section-title !text-green-600 !border-green-500">优势 👍</h2>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="list-item"><strong>简单易懂：</strong>策略清晰，易于理解和执行。</li>
+                        <li class="list-item"><strong>低维护：</strong>仅需定期（如每年）再平衡。</li>
+                        <li class="list-item"><strong>风险分散：</strong>有效分散单一资产风险。</li>
+                        <li class="list-item"><strong>心理压力小：</strong>注重长期稳定，减轻焦虑。</li>
+                        <li class="list-item"><strong>历史表现稳健：</strong>风险调整后收益表现良好。</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h2 class="section-title !text-red-600 !border-red-500">局限性 👎</h2>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="limit-item"><strong>收益可能相对较低：</strong>牛市中可能落后于纯股票策略。</li>
+                        <li class="limit-item"><strong>可能跑输特定环境：</strong>如持续强劲牛市，其他资产或拖累表现。</li>
+                        <li class="limit-item"><strong>黄金的非生产性：</strong>不产生股息或利息，价值波动大。</li>
+                        <li class="limit-item"><strong>再平衡的成本和税务影响：</strong>可能产生交易成本和税务。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="application" class="mb-12">
+            <div class="card">
+                <h2 class="section-title">实际应用指南 🛠️</h2>
+                <ol class="list-decimal list-inside space-y-3 text-gray-700 leading-relaxed">
+                    <li><strong>选择合适的投资工具：</strong>可通过购买ETF或共同基金实现。例如，追踪标普500指数的股票ETF、长期国债ETF、黄金ETF以及短期国债ETF或货币市场基金。</li>
+                    <li><strong>确定初始投资比例：</strong>严格按照每个资产类别25%的比例进行投资。</li>
+                    <li><strong>定期再平衡：</strong>至少每年检查一次投资组合的比例。若某资产类别偏离目标值（如超过5%），则需再平衡，卖出表现佳者，买入表现差者，恢复25%比例。</li>
+                    <li><strong>考虑个人情况：</strong>可根据自身风险承受能力和投资目标微调。风险承受能力较高者，可略增股票比例。</li>
+                    <li><strong>长期持有：</strong>此为长期投资策略，贵在坚持，方能显效。</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="further-reading" class="mb-12">
+            <div class="card bg-gray-100">
+                 <h2 class="section-title">深入研究与拓展阅读 📚</h2>
+                <p class="text-gray-700 leading-relaxed">
+                    要更深入地理解永久投资组合的精髓及其在不同市场条件下的动态表现，强烈建议阅读哈利·布朗本人的相关著作，特别是他的经典之作<strong>《Fail-Safe Investing》</strong>（中文版可译为《永续投资》或《万无一失的投资》）。书中详细阐述了该策略的构建原理、哲学基础以及如何智慧地应对各种复杂的市场情景。
+                </p>
+            </div>
+        </section>
+
+        <section id="summary" class="mb-12">
+             <div class="card header-gradient text-white">
+                <h2 class="section-title !text-white !border-white">总结与展望 🎯</h2>
+                <p class="leading-relaxed opacity-90 text-lg">
+                    理解《哈利布朗的永久投资组合》的关键在于认识到其核心目标是在各种经济环境下<strong>保护资本</strong>并实现<strong>长期稳定的增长</strong>。它通过持有四种在不同环境下表现互补的资产，构建了一个能够有效应对不确定性的投资组合。虽然其收益可能不如某些激进的投资策略，但其<strong>简单性、低维护和风险分散</strong>的特点使其成为一种适合许多寻求安全和稳定投资的投资者的理想选择。通过深入了解其构成、背后的逻辑、优势与局限性以及实际应用方法，您就能更好地理解并决定该策略是否适合自己。
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer py-8 text-center">
+        <div class="container mx-auto px-6">
+            <p class="text-sm">&copy; 2025 永久投资组合学习资源. 保留所有权利。</p>
+            <p class="text-xs mt-1">本页面内容仅供学习参考，不构成任何投资建议。</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for Tab functionality
+        function openTab(event, tabName) {
+            // Get all elements with class="tab-content" and hide them
+            const tabcontent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+
+            // Get all elements with class="tab-button" and remove the "active" class
+            const tablinks = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>
