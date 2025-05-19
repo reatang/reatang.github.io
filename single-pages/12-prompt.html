@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12个精选Prompt框架 - 通往AGI之路</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        .framework-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .framework-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .framework-title {
+            font-size: 1.875rem; /* 30px */
+            font-weight: 700;
+            color: #1e3a8a; /* Dark blue */
+        }
+        .framework-subtitle {
+            font-size: 1.125rem; /* 18px */
+            font-weight: 500;
+            color: #3b82f6; /* Medium blue */
+            margin-bottom: 0.5rem; /* 8px */
+        }
+        .framework-item strong {
+            color: #1e40af; /* Darker blue for emphasis */
+        }
+        .main-title {
+            background: linear-gradient(to right, #3b82f6, #1e3a8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-800">
+    <div class="container mx-auto px-4 py-8 md:py-12">
+        <header class="text-center mb-10 md:mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold main-title">12个精选Prompt框架</h1>
+            <p class="text-xl text-gray-600 mt-2">通往AGI之路</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div class="framework-card p-6">
+                <h2 class="framework-title">A.P.E</h2>
+                <h3 class="framework-subtitle">行动, 目的, 期望</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><strong>ACTION (行动):</strong> 定义要完成的工作或活动。</li>
+                    <li><strong>PURPOSE (目的):</strong> 讨论意图或目标。</li>
+                    <li><strong>EXPECTATION (期望):</strong> 陈述预期的结果。</li>
+                </ul>
+            </div>
+
+            <div class="framework-card p-6">
+                <h2 class="framework-title">B.R.O.K.E</h2>
+                <h3 class="framework-subtitle">背景, 角色, 目标, 关键结果, 改进</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><strong>BACKGROUND (背景):</strong> 说明背景, 提供充足信息。</li>
+                    <li><strong>ROLE (角色):</strong> 我希望 ChatGPT 扮演的角色。</li>
+                    <li><strong>OBJECTIVES (目标):</strong> 我们希望实现什么。</li>
+                    <li><strong>KEY RESULT (关键结果):</strong> 我要什么具体效果试验并调整。</li>
+                    <li><strong>EVOLVE (试验并改进):</strong> 三种改进方法自由组合。</li>
+                </ul>
+            </div>
+
+            <div class="framework-card p-6">
+                <h2 class="framework-title">C.O.A.S.T</h2>
+                <h3 class="framework-subtitle">背景, 客观, 行动, 场景, 任务</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><strong>CONTEXT (上下文):</strong> 为对话设定舞台。</li>
+                    <li><strong>OBJECTIVE (目的):</strong> 描述目标。</li>
+                    <li><strong>ACTION (行动):</strong> 解释所需的动作。</li>
+                    <li><strong>SCENARIO (方案):</strong> 描述场景。</li>
+                    <li><strong>TASK (任务):</strong> 描述任务。</li>
+                </ul>
+            </div>
+
+            <div class="framework-card p-6">
+                <h2 class="framework-title">T.A.G</h2>
+                <h3 class="framework-subtitle">任务, 行动, 目标</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><strong>TASK (任务):</strong> 定义特定任务。</li>
+                    <li><strong>ACTION (行动):</strong> 描述需要做的事情。</li>
+                    <li><strong>GOAL (目标):</strong> 解释最终目标。</li>
+                </ul>
+            </div>
+
+            <div class="framework-card p-6">
+                <h2 class="framework-title">R.I.S.E</h2>
+                <h3 class="framework-subtitle">角色, 输入, 步骤, 期望</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><strong>ROLE (角色):</strong> 指定 ChatGPT 的角色。</li>
+                    <li><strong>INPUT (输入):</strong> 描述信息或资源。</li>
+                    <li><strong>STEPS (步骤):</strong> 询问详细的步骤。</li>
+                    <li><strong>EXPECTATION (期望):</strong> 描述所需的结果。</li>
+                </ul>
+            </div>
+
+            <div class="framework-card p-6">
+                <h2 class="framework-title">T.R.A.C.E</h2>
+                <h3 class="framework-subtitle">任务, 请求, 操作, 上下文, 示例</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><strong>TASK (任务):</strong> 定义特定任务。</li>
+                    <li><strong>REQUEST (请求):</strong> 描述您的要求。</li>
+                    <li><strong>ACTION (行动):</strong> 说明您需要的操作。</li>
+                    <li><strong>CONTEXT (上下文):</strong> 提供上下文或情况。</li>
+                    <li><strong>EXAMPLE (示例):</strong> 举一个例子来说明您的观点。</li>
+                </ul>
+            </div>
+
+            <div class="framework-card p-6">
+                <h2 class="framework-title">E.R.A</h2>
+                <h3 class="framework-subtitle">期望, 角色, 行动</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><strong>EXPECTATION (期望):</strong> 描述所需的结果。</li>
+                    <li><strong>ROLE (角色):</strong> 指定 ChatGPT 的角色。</li>
+                    <li><strong>ACTION (行动):</strong> 指定需要采取哪些操作。</li>
+                </ul>
+            </div>
+
+            <div class="framework-card p-6">
+                <h2 class="framework-title">C.A.R.E</h2>
+                <h3 class="framework-subtitle">上下文, 行动, 结果, 示例</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><strong>CONTEXT (上下文):</strong> 为讨论设置阶段或上下文。</li>
+                    <li><strong>ACTION (行动):</strong> 描述您想做什么。</li>
+                    <li><strong>RESULT (结果):</strong> 描述所需的结果。</li>
+                    <li><strong>EXAMPLE (示例):</strong> 举一个例子来说明您的观点。</li>
+                </ul>
+            </div>
+
+            <div class="framework-card p-6">
+                <h2 class="framework-title">R.O.S.E.S</h2>
+                <h3 class="framework-subtitle">角色, 客观, 场景, 解决方案, 步骤</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><strong>ROLE (角色):</strong> 指定 ChatGPT 的角色。</li>
+                    <li><strong>OBJECTIVE (目的):</strong> 陈述目标或目标。</li>
+                    <li><strong>SCENARIO (方案):</strong> 描述情况。</li>
+                    <li><strong>EXPECTED SOLUTION (解决方案):</strong> 定义所需的结果。</li>
+                    <li><strong>STEPS (步骤):</strong> 要求达到解决方案所需的措施。</li>
+                </ul>
+            </div>
+
+            <div class="framework-card p-6">
+                <h2 class="framework-title">I.C.I.O</h2>
+                <h3 class="framework-subtitle">指令, 背景, 输入数据, 输出引导</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><strong>INSTRUCTION (指令):</strong> AI 执行的具体任务。</li>
+                    <li><strong>CONTEXT (背景):</strong> 给 AI 更多的背景信息。</li>
+                    <li><strong>INPUT DATA (输入数据):</strong> 告知模型需要处理的数据。</li>
+                    <li><strong>OUTPUT INDICATOR (输出引导):</strong> 告知我们要输出的类型或风格。</li>
+                </ul>
+            </div>
+
+            <div class="framework-card p-6">
+                <h2 class="framework-title">C.R.I.S.P.E</h2>
+                <h3 class="framework-subtitle">角色, 见解, 声明, 个性, 实验</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><strong>CAPACITY AND ROLE (能力和角色):</strong> ChatGPT 扮演什么角色。</li>
+                    <li><strong>INSIGHT (见解):</strong> 提供见解、背景和上下文。</li>
+                    <li><strong>STATEMENT (声明):</strong> 你要求 ChatGPT 做什么。</li>
+                    <li><strong>PERSONALITY (个性):</strong> 你希望以何种风格、个性、方式回应。</li>
+                    <li><strong>EXPERIMENT (实验):</strong> 请求 ChatGPT 为你回复多个示例。</li>
+                </ul>
+            </div>
+
+            <div class="framework-card p-6">
+                <h2 class="framework-title">R.A.C.E</h2>
+                <h3 class="framework-subtitle">角色, 行动, 背景, 期望</h3>
+                <ul class="space-y-2 text-gray-700">
+                    <li><strong>ROLE (角色):</strong> 指定 ChatGPT 的角色。</li>
+                    <li><strong>ACTION (行动):</strong> 详细说明需要采取什么行动。</li>
+                    <li><strong>CONTEXT (上下文):</strong> 提供有关情况的相关细节。</li>
+                    <li><strong>EXPECTATION (期望):</strong> 描述预期结果。</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer class="text-center mt-10 md:mt-16 py-6 border-t border-gray-300">
+            <p class="text-gray-600">&copy; <script>document.write(new Date().getFullYear())</script> waytoAGI.com - 通往AGI之路</p>
+        </footer>
+    </div>
+</body>
+</html>
