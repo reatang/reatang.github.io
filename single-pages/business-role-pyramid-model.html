@@ -1,0 +1,713 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商业角色金字塔模型 | 交互式战略分析框架</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .pyramid-3d {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+        
+        .pyramid-level-3d {
+            position: relative;
+            margin: 0 auto;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            transform-origin: center;
+        }
+        
+        .pyramid-level-3d::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -10px;
+            right: -10px;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            clip-path: polygon(8% 0, 92% 0, 100% 100%, 0% 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .pyramid-level-3d:hover::before {
+            opacity: 1;
+        }
+        
+        .pyramid-level-3d:hover {
+            transform: scale(1.05) translateZ(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .glow-effect {
+            position: relative;
+        }
+        
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ffa600, #ff7c43, #f95d6a, #d45087);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .glow-effect:hover::after {
+            opacity: 0.7;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            height: 300px;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #ffa600, #ff7c43);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .interactive-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .interactive-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .interactive-card:hover::before {
+            left: 100%;
+        }
+        
+        .interactive-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .navigation-indicator {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 166, 0, 0.3);
+        }
+        
+        .nav-dot.active {
+            background: #ffa600;
+            box-shadow: 0 0 20px rgba(255, 166, 0, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-[#001122] via-[#003f5c] to-[#2f4b7c] text-white min-h-screen">
+
+    <!-- 导航指示器 -->
+    <div class="navigation-indicator hidden md:block">
+        <div class="nav-dot active" data-target="hero"></div>
+        <div class="nav-dot" data-target="pyramid-overview"></div>
+        <div class="nav-dot" data-target="level-1"></div>
+        <div class="nav-dot" data-target="level-2"></div>
+        <div class="nav-dot" data-target="level-3"></div>
+        <div class="nav-dot" data-target="level-4"></div>
+        <div class="nav-dot" data-target="dynamics"></div>
+    </div>
+
+    <header id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- 背景粒子效果 -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-[#ffa600] rounded-full floating-animation"></div>
+            <div class="absolute top-3/4 left-3/4 w-1 h-1 bg-[#ff7c43] rounded-full floating-animation" style="animation-delay: 2s;"></div>
+            <div class="absolute top-1/2 left-1/6 w-1.5 h-1.5 bg-[#f95d6a] rounded-full floating-animation" style="animation-delay: 4s;"></div>
+        </div>
+        
+        <div class="text-center px-4 z-10">
+            <h1 class="text-5xl md:text-8xl font-black tracking-tight mb-8">
+                <span class="gradient-text">商业角色</span><br>
+                <span class="text-white">金字塔模型</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed">
+                深度解析商业生态中的商业结构与价值分配<br>
+                <span class="text-[#ffa600] font-semibold">全景展示四个层级的商业角色体系</span>
+            </p>
+            <button onclick="scrollToPyramid()" class="glow-effect bg-gradient-to-r from-[#ffa600] to-[#ff7c43] text-white font-bold py-4 px-8 rounded-full text-lg hover:from-[#ff7c43] hover:to-[#f95d6a] transition-all duration-300 transform hover:scale-105">
+                开始探索 🚀
+            </button>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16">
+
+        <section id="pyramid-overview" class="mb-32">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 gradient-text">商业生态的四个层级</h2>
+            <p class="text-center text-xl text-gray-300 mb-16">商业生态中的层级结构与稀缺度分布</p>
+            
+            <div class="pyramid-3d max-w-5xl mx-auto">
+                <!-- 第四层：最小最稀缺 -->
+                <a href="#level-4" class="pyramid-level-3d bg-gradient-to-r from-[#665191] to-[#a05195] p-6 md:p-8 rounded-lg mb-3 max-w-md mx-auto shadow-2xl block">
+                    <div class="text-center">
+                        <div class="text-4xl mb-2">👑</div>
+                        <h3 class="text-xl md:text-2xl font-bold text-white">第四层：价值的定义与统治</h3>
+                        <p class="text-sm opacity-90 mt-2">制定游戏规则，定义何为"价值"</p>
+                        <div class="mt-4 text-xs bg-black bg-opacity-30 rounded-full px-3 py-1 inline-block">
+                            稀缺度: 极稀缺 ⭐⭐⭐⭐⭐
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- 第三层 -->
+                <a href="#level-3" class="pyramid-level-3d bg-gradient-to-r from-[#a05195] to-[#d45087] p-6 md:p-8 rounded-lg mb-3 max-w-2xl mx-auto shadow-2xl block">
+                    <div class="text-center">
+                        <div class="text-4xl mb-2">🏛️</div>
+                        <h3 class="text-xl md:text-2xl font-bold text-white">第三层：价值的组织与守护</h3>
+                        <p class="text-sm opacity-90 mt-2">构建复杂的生态系统</p>
+                        <div class="mt-4 text-xs bg-black bg-opacity-30 rounded-full px-3 py-1 inline-block">
+                            稀缺度: 稀缺 ⭐⭐⭐⭐
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- 第二层 -->
+                <a href="#level-2" class="pyramid-level-3d bg-gradient-to-r from-[#d45087] to-[#f95d6a] p-6 md:p-8 rounded-lg mb-3 max-w-3xl mx-auto shadow-2xl block">
+                    <div class="text-center">
+                        <div class="text-4xl mb-2">📈</div>
+                        <h3 class="text-xl md:text-2xl font-bold text-white">第二层：价值的流通与增效</h3>
+                        <p class="text-sm opacity-90 mt-2">构成繁荣的市场本身</p>
+                        <div class="mt-4 text-xs bg-black bg-opacity-30 rounded-full px-3 py-1 inline-block">
+                            稀缺度: 中等 ⭐⭐⭐
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- 第一层：最大最基础 -->
+                <a href="#level-1" class="pyramid-level-3d bg-gradient-to-r from-[#f95d6a] to-[#ff7c43] p-6 md:p-10 rounded-lg shadow-2xl max-w-4xl mx-auto block">
+                    <div class="text-center">
+                        <div class="text-4xl mb-2">🌍</div>
+                        <h3 class="text-xl md:text-2xl font-bold text-white">第一层：价值的基石</h3>
+                        <p class="text-sm opacity-90 mt-2">所有商业活动的原点</p>
+                        <div class="mt-4 text-xs bg-black bg-opacity-30 rounded-full px-3 py-1 inline-block">
+                            稀缺度: 普遍 ⭐⭐
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 第一层详细内容 -->
+        <section id="level-1" class="py-20">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                        <span class="text-6xl">🌍</span><br>
+                        <span class="gradient-text">第一层：价值的基石</span>
+                    </h2>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        这是所有商业活动的原点和基础，是价值产生的源头。在这一层，我们看到三种核心角色。
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="interactive-card bg-gradient-to-br from-[#2f4b7c] to-[#003f5c] p-8 rounded-2xl shadow-2xl">
+                        <div class="text-center">
+                            <div class="text-6xl mb-6">🛠️</div>
+                            <h3 class="text-2xl font-bold text-[#ffa600] mb-4">制者 (Creator)</h3>
+                            <p class="text-gray-200 leading-relaxed">
+                                创造产品与服务。从0到1，创造新价值，是价值链的起点。他们将想法转化为现实，为整个商业生态提供基础产品。
+                            </p>
+                            <div class="mt-6 p-3 bg-black bg-opacity-30 rounded-lg">
+                                <p class="text-sm text-[#ff7c43]">核心能力：创新、执行、产品化</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card bg-gradient-to-br from-[#2f4b7c] to-[#003f5c] p-8 rounded-2xl shadow-2xl">
+                        <div class="text-center">
+                            <div class="text-6xl mb-6">🚚</div>
+                            <h3 class="text-2xl font-bold text-[#ffa600] mb-4">担夫 (Distributor)</h3>
+                            <p class="text-gray-200 leading-relaxed">
+                                转移与分发价值。通过物流和渠道，解决商品的可及性问题。他们连接生产者和消费者，确保价值流动。
+                            </p>
+                            <div class="mt-6 p-3 bg-black bg-opacity-30 rounded-lg">
+                                <p class="text-sm text-[#ff7c43]">核心能力：物流、渠道、规模化</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card bg-gradient-to-br from-[#2f4b7c] to-[#003f5c] p-8 rounded-2xl shadow-2xl">
+                        <div class="text-center">
+                            <div class="text-6xl mb-6">🗺️</div>
+                            <h3 class="text-2xl font-bold text-[#ffa600] mb-4">探路者 (Explorer)</h3>
+                            <p class="text-gray-200 leading-relaxed">
+                                发现新资源与可能性。探索未知，为"制者"提供新的创造对象。他们开拓新市场，发现新机会。
+                            </p>
+                            <div class="mt-6 p-3 bg-black bg-opacity-30 rounded-lg">
+                                <p class="text-sm text-[#ff7c43]">核心能力：洞察、冒险、前瞻</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第二层详细内容 -->
+        <section id="level-2" class="py-20">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                        <span class="text-6xl">📈</span><br>
+                        <span class="gradient-text">第二层：价值的流通与增效</span>
+                    </h2>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        让价值流动更高效、形态更优化、连接更紧密，构成繁荣的市场本身。
+                    </p>
+                </div>
+                
+                <div class="interactive-card bg-gradient-to-br from-[#2f4b7c] to-[#003f5c] p-8 rounded-2xl shadow-2xl">
+                    <h3 class="text-2xl font-bold text-center mb-8 text-white">第二层角色市场普遍性对比</h3>
+                    <div class="chart-container">
+                        <canvas id="level2Chart"></canvas>
+                    </div>
+                    <p class="text-center mt-8 text-gray-300 leading-relaxed">
+                        图表展示了第二层各类角色的相对普遍程度。以交易为核心的"掮客"最为常见，而需要利用时间差进行复杂套利的"时间商人"则相对稀少。
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mt-12">
+                        <div class="bg-black bg-opacity-30 p-6 rounded-lg">
+                            <h4 class="text-lg font-bold text-[#ffa600] mb-3">🤝 掮客 (Broker)</h4>
+                            <p class="text-gray-200 text-sm">连接买卖双方，促成交易，从中获取佣金或差价。</p>
+                        </div>
+                        <div class="bg-black bg-opacity-30 p-6 rounded-lg">
+                            <h4 class="text-lg font-bold text-[#ffa600] mb-3">🏘️ 聚合者 (Community Builder)</h4>
+                            <p class="text-gray-200 text-sm">建立社区和平台，聚集用户和资源，创造网络效应。</p>
+                        </div>
+                        <div class="bg-black bg-opacity-30 p-6 rounded-lg">
+                            <h4 class="text-lg font-bold text-[#ffa600] mb-3">🧪 炼金士 (Alchemist)</h4>
+                            <p class="text-gray-200 text-sm">转换价值形态，将一种价值转化为另一种更有用的形态。</p>
+                        </div>
+                        <div class="bg-black bg-opacity-30 p-6 rounded-lg">
+                            <h4 class="text-lg font-bold text-[#ffa600] mb-3">⏰ 时间商人 (Time-Shifter)</h4>
+                            <p class="text-gray-200 text-sm">利用时间差进行套利，在不同时间点买入和卖出。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第三层详细内容 -->
+        <section id="level-3" class="py-20">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                        <span class="text-6xl">🏛️</span><br>
+                        <span class="gradient-text">第三层：价值的组织与守护</span>
+                    </h2>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        从宏观层面组织、调配和保护价值，构建复杂的生态系统。
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="interactive-card bg-gradient-to-br from-[#2f4b7c] to-[#003f5c] p-8 rounded-2xl shadow-2xl">
+                        <h3 class="text-xl font-bold text-center mb-6 text-white">🎼 指挥家：核心职能</h3>
+                        <div class="chart-container h-64">
+                            <canvas id="orchestratorChart"></canvas>
+                        </div>
+                        <p class="text-center mt-6 text-gray-300 text-sm leading-relaxed">
+                            "指挥家"的核心职能在于高效整合资源以协同完成复杂目标，在项目管理和战略规划上投入最多精力。
+                        </p>
+                    </div>
+                    
+                    <div class="interactive-card bg-gradient-to-br from-[#2f4b7c] to-[#003f5c] p-8 rounded-2xl shadow-2xl">
+                        <h3 class="text-xl font-bold text-center mb-6 text-white">🛡️ 守护者：核心职能</h3>
+                        <div class="chart-container h-64">
+                            <canvas id="guardianChart"></canvas>
+                        </div>
+                        <p class="text-center mt-6 text-gray-300 text-sm leading-relaxed">
+                            "守护者"致力于管理风险和提供安全保障，为整个商业生态的稳定存续提供承诺。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 第四层详细内容 -->
+        <section id="level-4" class="py-20">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                        <span class="text-6xl">👑</span><br>
+                        <span class="gradient-text">第四层：价值的定义与统治</span>
+                    </h2>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        制定游戏规则，定义何为"价值"，拥有最终话语权。这是商业生态的最高层级。
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="interactive-card bg-gradient-to-br from-[#665191] to-[#a05195] p-10 rounded-2xl shadow-2xl text-center glow-effect">
+                        <div class="text-4xl mb-4">⚖️</div>
+                        <h3 class="text-3xl font-bold mb-4">裁决者 (The Judge)</h3>
+                        <p class="text-lg opacity-90 mb-6">定义标准与信任</p>
+                        <div class="relative">
+                            <p class="text-6xl font-black text-[#ffa600] pulse-animation">100x</p>
+                            <p class="text-lg mt-2">影响力杠杆</p>
+                        </div>
+                        <p class="mt-6 text-gray-200 leading-relaxed">
+                            一个行业标准的制定，其影响力是单个产品的百倍以上。他们定义什么是"好"，什么是"对"的标准。
+                        </p>
+                        <div class="mt-8 p-4 bg-black bg-opacity-40 rounded-lg">
+                            <p class="text-sm text-[#ffa600]">
+                                <strong>商业来源：</strong>标准制定、认证体系、行业规范
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card bg-gradient-to-br from-[#a05195] to-[#d45087] p-10 rounded-2xl shadow-2xl text-center glow-effect">
+                        <div class="text-4xl mb-4">🌟</div>
+                        <h3 class="text-3xl font-bold mb-4">引路人 (The Luminary)</h3>
+                        <p class="text-lg opacity-90 mb-6">定义欲望与信仰</p>
+                        <div class="relative">
+                            <p class="text-6xl font-black text-[#ffa600] pulse-animation">1M+</p>
+                            <p class="text-lg mt-2">心智追随者</p>
+                        </div>
+                        <p class="mt-6 text-gray-200 leading-relaxed">
+                            一个强大的理念或愿景，能引领百万人的思想和消费行为。他们定义什么是"美好生活"的标准。
+                        </p>
+                        <div class="mt-8 p-4 bg-black bg-opacity-40 rounded-lg">
+                            <p class="text-sm text-[#ffa600]">
+                                <strong>商业来源：</strong>价值观塑造、文化引导、愿景创造
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="dynamics" class="py-20">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text">金字塔核心动力学</h2>
+            <div class="space-y-16">
+                <div class="interactive-card bg-gradient-to-br from-[#2f4b7c] to-[#003f5c] p-8 md:p-12 rounded-2xl shadow-2xl">
+                    <h3 class="text-3xl font-bold mb-6 text-[#ff7c43]">📊 稀缺性：向上攀登之路</h3>
+                    <p class="text-gray-300 mb-8 text-lg leading-relaxed">
+                        越往金字塔顶端，角色越稀缺，竞争也越激烈。这揭示了商业的集中过程，也解释了为什么顶层角色拥有如此巨大的影响力。
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="scarcityChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="interactive-card bg-gradient-to-br from-[#2f4b7c] to-[#003f5c] p-8 md:p-12 rounded-2xl shadow-2xl">
+                    <h3 class="text-3xl font-bold mb-6 text-[#ff7c43]">🚀 战略演进：企业的攀登之旅</h3>
+                    <p class="text-gray-300 mb-12 text-lg leading-relaxed">
+                        成功的企业战略，本质上就是沿着这座金字塔向上攀登，以获取更强的定价权和更稳固的护城河。每一步的跃升都代表着商业模式的根本性改变。
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="text-center p-6 bg-gradient-to-b from-[#ff7c43] to-[#f95d6a] rounded-xl">
+                            <div class="text-4xl mb-4">🌍</div>
+                            <h4 class="text-lg font-bold mb-2">第一步：制者</h4>
+                            <p class="text-sm opacity-90">创造一款伟大的产品</p>
+                            <div class="mt-4 text-xs bg-black bg-opacity-30 rounded-full px-3 py-1">
+                                基础阶段
+                            </div>
+                        </div>
+                        
+                        <div class="text-center p-6 bg-gradient-to-b from-[#d45087] to-[#a05195] rounded-xl">
+                            <div class="text-4xl mb-4">📈</div>
+                            <h4 class="text-lg font-bold mb-2">第二步：聚合者</h4>
+                            <p class="text-sm opacity-90">建立交易平台或社区</p>
+                            <div class="mt-4 text-xs bg-black bg-opacity-30 rounded-full px-3 py-1">
+                                扩张阶段
+                            </div>
+                        </div>
+                        
+                        <div class="text-center p-6 bg-gradient-to-b from-[#a05195] to-[#665191] rounded-xl">
+                            <div class="text-4xl mb-4">🏛️</div>
+                            <h4 class="text-lg font-bold mb-2">第三步：守护者</h4>
+                            <p class="text-sm opacity-90">保障平台安全与稳定</p>
+                            <div class="mt-4 text-xs bg-black bg-opacity-30 rounded-full px-3 py-1">
+                                稳固阶段
+                            </div>
+                        </div>
+                        
+                        <div class="text-center p-6 bg-gradient-to-b from-[#665191] to-[#2e1065] rounded-xl glow-effect">
+                            <div class="text-4xl mb-4">👑</div>
+                            <h4 class="text-lg font-bold mb-2">第四步：裁决者</h4>
+                            <p class="text-sm opacity-90">定义行业标准</p>
+                            <div class="mt-4 text-xs bg-black bg-opacity-30 rounded-full px-3 py-1">
+                                主导阶段
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12 p-6 bg-black bg-opacity-40 rounded-xl">
+                        <h4 class="text-xl font-bold text-[#ffa600] mb-4">💡 关键洞察</h4>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <span class="text-[#ff7c43] mr-3">•</span>
+                                <span>每个层级都需要掌握前一层级的核心能力</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#ff7c43] mr-3">•</span>
+                                <span>向上攀登需要重新定义价值创造方式</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#ff7c43] mr-3">•</span>
+                                <span>最成功的企业通常在多个层级同时运营</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-12 px-4 bg-gradient-to-t from-[#001122] to-[#003f5c] border-t border-gray-700">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-2xl font-bold text-[#ffa600] mb-4">商业角色金字塔模型</h3>
+            <p class="text-gray-400 mb-4">一个用于洞察商业生态、剖析商业结构并指导企业战略演进的强大分析框架</p>
+            <p class="text-sm text-gray-500">© 2025 全景式数据可视化呈现</p>
+        </div>
+    </footer>
+
+    <script>
+        // 图表配置
+        const chartColors = {
+            blue: '#003f5c',
+            navy: '#2f4b7c',
+            purple: '#665191',
+            magenta: '#a05195',
+            pink: '#d45087',
+            rose: '#f95d6a',
+            orange: '#ff7c43',
+            yellow: '#ffa600',
+        };
+
+        const globalChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ffffff',
+                        font: {
+                            size: 12,
+                            family: "'Noto Sans SC', sans-serif"
+                        }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleColor: '#ffa600',
+                    bodyColor: '#ffffff',
+                    borderColor: '#ffa600',
+                    borderWidth: 1
+                }
+            },
+            scales: {
+                y: {
+                    ticks: { color: '#ffffff', beginAtZero: true },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                },
+                x: {
+                    ticks: { color: '#ffffff' },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                }
+            }
+        };
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            const navDots = document.querySelectorAll('.nav-dot');
+            
+            // 导航点击事件
+            navDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const target = this.dataset.target;
+                    const element = document.getElementById(target);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+            
+            // 滚动监听更新导航指示器
+            window.addEventListener('scroll', updateNavigation);
+        });
+        
+        function scrollToPyramid() {
+            document.getElementById('pyramid-overview').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+        
+        function updateNavigation() {
+            const sections = ['hero', 'pyramid-overview', 'level-1', 'level-2', 'level-3', 'level-4', 'dynamics'];
+            const navDots = document.querySelectorAll('.nav-dot');
+            
+            sections.forEach((sectionId, index) => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 100 && rect.bottom >= 100) {
+                        navDots.forEach(dot => dot.classList.remove('active'));
+                        if (navDots[index]) {
+                            navDots[index].classList.add('active');
+                        }
+                    }
+                }
+            });
+        }
+
+        // 图表初始化
+        const level2Ctx = document.getElementById('level2Chart');
+        if (level2Ctx) {
+            new Chart(level2Ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['掮客\n(Broker)', '聚合者\n(Community Builder)', '炼金士\n(Alchemist)', '时间商人\n(Time-Shifter)'],
+                    datasets: [{
+                        label: '市场普遍性指数',
+                        data: [90, 65, 50, 25],
+                        backgroundColor: [chartColors.rose, chartColors.pink, chartColors.magenta, chartColors.purple],
+                        borderRadius: 8,
+                        borderSkipped: false,
+                    }]
+                },
+                options: { ...globalChartOptions }
+            });
+        }
+
+        const orchestratorCtx = document.getElementById('orchestratorChart');
+        if (orchestratorCtx) {
+            new Chart(orchestratorCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['资源整合', '协同目标', '项目管理', '战略规划'],
+                    datasets: [{
+                        data: [40, 25, 20, 15],
+                        backgroundColor: [chartColors.rose, chartColors.orange, chartColors.yellow, chartColors.pink],
+                        borderWidth: 0,
+                        hoverOffset: 8
+                    }]
+                },
+                options: { 
+                    ...globalChartOptions, 
+                    scales: {},
+                    cutout: '60%'
+                }
+            });
+        }
+        
+        const guardianCtx = document.getElementById('guardianChart');
+        if (guardianCtx) {
+            new Chart(guardianCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['风险管理', '安全保障', '生态稳定', '资产保护'],
+                    datasets: [{
+                        data: [50, 25, 15, 10],
+                        backgroundColor: [chartColors.rose, chartColors.orange, chartColors.yellow, chartColors.pink],
+                        borderWidth: 0,
+                        hoverOffset: 8
+                    }]
+                },
+                options: { 
+                    ...globalChartOptions, 
+                    scales: {},
+                    cutout: '60%'
+                }
+            });
+        }
+
+        const scarcityCtx = document.getElementById('scarcityChart');
+        if (scarcityCtx) {
+            new Chart(scarcityCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['第一层：基石', '第二层：流通增效', '第三层：组织守护', '第四层：定义统治'],
+                    datasets: [{
+                        label: '角色数量（对数标度）',
+                        data: [1000000, 10000, 500, 10],
+                        backgroundColor: [chartColors.rose, chartColors.pink, chartColors.magenta, chartColors.purple],
+                        borderRadius: 8,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    ...globalChartOptions,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            type: 'logarithmic',
+                            ticks: { color: '#ffffff' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        },
+                        y: {
+                             ticks: { color: '#ffffff' },
+                             grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
