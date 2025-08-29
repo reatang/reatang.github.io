@@ -1,0 +1,203 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="简介 OpenTelemetry 是一个开源的可观测性框架，它提供了统一的方式来收集、处理和导出遥测数据（包括 traces、metrics 和 logs）。在使用 OpenAI API 进行AI应用开发时，通过集成 OpenTelemetry 可以帮助我们：\n"><title>【AI】OpenAI 使用 Opentelemetry 进行链路监控</title><link rel=canonical href=https://reatang.com/p/openai-use-opentelemetry/><link rel=stylesheet href=/scss/style.min.70de9a5806adafec995edfe9c59ee64f39ef06517e48d566b1b78f78eb799060.css><meta property='og:title' content="【AI】OpenAI 使用 Opentelemetry 进行链路监控"><meta property='og:description' content="简介 OpenTelemetry 是一个开源的可观测性框架，它提供了统一的方式来收集、处理和导出遥测数据（包括 traces、metrics 和 logs）。在使用 OpenAI API 进行AI应用开发时，通过集成 OpenTelemetry 可以帮助我们：\n"><meta property='og:url' content='https://reatang.com/p/openai-use-opentelemetry/'><meta property='og:site_name' content='雨的味道'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='库'><meta property='article:published_time' content='2025-08-29T18:54:45+08:00'><meta property='article:modified_time' content='2025-08-29T18:54:45+08:00'><meta name=twitter:title content="【AI】OpenAI 使用 Opentelemetry 进行链路监控"><meta name=twitter:description content="简介 OpenTelemetry 是一个开源的可观测性框架，它提供了统一的方式来收集、处理和导出遥测数据（包括 traces、metrics 和 logs）。在使用 OpenAI API 进行AI应用开发时，通过集成 OpenTelemetry 可以帮助我们：\n"><link rel="shortcut icon" href=/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu_74879d3d9960cbc5.png width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>📚</span></figure><div class=site-meta><h1 class=site-name><a href=/>雨的味道</a></h1><h2 class=site-description>只是钻研了一些技术.</h2></div></header><ol class=menu-social><li><a href=https://github.com/reatang target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://weibo.com/reatang target=_blank title=Weibo rel=me><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-weibo"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19 14.127C19 17.2 15.498 20 11 20c-4.126.0-8-2.224-8-5.565.0-1.78.984-3.737 2.7-5.567 2.362-2.51 5.193-3.687 6.551-2.238.415.44.752 1.39.749 2.062 2-1.615 4.308.387 3.5 2.693 1.26.557 2.5.538 2.5 2.742z"/><path d="M15 4h1a5 5 0 015 5v1"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>主页</span></a></li><li><a href=/single-pages/><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-notebook"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4h11a2 2 0 012 2v12a2 2 0 01-2 2H6a1 1 0 01-1-1V5a1 1 0 011-1m3 0v18"/><path d="M13 8h2"/><path d="M13 12h2"/></svg>
+<span>单页知识</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>归档文章</span></a></li><li><a href=/good-package/><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-books"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4m0 1a1 1 0 011-1h2a1 1 0 011 1v14a1 1 0 01-1 1H6a1 1 0 01-1-1z"/><path d="M9 4m0 1a1 1 0 011-1h2a1 1 0 011 1v14a1 1 0 01-1 1h-2a1 1 0 01-1-1z"/><path d="M5 8h4"/><path d="M9 16h4"/><path d="M13.803 4.56l2.184-.53c.562-.135 1.133.19 1.282.732l3.695 13.418a1.02 1.02.0 01-.634 1.219l-.133.041-2.184.53c-.562.135-1.133-.19-1.282-.732L13.036 5.82a1.02 1.02.0 01.634-1.219l.133-.041z"/><path d="M14 9l4-1"/><path d="M16 16l3.923-.98"/></svg>
+<span>好东西传送门</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>搜索</span></a></li><li><a href=/%E5%85%B3%E4%BA%8E%E6%88%91/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>关于我</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#简介>简介</a></li><li><a href=#环境准备>环境准备</a><ol><li><a href=#1-安装依赖包>1. 安装依赖包</a></li><li><a href=#2-api-密钥配置>2. API 密钥配置</a></li></ol></li><li><a href=#实现步骤>实现步骤</a><ol><li><a href=#步骤1初始化-opentelemetry>步骤1：初始化 OpenTelemetry</a></li><li><a href=#步骤2配置数据导出器>步骤2：配置数据导出器</a></li><li><a href=#步骤3安装-openai-插件>步骤3：安装 OpenAI 插件</a></li><li><a href=#步骤4使用-openai-sdk>步骤4：使用 OpenAI SDK</a></li></ol></li><li><a href=#版本说明>版本说明</a><ol><li><a href=#v1-vs-v2-插件对比>V1 vs V2 插件对比</a></li></ol></li><li><a href=#最终代码>最终代码</a></li><li><a href=#后记>后记</a></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/ai/>AI</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/openai-use-opentelemetry/>【AI】OpenAI 使用 Opentelemetry 进行链路监控</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2025-08-29</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 3 分钟</time></div></footer></div></header><section class=article-content><h2 id=简介>简介</h2><p>OpenTelemetry 是一个开源的可观测性框架，它提供了统一的方式来收集、处理和导出遥测数据（包括 traces、metrics 和 logs）。在使用 OpenAI API 进行AI应用开发时，通过集成 OpenTelemetry 可以帮助我们：</p><ul><li><strong>监控API调用性能</strong>：跟踪每次 API 调用的延迟、成功率等关键指标</li><li><strong>调试和排错</strong>：通过链路追踪快速定位问题所在</li><li><strong>成本分析</strong>：监控 token 使用量，优化成本控制</li><li><strong>系统可观测性</strong>：将 AI 调用链路与整个应用系统的监控体系集成</li></ul><h2 id=环境准备>环境准备</h2><h3 id=1-安装依赖包>1. 安装依赖包</h3><p>首先需要安装 OpenTelemetry 相关的依赖包：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 核心 OpenTelemetry 包</span>
+</span></span><span class=line><span class=cl>pip install opentelemetry-api opentelemetry-sdk
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># OpenAI SDK</span>
+</span></span><span class=line><span class=cl>pip install openai
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># OpenAI 的 OpenTelemetry 插件</span>
+</span></span><span class=line><span class=cl>pip install opentelemetry-instrumentation-openai
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 其他依赖</span>
+</span></span><span class=line><span class=cl>pip install rich  <span class=c1># 用于美化输出</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=2-api-密钥配置>2. API 密钥配置</h3><p>确保你已经获取了相应的 API 密钥，并设置为环境变量：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 如果使用 OpenAI</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>OPENAI_API_KEY</span><span class=o>=</span><span class=s2>&#34;your-openai-api-key&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 如果使用阿里云通义千问（本例使用）</span>
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>QWEN_API_KEY</span><span class=o>=</span><span class=s2>&#34;your-qwen-api-key&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=实现步骤>实现步骤</h2><h3 id=步骤1初始化-opentelemetry>步骤1：初始化 OpenTelemetry</h3><p>OpenTelemetry 的初始化包括以下几个关键组件：</p><ul><li><strong>Resource</strong>：定义服务的基本信息（服务名、版本等）</li><li><strong>TracerProvider</strong>：负责创建和管理 tracer</li><li><strong>SpanProcessor</strong>：处理和导出 span 数据</li><li><strong>Exporter</strong>：将遥测数据导出到指定目标</li></ul><h3 id=步骤2配置数据导出器>步骤2：配置数据导出器</h3><p>支持多种导出方式：</p><ul><li><strong>ConsoleSpanExporter</strong>：将数据输出到控制台，适用于开发和调试</li><li><strong>OTLPSpanExporter</strong>：通过 OTLP 协议导出到收集器，适用于生产环境</li><li><strong>JaegerExporter</strong>：直接导出到 Jaeger</li><li><strong>ZipkinExporter</strong>：直接导出到 Zipkin</li></ul><h3 id=步骤3安装-openai-插件>步骤3：安装 OpenAI 插件</h3><p>OpenTelemetry 提供了专门的 OpenAI 插件来自动监控 API 调用：</p><ul><li><strong>opentelemetry-instrumentation-openai</strong>：V1版本，稳定可用</li><li><strong>opentelemetry-instrumentation-openai-v2</strong>：V2版本，功能更丰富但仍在完善中</li></ul><h3 id=步骤4使用-openai-sdk>步骤4：使用 OpenAI SDK</h3><p>启用插件后，所有的 OpenAI API 调用都会自动生成相应的 span，包含以下信息：</p><ul><li>请求和响应的详细信息</li><li>执行时间</li><li>token 使用量</li><li>错误信息（如果有）</li></ul><h2 id=版本说明>版本说明</h2><h3 id=v1-vs-v2-插件对比>V1 vs V2 插件对比</h3><div class=table-wrapper><table><thead><tr><th>特性</th><th>V1版本</th><th>V2版本</th></tr></thead><tbody><tr><td>稳定性</td><td>稳定，生产可用</td><td>开发中，不建议生产使用</td></tr><tr><td>数据捕获</td><td>默认捕获详细内容</td><td>默认不捕获敏感内容，需手动开启</td></tr><tr><td>日志支持</td><td>使用 SpanEvent</td><td>支持新的 Log 概念</td></tr><tr><td>OpenAI SDK 兼容性</td><td>1.30 以下版本</td><td>1.30 ~ 1.35 版本</td></tr></tbody></table></div><h2 id=最终代码>最终代码</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>rich</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>openai</span> <span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=n>OpenAI</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>opentelemetry</span> <span class=kn>import</span> <span class=n>trace</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>opentelemetry.sdk.resources</span> <span class=kn>import</span> <span class=n>Resource</span><span class=p>,</span> <span class=n>SERVICE_NAME</span><span class=p>,</span> <span class=n>SERVICE_VERSION</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>opentelemetry.sdk.trace</span> <span class=kn>import</span> <span class=n>TracerProvider</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>opentelemetry.sdk.trace.export</span> <span class=kn>import</span> <span class=p>(</span><span class=n>BatchSpanProcessor</span><span class=p>,</span> <span class=n>ConsoleSpanExporter</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>opentelemetry.sdk.trace.sampling</span> <span class=kn>import</span> <span class=n>DEFAULT_ON</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>base_resource</span> <span class=o>=</span> <span class=n>Resource</span><span class=o>.</span><span class=n>create</span><span class=p>(</span><span class=n>attributes</span><span class=o>=</span><span class=p>{</span><span class=n>SERVICE_NAME</span><span class=p>:</span> <span class=s2>&#34;my-service&#34;</span><span class=p>,</span> <span class=n>SERVICE_VERSION</span><span class=p>:</span> <span class=s2>&#34;0.1.0&#34;</span><span class=p>})</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>tracer_provider</span> <span class=o>=</span> <span class=n>TracerProvider</span><span class=p>(</span><span class=n>resource</span><span class=o>=</span><span class=n>base_resource</span><span class=p>,</span> <span class=n>sampler</span><span class=o>=</span><span class=n>DEFAULT_ON</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>otel_exporter</span> <span class=o>=</span> <span class=n>ConsoleSpanExporter</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>span_processor</span> <span class=o>=</span> <span class=n>BatchSpanProcessor</span><span class=p>(</span><span class=n>otel_exporter</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>tracer_provider</span><span class=o>.</span><span class=n>add_span_processor</span><span class=p>(</span><span class=n>span_processor</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 可以初始化GRPC等其他类型的Remote采样导出器</span>
+</span></span><span class=line><span class=cl><span class=c1># from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter</span>
+</span></span><span class=line><span class=cl><span class=c1># otlp_exporter = OTLPSpanExporter(endpoint=&#34;your-collector:4317&#34;, insecure=True)</span>
+</span></span><span class=line><span class=cl><span class=c1># span_processor = BatchSpanProcessor(otlp_exporter)</span>
+</span></span><span class=line><span class=cl><span class=c1># tracer_provider.add_span_processor(span_processor)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 全局注册</span>
+</span></span><span class=line><span class=cl><span class=n>trace</span><span class=o>.</span><span class=n>set_tracer_provider</span><span class=p>(</span><span class=n>tracer_provider</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 如果要使用 V2 需要额外的配置，新版的otel有了日志的概念所以将event作为log的一部分，区别于V1中将日志存放于的SpanEvent</span>
+</span></span><span class=line><span class=cl><span class=c1># v2 2.1b0 兼容到 1.30 ~ 1.35，1.36对log有改动，LogRecord 被标记为过时的</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>instrument_v2</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 与V1版本正好相反，V2 需主动打开详细日志监控，以免泄露敏感数据</span>
+</span></span><span class=line><span class=cl>    <span class=n>os</span><span class=o>.</span><span class=n>environ</span><span class=p>[</span><span class=s2>&#34;OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s2>&#34;true&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kn>from</span> <span class=nn>opentelemetry</span> <span class=kn>import</span> <span class=n>_events</span><span class=p>,</span> <span class=n>_logs</span>
+</span></span><span class=line><span class=cl>    <span class=kn>from</span> <span class=nn>opentelemetry.sdk._logs</span> <span class=kn>import</span> <span class=n>LoggerProvider</span>
+</span></span><span class=line><span class=cl>    <span class=kn>from</span> <span class=nn>opentelemetry.sdk._logs.export</span> <span class=kn>import</span> <span class=n>ConsoleLogExporter</span><span class=p>,</span> <span class=n>BatchLogRecordProcessor</span>
+</span></span><span class=line><span class=cl>    <span class=kn>from</span> <span class=nn>opentelemetry.sdk._events</span> <span class=kn>import</span> <span class=n>EventLoggerProvider</span><span class=p>,</span> <span class=n>EventLogger</span>
+</span></span><span class=line><span class=cl>    <span class=n>_logs</span><span class=o>.</span><span class=n>set_logger_provider</span><span class=p>(</span><span class=n>LoggerProvider</span><span class=p>(</span><span class=n>resource</span><span class=o>=</span><span class=n>base_resource</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=n>_logs</span><span class=o>.</span><span class=n>get_logger_provider</span><span class=p>()</span><span class=o>.</span><span class=n>add_log_record_processor</span><span class=p>(</span><span class=n>BatchLogRecordProcessor</span><span class=p>(</span><span class=n>ConsoleLogExporter</span><span class=p>()))</span>
+</span></span><span class=line><span class=cl>    <span class=n>_events</span><span class=o>.</span><span class=n>set_event_logger_provider</span><span class=p>(</span><span class=n>EventLoggerProvider</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kn>from</span> <span class=nn>opentelemetry.instrumentation.openai_v2</span> <span class=kn>import</span> <span class=n>OpenAIInstrumentor</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>OpenAIInstrumentor</span><span class=p>()</span><span class=o>.</span><span class=n>instrument</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>instrument_v1</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=kn>from</span> <span class=nn>opentelemetry.instrumentation.openai</span> <span class=kn>import</span> <span class=n>OpenAIInstrumentor</span>
+</span></span><span class=line><span class=cl>    <span class=n>OpenAIInstrumentor</span><span class=p>()</span><span class=o>.</span><span class=n>instrument</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>instrument_v1</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>client</span> <span class=o>=</span> <span class=n>OpenAI</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=n>api_key</span><span class=o>=</span><span class=n>os</span><span class=o>.</span><span class=n>getenv</span><span class=p>(</span><span class=s2>&#34;QWEN_API_KEY&#34;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=n>base_url</span><span class=o>=</span><span class=s2>&#34;https://dashscope.aliyuncs.com/compatible-mode/v1&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>model</span><span class=o>=</span><span class=s2>&#34;qwen-plus&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>stream</span> <span class=o>=</span> <span class=n>client</span><span class=o>.</span><span class=n>chat</span><span class=o>.</span><span class=n>completions</span><span class=o>.</span><span class=n>create</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=n>model</span><span class=o>=</span><span class=n>model</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>temperature</span><span class=o>=</span><span class=mf>0.3</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>messages</span><span class=o>=</span><span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span><span class=s2>&#34;role&#34;</span><span class=p>:</span> <span class=s2>&#34;system&#34;</span><span class=p>,</span> <span class=s2>&#34;content&#34;</span><span class=p>:</span> <span class=s2>&#34;你是一名乐于助人的AI助手,请根据用户的问题给出回答.&#34;</span><span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span><span class=s2>&#34;role&#34;</span><span class=p>:</span> <span class=s2>&#34;user&#34;</span><span class=p>,</span> <span class=s2>&#34;content&#34;</span><span class=p>:</span> <span class=s2>&#34;你好&#34;</span><span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>],</span>
+</span></span><span class=line><span class=cl>    <span class=n>extra_body</span><span class=o>=</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;enable_thinking&#34;</span><span class=p>:</span> <span class=kc>False</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=n>stream</span><span class=o>=</span><span class=kc>True</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>chunk</span> <span class=ow>in</span> <span class=n>stream</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># rich.print(chunk, end=&#34;&#34;, flush=True)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>chunk</span><span class=o>.</span><span class=n>choices</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>.</span><span class=n>delta</span><span class=o>.</span><span class=n>content</span><span class=p>,</span> <span class=n>end</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>,</span> <span class=n>flush</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=后记>后记</h2><p>langgraph框架也是可以使用Opentelemetry来代替langsmith的部分能力</p></section><footer class=article-footer><section class=article-tags><a href=/tags/%E5%BA%93/>库</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/p/26-key-points-for-developing-agents/><div class=article-details><h2 class=article-title>[AI Agent]开发智能体的26个关键要点</h2></div></a></article><article><a href=/p/analysis-system-business/><div class=article-details><h2 class=article-title>[Prompt]使用AI分析系统的业务逻辑和架构</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
+2017 -
+2025 雨的味道</section><section class=powerby><a style=display:none href=https://beian.miit.gov.cn/ target=_blank>晋ICP备15000230号-1</a><br>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

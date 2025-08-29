@@ -134,130 +134,130 @@
 </span><span class=lnt>121
 </span><span class=lnt>122
 </span><span class=lnt>123
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>package</span> <span class=nx>logic</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;context&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;errors&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;math/rand&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;strconv&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;time&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/go-redis/redis/v8&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/zeromicro/go-zero/core/logx&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/zeromicro/go-zero/core/syncx&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;reatang_demo_rpc/demo_rpc&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;reatang_demo_rpc/internal/svc&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;google.golang.org/grpc&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;google.golang.org/grpc/metadata&#34;</span>
-</span></span><span class=line><span class=cl><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1>// 全局初始化一个SingleFlight组件</span>
-</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>redisCacheSingleFlight</span> <span class=nx>syncx</span><span class=p>.</span><span class=nx>SingleFlight</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>init</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>redisCacheSingleFlight</span> <span class=p>=</span> <span class=nx>syncx</span><span class=p>.</span><span class=nf>NewSingleFlight</span><span class=p>()</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>RedisCacheLogic</span> <span class=kd>struct</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>ctx</span>    <span class=nx>context</span><span class=p>.</span><span class=nx>Context</span>
-</span></span><span class=line><span class=cl>	<span class=nx>svcCtx</span> <span class=o>*</span><span class=nx>svc</span><span class=p>.</span><span class=nx>ServiceContext</span>
-</span></span><span class=line><span class=cl>	<span class=nx>logx</span><span class=p>.</span><span class=nx>Logger</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>NewRedisCacheLogic</span><span class=p>(</span><span class=nx>ctx</span> <span class=nx>context</span><span class=p>.</span><span class=nx>Context</span><span class=p>,</span> <span class=nx>svcCtx</span> <span class=o>*</span><span class=nx>svc</span><span class=p>.</span><span class=nx>ServiceContext</span><span class=p>)</span> <span class=o>*</span><span class=nx>RedisCacheLogic</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=o>&amp;</span><span class=nx>RedisCacheLogic</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=nx>ctx</span><span class=p>:</span>    <span class=nx>ctx</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=nx>svcCtx</span><span class=p>:</span> <span class=nx>svcCtx</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=nx>Logger</span><span class=p>:</span> <span class=nx>logx</span><span class=p>.</span><span class=nf>WithContext</span><span class=p>(</span><span class=nx>ctx</span><span class=p>),</span>
-</span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1>// RedisCache 第一种：完全使用 SingleFlight 承压</span>
-</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>RedisCacheLogic</span><span class=p>)</span> <span class=nf>RedisCache</span><span class=p>(</span><span class=nx>in</span> <span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Request</span><span class=p>)</span> <span class=p>(</span><span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Response</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>cacheKey</span> <span class=o>:=</span> <span class=s>&#34;cache:&#34;</span> <span class=o>+</span> <span class=nx>in</span><span class=p>.</span><span class=nf>GetPing</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=c1>// 直接使用 SingleFlight 减少 redis和db的压力</span>
-</span></span><span class=line><span class=cl>	<span class=nx>result</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>redisCacheSingleFlight</span><span class=p>.</span><span class=nf>Do</span><span class=p>(</span><span class=nx>cacheKey</span><span class=p>,</span> <span class=kd>func</span><span class=p>()</span> <span class=p>(</span><span class=kt>any</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=kd>var</span> <span class=nx>data</span> <span class=kt>string</span>
-</span></span><span class=line><span class=cl>		
-</span></span><span class=line><span class=cl>		<span class=c1>// 1、读取 cache</span>
-</span></span><span class=line><span class=cl>		<span class=nx>data</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>Get</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>cacheKey</span><span class=p>).</span><span class=nf>Result</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=o>&amp;&amp;</span> <span class=p>!</span><span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span> <span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=s>&#34;&#34;</span><span class=p>,</span> <span class=nx>err</span>
-</span></span><span class=line><span class=cl>		<span class=p>}</span>
-</span></span><span class=line><span class=cl>	
-</span></span><span class=line><span class=cl>		<span class=c1>// 数据不存在或者过期</span>
-</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span> <span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=c1>// 2、查询数据库</span>
-</span></span><span class=line><span class=cl>			<span class=nx>data</span> <span class=p>=</span> <span class=nx>strconv</span><span class=p>.</span><span class=nf>Itoa</span><span class=p>(</span><span class=nx>rand</span><span class=p>.</span><span class=nf>Int</span><span class=p>())</span> <span class=c1>// 模拟查询</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>			<span class=c1>// 3、缓存数据</span>
-</span></span><span class=line><span class=cl>			<span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>SetEX</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>cacheKey</span><span class=p>,</span> <span class=nx>data</span><span class=p>,</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=o>*</span><span class=mi>5</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>			<span class=c1>// （可选）标记读取了源数据</span>
-</span></span><span class=line><span class=cl>			<span class=nx>header</span> <span class=o>:=</span> <span class=nx>metadata</span><span class=p>.</span><span class=nf>Pairs</span><span class=p>(</span><span class=s>&#34;reload-cache&#34;</span><span class=p>,</span> <span class=s>&#34;true&#34;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>			<span class=nx>_</span> <span class=p>=</span> <span class=nx>grpc</span><span class=p>.</span><span class=nf>SendHeader</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>header</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>		<span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>		<span class=c1>// 4、返回数据</span>
-</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>data</span><span class=p>,</span> <span class=kc>nil</span>
-</span></span><span class=line><span class=cl>	<span class=p>})</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
-</span></span><span class=line><span class=cl>	<span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=o>&amp;</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Response</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Pong</span><span class=p>:</span> <span class=nx>result</span><span class=p>.(</span><span class=kt>string</span><span class=p>),</span>
-</span></span><span class=line><span class=cl>		<span class=p>},</span> <span class=kc>nil</span>
-</span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1>// RedisCache2 第二种：redis承压，SingleFlight保护DB</span>
-</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>RedisCacheLogic</span><span class=p>)</span> <span class=nf>RedisCache2</span><span class=p>(</span><span class=nx>in</span> <span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Request</span><span class=p>)</span> <span class=p>(</span><span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Response</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>cacheKey</span> <span class=o>:=</span> <span class=s>&#34;cache2:&#34;</span> <span class=o>+</span> <span class=nx>in</span><span class=p>.</span><span class=nf>GetKey</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>	<span class=kd>var</span> <span class=nx>data</span> <span class=kt>string</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=c1>// 读取 cache</span>
-</span></span><span class=line><span class=cl>	<span class=nx>cacheResult</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>Get</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>cacheKey</span><span class=p>).</span><span class=nf>Result</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=o>&amp;&amp;</span> <span class=p>!</span><span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span> <span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
-</span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span> <span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=c1>// 没有读取到缓存，执行单飞让并发请求中的一个请求去读取，其他请求等待</span>
-</span></span><span class=line><span class=cl>		<span class=nx>result</span><span class=p>,</span> <span class=nx>_</span> <span class=o>:=</span> <span class=nx>redisCacheSingleFlight</span><span class=p>.</span><span class=nf>Do</span><span class=p>(</span><span class=nx>cacheKey</span><span class=p>,</span> <span class=kd>func</span><span class=p>()</span> <span class=p>(</span><span class=kt>any</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=c1>// 1、查询数据库</span>
-</span></span><span class=line><span class=cl>			<span class=nx>dbData</span> <span class=o>:=</span> <span class=nx>strconv</span><span class=p>.</span><span class=nf>Itoa</span><span class=p>(</span><span class=nx>rand</span><span class=p>.</span><span class=nf>Int</span><span class=p>())</span> <span class=c1>// 模拟查询</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>			<span class=c1>// 2、缓存数据</span>
-</span></span><span class=line><span class=cl>			<span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>SetEX</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>cacheKey</span><span class=p>,</span> <span class=nx>dbData</span><span class=p>,</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=o>*</span><span class=mi>5</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>			<span class=c1>// （可选）标记读取了源数据</span>
-</span></span><span class=line><span class=cl>			<span class=nx>header</span> <span class=o>:=</span> <span class=nx>metadata</span><span class=p>.</span><span class=nf>Pairs</span><span class=p>(</span><span class=s>&#34;reload-cache&#34;</span><span class=p>,</span> <span class=s>&#34;true&#34;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>			<span class=nx>_</span> <span class=p>=</span> <span class=nx>grpc</span><span class=p>.</span><span class=nf>SendHeader</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>header</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>			<span class=c1>// （可选）暂停10ms，防止有请求瞬间未读取到redis数据，</span>
-</span></span><span class=line><span class=cl>			<span class=c1>// 也错过SingleFlight数据，导致SingleFlight又被唤醒</span>
-</span></span><span class=line><span class=cl>			<span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>10</span> <span class=o>*</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Millisecond</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>			<span class=c1>// 3、返回数据</span>
-</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=nx>dbData</span><span class=p>,</span> <span class=kc>nil</span>
-</span></span><span class=line><span class=cl>		<span class=p>})</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>		<span class=c1>// 此处所有在等待的请求都会得到同样的数据</span>
-</span></span><span class=line><span class=cl>		<span class=nx>data</span> <span class=p>=</span> <span class=nx>result</span><span class=p>.(</span><span class=kt>string</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>	<span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=c1>// 读取到了缓存</span>
-</span></span><span class=line><span class=cl>		<span class=nx>data</span> <span class=p>=</span> <span class=nx>cacheResult</span>
-</span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=o>&amp;</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Response</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=nx>Pong</span><span class=p>:</span> <span class=nx>data</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>	<span class=p>},</span> <span class=kc>nil</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/%E5%BA%93/>库</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>package</span><span class=w> </span><span class=nx>logic</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;context&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;errors&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;math/rand&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;strconv&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;time&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;github.com/go-redis/redis/v8&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;github.com/zeromicro/go-zero/core/logx&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;github.com/zeromicro/go-zero/core/syncx&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;reatang_demo_rpc/demo_rpc&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;reatang_demo_rpc/internal/svc&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;google.golang.org/grpc&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;google.golang.org/grpc/metadata&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 全局初始化一个SingleFlight组件</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>var</span><span class=w> </span><span class=nx>redisCacheSingleFlight</span><span class=w> </span><span class=nx>syncx</span><span class=p>.</span><span class=nx>SingleFlight</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>init</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>redisCacheSingleFlight</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>syncx</span><span class=p>.</span><span class=nf>NewSingleFlight</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>RedisCacheLogic</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>ctx</span><span class=w>    </span><span class=nx>context</span><span class=p>.</span><span class=nx>Context</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>svcCtx</span><span class=w> </span><span class=o>*</span><span class=nx>svc</span><span class=p>.</span><span class=nx>ServiceContext</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>logx</span><span class=p>.</span><span class=nx>Logger</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>NewRedisCacheLogic</span><span class=p>(</span><span class=nx>ctx</span><span class=w> </span><span class=nx>context</span><span class=p>.</span><span class=nx>Context</span><span class=p>,</span><span class=w> </span><span class=nx>svcCtx</span><span class=w> </span><span class=o>*</span><span class=nx>svc</span><span class=p>.</span><span class=nx>ServiceContext</span><span class=p>)</span><span class=w> </span><span class=o>*</span><span class=nx>RedisCacheLogic</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>RedisCacheLogic</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>ctx</span><span class=p>:</span><span class=w>    </span><span class=nx>ctx</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>svcCtx</span><span class=p>:</span><span class=w> </span><span class=nx>svcCtx</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>Logger</span><span class=p>:</span><span class=w> </span><span class=nx>logx</span><span class=p>.</span><span class=nf>WithContext</span><span class=p>(</span><span class=nx>ctx</span><span class=p>),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// RedisCache 第一种：完全使用 SingleFlight 承压</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=p>(</span><span class=nx>l</span><span class=w> </span><span class=o>*</span><span class=nx>RedisCacheLogic</span><span class=p>)</span><span class=w> </span><span class=nf>RedisCache</span><span class=p>(</span><span class=nx>in</span><span class=w> </span><span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Request</span><span class=p>)</span><span class=w> </span><span class=p>(</span><span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Response</span><span class=p>,</span><span class=w> </span><span class=kt>error</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>cacheKey</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=s>&#34;cache:&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=nx>in</span><span class=p>.</span><span class=nf>GetPing</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// 直接使用 SingleFlight 减少 redis和db的压力</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>result</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>redisCacheSingleFlight</span><span class=p>.</span><span class=nf>Do</span><span class=p>(</span><span class=nx>cacheKey</span><span class=p>,</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>(</span><span class=kt>any</span><span class=p>,</span><span class=w> </span><span class=kt>error</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=kd>var</span><span class=w> </span><span class=nx>data</span><span class=w> </span><span class=kt>string</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 1、读取 cache</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>data</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>Get</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span><span class=w> </span><span class=nx>cacheKey</span><span class=p>).</span><span class=nf>Result</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=p>!</span><span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span><span class=w> </span><span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=s>&#34;&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 数据不存在或者过期</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span><span class=w> </span><span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=c1>// 2、查询数据库</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nx>data</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>strconv</span><span class=p>.</span><span class=nf>Itoa</span><span class=p>(</span><span class=nx>rand</span><span class=p>.</span><span class=nf>Int</span><span class=p>())</span><span class=w> </span><span class=c1>// 模拟查询</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=c1>// 3、缓存数据</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>SetEX</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span><span class=w> </span><span class=nx>cacheKey</span><span class=p>,</span><span class=w> </span><span class=nx>data</span><span class=p>,</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=o>*</span><span class=mi>5</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=c1>// （可选）标记读取了源数据</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nx>header</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>metadata</span><span class=p>.</span><span class=nf>Pairs</span><span class=p>(</span><span class=s>&#34;reload-cache&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;true&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nx>_</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>grpc</span><span class=p>.</span><span class=nf>SendHeader</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span><span class=w> </span><span class=nx>header</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 4、返回数据</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=nx>data</span><span class=p>,</span><span class=w> </span><span class=kc>nil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>})</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=kc>nil</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Response</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nx>Pong</span><span class=p>:</span><span class=w> </span><span class=nx>result</span><span class=p>.(</span><span class=kt>string</span><span class=p>),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>},</span><span class=w> </span><span class=kc>nil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// RedisCache2 第二种：redis承压，SingleFlight保护DB</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=p>(</span><span class=nx>l</span><span class=w> </span><span class=o>*</span><span class=nx>RedisCacheLogic</span><span class=p>)</span><span class=w> </span><span class=nf>RedisCache2</span><span class=p>(</span><span class=nx>in</span><span class=w> </span><span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Request</span><span class=p>)</span><span class=w> </span><span class=p>(</span><span class=o>*</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Response</span><span class=p>,</span><span class=w> </span><span class=kt>error</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>cacheKey</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=s>&#34;cache2:&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=nx>in</span><span class=p>.</span><span class=nf>GetKey</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>var</span><span class=w> </span><span class=nx>data</span><span class=w> </span><span class=kt>string</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// 读取 cache</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>cacheResult</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>Get</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span><span class=w> </span><span class=nx>cacheKey</span><span class=p>).</span><span class=nf>Result</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=p>!</span><span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span><span class=w> </span><span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=kc>nil</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>errors</span><span class=p>.</span><span class=nf>Is</span><span class=p>(</span><span class=nx>err</span><span class=p>,</span><span class=w> </span><span class=nx>redis</span><span class=p>.</span><span class=nx>Nil</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 没有读取到缓存，执行单飞让并发请求中的一个请求去读取，其他请求等待</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>result</span><span class=p>,</span><span class=w> </span><span class=nx>_</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>redisCacheSingleFlight</span><span class=p>.</span><span class=nf>Do</span><span class=p>(</span><span class=nx>cacheKey</span><span class=p>,</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>(</span><span class=kt>any</span><span class=p>,</span><span class=w> </span><span class=kt>error</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=c1>// 1、查询数据库</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nx>dbData</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>strconv</span><span class=p>.</span><span class=nf>Itoa</span><span class=p>(</span><span class=nx>rand</span><span class=p>.</span><span class=nf>Int</span><span class=p>())</span><span class=w> </span><span class=c1>// 模拟查询</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=c1>// 2、缓存数据</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nx>l</span><span class=p>.</span><span class=nx>svcCtx</span><span class=p>.</span><span class=nx>CacheRedis</span><span class=p>.</span><span class=nf>SetEX</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span><span class=w> </span><span class=nx>cacheKey</span><span class=p>,</span><span class=w> </span><span class=nx>dbData</span><span class=p>,</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=o>*</span><span class=mi>5</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=c1>// （可选）标记读取了源数据</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nx>header</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>metadata</span><span class=p>.</span><span class=nf>Pairs</span><span class=p>(</span><span class=s>&#34;reload-cache&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;true&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nx>_</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>grpc</span><span class=p>.</span><span class=nf>SendHeader</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>ctx</span><span class=p>,</span><span class=w> </span><span class=nx>header</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=c1>// （可选）暂停10ms，防止有请求瞬间未读取到redis数据，</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=c1>// 也错过SingleFlight数据，导致SingleFlight又被唤醒</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>10</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Millisecond</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=c1>// 3、返回数据</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=nx>dbData</span><span class=p>,</span><span class=w> </span><span class=kc>nil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>})</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 此处所有在等待的请求都会得到同样的数据</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>data</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>result</span><span class=p>.(</span><span class=kt>string</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 读取到了缓存</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>data</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>cacheResult</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>demo_rpc</span><span class=p>.</span><span class=nx>Response</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>Pong</span><span class=p>:</span><span class=w> </span><span class=nx>data</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>},</span><span class=w> </span><span class=kc>nil</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/%E5%BA%93/>库</a>
 <a href=/tags/go-zero/>Go-Zero</a>
 <a href=/tags/golang/>Golang</a>
 <a href=/tags/%E5%B9%B6%E5%8F%91/>并发</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>

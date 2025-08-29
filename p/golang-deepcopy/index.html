@@ -38,46 +38,46 @@
 </span><span class=lnt>25
 </span><span class=lnt>26
 </span><span class=lnt>27
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;fmt&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;unsafe&#34;</span>
-</span></span><span class=line><span class=cl><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>p1</span> <span class=p>=</span> <span class=nx>Person</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;aaa&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>	<span class=nx>Params</span><span class=p>:</span> <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>string</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=s>&#34;param1&#34;</span><span class=p>:</span> <span class=s>&#34;value1&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=s>&#34;param2&#34;</span><span class=p>:</span> <span class=s>&#34;value2&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>	<span class=p>},</span>
-</span></span><span class=line><span class=cl>	<span class=nx>Next</span><span class=p>:</span> <span class=o>&amp;</span><span class=nx>Person</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;bbb&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=nx>Params</span><span class=p>:</span> <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>string</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=s>&#34;param3&#34;</span><span class=p>:</span> <span class=s>&#34;value3&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=s>&#34;param4&#34;</span><span class=p>:</span> <span class=s>&#34;value4&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=p>},</span>
-</span></span><span class=line><span class=cl>	<span class=p>},</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Person</span> <span class=kd>struct</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>Name</span>   <span class=kt>string</span>
-</span></span><span class=line><span class=cl>	<span class=nx>Params</span> <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>string</span>
-</span></span><span class=line><span class=cl>	<span class=nx>Next</span>   <span class=o>*</span><span class=nx>Person</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></td></tr></table></div></div><h2 id=一反射方案>一、反射方案</h2><p>使用库：<code>github.com/mohae/deepcopy</code></p><p>示例代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;unsafe&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>var</span><span class=w> </span><span class=nx>p1</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>Person</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>Name</span><span class=p>:</span><span class=w> </span><span class=s>&#34;aaa&#34;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>Params</span><span class=p>:</span><span class=w> </span><span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>string</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=s>&#34;param1&#34;</span><span class=p>:</span><span class=w> </span><span class=s>&#34;value1&#34;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=s>&#34;param2&#34;</span><span class=p>:</span><span class=w> </span><span class=s>&#34;value2&#34;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>},</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>Next</span><span class=p>:</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Person</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>Name</span><span class=p>:</span><span class=w> </span><span class=s>&#34;bbb&#34;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>Params</span><span class=p>:</span><span class=w> </span><span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>string</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=s>&#34;param3&#34;</span><span class=p>:</span><span class=w> </span><span class=s>&#34;value3&#34;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=s>&#34;param4&#34;</span><span class=p>:</span><span class=w> </span><span class=s>&#34;value4&#34;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>},</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>},</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Person</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>Name</span><span class=w>   </span><span class=kt>string</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>Params</span><span class=w> </span><span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=kt>string</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>Next</span><span class=w>   </span><span class=o>*</span><span class=nx>Person</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h2 id=一反射方案>一、反射方案</h2><p>使用库：<code>github.com/mohae/deepcopy</code></p><p>示例代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
 </span><span class=lnt>5
 </span><span class=lnt>6
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=s>&#34;github.com/mohae/deepcopy&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nx>p2</span> <span class=o>:=</span> <span class=nx>deepcopy</span><span class=p>.</span><span class=nf>Copy</span><span class=p>(</span><span class=nx>p1</span><span class=p>).(</span><span class=nx>types</span><span class=p>.</span><span class=nx>Person</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></td></tr></table></div></div><p>性能：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=s>&#34;github.com/mohae/deepcopy&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>p2</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>deepcopy</span><span class=p>.</span><span class=nf>Copy</span><span class=p>(</span><span class=nx>p1</span><span class=p>).(</span><span class=nx>types</span><span class=p>.</span><span class=nx>Person</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>性能：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>BenchmarkDeepCopy-8   	  775651	      <span class=m>1503</span> ns/op
 </span></span></code></pre></td></tr></table></div></div><h2 id=二使用json>二、使用json</h2><p>安装高性能的json库：<code>github.com/json-iterator/go</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -89,17 +89,17 @@
 </span><span class=lnt> 8
 </span><span class=lnt> 9
 </span><span class=lnt>10
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-golang data-lang=golang><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nx>jsoniter</span> <span class=s>&#34;github.com/json-iterator/go&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>json</span> <span class=p>=</span> <span class=nx>jsoniter</span><span class=p>.</span><span class=nx>ConfigCompatibleWithStandardLibrary</span>
-</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>p1j</span> <span class=p>=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>Marshal</span><span class=p>(</span><span class=nx>p1</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=kd>var</span> <span class=nx>p2</span> <span class=nx>types</span><span class=p>.</span><span class=nx>Person</span>
-</span></span><span class=line><span class=cl>	<span class=nx>err</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>Unmarshal</span><span class=p>(</span><span class=nx>p1j</span><span class=p>,</span> <span class=o>&amp;</span><span class=nx>p2</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></td></tr></table></div></div><p>性能：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-golang data-lang=golang><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=nx>jsoniter</span><span class=w> </span><span class=s>&#34;github.com/json-iterator/go&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>var</span><span class=w> </span><span class=nx>json</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>jsoniter</span><span class=p>.</span><span class=nx>ConfigCompatibleWithStandardLibrary</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>var</span><span class=w> </span><span class=nx>p1j</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>json</span><span class=p>.</span><span class=nf>Marshal</span><span class=p>(</span><span class=nx>p1</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>var</span><span class=w> </span><span class=nx>p2</span><span class=w> </span><span class=nx>types</span><span class=p>.</span><span class=nx>Person</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>json</span><span class=p>.</span><span class=nf>Unmarshal</span><span class=p>(</span><span class=nx>p1j</span><span class=p>,</span><span class=w> </span><span class=o>&amp;</span><span class=nx>p2</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>性能：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># json-iterator 库性能</span>
 </span></span><span class=line><span class=cl>BenchmarkJsonIterJSON-8   	 1332277	       885.5 ns/op
@@ -115,21 +115,21 @@
 </span><span class=lnt>4
 </span><span class=lnt>5
 </span><span class=lnt>6
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// file: doc.go</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1>// 此处是核心注解</span>
-</span></span><span class=line><span class=cl><span class=c1>// +k8s:deepcopy-gen=package</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
-</span></span></code></pre></td></tr></table></div></div><p>执行命令生成deepcopy代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// file: doc.go</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// 此处是核心注解</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// +k8s:deepcopy-gen=package</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>执行命令生成deepcopy代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>deepcopy-gen --output-file generated.deepcopy.go your_module_name/...
 </span></span></code></pre></td></tr></table></div></div><p>示例代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>p2</span> <span class=o>:=</span> <span class=nx>p1</span><span class=p>.</span><span class=nf>DeepCopy</span><span class=p>()</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></td></tr></table></div></div><p>性能</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>p2</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>p1</span><span class=p>.</span><span class=nf>DeepCopy</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>性能</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>BenchmarkK8sDepCopy-8   	 4201444	       294.9 ns/op
 </span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/%E5%BA%93/>库</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
 <span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/p/golang-https-sslkeylogfile/><div class=article-details><h2 class=article-title>[Golang] 让wireshark通过SSLKEYLOGFILE环境变量支持https抓包</h2></div></a></article><article><a href=/p/golang-gozero-singleflight/><div class=article-details><h2 class=article-title>[Golang]Gozero Singleflight 库使用</h2></div></a></article><article><a href=/p/golang-gorm-config/><div class=article-details><h2 class=article-title>【golang】gorm的一些特殊的配置</h2></div></a></article><article><a href=/p/golang-json-datetime/><div class=article-details><h2 class=article-title>【Golang】让Json自动支持DateTime格式和ISO8601格式的时间</h2></div></a></article><article><a href=/p/golang-http-code/><div class=article-details><h2 class=article-title>[Golang] 在中间件中获取HTTP响应状态码的两种方法</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;

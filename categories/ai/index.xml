@@ -1,221 +1,500 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AI on 雨的味道</title><link>https://reatang.com/categories/ai/</link><description>Recent content in AI on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 07 May 2025 16:42:08 +0800</lastBuildDate><atom:link href="https://reatang.com/categories/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>[AI Agent]开发智能体的26个关键要点</title><link>https://reatang.com/p/26-key-points-for-developing-agents/</link><pubDate>Wed, 07 May 2025 16:42:08 +0800</pubDate><guid>https://reatang.com/p/26-key-points-for-developing-agents/</guid><description>&lt;h2 id="第一部分观念转变与认知升级">第一部分：观念转变与认知升级
-&lt;/h2>&lt;ul>
-&lt;li>1） AI Agent不是员工，而是 SOP (标准作业程序) 的延伸： 不要将 AI Agent视为自动化的替代品或员工的复制品。它们更多的是流程的具象化，每个Agent负责执行一个或少数几个 SOP。&lt;/li>
-&lt;li>2） 从良好的文档化流程 (SOP) 开始： 训练Agent之前，先梳理并优化现有的 SOP。清晰的 SOP 是训练Agent的基础，能显著提高训练效率和Agent的可靠性。&lt;/li>
-&lt;li>3） 企业主应委托 AI Agent开发者，而非亲自构建： 即使未来出现“一键生成Agent”的工具，专业的 AI Agent开发者仍然不可或缺。他们能够确定构建哪些Agent，并能最大化Agent的价值，正如无代码工具普及后，反而涌现了大量的自动化工程师一样。&lt;/li>
-&lt;li>4） 咨询的重要性：了解客户真正的需求： 企业主可能对 AI Agent有自己的想法，但这些想法未必是最优的。通过咨询，深入了解客户的业务流程和痛点，才能找到更有价值的自动化机会。通过客户旅程绘制，可以更有效地识别潜在的自动化机会，选择更适合的Agent构建目标。&lt;/li>
-&lt;li>5） Agent数量不宜过多，精简至上： 过多的Agent会增加系统的复杂性，导致维护困难、调试困难、成本上升和响应时间延长。优先构建一个能尽快交付价值的最简化Agent，逐步迭代和扩展。&lt;/li>
-&lt;/ul>
-&lt;h2 id="第二部分数据提示工程与集成">第二部分：数据、提示工程与集成
-&lt;/h2>&lt;ul>
-&lt;li>6） 数据驱动，更要将数据与行动相结合： 数据科学的 “GIGO”（garbage in, garbage out）原则同样适用于 AI Agent。更重要的是，将数据与相关行动结合，例如将知识库与 Facebook API 相结合，可以产生更大的价值。同时，要确保收集内外部数据以提升Agent性能。&lt;/li>
-&lt;li>7） 提示工程是一门艺术，示例、顺序、迭代至关重要： 提示工程至关重要，它已经成为了一个职业。撰写提示如同撰写博客或论文，需要仔细斟酌每一个词语。提供充足的示例，注意句子和段落的顺序，并不断迭代和测试。最重要的部分放在指令的末尾。&lt;/li>
-&lt;li>8） 集成与能力同等重要： Agent的集成性决定了用户的使用便捷性，便捷性决定了用户的使用意愿，所以决定了Agent能否交付实际价值。将Agent集成到员工日常使用的系统中，例如 Zendesk，至关重要。&lt;/li>
-&lt;/ul>
-&lt;h2 id="第三部分技术细节与可靠性保障">第三部分：技术细节与可靠性保障
-&lt;/h2>&lt;ul>
-&lt;li>9） Agent可靠性问题由开发者负责： 如果Agent不可靠，这不是Agent的问题，而是开发人员的问题。Pydantic 数据验证库可以用于验证Agent的输入和输出，确保Agent不会执行错误的操作。可以重点关注如何借助 Python 和相关框架来实现可靠性。&lt;/li>
-&lt;li>10） 工具是 AI Agent的核心组件：指令、知识与行动缺一不可： 工具是Agent提供价值的方式。价值是通过行动产生，而不是通过响应产生。学会构建和组织工具，是构建各种用例Agent的关键。&lt;/li>
-&lt;li>11） 每个Agent的工具数量不宜超过四到六种： 过多的工具会导致Agent产生幻觉、混淆工具的使用，可以通过分离Agent来解决。&lt;/li>
-&lt;li>12） 模型成本不再是核心关注： 如果用例有意义，通常从使用 AI Agent中可以获得巨大的投资回报。&lt;/li>
-&lt;/ul>
-&lt;ol start="13">
-&lt;li>客户更关心价值，而非模型选择： 企业更关心Agent能否提供价值、数据是否安全，对底层模型并不敏感。Azure OpenAI 等私有部署方案可以满足客户对数据隐私的要求。&lt;/li>
-&lt;/ol>
-&lt;h2 id="第四部分商业模式与扩展策略">第四部分：商业模式与扩展策略
-&lt;/h2>&lt;ul>
-&lt;li>14） 价值被确立之前，不要自动化： 先手动验证流程的价值和可行性，再进行自动化，避免不必要的风险和投入。&lt;/li>
-&lt;li>15） 不要只考虑用例，要考虑 ROI（投资回报率）： 采用公式计算 ROI，关注对业务最有价值的部分。ROI 公式：(速率 * 工时 - 运营成本) / 开发成本。&lt;/li>
-&lt;li>16） Agent开发是一个数据科学竞赛的迭代过程： 尝试不同的架构，对比结果，并从中学习，不断优化Agent。&lt;/li>
-&lt;li>17） 使用分而治之的方法：逐步交付解决方案： 将复杂问题分解为可管理的任务，优先交付独立工作的Agent，获得客户确认后再继续构建整个系统。按部门进行自动化也是一个不错的策略。&lt;/li>
-&lt;li>18） 评估至关重要（尤其是对于大型企业）： 评估可以帮助跟踪 KPI 和性能，不断改进解决方案。对于小型企业，评估可能并非必需。&lt;/li>
-&lt;li>19） 两种Agent：Agent与工作流： 结合标准工作流程和自动化与 AI Agent。AI 驱动的步骤嵌入到结构化的工作流程中。&lt;/li>
-&lt;/ul>
-&lt;h2 id="第五部分未来趋势与注意事项">第五部分：未来趋势与注意事项
-&lt;/h2>&lt;ul>
-&lt;li>20） Agent需要适应反馈： 确保Agent不仅能修改环境，还能分析结果、了解行动的影响。&lt;/li>
-&lt;li>21） 不要围绕限制构建：拥抱变化、面向未来： 不要基于当前的技术限制构建Agent，要预见到技术进步的可能性。&lt;/li>
-&lt;li>22） 部署Agent比构建Agent更难： 需要花费较长的时间整合到客户的流程中，搭建一个平台以便支持灵活部署。&lt;/li>
-&lt;li>23） 放弃瀑布模型，拥抱敏捷开发： Agent项目具有高度的灵活性，需要不断演进。采用订阅模式，与客户建立合作伙伴关系。&lt;/li>
-&lt;li>24） 在关键任务Agent中加入人工环节： 对于容错率低的Agent，先加入人工审核环节，待Agent成熟后再取消人工干预。比如先让客户在notion审核营销活动，然后逐渐过渡到自动化。&lt;/li>
-&lt;li>25） 2025 年是垂直 AI Agent的年份： 专注于特定领域和用例的Agent更易扩展、更具价值。可以逐渐从水平Agent过渡到垂直Agent。&lt;/li>
-&lt;li>26） Agent不会取代人，而是帮助企业扩大规模： 关注扩大规模和提升价值，而不是裁员。&lt;/li>
-&lt;/ul></description></item><item><title>[Prompt]使用AI分析系统的业务逻辑和架构</title><link>https://reatang.com/p/analysis-system-business/</link><pubDate>Wed, 16 Apr 2025 18:08:18 +0800</pubDate><guid>https://reatang.com/p/analysis-system-business/</guid><description>&lt;p>收到一个新的应用，首先应该从控制器、逻辑层、服务层等各个方面进行分析，现在我们将这个工作交给支持 filesystem mcp 的AI来做，我的提示词如下：
-（这是以java应用为例）&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
-&lt;/span>&lt;span class="lnt">18
-&lt;/span>&lt;span class="lnt">19
-&lt;/span>&lt;span class="lnt">20
-&lt;/span>&lt;span class="lnt">21
-&lt;/span>&lt;span class="lnt">22
-&lt;/span>&lt;span class="lnt">23
-&lt;/span>&lt;span class="lnt">24
-&lt;/span>&lt;span class="lnt">25
-&lt;/span>&lt;span class="lnt">26
-&lt;/span>&lt;span class="lnt">27
-&lt;/span>&lt;span class="lnt">28
-&lt;/span>&lt;span class="lnt">29
-&lt;/span>&lt;span class="lnt">30
-&lt;/span>&lt;span class="lnt">31
-&lt;/span>&lt;span class="lnt">32
-&lt;/span>&lt;span class="lnt">33
-&lt;/span>&lt;span class="lnt">34
-&lt;/span>&lt;span class="lnt">35
-&lt;/span>&lt;span class="lnt">36
-&lt;/span>&lt;span class="lnt">37
-&lt;/span>&lt;span class="lnt">38
-&lt;/span>&lt;span class="lnt">39
-&lt;/span>&lt;span class="lnt">40
-&lt;/span>&lt;span class="lnt">41
-&lt;/span>&lt;span class="lnt">42
-&lt;/span>&lt;span class="lnt">43
-&lt;/span>&lt;span class="lnt">44
-&lt;/span>&lt;span class="lnt">45
-&lt;/span>&lt;span class="lnt">46
-&lt;/span>&lt;span class="lnt">47
-&lt;/span>&lt;span class="lnt">48
-&lt;/span>&lt;span class="lnt">49
-&lt;/span>&lt;span class="lnt">50
-&lt;/span>&lt;span class="lnt">51
-&lt;/span>&lt;span class="lnt">52
-&lt;/span>&lt;span class="lnt">53
-&lt;/span>&lt;span class="lnt">54
-&lt;/span>&lt;span class="lnt">55
-&lt;/span>&lt;span class="lnt">56
-&lt;/span>&lt;span class="lnt">57
-&lt;/span>&lt;span class="lnt">58
-&lt;/span>&lt;span class="lnt">59
-&lt;/span>&lt;span class="lnt">60
-&lt;/span>&lt;span class="lnt">61
-&lt;/span>&lt;span class="lnt">62
-&lt;/span>&lt;span class="lnt">63
-&lt;/span>&lt;span class="lnt">64
-&lt;/span>&lt;span class="lnt">65
-&lt;/span>&lt;span class="lnt">66
-&lt;/span>&lt;span class="lnt">67
-&lt;/span>&lt;span class="lnt">68
-&lt;/span>&lt;span class="lnt">69
-&lt;/span>&lt;span class="lnt">70
-&lt;/span>&lt;span class="lnt">71
-&lt;/span>&lt;span class="lnt">72
-&lt;/span>&lt;span class="lnt">73
-&lt;/span>&lt;span class="lnt">74
-&lt;/span>&lt;span class="lnt">75
-&lt;/span>&lt;span class="lnt">76
-&lt;/span>&lt;span class="lnt">77
-&lt;/span>&lt;span class="lnt">78
-&lt;/span>&lt;span class="lnt">79
-&lt;/span>&lt;span class="lnt">80
-&lt;/span>&lt;span class="lnt">81
-&lt;/span>&lt;span class="lnt">82
-&lt;/span>&lt;span class="lnt">83
-&lt;/span>&lt;span class="lnt">84
-&lt;/span>&lt;span class="lnt">85
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-txt" data-lang="txt">&lt;span class="line">&lt;span class="cl"># 角色设定
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">你是一位顶级的软件架构师和资深业务顾问，拥有卓越的技术洞察力和业务理解力。你不仅能深入分析代码结构和技术实现，更能将技术细节与业务价值紧密结合，洞察系统背后的业务逻辑、关键考量和潜在机会。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 我的背景
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">我是一名新加入 &amp;#34;[请填写项目名称]&amp;#34; 项目的成员，正处于项目熟悉阶段。我希望通过你的专业能力，全面了解项目的技术架构、业务流程以及技术决策背后的业务驱动因素。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 我的目标
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">我希望通过分析项目代码和相关信息，实现以下目标：
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1. **技术架构蓝图:** 清晰理解项目的 **技术分层、模块划分、组件构成、技术选型** 等核心技术架构要素。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. **业务流程全景:** 掌握项目支持的 **核心业务流程、用户场景、功能模块** 及其相互关系。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3. **技术-业务双重视角:** 建立 **技术实现与业务目标之间的桥梁**，理解技术决策如何服务于业务，业务需求如何驱动技术选型。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">4. **关键业务考量与风险预警:** 识别项目中 **关键的业务考量因素、潜在的业务风险和技术挑战**，例如安全性、性能、合规性、可扩展性等。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">5. **快速上手与高效贡献:** 通过全面深入的理解，**快速融入项目团队，并能基于业务视角做出更有价值的贡献**。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 任务要求
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">请基于我提供的 &amp;#34;[请填写项目名称]&amp;#34; 项目的代码信息（文件目录结构、关键代码片段、代码注释、技术文档等），进行以下多维度、深度融合的分析：
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">**第一阶段：技术架构解析 (Prompt A 核心 + 增强)**
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1. **目录结构与模块划分:**
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * 分析项目根目录下的 **顶级目录结构**，推断 **技术模块和子系统划分**，例如前端、后端、API 网关、数据库、消息队列等。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * 深入后端代码目录（如 `src/main/java`, `app`, `backend`），识别 **代码模块**，例如 Controller, Service, Repository, Model, Config, Util 等，并推测其 **技术职责**。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **模块命名与业务关联:** 不仅关注技术职责，更要 **从模块命名中初步推测其可能对应的业务领域或功能**。 例如，`OrderService` 可能关联订单业务，`UserService` 可能关联用户管理。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. **Controller 层深度分析:**
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **定位 Controller 目录**，识别主要的 Controller 文件和子目录。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **基于 Controller 命名和文件结构，推测其负责的业务功能或用户场景** (用简洁业务语言描述，例如 &amp;#34;处理用户注册流程&amp;#34; 而非 &amp;#34;/users POST 请求&amp;#34;)。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **API Endpoint 业务语义化:** 如果能获取 API Endpoint 信息 (例如 Spring Boot 项目的 `@RequestMapping` 注解)，请 **将技术化的 Endpoint 路径转化为更易懂的业务操作描述**。 例如 `/api/orders/{orderId}/payment` 可以描述为 &amp;#34;订单支付 API&amp;#34;。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **Controller 间的关联与流程初步推演:** 尝试分析 Controller 之间的调用关系 (如果能从代码片段中看出)，初步推演 **简单的业务流程片段**。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3. **关键技术组件识别与技术选型推测:**
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **根据目录结构、文件名后缀、配置文件等信息，推测项目使用的编程语言、框架、数据库、消息队列、缓存等核心技术栈**。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * 识别项目中使用的 **关键技术组件或库** (例如 ORM 框架, 日志库, 缓存客户端, 消息队列客户端等)，并 **简述其技术作用**。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **技术选型的业务驱动因素推测:** 尝试 **推测项目技术选型背后的业务考虑**。 例如，选择 NoSQL 数据库可能是为了应对高并发和海量数据，选择微服务架构可能是为了支持业务快速迭代和独立部署。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">**第二阶段：业务流程与关键考量 (Prompt B 核心 + 增强)**
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">4. **核心业务流程串联与业务流程图:**
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **识别并描述项目中最核心的端到端业务流程** (例如用户下单、商品搜索、支付结算、内容发布等)。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **将业务流程与 Controller, Service 等技术模块关联起来，描述业务流程在技术层面的实现方式**。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **业务流程图 (可选):** 如果条件允许，尝试 **用文字流程图或简单的 Markdown 图表** 描述关键业务流程，更直观地呈现流程步骤和模块交互。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">5. **上下游依赖的业务价值与影响:**
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **分析项目依赖的上游服务和组件，并从业务角度解释依赖关系和业务价值** (例如依赖认证服务保障安全，依赖库存服务查询库存)。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **如果可能，了解下游系统如何依赖本项目，以及下游系统依赖本项目的哪些业务能力**。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **依赖稳定性与业务连续性考量:** 分析 **关键依赖的稳定性对项目业务的影响**，例如外部服务故障是否会影响核心业务，是否有熔断降级机制。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">6. **代码注释与业务规则深度挖掘:**
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **重点分析代码注释 (Controller, Service, Model 等)，提取业务规则、约束条件、特殊逻辑、重要提示等业务细节**。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **业务规则分类整理:** 将提取的业务规则进行 **分类整理**，例如： 业务校验规则、权限控制规则、数据处理规则、风控规则、计费规则等，方便查阅和理解。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **业务流程中的关键决策点识别:** 从代码和注释中识别 **业务流程中的关键决策点和分支逻辑**，例如不同用户类型的流程差异，不同支付方式的处理分支等。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">7. **关键业务考量、潜在风险与改进建议:**
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **识别项目中可能存在的关键业务考量点** (安全性、性能、可扩展性、合规性、数据一致性等)。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **基于代码分析和注释，尝试识别潜在的业务风险或技术挑战**。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **结合技术和业务视角，提出改进建议:** 基于对技术架构和业务流程的理解，**从技术和业务角度出发，提出可能的改进建议**。 例如，性能优化建议、安全加固建议、业务流程优化建议、架构升级建议等。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">**第三阶段：综合总结与价值呈现**
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">8. **技术架构与业务价值综合总结:**
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **总结项目在组织或产品线中的核心业务价值和业务定位**。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **技术架构对业务价值的支撑作用:** **阐述项目的技术架构如何支撑其业务价值的实现**。 例如，高性能架构支撑高并发交易，微服务架构支撑业务快速创新。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * **项目成功的关键因素与未来展望:** 基于全面分析，**推测项目成功的关键因素，并对项目未来发展方向和潜在机会进行展望**。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 输出格式要求
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">请使用清晰、结构化的 Markdown 格式呈现分析结果，例如使用 **多级标题、列表、表格、代码块、流程图** 等。 **突出显示关键信息，例如使用粗体、颜色标记、引用块等**。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* **技术架构部分：** 侧重 **技术术语和架构图示 (文字描述的架构图)**，清晰描述技术分层、模块构成、技术选型等。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* **业务流程部分：** 侧重 **业务语言和流程图**，清晰描述核心业务流程、用户场景、模块交互等。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* **关键考量与风险部分：** **重点突出业务风险和关键考量点**，并给出相应的 **技术或业务改进建议**。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* **综合总结部分：** **高度概括项目的技术架构和业务价值**，并展望未来。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">**请在每个分析要点后，简要说明你分析的依据** (例如 &amp;#34;基于目录结构分析&amp;#34;, &amp;#34;基于 Controller 代码片段&amp;#34;, &amp;#34;基于代码注释&amp;#34; 等)，以增强分析的可信度和透明度。
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 我将提供的信息
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[请你根据实际情况，详细说明你将提供给 AI 的信息，例如：]
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* &amp;#34;我会提供项目根目录的 `tree` 命令输出结果。&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* &amp;#34;我会提供 `src/main/java` 目录下的所有 Java 文件内容 (或关键 Controller/Service/Model 文件内容)。&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* &amp;#34;我会提供关键 Controller 和 Service 文件的代码片段和代码注释。&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* &amp;#34;我可以提供项目的技术文档 (如果项目有的话)。&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* &amp;#34;我可以根据你的需要，逐步提供更详细的代码或信息。&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 互动方式
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">请在我提供信息后开始分析。请 **主动提问，引导我提供更精准、更有价值的信息**，以便进行更深入、更全面的分析。 这是一个深度协作的过程，我们共同努力，深入理解项目。
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AI on 雨的味道</title><link>https://reatang.com/categories/ai/</link><description>Recent content in AI on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 29 Aug 2025 18:54:45 +0800</lastBuildDate><atom:link href="https://reatang.com/categories/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>【AI】OpenAI 使用 Opentelemetry 进行链路监控</title><link>https://reatang.com/p/openai-use-opentelemetry/</link><pubDate>Fri, 29 Aug 2025 18:54:45 +0800</pubDate><guid>https://reatang.com/p/openai-use-opentelemetry/</guid><description>&lt;h2 id="简介"&gt;简介
+&lt;/h2&gt;&lt;p&gt;OpenTelemetry 是一个开源的可观测性框架，它提供了统一的方式来收集、处理和导出遥测数据（包括 traces、metrics 和 logs）。在使用 OpenAI API 进行AI应用开发时，通过集成 OpenTelemetry 可以帮助我们：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;监控API调用性能&lt;/strong&gt;：跟踪每次 API 调用的延迟、成功率等关键指标&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;调试和排错&lt;/strong&gt;：通过链路追踪快速定位问题所在&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;成本分析&lt;/strong&gt;：监控 token 使用量，优化成本控制&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;系统可观测性&lt;/strong&gt;：将 AI 调用链路与整个应用系统的监控体系集成&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="环境准备"&gt;环境准备
+&lt;/h2&gt;&lt;h3 id="1-安装依赖包"&gt;1. 安装依赖包
+&lt;/h3&gt;&lt;p&gt;首先需要安装 OpenTelemetry 相关的依赖包：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 核心 OpenTelemetry 包&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;pip install opentelemetry-api opentelemetry-sdk
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# OpenAI SDK&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;pip install openai
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# OpenAI 的 OpenTelemetry 插件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;pip install opentelemetry-instrumentation-openai
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 其他依赖&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;pip install rich &lt;span class="c1"&gt;# 用于美化输出&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="2-api-密钥配置"&gt;2. API 密钥配置
+&lt;/h3&gt;&lt;p&gt;确保你已经获取了相应的 API 密钥，并设置为环境变量：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 如果使用 OpenAI&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;OPENAI_API_KEY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;your-openai-api-key&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 如果使用阿里云通义千问（本例使用）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;QWEN_API_KEY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;your-qwen-api-key&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="实现步骤"&gt;实现步骤
+&lt;/h2&gt;&lt;h3 id="步骤1初始化-opentelemetry"&gt;步骤1：初始化 OpenTelemetry
+&lt;/h3&gt;&lt;p&gt;OpenTelemetry 的初始化包括以下几个关键组件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Resource&lt;/strong&gt;：定义服务的基本信息（服务名、版本等）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TracerProvider&lt;/strong&gt;：负责创建和管理 tracer&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SpanProcessor&lt;/strong&gt;：处理和导出 span 数据&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exporter&lt;/strong&gt;：将遥测数据导出到指定目标&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="步骤2配置数据导出器"&gt;步骤2：配置数据导出器
+&lt;/h3&gt;&lt;p&gt;支持多种导出方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;ConsoleSpanExporter&lt;/strong&gt;：将数据输出到控制台，适用于开发和调试&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OTLPSpanExporter&lt;/strong&gt;：通过 OTLP 协议导出到收集器，适用于生产环境&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;JaegerExporter&lt;/strong&gt;：直接导出到 Jaeger&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ZipkinExporter&lt;/strong&gt;：直接导出到 Zipkin&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="步骤3安装-openai-插件"&gt;步骤3：安装 OpenAI 插件
+&lt;/h3&gt;&lt;p&gt;OpenTelemetry 提供了专门的 OpenAI 插件来自动监控 API 调用：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;opentelemetry-instrumentation-openai&lt;/strong&gt;：V1版本，稳定可用&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;opentelemetry-instrumentation-openai-v2&lt;/strong&gt;：V2版本，功能更丰富但仍在完善中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="步骤4使用-openai-sdk"&gt;步骤4：使用 OpenAI SDK
+&lt;/h3&gt;&lt;p&gt;启用插件后，所有的 OpenAI API 调用都会自动生成相应的 span，包含以下信息：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;请求和响应的详细信息&lt;/li&gt;
+&lt;li&gt;执行时间&lt;/li&gt;
+&lt;li&gt;token 使用量&lt;/li&gt;
+&lt;li&gt;错误信息（如果有）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="版本说明"&gt;版本说明
+&lt;/h2&gt;&lt;h3 id="v1-vs-v2-插件对比"&gt;V1 vs V2 插件对比
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;特性&lt;/th&gt;
+&lt;th&gt;V1版本&lt;/th&gt;
+&lt;th&gt;V2版本&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;稳定性&lt;/td&gt;
+&lt;td&gt;稳定，生产可用&lt;/td&gt;
+&lt;td&gt;开发中，不建议生产使用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;数据捕获&lt;/td&gt;
+&lt;td&gt;默认捕获详细内容&lt;/td&gt;
+&lt;td&gt;默认不捕获敏感内容，需手动开启&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;日志支持&lt;/td&gt;
+&lt;td&gt;使用 SpanEvent&lt;/td&gt;
+&lt;td&gt;支持新的 Log 概念&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;OpenAI SDK 兼容性&lt;/td&gt;
+&lt;td&gt;1.30 以下版本&lt;/td&gt;
+&lt;td&gt;1.30 ~ 1.35 版本&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="最终代码"&gt;最终代码
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;span class="lnt"&gt;32
+&lt;/span&gt;&lt;span class="lnt"&gt;33
+&lt;/span&gt;&lt;span class="lnt"&gt;34
+&lt;/span&gt;&lt;span class="lnt"&gt;35
+&lt;/span&gt;&lt;span class="lnt"&gt;36
+&lt;/span&gt;&lt;span class="lnt"&gt;37
+&lt;/span&gt;&lt;span class="lnt"&gt;38
+&lt;/span&gt;&lt;span class="lnt"&gt;39
+&lt;/span&gt;&lt;span class="lnt"&gt;40
+&lt;/span&gt;&lt;span class="lnt"&gt;41
+&lt;/span&gt;&lt;span class="lnt"&gt;42
+&lt;/span&gt;&lt;span class="lnt"&gt;43
+&lt;/span&gt;&lt;span class="lnt"&gt;44
+&lt;/span&gt;&lt;span class="lnt"&gt;45
+&lt;/span&gt;&lt;span class="lnt"&gt;46
+&lt;/span&gt;&lt;span class="lnt"&gt;47
+&lt;/span&gt;&lt;span class="lnt"&gt;48
+&lt;/span&gt;&lt;span class="lnt"&gt;49
+&lt;/span&gt;&lt;span class="lnt"&gt;50
+&lt;/span&gt;&lt;span class="lnt"&gt;51
+&lt;/span&gt;&lt;span class="lnt"&gt;52
+&lt;/span&gt;&lt;span class="lnt"&gt;53
+&lt;/span&gt;&lt;span class="lnt"&gt;54
+&lt;/span&gt;&lt;span class="lnt"&gt;55
+&lt;/span&gt;&lt;span class="lnt"&gt;56
+&lt;/span&gt;&lt;span class="lnt"&gt;57
+&lt;/span&gt;&lt;span class="lnt"&gt;58
+&lt;/span&gt;&lt;span class="lnt"&gt;59
+&lt;/span&gt;&lt;span class="lnt"&gt;60
+&lt;/span&gt;&lt;span class="lnt"&gt;61
+&lt;/span&gt;&lt;span class="lnt"&gt;62
+&lt;/span&gt;&lt;span class="lnt"&gt;63
+&lt;/span&gt;&lt;span class="lnt"&gt;64
+&lt;/span&gt;&lt;span class="lnt"&gt;65
+&lt;/span&gt;&lt;span class="lnt"&gt;66
+&lt;/span&gt;&lt;span class="lnt"&gt;67
+&lt;/span&gt;&lt;span class="lnt"&gt;68
+&lt;/span&gt;&lt;span class="lnt"&gt;69
+&lt;/span&gt;&lt;span class="lnt"&gt;70
+&lt;/span&gt;&lt;span class="lnt"&gt;71
+&lt;/span&gt;&lt;span class="lnt"&gt;72
+&lt;/span&gt;&lt;span class="lnt"&gt;73
+&lt;/span&gt;&lt;span class="lnt"&gt;74
+&lt;/span&gt;&lt;span class="lnt"&gt;75
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;rich&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;openai&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;OpenAI&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;opentelemetry&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;trace&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;opentelemetry.sdk.resources&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Resource&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SERVICE_NAME&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SERVICE_VERSION&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;opentelemetry.sdk.trace&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;TracerProvider&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;opentelemetry.sdk.trace.export&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BatchSpanProcessor&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ConsoleSpanExporter&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;opentelemetry.sdk.trace.sampling&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;DEFAULT_ON&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;base_resource&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Resource&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;attributes&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;SERVICE_NAME&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;my-service&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SERVICE_VERSION&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;0.1.0&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;tracer_provider&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;TracerProvider&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;base_resource&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sampler&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;DEFAULT_ON&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;otel_exporter&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ConsoleSpanExporter&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;span_processor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BatchSpanProcessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;otel_exporter&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;tracer_provider&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_span_processor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;span_processor&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 可以初始化GRPC等其他类型的Remote采样导出器&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# otlp_exporter = OTLPSpanExporter(endpoint=&amp;#34;your-collector:4317&amp;#34;, insecure=True)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# span_processor = BatchSpanProcessor(otlp_exporter)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# tracer_provider.add_span_processor(span_processor)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 全局注册&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;trace&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_tracer_provider&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tracer_provider&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 如果要使用 V2 需要额外的配置，新版的otel有了日志的概念所以将event作为log的一部分，区别于V1中将日志存放于的SpanEvent&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# v2 2.1b0 兼容到 1.30 ~ 1.35，1.36对log有改动，LogRecord 被标记为过时的&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;instrument_v2&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# 与V1版本正好相反，V2 需主动打开详细日志监控，以免泄露敏感数据&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;true&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;opentelemetry&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;_events&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;_logs&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;opentelemetry.sdk._logs&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;LoggerProvider&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;opentelemetry.sdk._logs.export&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;ConsoleLogExporter&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;BatchLogRecordProcessor&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;opentelemetry.sdk._events&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;EventLoggerProvider&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;EventLogger&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;_logs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_logger_provider&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;LoggerProvider&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;base_resource&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;_logs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_logger_provider&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_log_record_processor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BatchLogRecordProcessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ConsoleLogExporter&lt;/span&gt;&lt;span class="p"&gt;()))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;_events&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_event_logger_provider&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EventLoggerProvider&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;opentelemetry.instrumentation.openai_v2&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;OpenAIInstrumentor&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;OpenAIInstrumentor&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;instrument&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;instrument_v1&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;opentelemetry.instrumentation.openai&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;OpenAIInstrumentor&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;OpenAIInstrumentor&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;instrument&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;instrument_v1&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;client&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;OpenAI&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;api_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;QWEN_API_KEY&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;base_url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;https://dashscope.aliyuncs.com/compatible-mode/v1&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;model&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;qwen-plus&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;stream&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;client&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chat&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;completions&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;model&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;model&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;temperature&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;0.3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;messages&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;role&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;system&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;content&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;你是一名乐于助人的AI助手,请根据用户的问题给出回答.&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;role&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;user&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;content&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;你好&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;extra_body&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;enable_thinking&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;stream&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;chunk&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;stream&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;# rich.print(chunk, end=&amp;#34;&amp;#34;, flush=True)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;chunk&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;choices&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;delta&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;content&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;flush&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="后记"&gt;后记
+&lt;/h2&gt;&lt;p&gt;langgraph框架也是可以使用Opentelemetry来代替langsmith的部分能力&lt;/p&gt;</description></item><item><title>[AI Agent]开发智能体的26个关键要点</title><link>https://reatang.com/p/26-key-points-for-developing-agents/</link><pubDate>Wed, 07 May 2025 16:42:08 +0800</pubDate><guid>https://reatang.com/p/26-key-points-for-developing-agents/</guid><description>&lt;h2 id="第一部分观念转变与认知升级"&gt;第一部分：观念转变与认知升级
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;1） AI Agent不是员工，而是 SOP (标准作业程序) 的延伸： 不要将 AI Agent视为自动化的替代品或员工的复制品。它们更多的是流程的具象化，每个Agent负责执行一个或少数几个 SOP。&lt;/li&gt;
+&lt;li&gt;2） 从良好的文档化流程 (SOP) 开始： 训练Agent之前，先梳理并优化现有的 SOP。清晰的 SOP 是训练Agent的基础，能显著提高训练效率和Agent的可靠性。&lt;/li&gt;
+&lt;li&gt;3） 企业主应委托 AI Agent开发者，而非亲自构建： 即使未来出现“一键生成Agent”的工具，专业的 AI Agent开发者仍然不可或缺。他们能够确定构建哪些Agent，并能最大化Agent的价值，正如无代码工具普及后，反而涌现了大量的自动化工程师一样。&lt;/li&gt;
+&lt;li&gt;4） 咨询的重要性：了解客户真正的需求： 企业主可能对 AI Agent有自己的想法，但这些想法未必是最优的。通过咨询，深入了解客户的业务流程和痛点，才能找到更有价值的自动化机会。通过客户旅程绘制，可以更有效地识别潜在的自动化机会，选择更适合的Agent构建目标。&lt;/li&gt;
+&lt;li&gt;5） Agent数量不宜过多，精简至上： 过多的Agent会增加系统的复杂性，导致维护困难、调试困难、成本上升和响应时间延长。优先构建一个能尽快交付价值的最简化Agent，逐步迭代和扩展。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="第二部分数据提示工程与集成"&gt;第二部分：数据、提示工程与集成
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;6） 数据驱动，更要将数据与行动相结合： 数据科学的 “GIGO”（garbage in, garbage out）原则同样适用于 AI Agent。更重要的是，将数据与相关行动结合，例如将知识库与 Facebook API 相结合，可以产生更大的价值。同时，要确保收集内外部数据以提升Agent性能。&lt;/li&gt;
+&lt;li&gt;7） 提示工程是一门艺术，示例、顺序、迭代至关重要： 提示工程至关重要，它已经成为了一个职业。撰写提示如同撰写博客或论文，需要仔细斟酌每一个词语。提供充足的示例，注意句子和段落的顺序，并不断迭代和测试。最重要的部分放在指令的末尾。&lt;/li&gt;
+&lt;li&gt;8） 集成与能力同等重要： Agent的集成性决定了用户的使用便捷性，便捷性决定了用户的使用意愿，所以决定了Agent能否交付实际价值。将Agent集成到员工日常使用的系统中，例如 Zendesk，至关重要。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="第三部分技术细节与可靠性保障"&gt;第三部分：技术细节与可靠性保障
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;9） Agent可靠性问题由开发者负责： 如果Agent不可靠，这不是Agent的问题，而是开发人员的问题。Pydantic 数据验证库可以用于验证Agent的输入和输出，确保Agent不会执行错误的操作。可以重点关注如何借助 Python 和相关框架来实现可靠性。&lt;/li&gt;
+&lt;li&gt;10） 工具是 AI Agent的核心组件：指令、知识与行动缺一不可： 工具是Agent提供价值的方式。价值是通过行动产生，而不是通过响应产生。学会构建和组织工具，是构建各种用例Agent的关键。&lt;/li&gt;
+&lt;li&gt;11） 每个Agent的工具数量不宜超过四到六种： 过多的工具会导致Agent产生幻觉、混淆工具的使用，可以通过分离Agent来解决。&lt;/li&gt;
+&lt;li&gt;12） 模型成本不再是核心关注： 如果用例有意义，通常从使用 AI Agent中可以获得巨大的投资回报。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start="13"&gt;
+&lt;li&gt;客户更关心价值，而非模型选择： 企业更关心Agent能否提供价值、数据是否安全，对底层模型并不敏感。Azure OpenAI 等私有部署方案可以满足客户对数据隐私的要求。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="第四部分商业模式与扩展策略"&gt;第四部分：商业模式与扩展策略
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;14） 价值被确立之前，不要自动化： 先手动验证流程的价值和可行性，再进行自动化，避免不必要的风险和投入。&lt;/li&gt;
+&lt;li&gt;15） 不要只考虑用例，要考虑 ROI（投资回报率）： 采用公式计算 ROI，关注对业务最有价值的部分。ROI 公式：(速率 * 工时 - 运营成本) / 开发成本。&lt;/li&gt;
+&lt;li&gt;16） Agent开发是一个数据科学竞赛的迭代过程： 尝试不同的架构，对比结果，并从中学习，不断优化Agent。&lt;/li&gt;
+&lt;li&gt;17） 使用分而治之的方法：逐步交付解决方案： 将复杂问题分解为可管理的任务，优先交付独立工作的Agent，获得客户确认后再继续构建整个系统。按部门进行自动化也是一个不错的策略。&lt;/li&gt;
+&lt;li&gt;18） 评估至关重要（尤其是对于大型企业）： 评估可以帮助跟踪 KPI 和性能，不断改进解决方案。对于小型企业，评估可能并非必需。&lt;/li&gt;
+&lt;li&gt;19） 两种Agent：Agent与工作流： 结合标准工作流程和自动化与 AI Agent。AI 驱动的步骤嵌入到结构化的工作流程中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="第五部分未来趋势与注意事项"&gt;第五部分：未来趋势与注意事项
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;20） Agent需要适应反馈： 确保Agent不仅能修改环境，还能分析结果、了解行动的影响。&lt;/li&gt;
+&lt;li&gt;21） 不要围绕限制构建：拥抱变化、面向未来： 不要基于当前的技术限制构建Agent，要预见到技术进步的可能性。&lt;/li&gt;
+&lt;li&gt;22） 部署Agent比构建Agent更难： 需要花费较长的时间整合到客户的流程中，搭建一个平台以便支持灵活部署。&lt;/li&gt;
+&lt;li&gt;23） 放弃瀑布模型，拥抱敏捷开发： Agent项目具有高度的灵活性，需要不断演进。采用订阅模式，与客户建立合作伙伴关系。&lt;/li&gt;
+&lt;li&gt;24） 在关键任务Agent中加入人工环节： 对于容错率低的Agent，先加入人工审核环节，待Agent成熟后再取消人工干预。比如先让客户在notion审核营销活动，然后逐渐过渡到自动化。&lt;/li&gt;
+&lt;li&gt;25） 2025 年是垂直 AI Agent的年份： 专注于特定领域和用例的Agent更易扩展、更具价值。可以逐渐从水平Agent过渡到垂直Agent。&lt;/li&gt;
+&lt;li&gt;26） Agent不会取代人，而是帮助企业扩大规模： 关注扩大规模和提升价值，而不是裁员。&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>[Prompt]使用AI分析系统的业务逻辑和架构</title><link>https://reatang.com/p/analysis-system-business/</link><pubDate>Wed, 16 Apr 2025 18:08:18 +0800</pubDate><guid>https://reatang.com/p/analysis-system-business/</guid><description>&lt;p&gt;收到一个新的应用，首先应该从控制器、逻辑层、服务层等各个方面进行分析，现在我们将这个工作交给支持 filesystem mcp 的AI来做，我的提示词如下：
+（这是以java应用为例）&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;span class="lnt"&gt;32
+&lt;/span&gt;&lt;span class="lnt"&gt;33
+&lt;/span&gt;&lt;span class="lnt"&gt;34
+&lt;/span&gt;&lt;span class="lnt"&gt;35
+&lt;/span&gt;&lt;span class="lnt"&gt;36
+&lt;/span&gt;&lt;span class="lnt"&gt;37
+&lt;/span&gt;&lt;span class="lnt"&gt;38
+&lt;/span&gt;&lt;span class="lnt"&gt;39
+&lt;/span&gt;&lt;span class="lnt"&gt;40
+&lt;/span&gt;&lt;span class="lnt"&gt;41
+&lt;/span&gt;&lt;span class="lnt"&gt;42
+&lt;/span&gt;&lt;span class="lnt"&gt;43
+&lt;/span&gt;&lt;span class="lnt"&gt;44
+&lt;/span&gt;&lt;span class="lnt"&gt;45
+&lt;/span&gt;&lt;span class="lnt"&gt;46
+&lt;/span&gt;&lt;span class="lnt"&gt;47
+&lt;/span&gt;&lt;span class="lnt"&gt;48
+&lt;/span&gt;&lt;span class="lnt"&gt;49
+&lt;/span&gt;&lt;span class="lnt"&gt;50
+&lt;/span&gt;&lt;span class="lnt"&gt;51
+&lt;/span&gt;&lt;span class="lnt"&gt;52
+&lt;/span&gt;&lt;span class="lnt"&gt;53
+&lt;/span&gt;&lt;span class="lnt"&gt;54
+&lt;/span&gt;&lt;span class="lnt"&gt;55
+&lt;/span&gt;&lt;span class="lnt"&gt;56
+&lt;/span&gt;&lt;span class="lnt"&gt;57
+&lt;/span&gt;&lt;span class="lnt"&gt;58
+&lt;/span&gt;&lt;span class="lnt"&gt;59
+&lt;/span&gt;&lt;span class="lnt"&gt;60
+&lt;/span&gt;&lt;span class="lnt"&gt;61
+&lt;/span&gt;&lt;span class="lnt"&gt;62
+&lt;/span&gt;&lt;span class="lnt"&gt;63
+&lt;/span&gt;&lt;span class="lnt"&gt;64
+&lt;/span&gt;&lt;span class="lnt"&gt;65
+&lt;/span&gt;&lt;span class="lnt"&gt;66
+&lt;/span&gt;&lt;span class="lnt"&gt;67
+&lt;/span&gt;&lt;span class="lnt"&gt;68
+&lt;/span&gt;&lt;span class="lnt"&gt;69
+&lt;/span&gt;&lt;span class="lnt"&gt;70
+&lt;/span&gt;&lt;span class="lnt"&gt;71
+&lt;/span&gt;&lt;span class="lnt"&gt;72
+&lt;/span&gt;&lt;span class="lnt"&gt;73
+&lt;/span&gt;&lt;span class="lnt"&gt;74
+&lt;/span&gt;&lt;span class="lnt"&gt;75
+&lt;/span&gt;&lt;span class="lnt"&gt;76
+&lt;/span&gt;&lt;span class="lnt"&gt;77
+&lt;/span&gt;&lt;span class="lnt"&gt;78
+&lt;/span&gt;&lt;span class="lnt"&gt;79
+&lt;/span&gt;&lt;span class="lnt"&gt;80
+&lt;/span&gt;&lt;span class="lnt"&gt;81
+&lt;/span&gt;&lt;span class="lnt"&gt;82
+&lt;/span&gt;&lt;span class="lnt"&gt;83
+&lt;/span&gt;&lt;span class="lnt"&gt;84
+&lt;/span&gt;&lt;span class="lnt"&gt;85
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-txt" data-lang="txt"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# 角色设定
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;你是一位顶级的软件架构师和资深业务顾问，拥有卓越的技术洞察力和业务理解力。你不仅能深入分析代码结构和技术实现，更能将技术细节与业务价值紧密结合，洞察系统背后的业务逻辑、关键考量和潜在机会。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# 我的背景
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;我是一名新加入 &amp;#34;[请填写项目名称]&amp;#34; 项目的成员，正处于项目熟悉阶段。我希望通过你的专业能力，全面了解项目的技术架构、业务流程以及技术决策背后的业务驱动因素。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# 我的目标
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;我希望通过分析项目代码和相关信息，实现以下目标：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;1. **技术架构蓝图:** 清晰理解项目的 **技术分层、模块划分、组件构成、技术选型** 等核心技术架构要素。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;2. **业务流程全景:** 掌握项目支持的 **核心业务流程、用户场景、功能模块** 及其相互关系。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;3. **技术-业务双重视角:** 建立 **技术实现与业务目标之间的桥梁**，理解技术决策如何服务于业务，业务需求如何驱动技术选型。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;4. **关键业务考量与风险预警:** 识别项目中 **关键的业务考量因素、潜在的业务风险和技术挑战**，例如安全性、性能、合规性、可扩展性等。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;5. **快速上手与高效贡献:** 通过全面深入的理解，**快速融入项目团队，并能基于业务视角做出更有价值的贡献**。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# 任务要求
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;请基于我提供的 &amp;#34;[请填写项目名称]&amp;#34; 项目的代码信息（文件目录结构、关键代码片段、代码注释、技术文档等），进行以下多维度、深度融合的分析：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;**第一阶段：技术架构解析 (Prompt A 核心 + 增强)**
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;1. **目录结构与模块划分:**
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * 分析项目根目录下的 **顶级目录结构**，推断 **技术模块和子系统划分**，例如前端、后端、API 网关、数据库、消息队列等。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * 深入后端代码目录（如 `src/main/java`, `app`, `backend`），识别 **代码模块**，例如 Controller, Service, Repository, Model, Config, Util 等，并推测其 **技术职责**。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **模块命名与业务关联:** 不仅关注技术职责，更要 **从模块命名中初步推测其可能对应的业务领域或功能**。 例如，`OrderService` 可能关联订单业务，`UserService` 可能关联用户管理。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;2. **Controller 层深度分析:**
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **定位 Controller 目录**，识别主要的 Controller 文件和子目录。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **基于 Controller 命名和文件结构，推测其负责的业务功能或用户场景** (用简洁业务语言描述，例如 &amp;#34;处理用户注册流程&amp;#34; 而非 &amp;#34;/users POST 请求&amp;#34;)。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **API Endpoint 业务语义化:** 如果能获取 API Endpoint 信息 (例如 Spring Boot 项目的 `@RequestMapping` 注解)，请 **将技术化的 Endpoint 路径转化为更易懂的业务操作描述**。 例如 `/api/orders/{orderId}/payment` 可以描述为 &amp;#34;订单支付 API&amp;#34;。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **Controller 间的关联与流程初步推演:** 尝试分析 Controller 之间的调用关系 (如果能从代码片段中看出)，初步推演 **简单的业务流程片段**。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;3. **关键技术组件识别与技术选型推测:**
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **根据目录结构、文件名后缀、配置文件等信息，推测项目使用的编程语言、框架、数据库、消息队列、缓存等核心技术栈**。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * 识别项目中使用的 **关键技术组件或库** (例如 ORM 框架, 日志库, 缓存客户端, 消息队列客户端等)，并 **简述其技术作用**。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **技术选型的业务驱动因素推测:** 尝试 **推测项目技术选型背后的业务考虑**。 例如，选择 NoSQL 数据库可能是为了应对高并发和海量数据，选择微服务架构可能是为了支持业务快速迭代和独立部署。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;**第二阶段：业务流程与关键考量 (Prompt B 核心 + 增强)**
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;4. **核心业务流程串联与业务流程图:**
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **识别并描述项目中最核心的端到端业务流程** (例如用户下单、商品搜索、支付结算、内容发布等)。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **将业务流程与 Controller, Service 等技术模块关联起来，描述业务流程在技术层面的实现方式**。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **业务流程图 (可选):** 如果条件允许，尝试 **用文字流程图或简单的 Markdown 图表** 描述关键业务流程，更直观地呈现流程步骤和模块交互。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;5. **上下游依赖的业务价值与影响:**
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **分析项目依赖的上游服务和组件，并从业务角度解释依赖关系和业务价值** (例如依赖认证服务保障安全，依赖库存服务查询库存)。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **如果可能，了解下游系统如何依赖本项目，以及下游系统依赖本项目的哪些业务能力**。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **依赖稳定性与业务连续性考量:** 分析 **关键依赖的稳定性对项目业务的影响**，例如外部服务故障是否会影响核心业务，是否有熔断降级机制。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;6. **代码注释与业务规则深度挖掘:**
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **重点分析代码注释 (Controller, Service, Model 等)，提取业务规则、约束条件、特殊逻辑、重要提示等业务细节**。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **业务规则分类整理:** 将提取的业务规则进行 **分类整理**，例如： 业务校验规则、权限控制规则、数据处理规则、风控规则、计费规则等，方便查阅和理解。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **业务流程中的关键决策点识别:** 从代码和注释中识别 **业务流程中的关键决策点和分支逻辑**，例如不同用户类型的流程差异，不同支付方式的处理分支等。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;7. **关键业务考量、潜在风险与改进建议:**
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **识别项目中可能存在的关键业务考量点** (安全性、性能、可扩展性、合规性、数据一致性等)。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **基于代码分析和注释，尝试识别潜在的业务风险或技术挑战**。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **结合技术和业务视角，提出改进建议:** 基于对技术架构和业务流程的理解，**从技术和业务角度出发，提出可能的改进建议**。 例如，性能优化建议、安全加固建议、业务流程优化建议、架构升级建议等。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;**第三阶段：综合总结与价值呈现**
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;8. **技术架构与业务价值综合总结:**
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **总结项目在组织或产品线中的核心业务价值和业务定位**。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **技术架构对业务价值的支撑作用:** **阐述项目的技术架构如何支撑其业务价值的实现**。 例如，高性能架构支撑高并发交易，微服务架构支撑业务快速创新。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; * **项目成功的关键因素与未来展望:** 基于全面分析，**推测项目成功的关键因素，并对项目未来发展方向和潜在机会进行展望**。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# 输出格式要求
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;请使用清晰、结构化的 Markdown 格式呈现分析结果，例如使用 **多级标题、列表、表格、代码块、流程图** 等。 **突出显示关键信息，例如使用粗体、颜色标记、引用块等**。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* **技术架构部分：** 侧重 **技术术语和架构图示 (文字描述的架构图)**，清晰描述技术分层、模块构成、技术选型等。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* **业务流程部分：** 侧重 **业务语言和流程图**，清晰描述核心业务流程、用户场景、模块交互等。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* **关键考量与风险部分：** **重点突出业务风险和关键考量点**，并给出相应的 **技术或业务改进建议**。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* **综合总结部分：** **高度概括项目的技术架构和业务价值**，并展望未来。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;**请在每个分析要点后，简要说明你分析的依据** (例如 &amp;#34;基于目录结构分析&amp;#34;, &amp;#34;基于 Controller 代码片段&amp;#34;, &amp;#34;基于代码注释&amp;#34; 等)，以增强分析的可信度和透明度。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# 我将提供的信息
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;[请你根据实际情况，详细说明你将提供给 AI 的信息，例如：]
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* &amp;#34;我会提供项目根目录的 `tree` 命令输出结果。&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* &amp;#34;我会提供 `src/main/java` 目录下的所有 Java 文件内容 (或关键 Controller/Service/Model 文件内容)。&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* &amp;#34;我会提供关键 Controller 和 Service 文件的代码片段和代码注释。&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* &amp;#34;我可以提供项目的技术文档 (如果项目有的话)。&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* &amp;#34;我可以根据你的需要，逐步提供更详细的代码或信息。&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# 互动方式
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;请在我提供信息后开始分析。请 **主动提问，引导我提供更精准、更有价值的信息**，以便进行更深入、更全面的分析。 这是一个深度协作的过程，我们共同努力，深入理解项目。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item></channel></rss>

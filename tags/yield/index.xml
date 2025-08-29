@@ -1,81 +1,81 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yield on 雨的味道</title><link>https://reatang.com/tags/yield/</link><description>Recent content in Yield on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 30 Mar 2017 11:30:42 +0000</lastBuildDate><atom:link href="https://reatang.com/tags/yield/index.xml" rel="self" type="application/rss+xml"/><item><title>我是这么理解协程yield异步IO的</title><link>https://reatang.com/p/old-post-23/</link><pubDate>Thu, 30 Mar 2017 11:30:42 +0000</pubDate><guid>https://reatang.com/p/old-post-23/</guid><description>&lt;p>今天又仔仔细细的研究了一下鸟哥写的yield的文章： &lt;a class="link" href="http://www.laruence.com/2015/05/28/3038.html" target="_blank" rel="noopener"
->传送门&lt;/a>&lt;/p>
-&lt;p>突然对yield的作用明晰了。&lt;/p>
-&lt;p>就像很多人说的 yield 其实就是实现一种以同步方式写异步代码的功能，写了这么多年PHP，完全不清楚这个到底是啥意思。不过看完这篇文章算是懂了。&lt;/p>
-&lt;p>一般的PHP代码（类似于同步IO）：&lt;/p>
-&lt;p>&lt;img src="https://reatang.com/%7b#ZC_BLOG_HOST#%7dzb_users/upload/2017/03/201703301490844988786421.jpg"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Yield on 雨的味道</title><link>https://reatang.com/tags/yield/</link><description>Recent content in Yield on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 30 Mar 2017 11:30:42 +0000</lastBuildDate><atom:link href="https://reatang.com/tags/yield/index.xml" rel="self" type="application/rss+xml"/><item><title>我是这么理解协程yield异步IO的</title><link>https://reatang.com/p/old-post-23/</link><pubDate>Thu, 30 Mar 2017 11:30:42 +0000</pubDate><guid>https://reatang.com/p/old-post-23/</guid><description>&lt;p&gt;今天又仔仔细细的研究了一下鸟哥写的yield的文章： &lt;a class="link" href="http://www.laruence.com/2015/05/28/3038.html" target="_blank" rel="noopener"
+&gt;传送门&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;突然对yield的作用明晰了。&lt;/p&gt;
+&lt;p&gt;就像很多人说的 yield 其实就是实现一种以同步方式写异步代码的功能，写了这么多年PHP，完全不清楚这个到底是啥意思。不过看完这篇文章算是懂了。&lt;/p&gt;
+&lt;p&gt;一般的PHP代码（类似于同步IO）：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://reatang.com/%7b#ZC_BLOG_HOST#%7dzb_users/upload/2017/03/201703301490844988786421.jpg"
 loading="lazy"
 alt="1.jpg"
->&lt;/p>
-&lt;p>PHP完全以同步的方式在处理 从 【PHP处理】 -&amp;gt; 【处理完成】的这个过程。因为毕竟一次处理一个请求。&lt;/p>
-&lt;p>如果使用yield就完全不一样了（首先我们就不能用php-fpm了），php需要自己控制处理所有socket才能达到真异步。&lt;/p>
-&lt;p>例，一个业务逻辑(普通的)：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$data = DB::select();
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$respA = $httpClient-&amp;gt;post($uri, $data);
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">if ($respA[&amp;#39;code&amp;#39;] == 0) {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $id = DB::insert($respA[&amp;#39;data&amp;#39;]);
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $respB = $httpClient-&amp;gt;post($uri, [&amp;#39;some_id&amp;#39; =&amp;gt; $id]);
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">return response()-&amp;gt;ok();
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>如果我们用yield：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$data = yield AsyncDB::select();
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$respA = yield $AsyncHttpClient-&amp;gt;post($uri, $data);
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">if ($respA[&amp;#39;code&amp;#39;] == 0) {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $id = yield AsyncDB::insert($respA[&amp;#39;data&amp;#39;]);
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    $respB = yield $AsyncHttpClient-&amp;gt;post($uri, [&amp;#39;some_id&amp;#39; =&amp;gt; $id]);
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">return response()-&amp;gt;ok();
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>之前我一直很困惑，这么写有什么用呢？看了很多文章，甚至写了很多例子，都发现IO依然是同步的。&lt;/p>
-&lt;p>这是因为，我们想用到真正的yield的功能就要整个环境（框架）都支持它。&lt;/p>
-&lt;p>OK，详细来描述一下这段业务逻辑背后的事情：&lt;/p>
-&lt;p>&lt;img src="https://reatang.com/%7b#ZC_BLOG_HOST#%7dzb_users/upload/2017/03/201703301490845963582602.jpg"
+&gt;&lt;/p&gt;
+&lt;p&gt;PHP完全以同步的方式在处理 从 【PHP处理】 -&amp;gt; 【处理完成】的这个过程。因为毕竟一次处理一个请求。&lt;/p&gt;
+&lt;p&gt;如果使用yield就完全不一样了（首先我们就不能用php-fpm了），php需要自己控制处理所有socket才能达到真异步。&lt;/p&gt;
+&lt;p&gt;例，一个业务逻辑(普通的)：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$data = DB::select();
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$respA = $httpClient-&amp;gt;post($uri, $data);
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;if ($respA[&amp;#39;code&amp;#39;] == 0) {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    $id = DB::insert($respA[&amp;#39;data&amp;#39;]);
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    $respB = $httpClient-&amp;gt;post($uri, [&amp;#39;some_id&amp;#39; =&amp;gt; $id]);
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;return response()-&amp;gt;ok();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果我们用yield：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$data = yield AsyncDB::select();
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$respA = yield $AsyncHttpClient-&amp;gt;post($uri, $data);
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;if ($respA[&amp;#39;code&amp;#39;] == 0) {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    $id = yield AsyncDB::insert($respA[&amp;#39;data&amp;#39;]);
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    $respB = yield $AsyncHttpClient-&amp;gt;post($uri, [&amp;#39;some_id&amp;#39; =&amp;gt; $id]);
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;return response()-&amp;gt;ok();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;之前我一直很困惑，这么写有什么用呢？看了很多文章，甚至写了很多例子，都发现IO依然是同步的。&lt;/p&gt;
+&lt;p&gt;这是因为，我们想用到真正的yield的功能就要整个环境（框架）都支持它。&lt;/p&gt;
+&lt;p&gt;OK，详细来描述一下这段业务逻辑背后的事情：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://reatang.com/%7b#ZC_BLOG_HOST#%7dzb_users/upload/2017/03/201703301490845963582602.jpg"
 loading="lazy"
 alt="2.jpg"
->&lt;/p>
-&lt;p>上图只是说一次请求。&lt;/p>
-&lt;p>IO任务调度器是全局的，我们有成千上万个这种请求在处理：&lt;/p>
-&lt;p>&lt;img src="https://reatang.com/%7b#ZC_BLOG_HOST#%7dzb_users/upload/2017/03/201703301490846535355281.jpg"
+&gt;&lt;/p&gt;
+&lt;p&gt;上图只是说一次请求。&lt;/p&gt;
+&lt;p&gt;IO任务调度器是全局的，我们有成千上万个这种请求在处理：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://reatang.com/%7b#ZC_BLOG_HOST#%7dzb_users/upload/2017/03/201703301490846535355281.jpg"
 loading="lazy"
 alt="3.jpg"
->&lt;/p>
-&lt;p>IO任务调度器的设计就像是epoll 或者 select 一样，非阻塞（同步或者异步）。只要有IO完成了，协程就会返回到这个IO当时yield的地方，继续执行（就像设置断点一样）。&lt;/p>
-&lt;p>最后总结：&lt;/p>
-&lt;p>在有协程的框架设计中任务调度器的设计就是提高程序性能的关键，假如普通的同步请求一个单位时间处理1一个请求，那么这种yeild协程就是看机器的性能了。&lt;/p></description></item></channel></rss>
+&gt;&lt;/p&gt;
+&lt;p&gt;IO任务调度器的设计就像是epoll 或者 select 一样，非阻塞（同步或者异步）。只要有IO完成了，协程就会返回到这个IO当时yield的地方，继续执行（就像设置断点一样）。&lt;/p&gt;
+&lt;p&gt;最后总结：&lt;/p&gt;
+&lt;p&gt;在有协程的框架设计中任务调度器的设计就是提高程序性能的关键，假如普通的同步请求一个单位时间处理1一个请求，那么这种yeild协程就是看机器的性能了。&lt;/p&gt;</description></item></channel></rss>

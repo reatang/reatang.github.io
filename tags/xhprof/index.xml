@@ -1,186 +1,186 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Xhprof on 雨的味道</title><link>https://reatang.com/tags/xhprof/</link><description>Recent content in Xhprof on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 19 Mar 2018 12:48:20 +0000</lastBuildDate><atom:link href="https://reatang.com/tags/xhprof/index.xml" rel="self" type="application/rss+xml"/><item><title>【brew】创建一个php71的xhprof安装包</title><link>https://reatang.com/p/old-post-34/</link><pubDate>Mon, 19 Mar 2018 12:48:20 +0000</pubDate><guid>https://reatang.com/p/old-post-34/</guid><description>&lt;h1 id="xhorof-php性能分析工具">xhorof php性能分析工具
-&lt;/h1>&lt;p>原创文章，转载请注明出处： &lt;a class="link" href="%7b#ZC_BLOG_HOST#%7d?id=34" >{#ZC_BLOG_HOST#}?id=34&lt;/a>&lt;/p>
-&lt;p>工具：&lt;/p>
-&lt;p>php &amp;gt;= 7.0: &lt;a class="link" href="https://github.com/longxinH/xhprof" target="_blank" rel="noopener"
->https://github.com/longxinH/xhprof&lt;/a>&lt;/p>
-&lt;p>php &amp;lt; 7.0 : https://github.com/phacility/xhprof&lt;/p>
-&lt;p>1、创建文件 php71-xhprof.rb&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$&amp;gt;touch /usr/local/Homebrew/Library/Taps/homebrew/homebrew-php/Formula/php71-xhprof.rb
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>2、选择你喜欢的编辑器打开上面创建的文件，然后将如下内容复制进去并保存&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
-&lt;/span>&lt;span class="lnt">18
-&lt;/span>&lt;span class="lnt">19
-&lt;/span>&lt;span class="lnt">20
-&lt;/span>&lt;span class="lnt">21
-&lt;/span>&lt;span class="lnt">22
-&lt;/span>&lt;span class="lnt">23
-&lt;/span>&lt;span class="lnt">24
-&lt;/span>&lt;span class="lnt">25
-&lt;/span>&lt;span class="lnt">26
-&lt;/span>&lt;span class="lnt">27
-&lt;/span>&lt;span class="lnt">28
-&lt;/span>&lt;span class="lnt">29
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"># file /usr/local/Homebrew/Library/Taps/homebrew/homebrew-php/Formula/php71-xhprof.rb
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">require File.expand_path(&amp;#34;../../Abstract/abstract-php-extension&amp;#34;, __FILE__)
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">class Php71Xhprof &amp;lt; AbstractPhp71Extension
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  init
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  desc &amp;#34;XHProf is a function-level hierarchical profiler for PHP and has a simple HTML based user interface.&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  homepage &amp;#34;https://github.com/longxinH/xhprof&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  url &amp;#34;https://github.com/longxinH/xhprof/archive/v1.2.tar.gz&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  sha256 &amp;#34;a0026e6047512ee289e59b188a40a6517aace40d4c65f7f23714aa4f0458089c&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  head &amp;#34;https://github.com/longxinH/xhprof.git&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  depends_on &amp;#34;pcre&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  def install
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    Dir.chdir &amp;#34;extension&amp;#34; do
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      ENV.universal_binary if build.universal?
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      safe_phpize
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      system &amp;#34;./configure&amp;#34;, &amp;#34;--prefix=#{prefix}&amp;#34;, phpconfig
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      system &amp;#34;make&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">      prefix.install &amp;#34;modules/xhprof.so&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    end
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    prefix.install %w[xhprof_html xhprof_lib]
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    write_config_file if build.with? &amp;#34;config-file&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">  end
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">end
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>3、使用命令开始安装&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$&amp;gt;brew install homebrew/php/php71-xhprof
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>4、编辑配置文件&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">; file /usr/local/etc/php/7.1/conf.d/ext-xhprof.ini
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[xhprof]
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">extension=&amp;#34;/usr/local/opt/php71-xhprof/xhprof.so&amp;#34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">; 我的配置是设置为我的家目录
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xhprof.output_dir=&amp;#34;/Users/reatang/.xhprof&amp;#34;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>5、将xhprof的web页面添加到nginx配置中（如：创建xhprof.conf），并重启nginx&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
-&lt;/span>&lt;span class="lnt">18
-&lt;/span>&lt;span class="lnt">19
-&lt;/span>&lt;span class="lnt">20
-&lt;/span>&lt;span class="lnt">21
-&lt;/span>&lt;span class="lnt">22
-&lt;/span>&lt;span class="lnt">23
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"># file /usr/local/etc/nginx/servers/xhprof.conf
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">server {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    listen 80;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    server_name xhprof.local; # 需要填入 /etc/hosts
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    index index.php index.html index.htm;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    charset utf-8;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    root &amp;#34;/usr/local/Cellar/php71-xhprof/1.2/xhprof_html/&amp;#34;;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    location = /favicon.ico { access_log off; log_not_found off; }
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    location = /robots.txt  { access_log off; log_not_found off; }
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    location ~ /\.ht { deny all; }
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    location / {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">     try_files $uri $uri/ /index.php?$query_string;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    }
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> location ~ \.php {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">         fastcgi_pass 127.0.0.1:9000; # 如果用的是Laravel的 valet，则写：unix:/Users/reatang/.valet/valet.sock
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">         try_files $uri /index.php = 404;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">         fastcgi_param SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">         include fastcgi_params;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">    }
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>6、重启 nginx，重启php-fpm&lt;/p>
-&lt;p>7、可以看一看 &lt;a class="link" href="https://github.com/longxinH/xhprof" target="_blank" rel="noopener"
->https://github.com/longxinH/xhprof&lt;/a> 的示例代码进行使用操作&lt;/p>
-&lt;h2 id="注意">注意：
-&lt;/h2>&lt;p>可能需要安装图片工具：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$&amp;gt;brew install graphviz
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>p.s：做了一个laravel5.5的测试，无法直视&lt;/p>
-&lt;p>&lt;img src="https://reatang.com/%7b#ZC_BLOG_HOST#%7dzb_users/upload/2018/03/201803191521438573512067.png"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Xhprof on 雨的味道</title><link>https://reatang.com/tags/xhprof/</link><description>Recent content in Xhprof on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 19 Mar 2018 12:48:20 +0000</lastBuildDate><atom:link href="https://reatang.com/tags/xhprof/index.xml" rel="self" type="application/rss+xml"/><item><title>【brew】创建一个php71的xhprof安装包</title><link>https://reatang.com/p/old-post-34/</link><pubDate>Mon, 19 Mar 2018 12:48:20 +0000</pubDate><guid>https://reatang.com/p/old-post-34/</guid><description>&lt;h1 id="xhorof-php性能分析工具"&gt;xhorof php性能分析工具
+&lt;/h1&gt;&lt;p&gt;原创文章，转载请注明出处： &lt;a class="link" href="%7b#ZC_BLOG_HOST#%7d?id=34" &gt;{#ZC_BLOG_HOST#}?id=34&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;工具：&lt;/p&gt;
+&lt;p&gt;php &amp;gt;= 7.0: &lt;a class="link" href="https://github.com/longxinH/xhprof" target="_blank" rel="noopener"
+&gt;https://github.com/longxinH/xhprof&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php &amp;lt; 7.0 : https://github.com/phacility/xhprof&lt;/p&gt;
+&lt;p&gt;1、创建文件 php71-xhprof.rb&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$&amp;gt;touch /usr/local/Homebrew/Library/Taps/homebrew/homebrew-php/Formula/php71-xhprof.rb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;2、选择你喜欢的编辑器打开上面创建的文件，然后将如下内容复制进去并保存&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# file /usr/local/Homebrew/Library/Taps/homebrew/homebrew-php/Formula/php71-xhprof.rb
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;require File.expand_path(&amp;#34;../../Abstract/abstract-php-extension&amp;#34;, __FILE__)
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;class Php71Xhprof &amp;lt; AbstractPhp71Extension
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;  init
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;  desc &amp;#34;XHProf is a function-level hierarchical profiler for PHP and has a simple HTML based user interface.&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;  homepage &amp;#34;https://github.com/longxinH/xhprof&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;  url &amp;#34;https://github.com/longxinH/xhprof/archive/v1.2.tar.gz&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;  sha256 &amp;#34;a0026e6047512ee289e59b188a40a6517aace40d4c65f7f23714aa4f0458089c&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;  head &amp;#34;https://github.com/longxinH/xhprof.git&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;  depends_on &amp;#34;pcre&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;  def install
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    Dir.chdir &amp;#34;extension&amp;#34; do
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;      ENV.universal_binary if build.universal?
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;      safe_phpize
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;      system &amp;#34;./configure&amp;#34;, &amp;#34;--prefix=#{prefix}&amp;#34;, phpconfig
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;      system &amp;#34;make&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;      prefix.install &amp;#34;modules/xhprof.so&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    end
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    prefix.install %w[xhprof_html xhprof_lib]
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    write_config_file if build.with? &amp;#34;config-file&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;  end
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;end
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;3、使用命令开始安装&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$&amp;gt;brew install homebrew/php/php71-xhprof
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;4、编辑配置文件&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;; file /usr/local/etc/php/7.1/conf.d/ext-xhprof.ini
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;[xhprof]
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;extension=&amp;#34;/usr/local/opt/php71-xhprof/xhprof.so&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;; 我的配置是设置为我的家目录
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;xhprof.output_dir=&amp;#34;/Users/reatang/.xhprof&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;5、将xhprof的web页面添加到nginx配置中（如：创建xhprof.conf），并重启nginx&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# file /usr/local/etc/nginx/servers/xhprof.conf
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;server {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    listen 80;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    server_name xhprof.local; # 需要填入 /etc/hosts
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    index index.php index.html index.htm;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    charset utf-8;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    root &amp;#34;/usr/local/Cellar/php71-xhprof/1.2/xhprof_html/&amp;#34;;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    location = /favicon.ico { access_log off; log_not_found off; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    location = /robots.txt  { access_log off; log_not_found off; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    location ~ /\.ht { deny all; }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    location / {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;     try_files $uri $uri/ /index.php?$query_string;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; location ~ \.php {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;         fastcgi_pass 127.0.0.1:9000; # 如果用的是Laravel的 valet，则写：unix:/Users/reatang/.valet/valet.sock
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;         try_files $uri /index.php = 404;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;         fastcgi_param SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;         include fastcgi_params;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;6、重启 nginx，重启php-fpm&lt;/p&gt;
+&lt;p&gt;7、可以看一看 &lt;a class="link" href="https://github.com/longxinH/xhprof" target="_blank" rel="noopener"
+&gt;https://github.com/longxinH/xhprof&lt;/a&gt; 的示例代码进行使用操作&lt;/p&gt;
+&lt;h2 id="注意"&gt;注意：
+&lt;/h2&gt;&lt;p&gt;可能需要安装图片工具：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$&amp;gt;brew install graphviz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;p.s：做了一个laravel5.5的测试，无法直视&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://reatang.com/%7b#ZC_BLOG_HOST#%7dzb_users/upload/2018/03/201803191521438573512067.png"
 loading="lazy"
 alt="laravel55.png"
->&lt;/p>
-&lt;p>确实是一个hello world 12000+的调用&lt;/p>
-&lt;p>&lt;img src="https://reatang.com/%7b#ZC_BLOG_HOST#%7dzb_users/upload/2018/03/201803191521438600418730.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;确实是一个hello world 12000+的调用&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://reatang.com/%7b#ZC_BLOG_HOST#%7dzb_users/upload/2018/03/201803191521438600418730.png"
 loading="lazy"
 alt="image.png"
->&lt;/p></description></item></channel></rss>
+&gt;&lt;/p&gt;</description></item></channel></rss>

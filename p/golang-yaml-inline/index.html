@@ -42,50 +42,50 @@
 </span><span class=lnt>29
 </span><span class=lnt>30
 </span><span class=lnt>31
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;fmt&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;gopkg.in/yaml.v3&#34;</span>
-</span></span><span class=line><span class=cl><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>SubData</span> <span class=kd>struct</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>Sub1</span> <span class=kt>string</span> <span class=s>`yaml:&#34;sub1&#34;`</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Config</span> <span class=kd>struct</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>SubData</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=nx>Data1</span> <span class=kt>string</span> <span class=s>`yaml:&#34;data1&#34;`</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nx>y1</span> <span class=o>:=</span> <span class=s>`
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;gopkg.in/yaml.v3&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>SubData</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>Sub1</span><span class=w> </span><span class=kt>string</span><span class=w> </span><span class=s>`yaml:&#34;sub1&#34;`</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Config</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>SubData</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>Data1</span><span class=w> </span><span class=kt>string</span><span class=w> </span><span class=s>`yaml:&#34;data1&#34;`</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>y1</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=s>`
 </span></span></span><span class=line><span class=cl><span class=s>data1: &#34;aaaa&#34;
 </span></span></span><span class=line><span class=cl><span class=s>sub1: &#34;bbbb&#34;
-</span></span></span><span class=line><span class=cl><span class=s>`</span>
-</span></span><span class=line><span class=cl>    <span class=nx>c</span> <span class=o>:=</span> <span class=nx>Config</span><span class=p>{}</span>
-</span></span><span class=line><span class=cl>	<span class=nx>err</span> <span class=o>:=</span> <span class=nx>yaml</span><span class=p>.</span><span class=nf>Unmarshal</span><span class=p>([]</span><span class=nb>byte</span><span class=p>(</span><span class=nx>y1</span><span class=p>),</span> <span class=o>&amp;</span><span class=nx>c</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>d</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></td></tr></table></div></div><p>此处的预期输出应该为：<code>{{bbbb} aaaa}</code>，但是实际得到的确是：<code>{{} aaaa}</code>，内嵌结构体并没有收到的数据，这和<code>json</code>包的行为不一样。</p><p>后来通过对<code>yaml</code>包的深入了解，原来yaml包需要添加：<code>inline</code>的tag属性，才可以达到效果。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></span></span><span class=line><span class=cl><span class=s>`</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>c</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>Config</span><span class=p>{}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>yaml</span><span class=p>.</span><span class=nf>Unmarshal</span><span class=p>([]</span><span class=nb>byte</span><span class=p>(</span><span class=nx>y1</span><span class=p>),</span><span class=w> </span><span class=o>&amp;</span><span class=nx>c</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>d</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>此处的预期输出应该为：<code>{{bbbb} aaaa}</code>，但是实际得到的确是：<code>{{} aaaa}</code>，内嵌结构体并没有收到的数据，这和<code>json</code>包的行为不一样。</p><p>后来通过对<code>yaml</code>包的深入了解，原来yaml包需要添加：<code>inline</code>的tag属性，才可以达到效果。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
 </span><span class=lnt>5
 </span><span class=lnt>6
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Config</span> <span class=kd>struct</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>SubData</span> <span class=s>`yaml:&#34;,inline&#34;`</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=nx>Data1</span> <span class=kt>string</span> <span class=s>`yaml:&#34;data1&#34;`</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></td></tr></table></div></div><p>得到正确的结果：<code>{{bbbb} aaaa}</code></p><p>另外，如果不加inline，那么yaml数据应该使用如下数据格式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Config</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>SubData</span><span class=w> </span><span class=s>`yaml:&#34;,inline&#34;`</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>Data1</span><span class=w> </span><span class=kt>string</span><span class=w> </span><span class=s>`yaml:&#34;data1&#34;`</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>得到正确的结果：<code>{{bbbb} aaaa}</code></p><p>另外，如果不加inline，那么yaml数据应该使用如下数据格式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>data1</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;aaaa&#34;</span><span class=w>

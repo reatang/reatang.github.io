@@ -34,30 +34,30 @@
 </span><span class=lnt>21
 </span><span class=lnt>22
 </span><span class=lnt>23
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-golang data-lang=golang><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>import</span><span class=p>(</span>
-</span></span><span class=line><span class=cl>    <span class=s>&#34;fmt&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=s>&#34;encoding/json&#34;</span>
-</span></span><span class=line><span class=cl>    <span class=nx>jsondt</span> <span class=s>&#34;github.com/reatang/go-json-datetime&#34;</span>
-</span></span><span class=line><span class=cl><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Data</span> <span class=kd>struct</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nx>CreateTime</span> <span class=nx>jsondt</span><span class=p>.</span><span class=nx>DateTime</span> <span class=s>`json:&#34;create_time&#34;`</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nx>j1</span> <span class=o>:=</span> <span class=s>`{&#34;create_time&#34;: &#34;2024-07-10 18:52:19&#34;}`</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>d</span> <span class=nx>Data</span>
-</span></span><span class=line><span class=cl>    <span class=nx>err</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>Unmarshal</span><span class=p>(</span><span class=nx>j1</span><span class=p>,</span> <span class=o>&amp;</span><span class=nx>d</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>d</span><span class=p>.</span><span class=nx>CreateTime</span><span class=p>.</span><span class=nf>Format</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>DateTime</span><span class=p>))</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></td></tr></table></div></div><h2 id=二iso8601-解析>二、ISO8601 解析</h2><p>有效的 ISO8601时间格式为：</p><ul><li><p>仅日期：</p><ul><li>2023-12-05</li></ul></li><li><p>日期和时间（不含时区）：</p><ul><li>2023-12-05T14:30:00</li></ul></li><li><p>日期和时间（含时区）：</p><ul><li>2023-12-05T14:30:00Z （Z 表示 UTC 时间）</li><li>2023-12-05T14:30:00+08:00 （+08:00 表示东八区时间）</li></ul></li><li><p>仅时间（不含日期）：</p><ul><li>14:30:00</li><li>14:30:00.123 （包含毫秒）</li></ul></li><li><p>周日期：</p><ul><li>2023-W50 （表示 2023 年的第 50 周）</li><li>2023-W50-2 （表示 2023 年第 50 周的第 2 天）</li></ul></li></ul><p>库：<code>github.com/relvacode/iso8601</code></p><p>示例代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-golang data-lang=golang><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;encoding/json&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>jsondt</span><span class=w> </span><span class=s>&#34;github.com/reatang/go-json-datetime&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Data</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>CreateTime</span><span class=w> </span><span class=nx>jsondt</span><span class=p>.</span><span class=nx>DateTime</span><span class=w> </span><span class=s>`json:&#34;create_time&#34;`</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>j1</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=s>`{&#34;create_time&#34;: &#34;2024-07-10 18:52:19&#34;}`</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>var</span><span class=w> </span><span class=nx>d</span><span class=w> </span><span class=nx>Data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>json</span><span class=p>.</span><span class=nf>Unmarshal</span><span class=p>(</span><span class=nx>j1</span><span class=p>,</span><span class=w> </span><span class=o>&amp;</span><span class=nx>d</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>d</span><span class=p>.</span><span class=nx>CreateTime</span><span class=p>.</span><span class=nf>Format</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>DateTime</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h2 id=二iso8601-解析>二、ISO8601 解析</h2><p>有效的 ISO8601时间格式为：</p><ul><li><p>仅日期：</p><ul><li>2023-12-05</li></ul></li><li><p>日期和时间（不含时区）：</p><ul><li>2023-12-05T14:30:00</li></ul></li><li><p>日期和时间（含时区）：</p><ul><li>2023-12-05T14:30:00Z （Z 表示 UTC 时间）</li><li>2023-12-05T14:30:00+08:00 （+08:00 表示东八区时间）</li></ul></li><li><p>仅时间（不含日期）：</p><ul><li>14:30:00</li><li>14:30:00.123 （包含毫秒）</li></ul></li><li><p>周日期：</p><ul><li>2023-W50 （表示 2023 年的第 50 周）</li><li>2023-W50-2 （表示 2023 年第 50 周的第 2 天）</li></ul></li></ul><p>库：<code>github.com/relvacode/iso8601</code></p><p>示例代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
@@ -81,31 +81,31 @@
 </span><span class=lnt>22
 </span><span class=lnt>23
 </span><span class=lnt>24
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;encoding/json&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;fmt&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;time&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/relvacode/iso8601&#34;</span>
-</span></span><span class=line><span class=cl><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Data</span> <span class=kd>struct</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>CreateTime</span> <span class=nx>iso8601</span><span class=p>.</span><span class=nx>Time</span> <span class=s>`json:&#34;create_time&#34;`</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>j1</span> <span class=o>:=</span> <span class=s>`{&#34;create_time&#34;:&#34;2017-04-24T09:41:34+0800&#34;}`</span>
-</span></span><span class=line><span class=cl>	<span class=kd>var</span> <span class=nx>data</span> <span class=nx>Data</span>
-</span></span><span class=line><span class=cl>	<span class=nx>err</span> <span class=p>=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>Unmarshal</span><span class=p>([]</span><span class=nb>byte</span><span class=p>(</span><span class=nx>j1</span><span class=p>),</span> <span class=o>&amp;</span><span class=nx>data</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>data</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/golang/>Golang</a>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;encoding/json&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;time&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;github.com/relvacode/iso8601&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Data</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>CreateTime</span><span class=w> </span><span class=nx>iso8601</span><span class=p>.</span><span class=nx>Time</span><span class=w> </span><span class=s>`json:&#34;create_time&#34;`</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>j1</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=s>`{&#34;create_time&#34;:&#34;2017-04-24T09:41:34+0800&#34;}`</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>var</span><span class=w> </span><span class=nx>data</span><span class=w> </span><span class=nx>Data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>err</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>json</span><span class=p>.</span><span class=nf>Unmarshal</span><span class=p>([]</span><span class=nb>byte</span><span class=p>(</span><span class=nx>j1</span><span class=p>),</span><span class=w> </span><span class=o>&amp;</span><span class=nx>data</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>data</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/golang/>Golang</a>
 <a href=/tags/%E5%BA%93/>库</a>
 <a href=/tags/%E6%97%B6%E9%97%B4/>时间</a>
 <a href=/tags/json/>Json</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>

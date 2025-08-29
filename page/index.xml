@@ -1,624 +1,624 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on 雨的味道</title><link>https://reatang.com/page/</link><description>Recent content in Pages on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://reatang.com/page/index.xml" rel="self" type="application/rss+xml"/><item><title>单页知识</title><link>https://reatang.com/single-pages/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://reatang.com/single-pages/</guid><description>&lt;p>AI类&lt;/p>
-&lt;p>&lt;a class="link" href="https://reatang.com/single-pages/12-prompt.html" >12个提示词框架&lt;/a>&lt;/p>
-&lt;p>财商类&lt;/p>
-&lt;p>&lt;a class="link" href="https://reatang.com/single-pages/harry-browns-permanent-portfolio.html" >深入理解《哈利布朗的永久投资组合》&lt;/a>&lt;/p>
-&lt;p>&lt;a class="link" href="https://reatang.com/single-pages/business-role-pyramid-model.html" >商业角色金字塔模型&lt;/a>&lt;/p></description></item><item><title>归档文章</title><link>https://reatang.com/archives/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://reatang.com/archives/</guid><description/></item><item><title>好东西传送门</title><link>https://reatang.com/good-package/</link><pubDate>Fri, 13 Jan 2017 14:39:47 +0000</pubDate><guid>https://reatang.com/good-package/</guid><description>&lt;h3 id="好站">好站：
-&lt;/h3>&lt;p>&lt;a class="link" href="https://code.facebook.com/projects/" target="_blank" rel="noopener"
->facebook开源系列&lt;/a>&lt;/p>
-&lt;p>&lt;a class="link" href="https://devcenter.heroku.com/articles/platform-api-reference#ranges" target="_blank" rel="noopener"
->HTTP API设计&lt;/a>&lt;/p>
-&lt;p>&lt;a class="link" href="https://bitnami.com/stack/xampp" target="_blank" rel="noopener"
->流行的PHP开源系统&lt;/a>&lt;/p>
-&lt;p>&lt;a class="link" href="https://github.com/serhii-londar/open-source-mac-os-apps" target="_blank" rel="noopener"
->MAC OSX优秀软件列表&lt;/a>&lt;/p>
-&lt;p>&lt;a class="link" href="https://github.com/xingshaocheng/architect-awesome" target="_blank" rel="noopener"
->后端技术大全&lt;/a>&lt;/p>
-&lt;p>&lt;a class="link" href="http://www.ansible.com.cn/docs/intro.html" target="_blank" rel="noopener"
->ansible 运维自动化&lt;/a>&lt;/p>
-&lt;h3 id="好书">好书：
-&lt;/h3>&lt;p>免费的计算机编程类中文书籍 &lt;a class="link" href="https://github.com/justjavac" target="_blank" rel="noopener"
->justjavac&lt;/a>/ &lt;strong>&lt;a class="link" href="https://github.com/justjavac/free-programming-books-zh_CN" target="_blank" rel="noopener"
->free-programming-books-zh_CN&lt;/a>&lt;/strong>  2、 &lt;a class="link" href="https://github.com/vhf" target="_blank" rel="noopener"
->vhf&lt;/a>/ &lt;strong>&lt;a class="link" href="https://github.com/vhf/free-programming-books" target="_blank" rel="noopener"
->free-programming-books&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>前端技能汇总 &lt;a class="link" href="https://github.com/JacksonTian" target="_blank" rel="noopener"
->JacksonTian&lt;/a>/ &lt;strong>&lt;a class="link" href="https://github.com/JacksonTian/fks" target="_blank" rel="noopener"
->fks&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>swoole &lt;strong>入门教程：&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/LinkedDestiny/swoole-doc" target="_blank" rel="noopener"
->LinkedDestiny&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/LinkedDestiny/swoole-doc" target="_blank" rel="noopener"
->/&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/LinkedDestiny/swoole-doc" target="_blank" rel="noopener"
->swoole-doc&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>《Redis Command Reference》全文的中文翻译版： &lt;strong>&lt;a class="link" href="https://github.com/huangz1990/redis" target="_blank" rel="noopener"
->huangz1990&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/huangz1990/redis" target="_blank" rel="noopener"
->/&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/huangz1990/redis" target="_blank" rel="noopener"
->redis&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>Go &lt;strong>语言资源大全&lt;/strong> &lt;a class="link" href="https://github.com/avelino" target="_blank" rel="noopener"
->avelino&lt;/a>/ &lt;strong>&lt;a class="link" href="https://github.com/avelino/awesome-go" target="_blank" rel="noopener"
->awesome-go&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>好用的PHP库集合 &lt;a class="link" href="https://github.com/JingwenTian/awesome-php" target="_blank" rel="noopener"
->awesome-php&lt;/a>&lt;/p>
-&lt;h3 id="php相关">PHP相关：
-&lt;/h3>&lt;p>中文转拼音 ： &lt;a class="link" href="https://github.com/overtrue/laravel-pinyin" target="_blank" rel="noopener"
->overtrue&lt;/a> &lt;a class="link" href="https://github.com/overtrue/laravel-pinyin" target="_blank" rel="noopener"
->/&lt;/a> &lt;a class="link" href="https://github.com/overtrue/laravel-pinyin" target="_blank" rel="noopener"
->laravel-pinyin&lt;/a>&lt;/p>
-&lt;p>IP的地理位置： &lt;a class="link" href="https://github.com/zhuzhichao/ip-location-zh" target="_blank" rel="noopener"
->zhuzhichao&lt;/a> &lt;a class="link" href="https://github.com/zhuzhichao/ip-location-zh" target="_blank" rel="noopener"
->/&lt;/a> &lt;a class="link" href="https://github.com/zhuzhichao/ip-location-zh" target="_blank" rel="noopener"
->ip-location-zh&lt;/a>&lt;/p>
-&lt;p>php各种锁操作 &lt;a class="link" href="https://github.com/php-lock/lock" target="_blank" rel="noopener"
->malkusch/lock&lt;/a>&lt;/p>
-&lt;p>i18n国际化 使用mo文件 &lt;a class="link" href="https://lingohub.com/blog/2013/07/php-internationalization-with-gettext-tutorial/" target="_blank" rel="noopener"
->教程&lt;/a> &lt;a class="link" href="http://php.net/manual/zh/book.gettext.php" target="_blank" rel="noopener"
->核心组件&lt;/a> &lt;a class="link" href="http://www.gnu.org/software/gettext/manual/gettext.html" target="_blank" rel="noopener"
->官方文档&lt;/a>&lt;/p>
-&lt;p>根据银行卡号找到卡信息： &lt;a class="link" href="https://github.com/zhuzhichao/bank-card-info" target="_blank" rel="noopener"
->zhuzhichao&lt;/a> &lt;a class="link" href="https://github.com/zhuzhichao/bank-card-info" target="_blank" rel="noopener"
->/&lt;/a> &lt;a class="link" href="https://github.com/zhuzhichao/bank-card-info" target="_blank" rel="noopener"
->bank-card-info&lt;/a>&lt;/p>
-&lt;p>ORM 一样操作Execl表格： &lt;a class="link" href="https://github.com/Maatwebsite/Laravel-Excel" target="_blank" rel="noopener"
->Maatwebsite&lt;/a> &lt;a class="link" href="https://github.com/Maatwebsite/Laravel-Excel" target="_blank" rel="noopener"
->/&lt;/a> &lt;a class="link" href="https://github.com/Maatwebsite/Laravel-Excel" target="_blank" rel="noopener"
->Laravel-Excel&lt;/a>&lt;/p>
-&lt;p>PHP 原生实现的redis客户端 &lt;a class="link" href="https://github.com/nrk" target="_blank" rel="noopener"
->nrk&lt;/a>/ &lt;a class="link" href="https://github.com/nrk/predis" target="_blank" rel="noopener"
->predis&lt;/a>&lt;/p>
-&lt;p>扩展形式的PHP Redis 客户端  &lt;a class="link" href="https://github.com/phpredis" target="_blank" rel="noopener"
->phpredis&lt;/a>/ &lt;a class="link" href="https://github.com/phpredis/phpredis" target="_blank" rel="noopener"
->phpredis&lt;/a>&lt;/p>
-&lt;p>A PHP extension for Redis （增加redis-storage支持） &lt;a class="link" href="https://github.com/shenzhe" target="_blank" rel="noopener"
->shenzhe&lt;/a>/ &lt;a class="link" href="https://github.com/shenzhe/phpredis" target="_blank" rel="noopener"
->phpredis&lt;/a>&lt;/p>
-&lt;p>PHP 方便的数据库操作库 Medoo &lt;a class="link" href="https://github.com/catfan/Medoo" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>PHP 简单的ORM库 idiorm &lt;a class="link" href="https://github.com/j4mie/idiorm" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>json web token &lt;a class="link" href="https://github.com/tymondesigns/jwt-auth" target="_blank" rel="noopener"
->tymondesigns/jwt-auth&lt;/a>&lt;/p>
-&lt;p>PHP原生的 socket 组件 &lt;a class="link" href="https://github.com/walkor" target="_blank" rel="noopener"
->walkor&lt;/a>/ &lt;a class="link" href="https://github.com/walkor/Workerman" target="_blank" rel="noopener"
->Workerman&lt;/a>&lt;/p>
-&lt;p>php 协程系统 icicle &lt;a class="link" href="https://github.com/icicleio/icicle" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>AMQP library for PHP： &lt;strong>&lt;a class="link" href="https://github.com/videlalvaro/php-amqplib" target="_blank" rel="noopener"
->videlalvaro&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/videlalvaro/php-amqplib" target="_blank" rel="noopener"
->/&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/videlalvaro/php-amqplib" target="_blank" rel="noopener"
->php-amqplib&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>&lt;strong>php 图片操作组件：&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/Intervention/image" target="_blank" rel="noopener"
->Intervention&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/Intervention/image" target="_blank" rel="noopener"
->/&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/Intervention/image" target="_blank" rel="noopener"
->image&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>php 图片处理组件（修图，简单的图像识别） &lt;a class="link" href="https://github.com/kosinix" target="_blank" rel="noopener"
->kosinix&lt;/a>/ &lt;a class="link" href="https://github.com/kosinix/grafika" target="_blank" rel="noopener"
->grafika&lt;/a>&lt;/p>
-&lt;p>php 带图像层的图片处理组件 &lt;a class="link" href="https://github.com/Sybio/ImageWorkshop" target="_blank" rel="noopener"
->ImageWorkshop&lt;/a>&lt;/p>
-&lt;p>php 图像处理引擎，灵感来源于Python的 PIL &lt;a class="link" href="https://github.com/avalanche123/Imagine" target="_blank" rel="noopener"
->Imagine&lt;/a>&lt;/p>
-&lt;p>php 条形码生成工具： &lt;a class="link" href="http://www.barcodebakery.com/en/download/php" target="_blank" rel="noopener"
->barcodephp&lt;/a>&lt;/p>
-&lt;p>php 生成PDF工具 snappy &lt;a class="link" href="https://github.com/KnpLabs/snappy" target="_blank" rel="noopener"
->Github&lt;/a> 代码优美，依赖软件： &lt;a class="link" href="https://wkhtmltopdf.org/downloads.html" target="_blank" rel="noopener"
->wkhtmltopdf&lt;/a>，需php5.6&lt;/p>
-&lt;p>php 生成PDF工具2 mpdf &lt;a class="link" href="https://mpdf.github.io/" target="_blank" rel="noopener"
->官网&lt;/a> &lt;a class="link" href="https://github.com/mpdf/mpdf" target="_blank" rel="noopener"
->Github&lt;/a> 基于fpdf，自带中文字体，主要用于HTML转PDF，需php5.6&lt;/p>
-&lt;p>php 生成PDF工具3 tcpdf &lt;a class="link" href="https://tcpdf.org/" target="_blank" rel="noopener"
->官网&lt;/a> &lt;a class="link" href="https://github.com/tecnickcom/TCPDF" target="_blank" rel="noopener"
->Github&lt;/a> 无依赖，功能完整，支持php5.3，需要自己添加中文字体&lt;/p>
-&lt;p>php 生成PDF工具4 dompdf &lt;a class="link" href="https://github.com/dompdf/dompdf" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>php Markdown 转换工具 &lt;a class="link" href="https://github.com/michelf/php-markdown" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>php markdown 解析工具 &lt;a class="link" href="https://github.com/erusev/parsedown" target="_blank" rel="noopener"
->parsedown&lt;/a>&lt;/p>
-&lt;p>快速导出Execl &lt;a class="link" href="https://github.com/mk-j/PHP_XLSXWriter" target="_blank" rel="noopener"
->PHP_XLSXWriter&lt;/a>&lt;/p>
-&lt;p>php 文档生成： &lt;a class="link" href="https://github.com/FriendsOfPHP/sami" target="_blank" rel="noopener"
->sami&lt;/a>&lt;/p>
-&lt;p>强大的表单构建器 &lt;a class="link" href="https://github.com/formers/former" target="_blank" rel="noopener"
->formers/former&lt;/a>&lt;/p>
-&lt;p>简单实用的PHP模板引擎 mustache.php &lt;a class="link" href="https://github.com/bobthecow/mustache.php" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>扩展了原生模板的模板引擎 plates &lt;a class="link" href="http://platesphp.com/" target="_blank" rel="noopener"
->官网&lt;/a>&lt;/p>
-&lt;p>强大综合的PHP模板引擎 Twig &lt;a class="link" href="https://github.com/twigphp/Twig" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>类似于thrift的跨语言通信 &lt;a class="link" href="http://git.oschina.net/andot/hprose-php" target="_blank" rel="noopener"
->hprose&lt;/a>&lt;/p>
-&lt;p>一款面向对象中间，异构分布式系统通信框架 &lt;a class="link" href="https://zeroc.com/" target="_blank" rel="noopener"
->Zeroc ICE&lt;/a>&lt;/p>
-&lt;p>强大的php数据抓取组件 &lt;a class="link" href="https://sourceforge.net/projects/snoopy/files/" target="_blank" rel="noopener"
->snoopy&lt;/a>&lt;/p>
-&lt;p>简单的PHP爬虫组件（也可用于自动化测试）： &lt;a class="link" href="https://github.com/FriendsOfPHP/Goutte" target="_blank" rel="noopener"
->Goutte&lt;/a>&lt;/p>
-&lt;p>php基准测试库（测试运行时间、消耗内存等）： &lt;a class="link" href="https://github.com/devster/ubench" target="_blank" rel="noopener"
->ubench&lt;/a>&lt;/p>
-&lt;p>php数据字段验证库： &lt;a class="link" href="https://github.com/Respect/Validation" target="_blank" rel="noopener"
->Validation&lt;/a>&lt;/p>
-&lt;p>php假数据生成库： &lt;a class="link" href="https://github.com/fzaninotto/Faker" target="_blank" rel="noopener"
->Faker&lt;/a>&lt;/p>
-&lt;p>php易用的文件上传库： &lt;a class="link" href="https://github.com/codeguy/Upload" target="_blank" rel="noopener"
->Upload&lt;/a>&lt;/p>
-&lt;p>一个计算地理位置的库： &lt;a class="link" href="https://github.com/mjaschen/phpgeo" target="_blank" rel="noopener"
->phpgeo&lt;/a>&lt;/p>
-&lt;p>一个地理位置应用组件: Geocoder &lt;a class="link" href="https://github.com/geocoder-php/Geocoder" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>php模拟shell的库： &lt;a class="link" href="https://github.com/MrRio/shellwrap" target="_blank" rel="noopener"
->shellwrap&lt;/a>&lt;/p>
-&lt;p>API输出格式化库： &lt;a class="link" href="https://github.com/thephpleague/fractal" target="_blank" rel="noopener"
->league/fractal&lt;/a>&lt;/p>
-&lt;p>&lt;strong>遵守PSR-7标准的 http组件&lt;/strong> &lt;a class="link" href="https://github.com/guzzle" target="_blank" rel="noopener"
->guzzle&lt;/a>/ &lt;strong>&lt;a class="link" href="https://github.com/guzzle/psr7" target="_blank" rel="noopener"
->psr7&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>&lt;strong>php的HTTPClient 组件：&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/guzzle/guzzle" target="_blank" rel="noopener"
->guzzle&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/guzzle/guzzle" target="_blank" rel="noopener"
->/&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/guzzle/guzzle" target="_blank" rel="noopener"
->guzzle&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>&lt;strong>另一个HttpClient组件：&lt;/strong> &lt;a class="link" href="https://github.com/rmccue/Requests" target="_blank" rel="noopener"
->rmccue&lt;/a> &lt;a class="link" href="https://github.com/rmccue/Requests" target="_blank" rel="noopener"
->/&lt;/a> &lt;a class="link" href="https://github.com/rmccue/Requests" target="_blank" rel="noopener"
->Requests&lt;/a>&lt;/p>
-&lt;p>别的HttpClient组件: &lt;a class="link" href="https://github.com/php-curl-class" target="_blank" rel="noopener"
->php-curl-class&lt;/a>/ &lt;a class="link" href="https://github.com/php-curl-class/php-curl-class" target="_blank" rel="noopener"
->php-curl-class&lt;/a>&lt;/p>
-&lt;p>phpxmlrpc &lt;a class="link" href="https://github.com/gggeek/phpxmlrpc" target="_blank" rel="noopener"
->phpxmlrpc&lt;/a>&lt;/p>
-&lt;p>&lt;strong>腾讯的swoole基础框架：&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/tencent-php/tsf" target="_blank" rel="noopener"
->tencent-php&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/tencent-php/tsf" target="_blank" rel="noopener"
->/&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/tencent-php/tsf" target="_blank" rel="noopener"
->tsf&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>&lt;strong>真正的PHP多线程框架：&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/krakjoe/pthreads" target="_blank" rel="noopener"
->krakjoe&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/krakjoe/pthreads" target="_blank" rel="noopener"
->/&lt;/a>&lt;/strong> &lt;strong>&lt;a class="link" href="https://github.com/krakjoe/pthreads" target="_blank" rel="noopener"
->pthreads&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>swool + yaf 高性能PHP框架 &lt;a class="link" href="https://github.com/qieangel2013/zys" target="_blank" rel="noopener"
->zys&lt;/a>&lt;/p>
-&lt;p>PHP 后台异步任务队列组件 php-resque &lt;a class="link" href="https://github.com/chrisboulton/php-resque" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>Beanstalk，一个高性能、轻量级的分布式内存队列系统 &lt;a class="link" href="https://github.com/kr" target="_blank" rel="noopener"
->kr&lt;/a>/ &lt;strong>&lt;a class="link" href="https://github.com/kr/beanstalkd" target="_blank" rel="noopener"
->beanstalkd&lt;/a>&lt;/strong> &lt;strong>客户端列表：&lt;/strong> &lt;a class="link" href="https://github.com/kr/beanstalkd/wiki/client-libraries" target="_blank" rel="noopener"
->https://github.com/kr/beanstalkd/wiki/client-libraries&lt;/a>&lt;/p>
-&lt;p>Beanstalk 的一个简易的PHP客户端 &lt;a class="link" href="https://github.com/davidpersson" target="_blank" rel="noopener"
->davidpersson&lt;/a>/ &lt;strong>&lt;a class="link" href="https://github.com/davidpersson/beanstalk" target="_blank" rel="noopener"
->beanstalk&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>zphp是一个极轻的的，专用于游戏(社交，网页，移动)的服务器端开发框架.提供高性能实时通信方案 &lt;a class="link" href="https://github.com/huanghua581" target="_blank" rel="noopener"
->huanghua581&lt;/a>/ &lt;strong>&lt;a class="link" href="https://github.com/huanghua581/zphp" target="_blank" rel="noopener"
->zphp&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>功能丰富的php日志工具 &lt;a class="link" href="http://logging.apache.org/log4php/" target="_blank" rel="noopener"
->log4php&lt;/a>&lt;/p>
-&lt;p>高性能多协议的php日志库 &lt;a class="link" href="http://pecl.php.net/package/SeasLog" target="_blank" rel="noopener"
->SeasLog&lt;/a>&lt;/p>
-&lt;p>PSR-3规范的日志抽象层 &lt;a class="link" href="https://packagist.org/packages/monolog/monolog" target="_blank" rel="noopener"
->monolog&lt;/a>&lt;/p>
-&lt;p>php 自动化任务(部署)工具 &lt;a class="link" href="https://github.com/deployphp/deployer" target="_blank" rel="noopener"
->deployer&lt;/a>&lt;/p>
-&lt;p>cachetool 一个管理apc和opcache的工具 &lt;a class="link" href="https://github.com/gordalina/cachetool" target="_blank" rel="noopener"
->gordalina/cachetool&lt;/a>&lt;/p>
-&lt;p>用php处理多媒体文件 &lt;a class="link" href="https://www.getid3.org/" target="_blank" rel="noopener"
->getid3&lt;/a>&lt;/p>
-&lt;h3 id="laravel相关">laravel相关：
-&lt;/h3>&lt;p>laravel 的文件系统：&lt;a class="link" href="https://github.com/GrahamCampbell/Laravel-Flysystem" target="_blank" rel="noopener"
->GrahamCampbell&lt;/a> &lt;a class="link" href="https://github.com/GrahamCampbell/Laravel-Flysystem" target="_blank" rel="noopener"
->/&lt;/a> &lt;a class="link" href="https://github.com/GrahamCampbell/Laravel-Flysystem" target="_blank" rel="noopener"
->Laravel-Flysystem&lt;/a>&lt;/p>
-&lt;p>laravel 5 的 验证码组件： &lt;a class="link" href="https://github.com/mewebstudio/captcha" target="_blank" rel="noopener"
->mewebstudio&lt;/a> &lt;a class="link" href="https://github.com/mewebstudio/captcha" target="_blank" rel="noopener"
->/&lt;/a> &lt;a class="link" href="https://github.com/mewebstudio/captcha" target="_blank" rel="noopener"
->captcha&lt;/a>&lt;/p>
-&lt;p>laravel5 的另一个验证码插件 &lt;a class="link" href="https://github.com/Gregwar" target="_blank" rel="noopener"
->Gregwar&lt;/a>/ &lt;a class="link" href="https://github.com/Gregwar/Captcha" target="_blank" rel="noopener"
->Captcha&lt;/a> 简单教程： &lt;a class="link" href="http://www.jianshu.com/p/8e4ac7852b5a" target="_blank" rel="noopener"
->http://www.jianshu.com/p/8e4ac7852b5a&lt;/a>&lt;/p>
-&lt;p>laravel5 新一代的支持laravel模板语法的权限系统 bouncer &lt;a class="link" href="https://github.com/JosephSilber/bouncer" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>laravel5 基于角色的权限系统 &lt;a class="link" href="https://github.com/Zizaco" target="_blank" rel="noopener"
->Zizaco&lt;/a>/ &lt;a class="link" href="https://github.com/Zizaco/entrust" target="_blank" rel="noopener"
->entrust&lt;/a>&lt;/p>
-&lt;p>Laravel中创建用户消息系统 &lt;a class="link" href="https://github.com/cmgmyr" target="_blank" rel="noopener"
->cmgmyr&lt;/a>/ &lt;a class="link" href="https://github.com/cmgmyr/laravel-messenger" target="_blank" rel="noopener"
->laravel-messenger&lt;/a>&lt;/p>
-&lt;p>Laravel restful web API组件  &lt;a class="link" href="https://github.com/dingo/api" target="_blank" rel="noopener"
->dingo/api&lt;/a>&lt;/p>
-&lt;p>laravel 5 官方的 html生成器 &lt;a class="link" href="https://github.com/LaravelCollective" target="_blank" rel="noopener"
->LaravelCollective&lt;/a>/ &lt;a class="link" href="https://github.com/LaravelCollective/html" target="_blank" rel="noopener"
->html&lt;/a>&lt;/p>
-&lt;p>laravel 5 的 Execl文件生成 &lt;a class="link" href="https://github.com/Maatwebsite" target="_blank" rel="noopener"
->Maatwebsite&lt;/a>/ &lt;a class="link" href="https://github.com/Maatwebsite/Laravel-Excel" target="_blank" rel="noopener"
->Laravel-Excel&lt;/a>&lt;/p>
-&lt;p>laravel 5 的短信发送模块 &lt;a class="link" href="https://github.com/toplan" target="_blank" rel="noopener"
->toplan&lt;/a>/ &lt;a class="link" href="https://github.com/toplan/laravel-sms" target="_blank" rel="noopener"
->laravel-sms&lt;/a> 来自： &lt;a class="link" href="https://github.com/toplan" target="_blank" rel="noopener"
->toplan&lt;/a>/ &lt;a class="link" href="https://github.com/toplan/phpsms" target="_blank" rel="noopener"
->phpsms&lt;/a>&lt;/p>
-&lt;p>laravel 5 公共登录组件 &lt;a class="link" href="https://github.com/overtrue" target="_blank" rel="noopener"
->overtrue&lt;/a>/ &lt;a class="link" href="https://github.com/overtrue/laravel-socialite" target="_blank" rel="noopener"
->laravel-socialite&lt;/a> 来自： &lt;a class="link" href="https://github.com/overtrue" target="_blank" rel="noopener"
->overtrue&lt;/a>/ &lt;a class="link" href="https://github.com/overtrue/socialite" target="_blank" rel="noopener"
->socialite&lt;/a> 来自： &lt;a class="link" href="https://github.com/laravel" target="_blank" rel="noopener"
->laravel&lt;/a>/ &lt;a class="link" href="https://github.com/laravel/socialite" target="_blank" rel="noopener"
->socialite&lt;/a>&lt;/p>
-&lt;p>laravel 5 的 debuger 条： &lt;a class="link" href="https://github.com/barryvdh/laravel-debugbar" target="_blank" rel="noopener"
->barryvdh&lt;/a> &lt;a class="link" href="https://github.com/barryvdh/laravel-debugbar" target="_blank" rel="noopener"
->/&lt;/a> &lt;a class="link" href="https://github.com/barryvdh/laravel-debugbar" target="_blank" rel="noopener"
->laravel-debugbar&lt;/a>&lt;/p>
-&lt;p>laravel 5 的 MongoDB ORM 组件： &lt;a class="link" href="https://github.com/jenssegers/laravel-mongodb" target="_blank" rel="noopener"
->jenssegers&lt;/a> &lt;a class="link" href="https://github.com/jenssegers/laravel-mongodb" target="_blank" rel="noopener"
->/&lt;/a> &lt;a class="link" href="https://github.com/jenssegers/laravel-mongodb" target="_blank" rel="noopener"
->laravel-mongodb&lt;/a>&lt;/p>
-&lt;p>laravel 5 从已有的数据库表中生成迁移文件： &lt;a class="link" href="https://github.com/Xethron" target="_blank" rel="noopener"
->Xethron&lt;/a>/ &lt;a class="link" href="https://github.com/Xethron/migrations-generator" target="_blank" rel="noopener"
->migrations-generator&lt;/a>&lt;/p>
-&lt;p>laravel 5 的 workerman 封装 &lt;a class="link" href="https://github.com/zgldh" target="_blank" rel="noopener"
->zgldh&lt;/a>/ &lt;a class="link" href="https://github.com/zgldh/workerboy" target="_blank" rel="noopener"
->workerboy&lt;/a>&lt;/p>
-&lt;p>laravel 5  sequelpro 插件，可将数据表反解析为migration &lt;a class="link" href="https://github.com/cviebrock" target="_blank" rel="noopener"
->cviebrock&lt;/a>/ &lt;a class="link" href="https://github.com/cviebrock/sequel-pro-laravel-export" target="_blank" rel="noopener"
->sequel-pro-laravel-export&lt;/a>&lt;/p>
-&lt;p>laravel 反向seed 组件：iseed &lt;a class="link" href="https://github.com/orangehill/iseed" target="_blank" rel="noopener"
->github&lt;/a>&lt;/p>
-&lt;p>laravel 网站地图生成 laravel-sitemap &lt;a class="link" href="https://github.com/Laravelium/laravel-sitemap" target="_blank" rel="noopener"
->github&lt;/a>&lt;/p>
-&lt;p>快速为laravel项目构建文档larecipe &lt;a class="link" href="https://github.com/saleem-hadad/larecipe" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;h3 id="go相关">GO相关：
-&lt;/h3>&lt;p>go的web框架 &lt;a class="link" href="https://github.com/gin-gonic" target="_blank" rel="noopener"
->gin-gonic&lt;/a>/ &lt;a class="link" href="https://github.com/gin-gonic/gin" target="_blank" rel="noopener"
->gin&lt;/a>&lt;/p>
-&lt;p>go的rpc组件 &lt;a class="link" href="https://github.com/smallnest/rpcx" target="_blank" rel="noopener"
->smallnest/rpcx&lt;/a>&lt;/p>
-&lt;p>go web开发框架 &lt;a class="link" href="https://github.com/kataras/iris" target="_blank" rel="noopener"
->kataras/iris&lt;/a>&lt;/p>
-&lt;p>go 全栈框架 &lt;a class="link" href="https://github.com/revel/revel" target="_blank" rel="noopener"
->revel&lt;/a>&lt;/p>
-&lt;p>go 的k/v数据库 bolt &lt;a class="link" href="https://github.com/boltdb/bolt" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;h3 id="python相关">Python相关：
-&lt;/h3>&lt;p>廖雪峰老师的Python教程 &lt;a class="link" href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000" target="_blank" rel="noopener"
->&amp;raquo;传送门&lt;/a>&lt;/p>
-&lt;p>分布式任务队列系统 &lt;a class="link" href="http://www.celeryproject.org/" target="_blank" rel="noopener"
->Celery&lt;/a> &lt;a class="link" href="http://docs.jinkan.org/docs/celery/" target="_blank" rel="noopener"
->文档&lt;/a>&lt;/p>
-&lt;p>非阻塞网络服务框架 Tornado &lt;a class="link" href="http://www.tornadoweb.org/en/stable/" target="_blank" rel="noopener"
->文档&lt;/a> &lt;a class="link" href="http://www.tornadoweb.cn/" target="_blank" rel="noopener"
->中文站&lt;/a>&lt;/p>
-&lt;p>web微框架 &lt;a class="link" href="http://flask.pocoo.org/" target="_blank" rel="noopener"
->Flask&lt;/a> &lt;a class="link" href="https://github.com/pallets/flask" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>全栈框架 &lt;a class="link" href="https://www.djangoproject.com/" target="_blank" rel="noopener"
->Django&lt;/a> &lt;a class="link" href="https://github.com/django/django" target="_blank" rel="noopener"
->Github&lt;/a> &lt;a class="link" href="http://python.usyiyi.cn/django/index.html" target="_blank" rel="noopener"
->中文文档&lt;/a> &lt;a class="link" href="http://www.ziqiangxuetang.com/django/django-tutorial.html" target="_blank" rel="noopener"
->学习教程&lt;/a>&lt;/p>
-&lt;p>独立的ORM &lt;a class="link" href="http://www.sqlalchemy.org/" target="_blank" rel="noopener"
->SQLAlchemy&lt;/a>&lt;/p>
-&lt;p>py实现的Web服务器 &lt;a class="link" href="http://www.tornadoweb.org/en/stable/" target="_blank" rel="noopener"
->tornado&lt;/a> &lt;a class="link" href="http://www.tornadoweb.cn/" target="_blank" rel="noopener"
->中文&lt;/a> &lt;a class="link" href="https://github.com/tornadoweb/tornado" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>Python UI库（支持移动端） &lt;a class="link" href="https://kivy.org" target="_blank" rel="noopener"
->kivy&lt;/a>&lt;/p>
-&lt;p>python 开发的进程管理器 supervisord&lt;/p>
-&lt;p>Java相关：&lt;/p>
-&lt;p>高性能应用服务器：undertow &lt;a class="link" href="http://undertow.io/" target="_blank" rel="noopener"
->官网&lt;/a>&lt;/p>
-&lt;h3 id="nodejs">Node.js
-&lt;/h3>&lt;p>阿里开源的企业级开发框架 &lt;a class="link" href="http://eggjs.org/" target="_blank" rel="noopener"
->egg&lt;/a> &lt;a class="link" href="https://github.com/eggjs/egg" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;h3 id="前端相关">前端相关：
-&lt;/h3>&lt;p>为页面留出更多空间隐藏TOP headroom &lt;a class="link" href="http://wicky.nillia.ms/headroom.js/" target="_blank" rel="noopener"
->官网&lt;/a>&lt;/p>
-&lt;p>粘性导航 sticky &lt;a class="link" href="https://github.com/garand/sticky" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>粘性导航2 SMINT&lt;/p>
-&lt;p>兼容各种浏览器的MVVM框架 avalon &lt;a class="link" href="https://github.com/RubyLouvre/avalon" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>backbone ： &lt;a class="link" href="https://github.com/jashkenas/backbone" target="_blank" rel="noopener"
->jashkenas&lt;/a> &lt;a class="link" href="https://github.com/jashkenas/backbone" target="_blank" rel="noopener"
->/&lt;/a> &lt;a class="link" href="https://github.com/jashkenas/backbone" target="_blank" rel="noopener"
->backbone&lt;/a> 前端MVC&lt;/p>
-&lt;p>js前端框架 &lt;a class="link" href="https://github.com/vuejs/vue" target="_blank" rel="noopener"
->vue&lt;/a> &lt;a class="link" href="http://cn.vuejs.org/" target="_blank" rel="noopener"
->文档&lt;/a>&lt;/p>
-&lt;p>    Vue UI 框架 &lt;a class="link" href="https://vux.li" target="_blank" rel="noopener"
->vux&lt;/a>&lt;/p>
-&lt;p>    Vue 饿了么后台框架 &lt;a class="link" href="https://github.com/ElemeFE/element" target="_blank" rel="noopener"
->element&lt;/a>&lt;/p>
-&lt;p>    Vue UI 组件 &lt;a class="link" href="https://github.com/iview/iview" target="_blank" rel="noopener"
->iView&lt;/a>&lt;/p>
-&lt;p>    Vue 移动端组件 &lt;a class="link" href="http://mint-ui.github.io/#!/zh-cn" target="_blank" rel="noopener"
->mint-ui&lt;/a> &lt;a class="link" href="https://github.com/ElemeFE/mint-ui/" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>    Vue 移动端组件 framework7 &lt;a class="link" href="https://github.com/framework7io/framework7" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>阿里开源的react前端框架 &lt;a class="link" href="https://ant.design/index-cn" target="_blank" rel="noopener"
->ant.design&lt;/a>&lt;/p>
-&lt;p>特别小巧的前端vdom框架 &lt;a class="link" href="https://github.com/MithrilJS/mithril.js" target="_blank" rel="noopener"
->mithril.js&lt;/a>&lt;/p>
-&lt;p>JavaScript/HTML5控件集 &lt;a class="link" href="http://wijmo.gcpowertools.com.cn/" target="_blank" rel="noopener"
->wijmo&lt;/a>&lt;/p>
-&lt;p>返璞归真的UI框架layui（原生js写法的UI框架） &lt;a class="link" href="https://github.com/sentsin/layui/" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>一款绘制迷你图的组件 sparkline &lt;a class="link" href="http://omnipotent.net/jquery.sparkline" target="_blank" rel="noopener"
->jquery.sparkline&lt;/a>&lt;/p>
-&lt;p>js生成laravel友好的的url &lt;a class="link" href="https://github.com/aaronlord" target="_blank" rel="noopener"
->aaronlord&lt;/a>/ &lt;a class="link" href="https://github.com/aaronlord/laroute" target="_blank" rel="noopener"
->laroute&lt;/a>&lt;/p>
-&lt;p>Handlebars.js 模板引擎 &lt;a class="link" href="http://handlebarsjs.com/" target="_blank" rel="noopener"
->http://handlebarsjs.com/&lt;/a> &lt;a class="link" href="http://www.ghostchina.com/introducing-the-handlebars-js-templating-engine/" target="_blank" rel="noopener"
->http://www.ghostchina.com/introducing-the-handlebars-js-templating-engine/&lt;/a>&lt;/p>
-&lt;p>前端存储： &lt;a class="link" href="https://github.com/marcuswestin" target="_blank" rel="noopener"
->marcuswestin&lt;/a>/ &lt;a class="link" href="https://github.com/marcuswestin/store.js" target="_blank" rel="noopener"
->store.js&lt;/a> 前端存储不仅仅有cookie&lt;/p>
-&lt;p>图片处理/截图 cropper &lt;a class="link" href="https://github.com/fengyuanchen/cropper" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>图表 &lt;a class="link" href="https://github.com/wanghetommy" target="_blank" rel="noopener"
->wanghetommy&lt;/a>/ &lt;a class="link" href="https://github.com/wanghetommy/ichartjs" target="_blank" rel="noopener"
->ichartjs&lt;/a>&lt;/p>
-&lt;p>百度的图表 &lt;a class="link" href="http://echarts.baidu.com/" target="_blank" rel="noopener"
->http://echarts.baidu.com/&lt;/a>&lt;/p>
-&lt;p>商业付费的图表 &lt;a class="link" href="https://github.com/highcharts" target="_blank" rel="noopener"
->highcharts&lt;/a>/ &lt;a class="link" href="https://github.com/highcharts/highcharts" target="_blank" rel="noopener"
->highcharts&lt;/a>&lt;/p>
-&lt;p>功能最强大的富文本编辑器 &lt;a class="link" href="https://ckeditor.com/" target="_blank" rel="noopener"
->ckeditor&lt;/a>&lt;/p>
-&lt;p>富文本库： &lt;a class="link" href="https://www.tinymce.com/" target="_blank" rel="noopener"
->tinymce&lt;/a>&lt;/p>
-&lt;p>更富的文本库： &lt;a class="link" href="https://quilljs.com/" target="_blank" rel="noopener"
->quill.js&lt;/a>&lt;/p>
-&lt;p>小巧的富文本编辑器simditor &lt;a class="link" href="http://simditor.tower.im/" target="_blank" rel="noopener"
->官网&lt;/a> &lt;a class="link" href="https://github.com/mycolorway/simditor" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>百度的富文本编辑器ueditor &lt;a class="link" href="https://github.com/fex-team/ueditor" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>经典风格富文本编辑器kindeditor &lt;a class="link" href="http://kindeditor.net/" target="_blank" rel="noopener"
->官网&lt;/a>&lt;/p>
-&lt;p>非常简单的bootstarp编辑器 &lt;a class="link" href="http://jhollingworth.github.io/bootstrap-wysihtml5/" target="_blank" rel="noopener"
->wysihtml5&lt;/a>&lt;/p>
-&lt;p>简单风格的富文本编辑器 &lt;a class="link" href="https://github.com/wangfupeng1988/wangEditor/" target="_blank" rel="noopener"
->wangEditor&lt;/a>&lt;/p>
-&lt;p>自动拉长的textarea autosize &lt;a class="link" href="http://www.jacklmoore.com/autosize/" target="_blank" rel="noopener"
->官网&lt;/a>&lt;/p>
-&lt;p>复制黏贴工具 clipboard &lt;a class="link" href="https://clipboardjs.com/" target="_blank" rel="noopener"
->官网&lt;/a>&lt;/p>
-&lt;p>grid 表格库 &lt;a class="link" href="https://www.ag-grid.com/" target="_blank" rel="noopener"
->ag-grid&lt;/a>&lt;/p>
-&lt;p>JS 异步操作顺序执行 &lt;a class="link" href="https://github.com/creationix" target="_blank" rel="noopener"
->creationix&lt;/a>/ &lt;strong>&lt;a class="link" href="https://github.com/creationix/step" target="_blank" rel="noopener"
->step&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>js 异步/同步操作 &lt;a class="link" href="https://github.com/caolan" target="_blank" rel="noopener"
->caolan&lt;/a>/ &lt;strong>&lt;a class="link" href="https://github.com/caolan/async" target="_blank" rel="noopener"
->async&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>js 异步加载文件 &lt;a class="link" href="https://github.com/JeffreyZhao" target="_blank" rel="noopener"
->JeffreyZhao&lt;/a>/ &lt;strong>&lt;a class="link" href="https://github.com/JeffreyZhao/wind" target="_blank" rel="noopener"
->wind&lt;/a>&lt;/strong>&lt;/p>
-&lt;p>看起来还不错的前端ui &lt;a class="link" href="http://www.layui.com/" target="_blank" rel="noopener"
->layui&lt;/a>&lt;/p>
-&lt;p>Javascript工具库 &lt;a class="link" href="http://lodashjs.com/" target="_blank" rel="noopener"
->Lodash&lt;/a> （知道这个库是在了解函数节流和去抖 throttle、debounce的时候）据说比underscore.js 要好&lt;/p>
-&lt;p>input框格式化工具 Cleave &lt;a class="link" href="https://github.com/nosir/cleave.js" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;h3 id="测试相关">测试相关：
-&lt;/h3>&lt;p>简单易用的压力测试工具 &lt;a class="link" href="http://jmeter.apache.org/" target="_blank" rel="noopener"
->jmeter&lt;/a>&lt;/p>
-&lt;p>分布式压力测试工具 &lt;a class="link" href="http://tsung.erlang-projects.org/" target="_blank" rel="noopener"
->tsung&lt;/a> &lt;a class="link" href="http://www.blogjava.net/yongboy/archive/2016/07/22/431291.html" target="_blank" rel="noopener"
->简明教程&lt;/a>&lt;/p>
-&lt;p>&lt;strong>mock平台&lt;/strong> &lt;a class="link" href="https://github.com/thx/RAP" target="_blank" rel="noopener"
->https://github.com/thx/RAP&lt;/a>&lt;/p>
-&lt;p>自动化测试工具： &lt;a class="link" href="http://seleniumhq.org" target="_blank" rel="noopener"
->selenium&lt;/a>&lt;/p>
-&lt;p>测试管理 &lt;a class="link" href="http://autotest.github.io/" target="_blank" rel="noopener"
->autotest&lt;/a>&lt;/p>
-&lt;p>TestNG 测试框架 &lt;a class="link" href="http://testng.org/doc/index.html" target="_blank" rel="noopener"
->http://testng.org&lt;/a>&lt;/p>
-&lt;p>自动化测试解决方案 &lt;a class="link" href="https://github.com/alibaba/macaca/stargazers" target="_blank" rel="noopener"
->https://github.com/alibaba/macaca/stargazers&lt;/a>&lt;/p>
-&lt;p>php全栈测试框架 &lt;a class="link" href="http://codeception.com/" target="_blank" rel="noopener"
->codeception&lt;/a> &lt;a class="link" href="http://blog.csdn.net/huoba1/article/details/41719699" target="_blank" rel="noopener"
->简单的教程&lt;/a>&lt;/p>
-&lt;p>PHP BDD行为驱动测试组件 &lt;a class="link" href="http://behat.org/" target="_blank" rel="noopener"
->官网&lt;/a> &lt;a class="link" href="http://www.tuicool.com/articles/QZfqiu" target="_blank" rel="noopener"
->简单的教程&lt;/a>&lt;/p>
-&lt;h3 id="大数据">大数据：
-&lt;/h3>&lt;p>mpi &lt;a class="link" href="http://www.mcs.anl.gov/research/projects/mpi/" target="_blank" rel="noopener"
->mpi&lt;/a> &lt;a class="link" href="https://www.open-mpi.org/" target="_blank" rel="noopener"
->官网&lt;/a>&lt;/p>
-&lt;h3 id="操作系统">操作系统：
-&lt;/h3>&lt;p>开源的软防火墙和软路由器 &lt;a class="link" href="http://https://www.pfsense.org/" target="_blank" rel="noopener"
->pfsense&lt;/a>&lt;/p>
-&lt;h3 id="优秀软件">优秀软件：
-&lt;/h3>&lt;p>markdown书写工具 &lt;a class="link" href="https://www.typora.io/" target="_blank" rel="noopener"
->typora&lt;/a>&lt;/p>
-&lt;p>静态代码分析工具 PMD &lt;a class="link" href="https://github.com/pmd/pmd" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>跨平台Git客户端 &lt;a class="link" href="https://www.syntevo.com/smartgit/" target="_blank" rel="noopener"
->smartgit&lt;/a>&lt;/p>
-&lt;p>全平台DB管理工具 &lt;a class="link" href="http://dbeaver.jkiss.org/download/" target="_blank" rel="noopener"
->dbeaver&lt;/a>&lt;/p>
-&lt;p>SQL审核系统 &lt;a class="link" href="https://github.com/cookieY/Yearning" target="_blank" rel="noopener"
->Yearning&lt;/a>&lt;/p>
-&lt;p>高效健壮的数据库代理 MyCat &lt;a class="link" href="http://www.mycat.io/" target="_blank" rel="noopener"
->官网&lt;/a> &lt;a class="link" href="https://github.com/MyCATApache/Mycat-Server" target="_blank" rel="noopener"
->github&lt;/a> &lt;a class="link" href="http://www.mycat.io/document/Mycat_V1.6.0.pdf" target="_blank" rel="noopener"
->书籍下载&lt;/a>&lt;/p>
-&lt;p>一个高性能的Nosql Redis &lt;a class="link" href="https://github.com/antirez" target="_blank" rel="noopener"
->antirez&lt;/a>/ &lt;a class="link" href="https://github.com/antirez/redis" target="_blank" rel="noopener"
->redis&lt;/a>&lt;/p>
-&lt;p>rocksdb 一个基于levelDB引擎的K-V存储数据库 &lt;a class="link" href="https://github.com/facebook/rocksdb" target="_blank" rel="noopener"
->facebook&lt;/a> &lt;a class="link" href="https://github.com/facebook/rocksdb" target="_blank" rel="noopener"
->/&lt;/a> &lt;a class="link" href="https://github.com/facebook/rocksdb" target="_blank" rel="noopener"
->rocksdb&lt;/a>&lt;/p>
-&lt;p>SSDB 高性能的NoSQL(用于替代 Redis)  &lt;a class="link" href="https://github.com/ideawu" target="_blank" rel="noopener"
->ideawu&lt;/a>/ &lt;a class="link" href="https://github.com/ideawu/ssdb" target="_blank" rel="noopener"
->ssdb&lt;/a>&lt;/p>
-&lt;p>文档型存储数据库 &lt;a class="link" href="https://github.com/mongodb" target="_blank" rel="noopener"
->mongodb&lt;/a>/ &lt;a class="link" href="https://github.com/mongodb/mongo" target="_blank" rel="noopener"
->mongo&lt;/a>&lt;/p>
-&lt;p>分布式高性能KV存储系统 &lt;a class="link" href="https://cassandra.apache.org/" target="_blank" rel="noopener"
->Cassandra&lt;/a>&lt;/p>
-&lt;p>Lua 的高级图片缩放软件： &lt;a class="link" href="https://github.com/nagadomi" target="_blank" rel="noopener"
->nagadomi&lt;/a>/ &lt;a class="link" href="https://github.com/nagadomi/waifu2x" target="_blank" rel="noopener"
->waifu2x&lt;/a>&lt;/p>
-&lt;p>H2O 一个实现了HTTP/2的web服务器软件： &lt;a class="link" href="https://github.com/h2o/h2o" target="_blank" rel="noopener"
->h2o&lt;/a> &lt;a class="link" href="https://github.com/h2o/h2o" target="_blank" rel="noopener"
->/&lt;/a> &lt;a class="link" href="https://github.com/h2o/h2o" target="_blank" rel="noopener"
->h2o&lt;/a>&lt;/p>
-&lt;p>Taobao File System 淘宝的文件系统 &lt;a class="link" href="https://github.com/alibaba" target="_blank" rel="noopener"
->alibaba&lt;/a>/ &lt;a class="link" href="https://github.com/alibaba/tfs" target="_blank" rel="noopener"
->tfs&lt;/a>&lt;/p>
-&lt;p>这个Nginx模块实现了Taobao File System的客户端 &lt;a class="link" href="https://github.com/alibaba" target="_blank" rel="noopener"
->alibaba&lt;/a>/ &lt;a class="link" href="https://github.com/alibaba/nginx-tfs" target="_blank" rel="noopener"
->nginx-tfs&lt;/a>&lt;/p>
-&lt;p>分布式文件系统 &lt;a class="link" href="http://www.gluster.org/download/" target="_blank" rel="noopener"
->GlusterFS&lt;/a> &lt;a class="link" href="http://www.gluster.org/" target="_blank" rel="noopener"
->http://www.gluster.org/&lt;/a>&lt;/p>
-&lt;p>运维首选推荐分布式文件系统 &lt;a class="link" href="https://www.couchbase.com/" target="_blank" rel="noopener"
->couchbase&lt;/a>&lt;/p>
-&lt;p>一个阿里巴巴的nginx分支 &lt;a class="link" href="https://github.com/alibaba" target="_blank" rel="noopener"
->alibaba&lt;/a>/ &lt;a class="link" href="https://github.com/alibaba/tengine" target="_blank" rel="noopener"
->tengine&lt;/a>&lt;/p>
-&lt;p>aircrack-ng 破解WIFI软件 &lt;a class="link" href="http://www.aircrack-ng.org/downloads.html" target="_blank" rel="noopener"
->http://www.aircrack-ng.org/downloads.html&lt;/a> 教程： &lt;a class="link" href="http://lok.me/a/1972.html" target="_blank" rel="noopener"
->http://lok.me/a/1972.html&lt;/a>&lt;/p>
-&lt;p>Hubot &lt;a class="link" href="http://www.oschina.net/p/hubot" target="_blank" rel="noopener"
->自动化发布工具&lt;/a> github: &lt;a class="link" href="https://github.com/github" target="_blank" rel="noopener"
->github&lt;/a>/ &lt;a class="link" href="https://github.com/github/hubot" target="_blank" rel="noopener"
->hubot&lt;/a> 介绍： &lt;a class="link" href="http://www.oschina.net/p/hubot" target="_blank" rel="noopener"
->http://www.oschina.net/p/hubot&lt;/a>&lt;/p>
-&lt;p>ZeroMQ史上最快的消息队列 PHP扩展 &lt;a class="link" href="https://github.com/mkoppanen" target="_blank" rel="noopener"
->mkoppanen&lt;/a>/ &lt;a class="link" href="https://github.com/mkoppanen/php-zmq" target="_blank" rel="noopener"
->php-zmq&lt;/a>&lt;/p>
-&lt;p>Gearman 任务分发系统&lt;/p>
-&lt;p>进程管理器 monit &lt;a class="link" href="https://mmonit.com/monit/" target="_blank" rel="noopener"
->官网&lt;/a>&lt;/p>
-&lt;p>开源的企业级监控软件 nagios &lt;a class="link" href="https://www.nagios.org/" target="_blank" rel="noopener"
->官网&lt;/a>&lt;/p>
-&lt;p>另一款企业级监控软件 zabbix&lt;/p>
-&lt;p>php开发的监控软件 cacti &lt;a class="link" href="https://www.cacti.net/" target="_blank" rel="noopener"
->官网&lt;/a>&lt;/p>
-&lt;p>针对互联网架构优化的监控软件 Open-Falcon &lt;a class="link" href="http://open-falcon.org/" target="_blank" rel="noopener"
->官网&lt;/a> &lt;a class="link" href="https://github.com/open-falcon/falcon-plus" target="_blank" rel="noopener"
->github&lt;/a>&lt;/p>
-&lt;p>开源的ORC图像识别库 &lt;a class="link" href="https://github.com/tesseract-ocr" target="_blank" rel="noopener"
->tesseract-ocr&lt;/a>&lt;/p>
-&lt;p>开源的即时通讯 &lt;a class="link" href="http://www.igniterealtime.org/" target="_blank" rel="noopener"
->openfire&lt;/a>&lt;/p>
-&lt;p>webIRC软件 &lt;a class="link" href="https://kiwiirc.com" target="_blank" rel="noopener"
->kiwiirc&lt;/a>&lt;/p>
-&lt;p>Galera Mysql集群方案&lt;/p>
-&lt;p>优秀的图表数据面板 &lt;a class="link" href="https://github.com/grafana/grafana" target="_blank" rel="noopener"
->grafana&lt;/a>&lt;/p>
-&lt;p>python开发的强大的监控系统 &lt;a class="link" href="http://graphite.readthedocs.io/en/latest/" target="_blank" rel="noopener"
->graphite&lt;/a>&lt;/p>
-&lt;p>API mock 测试软件 &lt;a class="link" href="https://github.com/apiaryio/dredd" target="_blank" rel="noopener"
->dredd&lt;/a>&lt;/p>
-&lt;p>开源的的IP库 ip2region &lt;a class="link" href="https://github.com/lionsoul2014/ip2region" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>前端资源扒站软件 &lt;a class="link" href="https://gitee.com/mail_osc/templatespider" target="_blank" rel="noopener"
->templatespider&lt;/a>&lt;/p>
-&lt;p>好看的代码图片生成网站 &lt;a class="link" href="https://carbon.now.sh/" target="_blank" rel="noopener"
->carbon.now&lt;/a>&lt;/p>
-&lt;p>方便的批量查询服务器存活状态 &lt;a class="link" href="http://www.nirsoft.net/utils/multiple_ping_tool.html" target="_blank" rel="noopener"
->pinginfoview&lt;/a>&lt;/p>
-&lt;p>开源的文件/文件夹对比工具 &lt;a class="link" href="http://meldmerge.org/" target="_blank" rel="noopener"
->meld&lt;/a>&lt;/p>
-&lt;h3 id="项目部署">项目部署：
-&lt;/h3>&lt;p>项目构建与持续集成工具（皆啃死） &lt;a class="link" href="https://jenkins.io/" target="_blank" rel="noopener"
->jenkins&lt;/a>&lt;/p>
-&lt;p>php实现的web项目部署工具 &lt;a class="link" href="https://github.com/meolu/walle-web" target="_blank" rel="noopener"
->瓦力&lt;/a>&lt;/p>
-&lt;p>部署管理系统 Fixhub &lt;a class="link" href="https://github.com/Fixhub/Fixhub" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>命令行试的php项目部署工具 &lt;a class="link" href="https://deployer.org/" target="_blank" rel="noopener"
->deployer&lt;/a> &lt;a class="link" href="https://github.com/deployphp/deployer" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>Ruby写的多服务器远程运维工具 &lt;a class="link" href="http://capistranorb.com/" target="_blank" rel="noopener"
->capistranorb&lt;/a> &lt;a class="link" href="https://github.com/capistrano/capistrano" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>docker 容器管理工具 &lt;a class="link" href="https://github.com/kubernetes/kubernetes" target="_blank" rel="noopener"
->kubernetes&lt;/a> &lt;a class="link" href="https://my.oschina.net/xdatk/blog/895645" target="_blank" rel="noopener"
->教程&lt;/a>&lt;/p>
-&lt;p>Harbor 企业级docker私有镜像管理 &lt;a class="link" href="https://juejin.im/post/5a201201f265da43333e301f" target="_blank" rel="noopener"
->简明教程&lt;/a> &lt;a class="link" href="https://github.com/vmware/harbor" target="_blank" rel="noopener"
->github&lt;/a>&lt;/p>
-&lt;p>Windows快速搭建PHP开发环境 &lt;a class="link" href="https://sourceforge.net/projects/laragon/" target="_blank" rel="noopener"
->laragon&lt;/a>&lt;/p>
-&lt;h3 id="开源系统">开源系统：
-&lt;/h3>&lt;p>现代化的wordpress &lt;a class="link" href="https://roots.io/bedrock/" target="_blank" rel="noopener"
->bedrock&lt;/a>&lt;/p>
-&lt;p>然之企业管理系统 &lt;a class="link" href="http://git.oschina.net/wwccss/ranzhi" target="_blank" rel="noopener"
->ranzhi&lt;/a>&lt;/p>
-&lt;p>API与mock管理系统 &lt;a class="link" href="http://git.oschina.net/sx1989827/SBDoc" target="_blank" rel="noopener"
->SBDoc&lt;/a>&lt;/p>
-&lt;p>禅道项目管理系统 &lt;a class="link" href="http://www.zentao.net/" target="_blank" rel="noopener"
->zentao&lt;/a>&lt;/p>
-&lt;p>laravel5开发的开源商城 &lt;a class="link" href="https://github.com/ant-vel/antVel" target="_blank" rel="noopener"
->antVel&lt;/a>&lt;/p>
-&lt;p>laravel5的开源论坛 &lt;a class="link" href="https://github.com/flarum/flarum" target="_blank" rel="noopener"
->flarum&lt;/a>&lt;/p>
-&lt;p>zblog（就是本博客了） &lt;a class="link" href="https://www.zblogcn.com/zblogphp/" target="_blank" rel="noopener"
->zblog&lt;/a>&lt;/p>
-&lt;p>typecho 简单优雅的博客 &lt;a class="link" href="https://github.com/typecho/typecho" target="_blank" rel="noopener"
->Github&lt;/a>&lt;/p>
-&lt;p>快速构建商务cms &lt;a class="link" href="http://1x.openwbs.com/" target="_blank" rel="noopener"
->openwbs&lt;/a>&lt;/p>
-&lt;p>drupal CMF 高度可定制的内容管理框架 &lt;a class="link" href="https://www.drupal.org/" target="_blank" rel="noopener"
->drupal&lt;/a>&lt;/p>
-&lt;p>joomla 快速上手的内容管理框架 &lt;a class="link" href="https://www.joomla.org/" target="_blank" rel="noopener"
->joomla&lt;/a>&lt;/p>
-&lt;p>wiki &lt;a class="link" href="https://www.mediawiki.org/wiki/MediaWiki" target="_blank" rel="noopener"
->MediaWiki&lt;/a>&lt;/p>
-&lt;p>Magento 开源的电子商 &lt;a class="link" href="https://magento.com/" target="_blank" rel="noopener"
->Magento&lt;/a> &lt;a class="link" href="http://devdocs.magento.com/" target="_blank" rel="noopener"
->开发文档&lt;/a>&lt;/p>
-&lt;p>opencart 开源电子商城 &lt;a class="link" href="https://www.opencart.com/" target="_blank" rel="noopener"
->opencart&lt;/a>&lt;/p>
-&lt;p>prestashop 开源电子商城 &lt;a class="link" href="https://www.prestashop.com/" target="_blank" rel="noopener"
->prestashop&lt;/a>&lt;/p>
-&lt;p>Symfony 为基础的开源电子商务 &lt;a class="link" href="https://github.com/Sylius/Sylius" target="_blank" rel="noopener"
->Sylius&lt;/a>&lt;/p>
-&lt;p>sugerCRM 开源的客户关系管理平台 &lt;a class="link" href="https://www.sugarcrm.com/" target="_blank" rel="noopener"
->sugarcrm&lt;/a>&lt;/p>
-&lt;p>SQL审核平台 &lt;a class="link" href="https://github.com/cookieY/Yearning" target="_blank" rel="noopener"
->Yearning&lt;/a>&lt;/p>
-&lt;p>讯搜搜索引擎 &lt;a class="link" href="http://www.xunsearch.com/" target="_blank" rel="noopener"
->xunsearch&lt;/a>&lt;/p>
-&lt;p>开源的DNS服务器 &lt;a class="link" href="https://www.isc.org/downloads/bind/" target="_blank" rel="noopener"
->bind&lt;/a>&lt;/p>
-&lt;p>反向代理，CDN，静态页面缓存 &lt;a class="link" href="http://www.squid-cache.org/" target="_blank" rel="noopener"
->squid&lt;/a>&lt;/p>
-&lt;p>内存型CDN &lt;a class="link" href="https://www.varnish-cache.org/" target="_blank" rel="noopener"
->varnish&lt;/a>&lt;/p>
-&lt;p>Linux环境套装 &lt;a class="link" href="http://www.wdlinux.cn/" target="_blank" rel="noopener"
->wdlinux&lt;/a>&lt;/p>
-&lt;p>MQTT服务端 &lt;a class="link" href="https://github.com/emqtt/emqttd" target="_blank" rel="noopener"
->EMQ Broker&lt;/a>&lt;/p></description></item><item><title>关于我</title><link>https://reatang.com/%E5%85%B3%E4%BA%8E%E6%88%91/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://reatang.com/%E5%85%B3%E4%BA%8E%E6%88%91/</guid><description>&lt;p>To use this feature, add &lt;code>links&lt;/code> section to frontmatter.&lt;/p>
-&lt;p>This page&amp;rsquo;s frontmatter:&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;span class="lnt">9
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">links&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">title&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">GitHub&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">description&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">GitHub is the world&amp;#39;s largest software development platform.&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">website&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://github.com&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">title&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TypeScript&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">description&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">website&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://www.typescriptlang.org&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ts-logo-128.jpg&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>&lt;code>image&lt;/code> field accepts both local and external images.&lt;/p></description></item><item><title>搜索</title><link>https://reatang.com/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://reatang.com/search/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on 雨的味道</title><link>https://reatang.com/page/</link><description>Recent content in Pages on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://reatang.com/page/index.xml" rel="self" type="application/rss+xml"/><item><title>单页知识</title><link>https://reatang.com/single-pages/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://reatang.com/single-pages/</guid><description>&lt;p&gt;AI类&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://reatang.com/single-pages/12-prompt.html" &gt;12个提示词框架&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;财商类&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://reatang.com/single-pages/harry-browns-permanent-portfolio.html" &gt;深入理解《哈利布朗的永久投资组合》&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://reatang.com/single-pages/business-role-pyramid-model.html" &gt;商业角色金字塔模型&lt;/a&gt;&lt;/p&gt;</description></item><item><title>归档文章</title><link>https://reatang.com/archives/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://reatang.com/archives/</guid><description/></item><item><title>好东西传送门</title><link>https://reatang.com/good-package/</link><pubDate>Fri, 13 Jan 2017 14:39:47 +0000</pubDate><guid>https://reatang.com/good-package/</guid><description>&lt;h3 id="好站"&gt;好站：
+&lt;/h3&gt;&lt;p&gt;&lt;a class="link" href="https://code.facebook.com/projects/" target="_blank" rel="noopener"
+&gt;facebook开源系列&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://devcenter.heroku.com/articles/platform-api-reference#ranges" target="_blank" rel="noopener"
+&gt;HTTP API设计&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://bitnami.com/stack/xampp" target="_blank" rel="noopener"
+&gt;流行的PHP开源系统&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://github.com/serhii-londar/open-source-mac-os-apps" target="_blank" rel="noopener"
+&gt;MAC OSX优秀软件列表&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://github.com/xingshaocheng/architect-awesome" target="_blank" rel="noopener"
+&gt;后端技术大全&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="http://www.ansible.com.cn/docs/intro.html" target="_blank" rel="noopener"
+&gt;ansible 运维自动化&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="好书"&gt;好书：
+&lt;/h3&gt;&lt;p&gt;免费的计算机编程类中文书籍 &lt;a class="link" href="https://github.com/justjavac" target="_blank" rel="noopener"
+&gt;justjavac&lt;/a&gt;/ &lt;strong&gt;&lt;a class="link" href="https://github.com/justjavac/free-programming-books-zh_CN" target="_blank" rel="noopener"
+&gt;free-programming-books-zh_CN&lt;/a&gt;&lt;/strong&gt;  2、 &lt;a class="link" href="https://github.com/vhf" target="_blank" rel="noopener"
+&gt;vhf&lt;/a&gt;/ &lt;strong&gt;&lt;a class="link" href="https://github.com/vhf/free-programming-books" target="_blank" rel="noopener"
+&gt;free-programming-books&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;前端技能汇总 &lt;a class="link" href="https://github.com/JacksonTian" target="_blank" rel="noopener"
+&gt;JacksonTian&lt;/a&gt;/ &lt;strong&gt;&lt;a class="link" href="https://github.com/JacksonTian/fks" target="_blank" rel="noopener"
+&gt;fks&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;swoole &lt;strong&gt;入门教程：&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/LinkedDestiny/swoole-doc" target="_blank" rel="noopener"
+&gt;LinkedDestiny&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/LinkedDestiny/swoole-doc" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/LinkedDestiny/swoole-doc" target="_blank" rel="noopener"
+&gt;swoole-doc&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;《Redis Command Reference》全文的中文翻译版： &lt;strong&gt;&lt;a class="link" href="https://github.com/huangz1990/redis" target="_blank" rel="noopener"
+&gt;huangz1990&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/huangz1990/redis" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/huangz1990/redis" target="_blank" rel="noopener"
+&gt;redis&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Go &lt;strong&gt;语言资源大全&lt;/strong&gt; &lt;a class="link" href="https://github.com/avelino" target="_blank" rel="noopener"
+&gt;avelino&lt;/a&gt;/ &lt;strong&gt;&lt;a class="link" href="https://github.com/avelino/awesome-go" target="_blank" rel="noopener"
+&gt;awesome-go&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;好用的PHP库集合 &lt;a class="link" href="https://github.com/JingwenTian/awesome-php" target="_blank" rel="noopener"
+&gt;awesome-php&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="php相关"&gt;PHP相关：
+&lt;/h3&gt;&lt;p&gt;中文转拼音 ： &lt;a class="link" href="https://github.com/overtrue/laravel-pinyin" target="_blank" rel="noopener"
+&gt;overtrue&lt;/a&gt; &lt;a class="link" href="https://github.com/overtrue/laravel-pinyin" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt; &lt;a class="link" href="https://github.com/overtrue/laravel-pinyin" target="_blank" rel="noopener"
+&gt;laravel-pinyin&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;IP的地理位置： &lt;a class="link" href="https://github.com/zhuzhichao/ip-location-zh" target="_blank" rel="noopener"
+&gt;zhuzhichao&lt;/a&gt; &lt;a class="link" href="https://github.com/zhuzhichao/ip-location-zh" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt; &lt;a class="link" href="https://github.com/zhuzhichao/ip-location-zh" target="_blank" rel="noopener"
+&gt;ip-location-zh&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php各种锁操作 &lt;a class="link" href="https://github.com/php-lock/lock" target="_blank" rel="noopener"
+&gt;malkusch/lock&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;i18n国际化 使用mo文件 &lt;a class="link" href="https://lingohub.com/blog/2013/07/php-internationalization-with-gettext-tutorial/" target="_blank" rel="noopener"
+&gt;教程&lt;/a&gt; &lt;a class="link" href="http://php.net/manual/zh/book.gettext.php" target="_blank" rel="noopener"
+&gt;核心组件&lt;/a&gt; &lt;a class="link" href="http://www.gnu.org/software/gettext/manual/gettext.html" target="_blank" rel="noopener"
+&gt;官方文档&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;根据银行卡号找到卡信息： &lt;a class="link" href="https://github.com/zhuzhichao/bank-card-info" target="_blank" rel="noopener"
+&gt;zhuzhichao&lt;/a&gt; &lt;a class="link" href="https://github.com/zhuzhichao/bank-card-info" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt; &lt;a class="link" href="https://github.com/zhuzhichao/bank-card-info" target="_blank" rel="noopener"
+&gt;bank-card-info&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;ORM 一样操作Execl表格： &lt;a class="link" href="https://github.com/Maatwebsite/Laravel-Excel" target="_blank" rel="noopener"
+&gt;Maatwebsite&lt;/a&gt; &lt;a class="link" href="https://github.com/Maatwebsite/Laravel-Excel" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt; &lt;a class="link" href="https://github.com/Maatwebsite/Laravel-Excel" target="_blank" rel="noopener"
+&gt;Laravel-Excel&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;PHP 原生实现的redis客户端 &lt;a class="link" href="https://github.com/nrk" target="_blank" rel="noopener"
+&gt;nrk&lt;/a&gt;/ &lt;a class="link" href="https://github.com/nrk/predis" target="_blank" rel="noopener"
+&gt;predis&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;扩展形式的PHP Redis 客户端  &lt;a class="link" href="https://github.com/phpredis" target="_blank" rel="noopener"
+&gt;phpredis&lt;/a&gt;/ &lt;a class="link" href="https://github.com/phpredis/phpredis" target="_blank" rel="noopener"
+&gt;phpredis&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;A PHP extension for Redis （增加redis-storage支持） &lt;a class="link" href="https://github.com/shenzhe" target="_blank" rel="noopener"
+&gt;shenzhe&lt;/a&gt;/ &lt;a class="link" href="https://github.com/shenzhe/phpredis" target="_blank" rel="noopener"
+&gt;phpredis&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;PHP 方便的数据库操作库 Medoo &lt;a class="link" href="https://github.com/catfan/Medoo" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;PHP 简单的ORM库 idiorm &lt;a class="link" href="https://github.com/j4mie/idiorm" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;json web token &lt;a class="link" href="https://github.com/tymondesigns/jwt-auth" target="_blank" rel="noopener"
+&gt;tymondesigns/jwt-auth&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;PHP原生的 socket 组件 &lt;a class="link" href="https://github.com/walkor" target="_blank" rel="noopener"
+&gt;walkor&lt;/a&gt;/ &lt;a class="link" href="https://github.com/walkor/Workerman" target="_blank" rel="noopener"
+&gt;Workerman&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php 协程系统 icicle &lt;a class="link" href="https://github.com/icicleio/icicle" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;AMQP library for PHP： &lt;strong&gt;&lt;a class="link" href="https://github.com/videlalvaro/php-amqplib" target="_blank" rel="noopener"
+&gt;videlalvaro&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/videlalvaro/php-amqplib" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/videlalvaro/php-amqplib" target="_blank" rel="noopener"
+&gt;php-amqplib&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;php 图片操作组件：&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/Intervention/image" target="_blank" rel="noopener"
+&gt;Intervention&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/Intervention/image" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/Intervention/image" target="_blank" rel="noopener"
+&gt;image&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;php 图片处理组件（修图，简单的图像识别） &lt;a class="link" href="https://github.com/kosinix" target="_blank" rel="noopener"
+&gt;kosinix&lt;/a&gt;/ &lt;a class="link" href="https://github.com/kosinix/grafika" target="_blank" rel="noopener"
+&gt;grafika&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php 带图像层的图片处理组件 &lt;a class="link" href="https://github.com/Sybio/ImageWorkshop" target="_blank" rel="noopener"
+&gt;ImageWorkshop&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php 图像处理引擎，灵感来源于Python的 PIL &lt;a class="link" href="https://github.com/avalanche123/Imagine" target="_blank" rel="noopener"
+&gt;Imagine&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php 条形码生成工具： &lt;a class="link" href="http://www.barcodebakery.com/en/download/php" target="_blank" rel="noopener"
+&gt;barcodephp&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php 生成PDF工具 snappy &lt;a class="link" href="https://github.com/KnpLabs/snappy" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt; 代码优美，依赖软件： &lt;a class="link" href="https://wkhtmltopdf.org/downloads.html" target="_blank" rel="noopener"
+&gt;wkhtmltopdf&lt;/a&gt;，需php5.6&lt;/p&gt;
+&lt;p&gt;php 生成PDF工具2 mpdf &lt;a class="link" href="https://mpdf.github.io/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt; &lt;a class="link" href="https://github.com/mpdf/mpdf" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt; 基于fpdf，自带中文字体，主要用于HTML转PDF，需php5.6&lt;/p&gt;
+&lt;p&gt;php 生成PDF工具3 tcpdf &lt;a class="link" href="https://tcpdf.org/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt; &lt;a class="link" href="https://github.com/tecnickcom/TCPDF" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt; 无依赖，功能完整，支持php5.3，需要自己添加中文字体&lt;/p&gt;
+&lt;p&gt;php 生成PDF工具4 dompdf &lt;a class="link" href="https://github.com/dompdf/dompdf" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php Markdown 转换工具 &lt;a class="link" href="https://github.com/michelf/php-markdown" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php markdown 解析工具 &lt;a class="link" href="https://github.com/erusev/parsedown" target="_blank" rel="noopener"
+&gt;parsedown&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;快速导出Execl &lt;a class="link" href="https://github.com/mk-j/PHP_XLSXWriter" target="_blank" rel="noopener"
+&gt;PHP_XLSXWriter&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php 文档生成： &lt;a class="link" href="https://github.com/FriendsOfPHP/sami" target="_blank" rel="noopener"
+&gt;sami&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;强大的表单构建器 &lt;a class="link" href="https://github.com/formers/former" target="_blank" rel="noopener"
+&gt;formers/former&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;简单实用的PHP模板引擎 mustache.php &lt;a class="link" href="https://github.com/bobthecow/mustache.php" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;扩展了原生模板的模板引擎 plates &lt;a class="link" href="http://platesphp.com/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;强大综合的PHP模板引擎 Twig &lt;a class="link" href="https://github.com/twigphp/Twig" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;类似于thrift的跨语言通信 &lt;a class="link" href="http://git.oschina.net/andot/hprose-php" target="_blank" rel="noopener"
+&gt;hprose&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一款面向对象中间，异构分布式系统通信框架 &lt;a class="link" href="https://zeroc.com/" target="_blank" rel="noopener"
+&gt;Zeroc ICE&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;强大的php数据抓取组件 &lt;a class="link" href="https://sourceforge.net/projects/snoopy/files/" target="_blank" rel="noopener"
+&gt;snoopy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;简单的PHP爬虫组件（也可用于自动化测试）： &lt;a class="link" href="https://github.com/FriendsOfPHP/Goutte" target="_blank" rel="noopener"
+&gt;Goutte&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php基准测试库（测试运行时间、消耗内存等）： &lt;a class="link" href="https://github.com/devster/ubench" target="_blank" rel="noopener"
+&gt;ubench&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php数据字段验证库： &lt;a class="link" href="https://github.com/Respect/Validation" target="_blank" rel="noopener"
+&gt;Validation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php假数据生成库： &lt;a class="link" href="https://github.com/fzaninotto/Faker" target="_blank" rel="noopener"
+&gt;Faker&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php易用的文件上传库： &lt;a class="link" href="https://github.com/codeguy/Upload" target="_blank" rel="noopener"
+&gt;Upload&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一个计算地理位置的库： &lt;a class="link" href="https://github.com/mjaschen/phpgeo" target="_blank" rel="noopener"
+&gt;phpgeo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一个地理位置应用组件: Geocoder &lt;a class="link" href="https://github.com/geocoder-php/Geocoder" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php模拟shell的库： &lt;a class="link" href="https://github.com/MrRio/shellwrap" target="_blank" rel="noopener"
+&gt;shellwrap&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;API输出格式化库： &lt;a class="link" href="https://github.com/thephpleague/fractal" target="_blank" rel="noopener"
+&gt;league/fractal&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;遵守PSR-7标准的 http组件&lt;/strong&gt; &lt;a class="link" href="https://github.com/guzzle" target="_blank" rel="noopener"
+&gt;guzzle&lt;/a&gt;/ &lt;strong&gt;&lt;a class="link" href="https://github.com/guzzle/psr7" target="_blank" rel="noopener"
+&gt;psr7&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;php的HTTPClient 组件：&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/guzzle/guzzle" target="_blank" rel="noopener"
+&gt;guzzle&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/guzzle/guzzle" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/guzzle/guzzle" target="_blank" rel="noopener"
+&gt;guzzle&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;另一个HttpClient组件：&lt;/strong&gt; &lt;a class="link" href="https://github.com/rmccue/Requests" target="_blank" rel="noopener"
+&gt;rmccue&lt;/a&gt; &lt;a class="link" href="https://github.com/rmccue/Requests" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt; &lt;a class="link" href="https://github.com/rmccue/Requests" target="_blank" rel="noopener"
+&gt;Requests&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;别的HttpClient组件: &lt;a class="link" href="https://github.com/php-curl-class" target="_blank" rel="noopener"
+&gt;php-curl-class&lt;/a&gt;/ &lt;a class="link" href="https://github.com/php-curl-class/php-curl-class" target="_blank" rel="noopener"
+&gt;php-curl-class&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;phpxmlrpc &lt;a class="link" href="https://github.com/gggeek/phpxmlrpc" target="_blank" rel="noopener"
+&gt;phpxmlrpc&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;腾讯的swoole基础框架：&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/tencent-php/tsf" target="_blank" rel="noopener"
+&gt;tencent-php&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/tencent-php/tsf" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/tencent-php/tsf" target="_blank" rel="noopener"
+&gt;tsf&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;真正的PHP多线程框架：&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/krakjoe/pthreads" target="_blank" rel="noopener"
+&gt;krakjoe&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/krakjoe/pthreads" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a class="link" href="https://github.com/krakjoe/pthreads" target="_blank" rel="noopener"
+&gt;pthreads&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;swool + yaf 高性能PHP框架 &lt;a class="link" href="https://github.com/qieangel2013/zys" target="_blank" rel="noopener"
+&gt;zys&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;PHP 后台异步任务队列组件 php-resque &lt;a class="link" href="https://github.com/chrisboulton/php-resque" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Beanstalk，一个高性能、轻量级的分布式内存队列系统 &lt;a class="link" href="https://github.com/kr" target="_blank" rel="noopener"
+&gt;kr&lt;/a&gt;/ &lt;strong&gt;&lt;a class="link" href="https://github.com/kr/beanstalkd" target="_blank" rel="noopener"
+&gt;beanstalkd&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;客户端列表：&lt;/strong&gt; &lt;a class="link" href="https://github.com/kr/beanstalkd/wiki/client-libraries" target="_blank" rel="noopener"
+&gt;https://github.com/kr/beanstalkd/wiki/client-libraries&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Beanstalk 的一个简易的PHP客户端 &lt;a class="link" href="https://github.com/davidpersson" target="_blank" rel="noopener"
+&gt;davidpersson&lt;/a&gt;/ &lt;strong&gt;&lt;a class="link" href="https://github.com/davidpersson/beanstalk" target="_blank" rel="noopener"
+&gt;beanstalk&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;zphp是一个极轻的的，专用于游戏(社交，网页，移动)的服务器端开发框架.提供高性能实时通信方案 &lt;a class="link" href="https://github.com/huanghua581" target="_blank" rel="noopener"
+&gt;huanghua581&lt;/a&gt;/ &lt;strong&gt;&lt;a class="link" href="https://github.com/huanghua581/zphp" target="_blank" rel="noopener"
+&gt;zphp&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;功能丰富的php日志工具 &lt;a class="link" href="http://logging.apache.org/log4php/" target="_blank" rel="noopener"
+&gt;log4php&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;高性能多协议的php日志库 &lt;a class="link" href="http://pecl.php.net/package/SeasLog" target="_blank" rel="noopener"
+&gt;SeasLog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;PSR-3规范的日志抽象层 &lt;a class="link" href="https://packagist.org/packages/monolog/monolog" target="_blank" rel="noopener"
+&gt;monolog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php 自动化任务(部署)工具 &lt;a class="link" href="https://github.com/deployphp/deployer" target="_blank" rel="noopener"
+&gt;deployer&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;cachetool 一个管理apc和opcache的工具 &lt;a class="link" href="https://github.com/gordalina/cachetool" target="_blank" rel="noopener"
+&gt;gordalina/cachetool&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;用php处理多媒体文件 &lt;a class="link" href="https://www.getid3.org/" target="_blank" rel="noopener"
+&gt;getid3&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="laravel相关"&gt;laravel相关：
+&lt;/h3&gt;&lt;p&gt;laravel 的文件系统：&lt;a class="link" href="https://github.com/GrahamCampbell/Laravel-Flysystem" target="_blank" rel="noopener"
+&gt;GrahamCampbell&lt;/a&gt; &lt;a class="link" href="https://github.com/GrahamCampbell/Laravel-Flysystem" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt; &lt;a class="link" href="https://github.com/GrahamCampbell/Laravel-Flysystem" target="_blank" rel="noopener"
+&gt;Laravel-Flysystem&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel 5 的 验证码组件： &lt;a class="link" href="https://github.com/mewebstudio/captcha" target="_blank" rel="noopener"
+&gt;mewebstudio&lt;/a&gt; &lt;a class="link" href="https://github.com/mewebstudio/captcha" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt; &lt;a class="link" href="https://github.com/mewebstudio/captcha" target="_blank" rel="noopener"
+&gt;captcha&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel5 的另一个验证码插件 &lt;a class="link" href="https://github.com/Gregwar" target="_blank" rel="noopener"
+&gt;Gregwar&lt;/a&gt;/ &lt;a class="link" href="https://github.com/Gregwar/Captcha" target="_blank" rel="noopener"
+&gt;Captcha&lt;/a&gt; 简单教程： &lt;a class="link" href="http://www.jianshu.com/p/8e4ac7852b5a" target="_blank" rel="noopener"
+&gt;http://www.jianshu.com/p/8e4ac7852b5a&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel5 新一代的支持laravel模板语法的权限系统 bouncer &lt;a class="link" href="https://github.com/JosephSilber/bouncer" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel5 基于角色的权限系统 &lt;a class="link" href="https://github.com/Zizaco" target="_blank" rel="noopener"
+&gt;Zizaco&lt;/a&gt;/ &lt;a class="link" href="https://github.com/Zizaco/entrust" target="_blank" rel="noopener"
+&gt;entrust&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Laravel中创建用户消息系统 &lt;a class="link" href="https://github.com/cmgmyr" target="_blank" rel="noopener"
+&gt;cmgmyr&lt;/a&gt;/ &lt;a class="link" href="https://github.com/cmgmyr/laravel-messenger" target="_blank" rel="noopener"
+&gt;laravel-messenger&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Laravel restful web API组件  &lt;a class="link" href="https://github.com/dingo/api" target="_blank" rel="noopener"
+&gt;dingo/api&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel 5 官方的 html生成器 &lt;a class="link" href="https://github.com/LaravelCollective" target="_blank" rel="noopener"
+&gt;LaravelCollective&lt;/a&gt;/ &lt;a class="link" href="https://github.com/LaravelCollective/html" target="_blank" rel="noopener"
+&gt;html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel 5 的 Execl文件生成 &lt;a class="link" href="https://github.com/Maatwebsite" target="_blank" rel="noopener"
+&gt;Maatwebsite&lt;/a&gt;/ &lt;a class="link" href="https://github.com/Maatwebsite/Laravel-Excel" target="_blank" rel="noopener"
+&gt;Laravel-Excel&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel 5 的短信发送模块 &lt;a class="link" href="https://github.com/toplan" target="_blank" rel="noopener"
+&gt;toplan&lt;/a&gt;/ &lt;a class="link" href="https://github.com/toplan/laravel-sms" target="_blank" rel="noopener"
+&gt;laravel-sms&lt;/a&gt; 来自： &lt;a class="link" href="https://github.com/toplan" target="_blank" rel="noopener"
+&gt;toplan&lt;/a&gt;/ &lt;a class="link" href="https://github.com/toplan/phpsms" target="_blank" rel="noopener"
+&gt;phpsms&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel 5 公共登录组件 &lt;a class="link" href="https://github.com/overtrue" target="_blank" rel="noopener"
+&gt;overtrue&lt;/a&gt;/ &lt;a class="link" href="https://github.com/overtrue/laravel-socialite" target="_blank" rel="noopener"
+&gt;laravel-socialite&lt;/a&gt; 来自： &lt;a class="link" href="https://github.com/overtrue" target="_blank" rel="noopener"
+&gt;overtrue&lt;/a&gt;/ &lt;a class="link" href="https://github.com/overtrue/socialite" target="_blank" rel="noopener"
+&gt;socialite&lt;/a&gt; 来自： &lt;a class="link" href="https://github.com/laravel" target="_blank" rel="noopener"
+&gt;laravel&lt;/a&gt;/ &lt;a class="link" href="https://github.com/laravel/socialite" target="_blank" rel="noopener"
+&gt;socialite&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel 5 的 debuger 条： &lt;a class="link" href="https://github.com/barryvdh/laravel-debugbar" target="_blank" rel="noopener"
+&gt;barryvdh&lt;/a&gt; &lt;a class="link" href="https://github.com/barryvdh/laravel-debugbar" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt; &lt;a class="link" href="https://github.com/barryvdh/laravel-debugbar" target="_blank" rel="noopener"
+&gt;laravel-debugbar&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel 5 的 MongoDB ORM 组件： &lt;a class="link" href="https://github.com/jenssegers/laravel-mongodb" target="_blank" rel="noopener"
+&gt;jenssegers&lt;/a&gt; &lt;a class="link" href="https://github.com/jenssegers/laravel-mongodb" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt; &lt;a class="link" href="https://github.com/jenssegers/laravel-mongodb" target="_blank" rel="noopener"
+&gt;laravel-mongodb&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel 5 从已有的数据库表中生成迁移文件： &lt;a class="link" href="https://github.com/Xethron" target="_blank" rel="noopener"
+&gt;Xethron&lt;/a&gt;/ &lt;a class="link" href="https://github.com/Xethron/migrations-generator" target="_blank" rel="noopener"
+&gt;migrations-generator&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel 5 的 workerman 封装 &lt;a class="link" href="https://github.com/zgldh" target="_blank" rel="noopener"
+&gt;zgldh&lt;/a&gt;/ &lt;a class="link" href="https://github.com/zgldh/workerboy" target="_blank" rel="noopener"
+&gt;workerboy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel 5  sequelpro 插件，可将数据表反解析为migration &lt;a class="link" href="https://github.com/cviebrock" target="_blank" rel="noopener"
+&gt;cviebrock&lt;/a&gt;/ &lt;a class="link" href="https://github.com/cviebrock/sequel-pro-laravel-export" target="_blank" rel="noopener"
+&gt;sequel-pro-laravel-export&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel 反向seed 组件：iseed &lt;a class="link" href="https://github.com/orangehill/iseed" target="_blank" rel="noopener"
+&gt;github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel 网站地图生成 laravel-sitemap &lt;a class="link" href="https://github.com/Laravelium/laravel-sitemap" target="_blank" rel="noopener"
+&gt;github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;快速为laravel项目构建文档larecipe &lt;a class="link" href="https://github.com/saleem-hadad/larecipe" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="go相关"&gt;GO相关：
+&lt;/h3&gt;&lt;p&gt;go的web框架 &lt;a class="link" href="https://github.com/gin-gonic" target="_blank" rel="noopener"
+&gt;gin-gonic&lt;/a&gt;/ &lt;a class="link" href="https://github.com/gin-gonic/gin" target="_blank" rel="noopener"
+&gt;gin&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;go的rpc组件 &lt;a class="link" href="https://github.com/smallnest/rpcx" target="_blank" rel="noopener"
+&gt;smallnest/rpcx&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;go web开发框架 &lt;a class="link" href="https://github.com/kataras/iris" target="_blank" rel="noopener"
+&gt;kataras/iris&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;go 全栈框架 &lt;a class="link" href="https://github.com/revel/revel" target="_blank" rel="noopener"
+&gt;revel&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;go 的k/v数据库 bolt &lt;a class="link" href="https://github.com/boltdb/bolt" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="python相关"&gt;Python相关：
+&lt;/h3&gt;&lt;p&gt;廖雪峰老师的Python教程 &lt;a class="link" href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000" target="_blank" rel="noopener"
+&gt;&amp;raquo;传送门&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;分布式任务队列系统 &lt;a class="link" href="http://www.celeryproject.org/" target="_blank" rel="noopener"
+&gt;Celery&lt;/a&gt; &lt;a class="link" href="http://docs.jinkan.org/docs/celery/" target="_blank" rel="noopener"
+&gt;文档&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;非阻塞网络服务框架 Tornado &lt;a class="link" href="http://www.tornadoweb.org/en/stable/" target="_blank" rel="noopener"
+&gt;文档&lt;/a&gt; &lt;a class="link" href="http://www.tornadoweb.cn/" target="_blank" rel="noopener"
+&gt;中文站&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;web微框架 &lt;a class="link" href="http://flask.pocoo.org/" target="_blank" rel="noopener"
+&gt;Flask&lt;/a&gt; &lt;a class="link" href="https://github.com/pallets/flask" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;全栈框架 &lt;a class="link" href="https://www.djangoproject.com/" target="_blank" rel="noopener"
+&gt;Django&lt;/a&gt; &lt;a class="link" href="https://github.com/django/django" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt; &lt;a class="link" href="http://python.usyiyi.cn/django/index.html" target="_blank" rel="noopener"
+&gt;中文文档&lt;/a&gt; &lt;a class="link" href="http://www.ziqiangxuetang.com/django/django-tutorial.html" target="_blank" rel="noopener"
+&gt;学习教程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;独立的ORM &lt;a class="link" href="http://www.sqlalchemy.org/" target="_blank" rel="noopener"
+&gt;SQLAlchemy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;py实现的Web服务器 &lt;a class="link" href="http://www.tornadoweb.org/en/stable/" target="_blank" rel="noopener"
+&gt;tornado&lt;/a&gt; &lt;a class="link" href="http://www.tornadoweb.cn/" target="_blank" rel="noopener"
+&gt;中文&lt;/a&gt; &lt;a class="link" href="https://github.com/tornadoweb/tornado" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Python UI库（支持移动端） &lt;a class="link" href="https://kivy.org" target="_blank" rel="noopener"
+&gt;kivy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;python 开发的进程管理器 supervisord&lt;/p&gt;
+&lt;p&gt;Java相关：&lt;/p&gt;
+&lt;p&gt;高性能应用服务器：undertow &lt;a class="link" href="http://undertow.io/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="nodejs"&gt;Node.js
+&lt;/h3&gt;&lt;p&gt;阿里开源的企业级开发框架 &lt;a class="link" href="http://eggjs.org/" target="_blank" rel="noopener"
+&gt;egg&lt;/a&gt; &lt;a class="link" href="https://github.com/eggjs/egg" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="前端相关"&gt;前端相关：
+&lt;/h3&gt;&lt;p&gt;为页面留出更多空间隐藏TOP headroom &lt;a class="link" href="http://wicky.nillia.ms/headroom.js/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;粘性导航 sticky &lt;a class="link" href="https://github.com/garand/sticky" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;粘性导航2 SMINT&lt;/p&gt;
+&lt;p&gt;兼容各种浏览器的MVVM框架 avalon &lt;a class="link" href="https://github.com/RubyLouvre/avalon" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;backbone ： &lt;a class="link" href="https://github.com/jashkenas/backbone" target="_blank" rel="noopener"
+&gt;jashkenas&lt;/a&gt; &lt;a class="link" href="https://github.com/jashkenas/backbone" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt; &lt;a class="link" href="https://github.com/jashkenas/backbone" target="_blank" rel="noopener"
+&gt;backbone&lt;/a&gt; 前端MVC&lt;/p&gt;
+&lt;p&gt;js前端框架 &lt;a class="link" href="https://github.com/vuejs/vue" target="_blank" rel="noopener"
+&gt;vue&lt;/a&gt; &lt;a class="link" href="http://cn.vuejs.org/" target="_blank" rel="noopener"
+&gt;文档&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;    Vue UI 框架 &lt;a class="link" href="https://vux.li" target="_blank" rel="noopener"
+&gt;vux&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;    Vue 饿了么后台框架 &lt;a class="link" href="https://github.com/ElemeFE/element" target="_blank" rel="noopener"
+&gt;element&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;    Vue UI 组件 &lt;a class="link" href="https://github.com/iview/iview" target="_blank" rel="noopener"
+&gt;iView&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;    Vue 移动端组件 &lt;a class="link" href="http://mint-ui.github.io/#!/zh-cn" target="_blank" rel="noopener"
+&gt;mint-ui&lt;/a&gt; &lt;a class="link" href="https://github.com/ElemeFE/mint-ui/" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;    Vue 移动端组件 framework7 &lt;a class="link" href="https://github.com/framework7io/framework7" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;阿里开源的react前端框架 &lt;a class="link" href="https://ant.design/index-cn" target="_blank" rel="noopener"
+&gt;ant.design&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;特别小巧的前端vdom框架 &lt;a class="link" href="https://github.com/MithrilJS/mithril.js" target="_blank" rel="noopener"
+&gt;mithril.js&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;JavaScript/HTML5控件集 &lt;a class="link" href="http://wijmo.gcpowertools.com.cn/" target="_blank" rel="noopener"
+&gt;wijmo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;返璞归真的UI框架layui（原生js写法的UI框架） &lt;a class="link" href="https://github.com/sentsin/layui/" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一款绘制迷你图的组件 sparkline &lt;a class="link" href="http://omnipotent.net/jquery.sparkline" target="_blank" rel="noopener"
+&gt;jquery.sparkline&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;js生成laravel友好的的url &lt;a class="link" href="https://github.com/aaronlord" target="_blank" rel="noopener"
+&gt;aaronlord&lt;/a&gt;/ &lt;a class="link" href="https://github.com/aaronlord/laroute" target="_blank" rel="noopener"
+&gt;laroute&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Handlebars.js 模板引擎 &lt;a class="link" href="http://handlebarsjs.com/" target="_blank" rel="noopener"
+&gt;http://handlebarsjs.com/&lt;/a&gt; &lt;a class="link" href="http://www.ghostchina.com/introducing-the-handlebars-js-templating-engine/" target="_blank" rel="noopener"
+&gt;http://www.ghostchina.com/introducing-the-handlebars-js-templating-engine/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;前端存储： &lt;a class="link" href="https://github.com/marcuswestin" target="_blank" rel="noopener"
+&gt;marcuswestin&lt;/a&gt;/ &lt;a class="link" href="https://github.com/marcuswestin/store.js" target="_blank" rel="noopener"
+&gt;store.js&lt;/a&gt; 前端存储不仅仅有cookie&lt;/p&gt;
+&lt;p&gt;图片处理/截图 cropper &lt;a class="link" href="https://github.com/fengyuanchen/cropper" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;图表 &lt;a class="link" href="https://github.com/wanghetommy" target="_blank" rel="noopener"
+&gt;wanghetommy&lt;/a&gt;/ &lt;a class="link" href="https://github.com/wanghetommy/ichartjs" target="_blank" rel="noopener"
+&gt;ichartjs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;百度的图表 &lt;a class="link" href="http://echarts.baidu.com/" target="_blank" rel="noopener"
+&gt;http://echarts.baidu.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;商业付费的图表 &lt;a class="link" href="https://github.com/highcharts" target="_blank" rel="noopener"
+&gt;highcharts&lt;/a&gt;/ &lt;a class="link" href="https://github.com/highcharts/highcharts" target="_blank" rel="noopener"
+&gt;highcharts&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;功能最强大的富文本编辑器 &lt;a class="link" href="https://ckeditor.com/" target="_blank" rel="noopener"
+&gt;ckeditor&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;富文本库： &lt;a class="link" href="https://www.tinymce.com/" target="_blank" rel="noopener"
+&gt;tinymce&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;更富的文本库： &lt;a class="link" href="https://quilljs.com/" target="_blank" rel="noopener"
+&gt;quill.js&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;小巧的富文本编辑器simditor &lt;a class="link" href="http://simditor.tower.im/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt; &lt;a class="link" href="https://github.com/mycolorway/simditor" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;百度的富文本编辑器ueditor &lt;a class="link" href="https://github.com/fex-team/ueditor" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;经典风格富文本编辑器kindeditor &lt;a class="link" href="http://kindeditor.net/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;非常简单的bootstarp编辑器 &lt;a class="link" href="http://jhollingworth.github.io/bootstrap-wysihtml5/" target="_blank" rel="noopener"
+&gt;wysihtml5&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;简单风格的富文本编辑器 &lt;a class="link" href="https://github.com/wangfupeng1988/wangEditor/" target="_blank" rel="noopener"
+&gt;wangEditor&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;自动拉长的textarea autosize &lt;a class="link" href="http://www.jacklmoore.com/autosize/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;复制黏贴工具 clipboard &lt;a class="link" href="https://clipboardjs.com/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;grid 表格库 &lt;a class="link" href="https://www.ag-grid.com/" target="_blank" rel="noopener"
+&gt;ag-grid&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;JS 异步操作顺序执行 &lt;a class="link" href="https://github.com/creationix" target="_blank" rel="noopener"
+&gt;creationix&lt;/a&gt;/ &lt;strong&gt;&lt;a class="link" href="https://github.com/creationix/step" target="_blank" rel="noopener"
+&gt;step&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;js 异步/同步操作 &lt;a class="link" href="https://github.com/caolan" target="_blank" rel="noopener"
+&gt;caolan&lt;/a&gt;/ &lt;strong&gt;&lt;a class="link" href="https://github.com/caolan/async" target="_blank" rel="noopener"
+&gt;async&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;js 异步加载文件 &lt;a class="link" href="https://github.com/JeffreyZhao" target="_blank" rel="noopener"
+&gt;JeffreyZhao&lt;/a&gt;/ &lt;strong&gt;&lt;a class="link" href="https://github.com/JeffreyZhao/wind" target="_blank" rel="noopener"
+&gt;wind&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;看起来还不错的前端ui &lt;a class="link" href="http://www.layui.com/" target="_blank" rel="noopener"
+&gt;layui&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Javascript工具库 &lt;a class="link" href="http://lodashjs.com/" target="_blank" rel="noopener"
+&gt;Lodash&lt;/a&gt; （知道这个库是在了解函数节流和去抖 throttle、debounce的时候）据说比underscore.js 要好&lt;/p&gt;
+&lt;p&gt;input框格式化工具 Cleave &lt;a class="link" href="https://github.com/nosir/cleave.js" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="测试相关"&gt;测试相关：
+&lt;/h3&gt;&lt;p&gt;简单易用的压力测试工具 &lt;a class="link" href="http://jmeter.apache.org/" target="_blank" rel="noopener"
+&gt;jmeter&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;分布式压力测试工具 &lt;a class="link" href="http://tsung.erlang-projects.org/" target="_blank" rel="noopener"
+&gt;tsung&lt;/a&gt; &lt;a class="link" href="http://www.blogjava.net/yongboy/archive/2016/07/22/431291.html" target="_blank" rel="noopener"
+&gt;简明教程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;mock平台&lt;/strong&gt; &lt;a class="link" href="https://github.com/thx/RAP" target="_blank" rel="noopener"
+&gt;https://github.com/thx/RAP&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;自动化测试工具： &lt;a class="link" href="http://seleniumhq.org" target="_blank" rel="noopener"
+&gt;selenium&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;测试管理 &lt;a class="link" href="http://autotest.github.io/" target="_blank" rel="noopener"
+&gt;autotest&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;TestNG 测试框架 &lt;a class="link" href="http://testng.org/doc/index.html" target="_blank" rel="noopener"
+&gt;http://testng.org&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;自动化测试解决方案 &lt;a class="link" href="https://github.com/alibaba/macaca/stargazers" target="_blank" rel="noopener"
+&gt;https://github.com/alibaba/macaca/stargazers&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php全栈测试框架 &lt;a class="link" href="http://codeception.com/" target="_blank" rel="noopener"
+&gt;codeception&lt;/a&gt; &lt;a class="link" href="http://blog.csdn.net/huoba1/article/details/41719699" target="_blank" rel="noopener"
+&gt;简单的教程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;PHP BDD行为驱动测试组件 &lt;a class="link" href="http://behat.org/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt; &lt;a class="link" href="http://www.tuicool.com/articles/QZfqiu" target="_blank" rel="noopener"
+&gt;简单的教程&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="大数据"&gt;大数据：
+&lt;/h3&gt;&lt;p&gt;mpi &lt;a class="link" href="http://www.mcs.anl.gov/research/projects/mpi/" target="_blank" rel="noopener"
+&gt;mpi&lt;/a&gt; &lt;a class="link" href="https://www.open-mpi.org/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="操作系统"&gt;操作系统：
+&lt;/h3&gt;&lt;p&gt;开源的软防火墙和软路由器 &lt;a class="link" href="http://https://www.pfsense.org/" target="_blank" rel="noopener"
+&gt;pfsense&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="优秀软件"&gt;优秀软件：
+&lt;/h3&gt;&lt;p&gt;markdown书写工具 &lt;a class="link" href="https://www.typora.io/" target="_blank" rel="noopener"
+&gt;typora&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;静态代码分析工具 PMD &lt;a class="link" href="https://github.com/pmd/pmd" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;跨平台Git客户端 &lt;a class="link" href="https://www.syntevo.com/smartgit/" target="_blank" rel="noopener"
+&gt;smartgit&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;全平台DB管理工具 &lt;a class="link" href="http://dbeaver.jkiss.org/download/" target="_blank" rel="noopener"
+&gt;dbeaver&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;SQL审核系统 &lt;a class="link" href="https://github.com/cookieY/Yearning" target="_blank" rel="noopener"
+&gt;Yearning&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;高效健壮的数据库代理 MyCat &lt;a class="link" href="http://www.mycat.io/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt; &lt;a class="link" href="https://github.com/MyCATApache/Mycat-Server" target="_blank" rel="noopener"
+&gt;github&lt;/a&gt; &lt;a class="link" href="http://www.mycat.io/document/Mycat_V1.6.0.pdf" target="_blank" rel="noopener"
+&gt;书籍下载&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一个高性能的Nosql Redis &lt;a class="link" href="https://github.com/antirez" target="_blank" rel="noopener"
+&gt;antirez&lt;/a&gt;/ &lt;a class="link" href="https://github.com/antirez/redis" target="_blank" rel="noopener"
+&gt;redis&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;rocksdb 一个基于levelDB引擎的K-V存储数据库 &lt;a class="link" href="https://github.com/facebook/rocksdb" target="_blank" rel="noopener"
+&gt;facebook&lt;/a&gt; &lt;a class="link" href="https://github.com/facebook/rocksdb" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt; &lt;a class="link" href="https://github.com/facebook/rocksdb" target="_blank" rel="noopener"
+&gt;rocksdb&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;SSDB 高性能的NoSQL(用于替代 Redis)  &lt;a class="link" href="https://github.com/ideawu" target="_blank" rel="noopener"
+&gt;ideawu&lt;/a&gt;/ &lt;a class="link" href="https://github.com/ideawu/ssdb" target="_blank" rel="noopener"
+&gt;ssdb&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;文档型存储数据库 &lt;a class="link" href="https://github.com/mongodb" target="_blank" rel="noopener"
+&gt;mongodb&lt;/a&gt;/ &lt;a class="link" href="https://github.com/mongodb/mongo" target="_blank" rel="noopener"
+&gt;mongo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;分布式高性能KV存储系统 &lt;a class="link" href="https://cassandra.apache.org/" target="_blank" rel="noopener"
+&gt;Cassandra&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Lua 的高级图片缩放软件： &lt;a class="link" href="https://github.com/nagadomi" target="_blank" rel="noopener"
+&gt;nagadomi&lt;/a&gt;/ &lt;a class="link" href="https://github.com/nagadomi/waifu2x" target="_blank" rel="noopener"
+&gt;waifu2x&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;H2O 一个实现了HTTP/2的web服务器软件： &lt;a class="link" href="https://github.com/h2o/h2o" target="_blank" rel="noopener"
+&gt;h2o&lt;/a&gt; &lt;a class="link" href="https://github.com/h2o/h2o" target="_blank" rel="noopener"
+&gt;/&lt;/a&gt; &lt;a class="link" href="https://github.com/h2o/h2o" target="_blank" rel="noopener"
+&gt;h2o&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Taobao File System 淘宝的文件系统 &lt;a class="link" href="https://github.com/alibaba" target="_blank" rel="noopener"
+&gt;alibaba&lt;/a&gt;/ &lt;a class="link" href="https://github.com/alibaba/tfs" target="_blank" rel="noopener"
+&gt;tfs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这个Nginx模块实现了Taobao File System的客户端 &lt;a class="link" href="https://github.com/alibaba" target="_blank" rel="noopener"
+&gt;alibaba&lt;/a&gt;/ &lt;a class="link" href="https://github.com/alibaba/nginx-tfs" target="_blank" rel="noopener"
+&gt;nginx-tfs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;分布式文件系统 &lt;a class="link" href="http://www.gluster.org/download/" target="_blank" rel="noopener"
+&gt;GlusterFS&lt;/a&gt; &lt;a class="link" href="http://www.gluster.org/" target="_blank" rel="noopener"
+&gt;http://www.gluster.org/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;运维首选推荐分布式文件系统 &lt;a class="link" href="https://www.couchbase.com/" target="_blank" rel="noopener"
+&gt;couchbase&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一个阿里巴巴的nginx分支 &lt;a class="link" href="https://github.com/alibaba" target="_blank" rel="noopener"
+&gt;alibaba&lt;/a&gt;/ &lt;a class="link" href="https://github.com/alibaba/tengine" target="_blank" rel="noopener"
+&gt;tengine&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;aircrack-ng 破解WIFI软件 &lt;a class="link" href="http://www.aircrack-ng.org/downloads.html" target="_blank" rel="noopener"
+&gt;http://www.aircrack-ng.org/downloads.html&lt;/a&gt; 教程： &lt;a class="link" href="http://lok.me/a/1972.html" target="_blank" rel="noopener"
+&gt;http://lok.me/a/1972.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Hubot &lt;a class="link" href="http://www.oschina.net/p/hubot" target="_blank" rel="noopener"
+&gt;自动化发布工具&lt;/a&gt; github: &lt;a class="link" href="https://github.com/github" target="_blank" rel="noopener"
+&gt;github&lt;/a&gt;/ &lt;a class="link" href="https://github.com/github/hubot" target="_blank" rel="noopener"
+&gt;hubot&lt;/a&gt; 介绍： &lt;a class="link" href="http://www.oschina.net/p/hubot" target="_blank" rel="noopener"
+&gt;http://www.oschina.net/p/hubot&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;ZeroMQ史上最快的消息队列 PHP扩展 &lt;a class="link" href="https://github.com/mkoppanen" target="_blank" rel="noopener"
+&gt;mkoppanen&lt;/a&gt;/ &lt;a class="link" href="https://github.com/mkoppanen/php-zmq" target="_blank" rel="noopener"
+&gt;php-zmq&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Gearman 任务分发系统&lt;/p&gt;
+&lt;p&gt;进程管理器 monit &lt;a class="link" href="https://mmonit.com/monit/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开源的企业级监控软件 nagios &lt;a class="link" href="https://www.nagios.org/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;另一款企业级监控软件 zabbix&lt;/p&gt;
+&lt;p&gt;php开发的监控软件 cacti &lt;a class="link" href="https://www.cacti.net/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;针对互联网架构优化的监控软件 Open-Falcon &lt;a class="link" href="http://open-falcon.org/" target="_blank" rel="noopener"
+&gt;官网&lt;/a&gt; &lt;a class="link" href="https://github.com/open-falcon/falcon-plus" target="_blank" rel="noopener"
+&gt;github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开源的ORC图像识别库 &lt;a class="link" href="https://github.com/tesseract-ocr" target="_blank" rel="noopener"
+&gt;tesseract-ocr&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开源的即时通讯 &lt;a class="link" href="http://www.igniterealtime.org/" target="_blank" rel="noopener"
+&gt;openfire&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;webIRC软件 &lt;a class="link" href="https://kiwiirc.com" target="_blank" rel="noopener"
+&gt;kiwiirc&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Galera Mysql集群方案&lt;/p&gt;
+&lt;p&gt;优秀的图表数据面板 &lt;a class="link" href="https://github.com/grafana/grafana" target="_blank" rel="noopener"
+&gt;grafana&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;python开发的强大的监控系统 &lt;a class="link" href="http://graphite.readthedocs.io/en/latest/" target="_blank" rel="noopener"
+&gt;graphite&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;API mock 测试软件 &lt;a class="link" href="https://github.com/apiaryio/dredd" target="_blank" rel="noopener"
+&gt;dredd&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开源的的IP库 ip2region &lt;a class="link" href="https://github.com/lionsoul2014/ip2region" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;前端资源扒站软件 &lt;a class="link" href="https://gitee.com/mail_osc/templatespider" target="_blank" rel="noopener"
+&gt;templatespider&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;好看的代码图片生成网站 &lt;a class="link" href="https://carbon.now.sh/" target="_blank" rel="noopener"
+&gt;carbon.now&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;方便的批量查询服务器存活状态 &lt;a class="link" href="http://www.nirsoft.net/utils/multiple_ping_tool.html" target="_blank" rel="noopener"
+&gt;pinginfoview&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开源的文件/文件夹对比工具 &lt;a class="link" href="http://meldmerge.org/" target="_blank" rel="noopener"
+&gt;meld&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="项目部署"&gt;项目部署：
+&lt;/h3&gt;&lt;p&gt;项目构建与持续集成工具（皆啃死） &lt;a class="link" href="https://jenkins.io/" target="_blank" rel="noopener"
+&gt;jenkins&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;php实现的web项目部署工具 &lt;a class="link" href="https://github.com/meolu/walle-web" target="_blank" rel="noopener"
+&gt;瓦力&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;部署管理系统 Fixhub &lt;a class="link" href="https://github.com/Fixhub/Fixhub" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;命令行试的php项目部署工具 &lt;a class="link" href="https://deployer.org/" target="_blank" rel="noopener"
+&gt;deployer&lt;/a&gt; &lt;a class="link" href="https://github.com/deployphp/deployer" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Ruby写的多服务器远程运维工具 &lt;a class="link" href="http://capistranorb.com/" target="_blank" rel="noopener"
+&gt;capistranorb&lt;/a&gt; &lt;a class="link" href="https://github.com/capistrano/capistrano" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;docker 容器管理工具 &lt;a class="link" href="https://github.com/kubernetes/kubernetes" target="_blank" rel="noopener"
+&gt;kubernetes&lt;/a&gt; &lt;a class="link" href="https://my.oschina.net/xdatk/blog/895645" target="_blank" rel="noopener"
+&gt;教程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Harbor 企业级docker私有镜像管理 &lt;a class="link" href="https://juejin.im/post/5a201201f265da43333e301f" target="_blank" rel="noopener"
+&gt;简明教程&lt;/a&gt; &lt;a class="link" href="https://github.com/vmware/harbor" target="_blank" rel="noopener"
+&gt;github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Windows快速搭建PHP开发环境 &lt;a class="link" href="https://sourceforge.net/projects/laragon/" target="_blank" rel="noopener"
+&gt;laragon&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="开源系统"&gt;开源系统：
+&lt;/h3&gt;&lt;p&gt;现代化的wordpress &lt;a class="link" href="https://roots.io/bedrock/" target="_blank" rel="noopener"
+&gt;bedrock&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;然之企业管理系统 &lt;a class="link" href="http://git.oschina.net/wwccss/ranzhi" target="_blank" rel="noopener"
+&gt;ranzhi&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;API与mock管理系统 &lt;a class="link" href="http://git.oschina.net/sx1989827/SBDoc" target="_blank" rel="noopener"
+&gt;SBDoc&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;禅道项目管理系统 &lt;a class="link" href="http://www.zentao.net/" target="_blank" rel="noopener"
+&gt;zentao&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel5开发的开源商城 &lt;a class="link" href="https://github.com/ant-vel/antVel" target="_blank" rel="noopener"
+&gt;antVel&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;laravel5的开源论坛 &lt;a class="link" href="https://github.com/flarum/flarum" target="_blank" rel="noopener"
+&gt;flarum&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;zblog（就是本博客了） &lt;a class="link" href="https://www.zblogcn.com/zblogphp/" target="_blank" rel="noopener"
+&gt;zblog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;typecho 简单优雅的博客 &lt;a class="link" href="https://github.com/typecho/typecho" target="_blank" rel="noopener"
+&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;快速构建商务cms &lt;a class="link" href="http://1x.openwbs.com/" target="_blank" rel="noopener"
+&gt;openwbs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;drupal CMF 高度可定制的内容管理框架 &lt;a class="link" href="https://www.drupal.org/" target="_blank" rel="noopener"
+&gt;drupal&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;joomla 快速上手的内容管理框架 &lt;a class="link" href="https://www.joomla.org/" target="_blank" rel="noopener"
+&gt;joomla&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;wiki &lt;a class="link" href="https://www.mediawiki.org/wiki/MediaWiki" target="_blank" rel="noopener"
+&gt;MediaWiki&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Magento 开源的电子商 &lt;a class="link" href="https://magento.com/" target="_blank" rel="noopener"
+&gt;Magento&lt;/a&gt; &lt;a class="link" href="http://devdocs.magento.com/" target="_blank" rel="noopener"
+&gt;开发文档&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;opencart 开源电子商城 &lt;a class="link" href="https://www.opencart.com/" target="_blank" rel="noopener"
+&gt;opencart&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;prestashop 开源电子商城 &lt;a class="link" href="https://www.prestashop.com/" target="_blank" rel="noopener"
+&gt;prestashop&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Symfony 为基础的开源电子商务 &lt;a class="link" href="https://github.com/Sylius/Sylius" target="_blank" rel="noopener"
+&gt;Sylius&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;sugerCRM 开源的客户关系管理平台 &lt;a class="link" href="https://www.sugarcrm.com/" target="_blank" rel="noopener"
+&gt;sugarcrm&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;SQL审核平台 &lt;a class="link" href="https://github.com/cookieY/Yearning" target="_blank" rel="noopener"
+&gt;Yearning&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;讯搜搜索引擎 &lt;a class="link" href="http://www.xunsearch.com/" target="_blank" rel="noopener"
+&gt;xunsearch&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;开源的DNS服务器 &lt;a class="link" href="https://www.isc.org/downloads/bind/" target="_blank" rel="noopener"
+&gt;bind&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;反向代理，CDN，静态页面缓存 &lt;a class="link" href="http://www.squid-cache.org/" target="_blank" rel="noopener"
+&gt;squid&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;内存型CDN &lt;a class="link" href="https://www.varnish-cache.org/" target="_blank" rel="noopener"
+&gt;varnish&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Linux环境套装 &lt;a class="link" href="http://www.wdlinux.cn/" target="_blank" rel="noopener"
+&gt;wdlinux&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;MQTT服务端 &lt;a class="link" href="https://github.com/emqtt/emqttd" target="_blank" rel="noopener"
+&gt;EMQ Broker&lt;/a&gt;&lt;/p&gt;</description></item><item><title>关于我</title><link>https://reatang.com/%E5%85%B3%E4%BA%8E%E6%88%91/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://reatang.com/%E5%85%B3%E4%BA%8E%E6%88%91/</guid><description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
+&lt;p&gt;This page&amp;rsquo;s frontmatter:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;span class="lnt"&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;links&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;GitHub&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;description&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;GitHub is the world&amp;#39;s largest software development platform.&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;website&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;https://github.com&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;image&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;TypeScript&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;description&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;website&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;https://www.typescriptlang.org&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;image&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;ts-logo-128.jpg&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;image&lt;/code&gt; field accepts both local and external images.&lt;/p&gt;</description></item><item><title>搜索</title><link>https://reatang.com/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://reatang.com/search/</guid><description/></item></channel></rss>
