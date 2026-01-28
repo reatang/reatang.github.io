@@ -54,8 +54,6 @@
 </span><span class=lnt>29
 </span><span class=lnt>30
 </span><span class=lnt>31
-</span><span class=lnt>32
-</span><span class=lnt>33
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
 </span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>langchain_deepseek</span> <span class=kn>import</span> <span class=n>ChatDeepSeek</span>
@@ -78,8 +76,6 @@
 </span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>model_name</span> <span class=o>==</span> <span class=s2>&#34;deepseek-reasoner&#34;</span><span class=p>:</span>
 </span></span><span class=line><span class=cl>        <span class=c1># 思考模式添加扩展参数，激活fix代码中传输思维链的代码</span>
 </span></span><span class=line><span class=cl>        <span class=n>extra_body</span><span class=p>[</span><span class=s2>&#34;thinking&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;type&#34;</span><span class=p>:</span> <span class=s2>&#34;enabled&#34;</span><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=n>api_key</span><span class=p>,</span> <span class=n>api_base</span> <span class=o>=</span> <span class=n>_DEEPSEEK_PROVIDER_CONFIG</span><span class=p>[</span><span class=n>provider</span><span class=p>]</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>ChatDeepSeek</span><span class=p>(</span>
 </span></span><span class=line><span class=cl>        <span class=n>model</span><span class=o>=</span><span class=n>model_name</span><span class=p>,</span>
