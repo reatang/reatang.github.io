@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>OpenClaw on 雨的味道</title><link>https://reatang.com/tags/openclaw/</link><description>Recent content in OpenClaw on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 01 Jun 2026 01:41:00 +0800</lastBuildDate><atom:link href="https://reatang.com/tags/openclaw/index.xml" rel="self" type="application/rss+xml"/><item><title>OpenClaw + OpenAI Codex OAuth 代理问题解决</title><link>https://reatang.com/p/openclaw-openai-codex-oauth-proxy-fix/</link><pubDate>Mon, 01 Jun 2026 01:41:00 +0800</pubDate><guid>https://reatang.com/p/openclaw-openai-codex-oauth-proxy-fix/</guid><description>&lt;p&gt;折腾了一晚上，各种方案都试了，最后发现根子不在系统代理，也不完全在 Node.js，而在 OpenClaw 的 OAuth token exchange 调用没有显式启用环境变量代理。&lt;/p&gt;
+&lt;p&gt;结论先放前面：&lt;strong&gt;OpenClaw 的 &lt;code&gt;fetchWithSsrFGuard&lt;/code&gt; 默认是 &lt;code&gt;STRICT&lt;/code&gt; 模式，不会自动读取 &lt;code&gt;HTTP_PROXY&lt;/code&gt; / &lt;code&gt;HTTPS_PROXY&lt;/code&gt;。&lt;/strong&gt; 这会导致 &lt;code&gt;https://auth.openai.com/oauth/token&lt;/code&gt; 这个请求直接裸连，在受限网络环境里自然会失败。&lt;/p&gt;
+&lt;h2 id="现象"&gt;现象
+&lt;/h2&gt;&lt;p&gt;执行 OpenAI Codex OAuth 登录：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;HTTP_PROXY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;http://127.0.0.1:7890 &lt;span class="nv"&gt;HTTPS_PROXY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;http://127.0.0.1:7890 openclaw models auth login --provider openai-codex
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;系统层面的代理是通的，浏览器和 &lt;code&gt;curl&lt;/code&gt; 也没问题，但 OpenClaw 在 OAuth 回调后的 token exchange 阶段失败。&lt;/p&gt;
+&lt;p&gt;一开始很容易以为是 Node.js 22 原生 &lt;code&gt;fetch()&lt;/code&gt; 不走代理的问题。这个判断不算错，但还不够具体。真正影响这次调用的是 OpenClaw 自己封装的 &lt;code&gt;fetchWithSsrFGuard&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id="试过但没用的方案"&gt;试过但没用的方案
+&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;方案&lt;/th&gt;
+&lt;th&gt;失败原因&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;NODE_OPTIONS=&amp;quot;--require proxy-fix.js&amp;quot;&lt;/code&gt; + undici &lt;code&gt;ProxyAgent&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;preload 无法稳定影响 fork 出来的子进程&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;socks5 代理&lt;/td&gt;
+&lt;td&gt;原生 &lt;code&gt;fetch&lt;/code&gt; 不认 socks5 环境变量&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;global-agent&lt;/code&gt; bootstrap&lt;/td&gt;
+&lt;td&gt;对 Node.js 原生 &lt;code&gt;fetch&lt;/code&gt; 无效&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;手动 &lt;code&gt;curl&lt;/code&gt; 换 token&lt;/td&gt;
+&lt;td&gt;PKCE verifier 在进程内存里，外部拿不到&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;proxychains&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;需要额外安装和 sudo，不想把问题复杂化&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;这些方案都在外围绕圈。真正应该看的，是 OpenClaw 代码里这次请求到底怎么发出去的。&lt;/p&gt;
+&lt;h2 id="根本原因"&gt;根本原因
+&lt;/h2&gt;&lt;p&gt;问题集中在 OAuth token exchange：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-txt" data-lang="txt"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;https://auth.openai.com/oauth/token
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;OpenClaw 内部调用 &lt;code&gt;fetchWithSsrFGuard&lt;/code&gt; 时，带了类似这样的审计上下文：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-js" data-lang="js"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;auditContext&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;openai-codex-oauth-token&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;但没有传：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-js" data-lang="js"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;proxy&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;env&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;也就是说，即使外部设置了：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;HTTP_PROXY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;http://127.0.0.1:7890
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;HTTPS_PROXY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;http://127.0.0.1:7890
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这次请求也不会自动走代理。&lt;/p&gt;
+&lt;p&gt;更坑的是，&lt;code&gt;fetchWithSsrFGuard&lt;/code&gt; 还有 DNS pinning 相关保护。要允许环境变量代理，需要同时传：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-js" data-lang="js"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;dangerouslyAllowEnvProxyWithoutPinnedDns&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;所以根因可以拆成三层：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Node.js 22 原生 &lt;code&gt;fetch()&lt;/code&gt; 默认忽略 &lt;code&gt;HTTPS_PROXY&lt;/code&gt; / &lt;code&gt;HTTP_PROXY&lt;/code&gt; 环境变量&lt;/li&gt;
+&lt;li&gt;OpenClaw 的 &lt;code&gt;fetchWithSsrFGuard&lt;/code&gt; 默认使用 &lt;code&gt;STRICT&lt;/code&gt; 模式，不走代理&lt;/li&gt;
+&lt;li&gt;OAuth token exchange 请求直连 OpenAI，被受限网络环境拦截&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这不是单纯的 Node.js bug，更准确地说，是应用层代码没有为这个网络环境显式启用代理。&lt;/p&gt;
+&lt;h2 id="临时解决方案改源码"&gt;临时解决方案：改源码
+&lt;/h2&gt;&lt;p&gt;我最后直接改了全局安装目录里的 OpenClaw 编译后文件。&lt;/p&gt;
+&lt;p&gt;先说明：这是临时补丁。升级 OpenClaw 后可能会被覆盖，最好还是等上游在 OAuth 流程里正式支持代理参数。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sed -i &lt;span class="s1"&gt;&amp;#39;s/auditContext: &amp;#34;openai-codex-oauth-token&amp;#34;/auditContext: &amp;#34;openai-codex-oauth-token&amp;#34;, proxy: &amp;#34;env&amp;#34;, dangerouslyAllowEnvProxyWithoutPinnedDns: true/&amp;#39;&lt;/span&gt; ~/.nvm/versions/node/v22.22.0/lib/node_modules/openclaw/dist/openai-codex-oauth-flow.runtime-DuvjIJqY.js
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后重新执行登录：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nv"&gt;HTTP_PROXY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;http://127.0.0.1:7890 &lt;span class="nv"&gt;HTTPS_PROXY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;http://127.0.0.1:7890 openclaw models auth login --provider openai-codex
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;秒过。&lt;/p&gt;
+&lt;h2 id="关键点"&gt;关键点
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;OpenClaw 的 &lt;code&gt;fetchWithSsrFGuard&lt;/code&gt; 支持 &lt;code&gt;proxy: &amp;quot;env&amp;quot;&lt;/code&gt; 参数&lt;/li&gt;
+&lt;li&gt;OpenAI Codex OAuth token exchange 流程里没有传这个参数&lt;/li&gt;
+&lt;li&gt;设置 &lt;code&gt;HTTP_PROXY&lt;/code&gt; / &lt;code&gt;HTTPS_PROXY&lt;/code&gt; 只是必要条件，不是充分条件&lt;/li&gt;
+&lt;li&gt;在这个场景下，还需要 &lt;code&gt;dangerouslyAllowEnvProxyWithoutPinnedDns: true&lt;/code&gt; 绕过 DNS pinning 限制&lt;/li&gt;
+&lt;li&gt;这是 OpenClaw 代理适配的问题，不是 Node.js 自己能自动解决的问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="教训"&gt;教训
+&lt;/h2&gt;&lt;p&gt;代理问题最容易让人误判，因为它横跨系统环境、运行时、HTTP 客户端和应用封装。&lt;/p&gt;
+&lt;p&gt;这次最大的教训是：&lt;strong&gt;别只盯着环境变量，要看代码实际怎么发请求。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;以后遇到类似问题，我会先做两件事：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;grep&lt;/code&gt; 目标域名或请求上下文，定位调用点&lt;/li&gt;
+&lt;li&gt;看 HTTP 封装是否显式支持代理、是否真的传了代理参数&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;很多时候，&lt;code&gt;HTTPS_PROXY&lt;/code&gt; 设对了，请求还是裸连。不是代理没生效，而是应用层根本没打算读它。&lt;/p&gt;</description></item></channel></rss>
