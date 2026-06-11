@@ -1,0 +1,209 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="从 GitHub Apps 看下一代互联网的数据授权范式 一、一个被低估的架构转折点 互联网平台正在发生一个重要变化：用户不再只是“登录一个网站”，也不再只是“把数据上传给平台”，而是开始以更细粒度的方式，把自己在平台上的某些资源、某些操作能力，授权给第三方应用、自动化系统和智能代理。\n"><title>【行业观察】从github apps 看下一代互联网的数据授权范式</title><link rel=canonical href=https://reatang.com/p/github-apps-data-authorization-paradigm/><link rel=stylesheet href=/scss/style.min.dc05acf8d709f68c2c8cc3fd7b8f69192cc072897a6efbefefac166210ba1cc0.css><meta property='og:title' content="【行业观察】从github apps 看下一代互联网的数据授权范式"><meta property='og:description' content="从 GitHub Apps 看下一代互联网的数据授权范式 一、一个被低估的架构转折点 互联网平台正在发生一个重要变化：用户不再只是“登录一个网站”，也不再只是“把数据上传给平台”，而是开始以更细粒度的方式，把自己在平台上的某些资源、某些操作能力，授权给第三方应用、自动化系统和智能代理。\n"><meta property='og:url' content='https://reatang.com/p/github-apps-data-authorization-paradigm/'><meta property='og:site_name' content='雨的味道'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='GitHub Apps'><meta property='article:tag' content='数据授权'><meta property='article:tag' content='互联网范式'><meta property='article:published_time' content='2026-06-12T00:15:51+08:00'><meta property='article:modified_time' content='2026-06-12T00:15:51+08:00'><meta name=twitter:title content="【行业观察】从github apps 看下一代互联网的数据授权范式"><meta name=twitter:description content="从 GitHub Apps 看下一代互联网的数据授权范式 一、一个被低估的架构转折点 互联网平台正在发生一个重要变化：用户不再只是“登录一个网站”，也不再只是“把数据上传给平台”，而是开始以更细粒度的方式，把自己在平台上的某些资源、某些操作能力，授权给第三方应用、自动化系统和智能代理。\n"><link rel="shortcut icon" href=/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu_2084c374a505adef.png width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>📚</span></figure><div class=site-meta><h1 class=site-name><a href=/>雨的味道</a></h1><h2 class=site-description>只是钻研了一些技术.</h2></div></header><ol class=menu-social><li><a href=https://github.com/reatang target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://weibo.com/reatang target=_blank title=Weibo rel=me><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-weibo"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19 14.127C19 17.2 15.498 20 11 20c-4.126.0-8-2.224-8-5.565.0-1.78.984-3.737 2.7-5.567 2.362-2.51 5.193-3.687 6.551-2.238.415.44.752 1.39.749 2.062 2-1.615 4.308.387 3.5 2.693 1.26.557 2.5.538 2.5 2.742z"/><path d="M15 4h1a5 5 0 015 5v1"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>主页</span></a></li><li><a href=/single-pages/><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-notebook"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4h11a2 2 0 012 2v12a2 2 0 01-2 2H6a1 1 0 01-1-1V5a1 1 0 011-1m3 0v18"/><path d="M13 8h2"/><path d="M13 12h2"/></svg>
+<span>单页知识</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>归档文章</span></a></li><li><a href=/good-package/><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-books"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4m0 1a1 1 0 011-1h2a1 1 0 011 1v14a1 1 0 01-1 1H6a1 1 0 01-1-1z"/><path d="M9 4m0 1a1 1 0 011-1h2a1 1 0 011 1v14a1 1 0 01-1 1h-2a1 1 0 01-1-1z"/><path d="M5 8h4"/><path d="M9 16h4"/><path d="M13.803 4.56l2.184-.53c.562-.135 1.133.19 1.282.732l3.695 13.418a1.02 1.02.0 01-.634 1.219l-.133.041-2.184.53c-.562.135-1.133-.19-1.282-.732L13.036 5.82a1.02 1.02.0 01.634-1.219l.133-.041z"/><path d="M14 9l4-1"/><path d="M16 16l3.923-.98"/></svg>
+<span>好东西传送门</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>搜索</span></a></li><li><a href=/%E5%85%B3%E4%BA%8E%E6%88%91/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>关于我</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#一一个被低估的架构转折点>一、一个被低估的架构转折点</a></li><li><a href=#二旧模式的问题账号即权限登录即托付>二、旧模式的问题：账号即权限，登录即托付</a></li><li><a href=#三新模式的核心资源能力授权事件>三、新模式的核心：资源、能力、授权、事件</a></li><li><a href=#四为什么这个模式会成为资源型网站的标准>四、为什么这个模式会成为资源型网站的标准</a></li><li><a href=#五从平台拥有数据到用户授权数据>五、从“平台拥有数据”到“用户授权数据”</a></li><li><a href=#六这个模式的架构本质capability-based-platform>六、这个模式的架构本质：Capability-Based Platform</a></li><li><a href=#七为什么它比-oauth-登录更重要>七、为什么它比 OAuth 登录更重要</a></li><li><a href=#八平台视角从产品到资源操作系统>八、平台视角：从产品到资源操作系统</a></li><li><a href=#九开发者视角从调用-api-到嵌入工作流>九、开发者视角：从调用 API 到嵌入工作流</a></li><li><a href=#十商业视角生态扩张与平台控制的平衡>十、商业视角：生态扩张与平台控制的平衡</a></li><li><a href=#十一安全视角最小权限只是起点>十一、安全视角：最小权限只是起点</a></li><li><a href=#十二ai-agent-时代授权模型将从应用访问升级为代理行动>十二、AI Agent 时代：授权模型将从“应用访问”升级为“代理行动”</a></li><li><a href=#十三对互联网架构师的启示>十三、对互联网架构师的启示</a></li><li><a href=#十四这个模式的终局互联网资源的可组合化>十四、这个模式的终局：互联网资源的可组合化</a></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E8%A1%8C%E4%B8%9A%E8%A7%82%E5%AF%9F/ style=background-color:#efe7be;color:#3d360f>行业观察</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/github-apps-data-authorization-paradigm/>【行业观察】从github apps 看下一代互联网的数据授权范式</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2026-06-12T00:15:51+08:00>2026-06-12</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 16 分钟</time></div></footer></div></header><section class=article-content><h1 id=从-github-apps-看下一代互联网的数据授权范式>从 GitHub Apps 看下一代互联网的数据授权范式</h1><h2 id=一一个被低估的架构转折点>一、一个被低估的架构转折点</h2><p>互联网平台正在发生一个重要变化：用户不再只是“登录一个网站”，也不再只是“把数据上传给平台”，而是开始以更细粒度的方式，把自己在平台上的某些资源、某些操作能力，授权给第三方应用、自动化系统和智能代理。</p><p>GitHub Apps 是这个变化中非常清晰的样板。</p><p>表面上看，GitHub Apps 只是 GitHub 的一种应用集成机制。开发者可以创建一个 App，让它读取仓库、评论 Pull Request、管理 Issue、监听 Webhook、执行自动化流程。但如果从更高层的互联网架构来看，它代表的不只是一个开发者工具，而是一种新的资源授权模型：</p><p><strong>平台托管资源，用户拥有授权权利，第三方应用获得有限能力，所有操作通过标准 API 和事件系统完成。</strong></p><p>这一步非常重要。它意味着互联网正在从“账号中心化”走向“资源中心化”，从“平台拥有数据”走向“用户可授权的数据使用权”，从“粗暴的登录态信任”走向“可声明、可限制、可撤销、可审计的能力系统”。</p><p>这可能是下一代互联网处理用户数据所有权、应用生态和 AI Agent 执行权的基础结构之一。</p><hr><h2 id=二旧模式的问题账号即权限登录即托付>二、旧模式的问题：账号即权限，登录即托付</h2><p>早期互联网处理第三方集成的方式非常粗糙。</p><p>一种方式是让用户直接把账号密码交给第三方。比如某些早期邮箱客户端、爬虫工具、同步工具，会要求用户输入目标网站账号和密码。第三方拿到账号密码后，理论上就可以模拟用户做任何事。这种方式的本质是：用户把自己的完整身份交给了第三方。</p><p>另一种方式是 API Token。用户生成一个长期有效的令牌，交给脚本、CI/CD、第三方服务。这个模式比账号密码稍好，但很多早期 Token 权限过大、有效期过长、撤销不方便、审计不充分。一旦泄露，损害范围很难控制。</p><p>这两种模式有一个共同问题：<strong>权限边界和用户真实意图不匹配。</strong></p><p>用户可能只是想让某个工具读取一个仓库的 Issue，但它获得了整个账号的访问能力。用户可能只是想让某个自动化系统在一个项目里评论 PR，但它拿到了所有项目的读写权限。用户可能只是想同步一个日历，但第三方可以读取全部邮箱、联系人和文件。</p><p>这是一种典型的“账号级信任”模型：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>用户账号
+</span></span><span class=line><span class=cl>  └── 第三方获得账号级访问能力
+</span></span><span class=line><span class=cl>        └── 可访问大量资源
+</span></span><span class=line><span class=cl>              └── 风险边界模糊
+</span></span></code></pre></td></tr></table></div></div><p>这种模式在小规模互联网时代还能勉强运行，但当平台上的资源越来越重要，第三方生态越来越复杂，自动化系统越来越强，尤其是 AI Agent 开始代表用户执行动作时，它就变得非常危险。</p><p>因为未来的问题不只是“谁能看我的数据”，而是：</p><p>谁能代表我行动？
+能在哪些资源上行动？
+能执行哪些动作？
+这些动作是否可撤销？
+出了问题是否可追踪？
+第三方是否能越权？
+授权是否能被动态收回？</p><p>这就需要一种新的架构范式。</p><hr><h2 id=三新模式的核心资源能力授权事件>三、新模式的核心：资源、能力、授权、事件</h2><p>以 GitHub Apps 为代表的新模式，可以抽象成四个核心对象：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>Resource：资源
+</span></span><span class=line><span class=cl>Capability：能力
+</span></span><span class=line><span class=cl>Grant：授权
+</span></span><span class=line><span class=cl>Event：事件
+</span></span></code></pre></td></tr></table></div></div><p>资源是平台中被管理的对象，比如 GitHub 的 Repository、Issue、Pull Request、Branch、Workflow；Notion 的 Page、Database；Google Workspace 的 File、Calendar、Mail；Slack 的 Channel、Message、Workspace；Shopify 的 Product、Order、Customer。</p><p>能力是对资源的操作声明，比如读取、写入、评论、创建、删除、管理、订阅事件、触发流程。</p><p>授权是用户或组织对某个应用授予的能力集合。它不是无限制的账号访问，而是绑定在具体资源和具体操作上的许可。</p><p>事件是资源状态变化后对外部系统的通知机制。比如 Pull Request 被打开、Issue 被评论、订单被支付、文档被修改、日程被创建。事件让第三方应用不需要不断轮询平台，而是可以围绕平台资源构建响应式系统。</p><p>于是新的架构变成：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>用户 / 组织
+</span></span><span class=line><span class=cl>  └── 拥有资源
+</span></span><span class=line><span class=cl>        └── 安装或授权 App
+</span></span><span class=line><span class=cl>              └── App 获得有限能力
+</span></span><span class=line><span class=cl>                    └── 通过 API 操作资源
+</span></span><span class=line><span class=cl>                    └── 通过 Webhook 接收事件
+</span></span><span class=line><span class=cl>                    └── 所有行为可撤销、可审计、可治理
+</span></span></code></pre></td></tr></table></div></div><p>这是一种比传统 OAuth 登录更进一步的模型。它不仅解决“你是谁”，还解决“你可以对哪些资源做什么”。</p><p>身份认证回答的是 authentication：你是谁。
+权限授权回答的是 authorization：你能做什么。
+资源授权回答的是 delegation：谁可以代表你，对哪些资源，执行哪些动作。</p><p>GitHub Apps 的价值就在于，它把这种 delegation 做成了平台级基础设施。</p><hr><h2 id=四为什么这个模式会成为资源型网站的标准>四、为什么这个模式会成为资源型网站的标准</h2><p>资源型网站有一个共同特征：用户在平台上沉淀了高价值资源。</p><p>GitHub 沉淀代码、Issue、PR、CI 记录和工程协作关系。
+Notion 沉淀知识库、数据库、项目文档和团队流程。
+Slack 沉淀组织沟通、频道上下文和工作流。
+Google Workspace 沉淀邮件、文件、日历和联系人。
+Shopify 沉淀商品、订单、客户和交易数据。
+Stripe 沉淀支付、订阅、发票和账务关系。
+Figma 沉淀设计稿、组件、评论和协作状态。</p><p>当平台中的资源足够重要，就必然会产生第三方扩展需求：</p><p>有人想分析这些资源；
+有人想同步这些资源；
+有人想自动化处理这些资源；
+有人想基于这些资源构建垂直产品；
+有人想让 AI 读取这些资源并代表用户行动。</p><p>如果平台完全封闭，生态就无法生长。
+如果平台完全开放，用户数据和平台安全会失控。
+如果只提供粗粒度 Token，风险无法治理。</p><p>因此，平台需要一种中间结构：既开放，又可控；既允许第三方创新，又不放弃安全治理；既让用户授权，又不让用户承担全部复杂性。</p><p>这就是 GitHub Apps / Slack Apps / Notion Integrations / Google OAuth Scopes / Shopify Apps 这类机制的本质原因。</p><p>它们不是偶然出现的功能，而是资源型平台发展到一定阶段后的必然架构形态。</p><hr><h2 id=五从平台拥有数据到用户授权数据>五、从“平台拥有数据”到“用户授权数据”</h2><p>这个模式最值得关注的地方，是它改变了数据所有权的表达方式。</p><p>过去我们说“用户拥有数据”，很多时候只是一句口号。因为数据实际存放在平台数据库里，接口由平台控制，导出能力由平台决定，第三方访问由平台审批，用户能做的只是登录、上传、删除。</p><p>但在 App 授权模式里，用户的数据权利开始被产品化、接口化和操作化。</p><p>用户可以看到：</p><p>哪些 App 被安装了；
+它们能访问哪些资源；
+它们拥有哪些权限；
+它们是否能读、写、管理、删除；
+它们是否能接收事件；
+它们能否被移除；
+授权是否可以缩小范围。</p><p>这让“数据所有权”第一次变成了一组具体的控制面板。</p><p>当然，这并不等于用户完全拥有数据。平台仍然掌握存储、API、风控、商业规则和最终解释权。但它至少比传统平台模式更进一步：用户不再只是被动的数据提供者，而是成为资源授权关系中的主动参与者。</p><p>更准确地说，这是一种：</p><p><strong>托管式用户数据主权。</strong></p><p>数据仍然托管在平台，平台仍然负责身份、权限、安全、审计和接口稳定性。但用户拥有一定程度的资源授权权，第三方通过标准化协议接入，生态围绕资源展开。</p><p>它不是完全去中心化，也不是彻底的平台封闭，而是一种现实可行的中间形态。</p><hr><h2 id=六这个模式的架构本质capability-based-platform>六、这个模式的架构本质：Capability-Based Platform</h2><p>如果从系统架构角度看，GitHub Apps 这类模式可以理解为一种 capability-based platform。</p><p>传统 RBAC 关注的是角色：管理员、成员、访客、维护者。
+而 capability model 更关注能力：读取某资源、写入某资源、订阅某事件、执行某动作。</p><p>二者并不冲突。平台内部仍然可以用 RBAC 管理人和组织，但对第三方应用而言，更适合使用能力模型。</p><p>因为第三方 App 不应该拥有“像某个人一样”的完整身份，而应该只拥有完成任务所需的能力。</p><p>这符合最小权限原则：</p><p>一个代码审查机器人不需要管理组织成员；
+一个 Issue 同步工具不需要读取私有代码；
+一个日历助手不需要访问全部邮件；
+一个订单分析工具不需要修改支付账户；
+一个 AI 写作助手不需要删除用户文档。</p><p>这种能力化设计有几个关键架构要点。</p><p>第一，权限必须是显式声明的。
+App 在创建或安装时，需要声明自己要哪些能力。</p><p>第二，权限必须是资源绑定的。
+不是“访问整个账号”，而是访问某些仓库、某些频道、某些文档、某些数据库。</p><p>第三，权限必须是操作绑定的。
+读、写、管理、删除、执行、订阅，应该被拆开。</p><p>第四，权限必须是可撤销的。
+用户或组织管理员应该可以随时移除 App 或缩小授权范围。</p><p>第五，权限必须是可审计的。
+平台需要记录 App 何时访问了什么资源，执行了什么动作。</p><p>第六，权限最好是短期化的。
+长期凭证会扩大泄露风险，短期 token 可以显著降低攻击面。</p><p>这些原则共同构成了下一代资源平台的权限底座。</p><hr><h2 id=七为什么它比-oauth-登录更重要>七、为什么它比 OAuth 登录更重要</h2><p>很多人会把 GitHub Apps 简单理解为 OAuth 的一种变体。但从架构意义上看，它比“用 GitHub 登录”要重要得多。</p><p>OAuth 登录主要解决的是身份委托：用户允许某个网站知道“我是谁”，或者读取一些基础身份信息。</p><p>而 GitHub Apps 解决的是资源操作委托：用户或组织允许某个应用对特定资源执行特定动作。</p><p>这两者差别很大。</p><p>“用 GitHub 登录某网站”通常只涉及身份、邮箱、头像、用户名。
+“安装一个 GitHub App”则可能涉及仓库、Issue、Pull Request、Webhook、Actions、组织权限和自动化流程。</p><p>前者是身份生态。
+后者是资源生态。</p><p>下一代互联网真正有价值的，不只是身份互通，而是资源互操作。</p><p>因为身份只是入口，资源才是生产力。</p><p>代码、文档、日历、邮件、订单、支付、设计稿、CRM、知识库、聊天记录、任务流，这些资源才是用户和组织真正沉淀价值的地方。</p><p>因此，谁能提供稳定、安全、细粒度、可组合的资源授权系统，谁就有机会成为下一代互联网生态的基础设施。</p><hr><h2 id=八平台视角从产品到资源操作系统>八、平台视角：从产品到资源操作系统</h2><p>当一个平台发展到 GitHub、Notion、Slack、Shopify 这样的阶段，它就不再只是一个产品，而逐渐变成一个资源操作系统。</p><p>操作系统的核心能力是什么？</p><p>管理资源。
+管理权限。
+调度事件。
+提供 API。
+允许应用运行。
+隔离风险。
+维护生态秩序。</p><p>现代互联网平台也是如此。</p><p>GitHub 管理软件工程资源。
+Notion 管理知识和工作流资源。
+Slack 管理组织沟通资源。
+Shopify 管理商业交易资源。
+Google Workspace 管理办公生产力资源。</p><p>这些平台的 App 生态，本质上就是“应用运行在平台资源之上”。</p><p>GitHub Apps 不是简单的插件机制，而是 GitHub 作为工程操作系统开放给外部应用的能力边界。</p><p>当平台完成这种转变后，它的竞争力也会发生变化。</p><p>过去，平台竞争的是核心功能。
+后来，平台竞争的是网络效应。
+再后来，平台竞争的是 API 和生态。
+未来，平台竞争的是资源授权模型和 Agent 执行边界。</p><p>一个平台如果没有好的授权模型，就很难承载复杂生态。因为第三方越多，风险越大；自动化越强，权限越敏感；AI Agent 越普及，误操作和越权风险越高。</p><p>所以，权限系统不是后台功能，而是平台战略核心。</p><hr><h2 id=九开发者视角从调用-api-到嵌入工作流>九、开发者视角：从调用 API 到嵌入工作流</h2><p>对开发者来说，这个模式也改变了应用开发方式。</p><p>过去开发者调用平台 API，更多是在“取数据”或“同步数据”。但 GitHub Apps 这类机制让开发者可以真正嵌入用户工作流。</p><p>比如一个代码审查 App，可以在 PR 创建时自动触发分析，在 Review 阶段留下评论，在合并前做风险检查，在合并后生成发布说明。</p><p>它不只是读取 GitHub 数据，而是参与 GitHub 工作流。</p><p>这就是事件驱动加资源授权带来的新能力：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>资源变化
+</span></span><span class=line><span class=cl>  └── 事件触发
+</span></span><span class=line><span class=cl>        └── App 处理
+</span></span><span class=line><span class=cl>              └── 调用 API 回写结果
+</span></span><span class=line><span class=cl>                    └── 用户继续在原平台完成工作
+</span></span></code></pre></td></tr></table></div></div><p>这种模式的优势在于，第三方应用不需要把用户从原平台拉走，而是成为原平台工作流的一部分。</p><p>最好的第三方 App 不是另建一个孤岛，而是在用户已有的资源上下文里增强能力。</p><p>这也是为什么 Slack App、GitHub App、Notion Integration、Figma Plugin、Shopify App 都非常有生命力。它们不是单纯的独立应用，而是附着在高频、高价值、高上下文密度的平台资源之上。</p><hr><h2 id=十商业视角生态扩张与平台控制的平衡>十、商业视角：生态扩张与平台控制的平衡</h2><p>从商业角度看，App 授权模式解决了一个经典矛盾：</p><p>平台想开放生态，但不想失去控制。
+开发者想接入资源，但不想被平台完全阻断。
+用户想获得更多工具，但不想失去数据安全。</p><p>App 模式在三者之间建立了一种制度化契约。</p><p>平台提供 API、权限系统、审核机制、Marketplace、计费能力和风控规则。
+开发者基于平台资源创造增量价值。
+用户通过安装、授权、付费、撤销来表达选择。</p><p>这让平台从单一产品收入，扩展为生态收入、交易收入、分发收入和开发者网络效应。</p><p>但这种模式也存在天然张力。</p><p>平台既是裁判，又是运动员。
+平台可以决定哪些权限开放，哪些 API 收费，哪些应用能上架，哪些场景被限制。
+平台还可能在第三方验证市场后，自己下场做官方功能。</p><p>因此，App 生态的健康程度，取决于平台是否能长期维持可信的边界：</p><p>API 是否稳定？
+权限是否透明？
+审核是否公平？
+商业规则是否可预期？
+竞争性应用是否被允许？
+数据迁移是否被支持？
+开发者是否能获得合理回报？</p><p>如果平台过度控制，生态会萎缩。
+如果平台过度开放，安全和体验会失控。
+真正成熟的平台，需要在开放性、安全性和商业利益之间形成稳定制度。</p><hr><h2 id=十一安全视角最小权限只是起点>十一、安全视角：最小权限只是起点</h2><p>这个模式虽然比旧模式先进，但并不意味着它天然安全。</p><p>它只是提供了更好的安全表达能力。真正的安全还取决于实现质量、默认配置、用户理解、审计机制和治理能力。</p><p>常见风险包括：</p><p>权限申请过大。
+很多 App 为了开发方便，会请求远超实际需要的权限。</p><p>用户授权疲劳。
+用户可能看不懂权限说明，只是一路点击同意。</p><p>权限长期不清理。
+组织安装了很多 App，但多年无人审计。</p><p>第三方供应链风险。
+App 自身被攻击后，攻击者可以利用它已有权限访问平台资源。</p><p>Webhook 泄露风险。
+事件数据被发送到外部服务，如果处理不当，会造成敏感信息泄露。</p><p>Token 管理风险。
+即使 token 是短期的，签发、缓存、刷新和日志处理仍然可能出问题。</p><p>权限模型不够细。
+如果平台只提供粗粒度权限，App 仍然可能获得过大的访问面。</p><p>所以，下一代资源授权系统需要进一步升级。</p><p>它不只要做到“安装时授权”，还要做到“运行时治理”。</p><p>例如：</p><p>按任务临时授权。
+按时间自动过期。
+按资源动态缩小范围。
+高风险操作二次确认。
+异常行为自动冻结。
+敏感数据脱敏传递。
+完整操作日志可查询。
+组织级授权审计和策略管理。
+App 权限使用情况可视化。</p><p>未来，一个成熟平台应该不仅告诉用户“这个 App 申请了哪些权限”，还应该告诉用户：</p><p>它实际用了哪些权限；
+多久没使用某些权限；
+访问了哪些关键资源；
+是否出现异常调用；
+哪些权限可以安全收回。</p><p>权限不应该只是静态声明，而应该成为持续治理对象。</p><hr><h2 id=十二ai-agent-时代授权模型将从应用访问升级为代理行动>十二、AI Agent 时代：授权模型将从“应用访问”升级为“代理行动”</h2><p>如果说 GitHub Apps 是资源授权模式的样板，那么 AI Agent 会把这个模式推向更深层。</p><p>传统 App 通常执行确定性任务。比如同步 Issue、发送通知、生成报告、运行检查。</p><p>但 AI Agent 的特点是：它可以根据上下文做判断，并代表用户执行一系列动作。</p><p>它可能读取你的邮件，理解对话背景，然后回复客户。
+它可能读取你的代码仓库，修改代码，提交 PR。
+它可能读取你的日历和聊天记录，安排会议。
+它可能读取你的账单和合同，提出付款建议。
+它可能访问多个平台，完成跨系统任务。</p><p>这时，权限问题会变得更复杂。</p><p>传统问题是：</p><p>这个 App 能不能读取某个资源？</p><p>Agent 时代的问题是：</p><p>这个 Agent 能不能代表我做决定？
+它能不能创建、修改、删除资源？
+它执行动作前是否需要确认？
+它可以连续调用几个系统？
+它是否能把一个平台的数据带到另一个平台？
+它能不能基于我的历史数据推断敏感信息？
+它失败后责任如何界定？
+它的每一步推理和行动是否可追踪？</p><p>因此，AI Agent 需要的不只是 OAuth，也不只是 API Token，而是更强的委托执行架构。</p><p>未来的授权系统可能会出现几个新特征。</p><p>第一，任务级授权。
+用户不是授予一个 App 长期权限，而是授权一次任务：“帮我整理这三个仓库的安全问题，并生成 PR，但提交前需要我确认。”</p><p>第二，意图级权限。
+权限不只描述 API 能力，还描述用户意图。例如“只能为会议安排日程，不能读取私人日历详情”。</p><p>第三，运行时确认。
+低风险动作自动执行，高风险动作需要用户确认。</p><p>第四，跨平台权限编排。
+Agent 需要同时访问 GitHub、Slack、Notion、Google Calendar、Linear 等系统。授权系统需要支持跨资源、跨平台的任务链。</p><p>第五，行动日志。
+Agent 的每一步读取、判断、调用、写入都需要记录，方便回溯和问责。</p><p>第六，可撤销执行。
+部分动作需要支持回滚，比如撤回评论、关闭 PR、恢复文档版本、取消日程。</p><p>这意味着，GitHub Apps 这类模式可能只是第一阶段。下一阶段会是：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>User → Agent → Permission Broker → Resource Platforms
+</span></span></code></pre></td></tr></table></div></div><p>也就是说，未来可能会出现一种新的基础设施：权限代理层。它连接用户、AI Agent 和各类资源平台，负责授权、策略、审计、确认、回滚和合规。</p><p>谁能成为这个权限代理层，谁就可能成为 AI 时代的新入口。</p><hr><h2 id=十三对互联网架构师的启示>十三、对互联网架构师的启示</h2><p>对互联网架构师来说，这个趋势至少带来六个启示。</p><p>第一，未来的系统不应该只设计用户账号，而应该设计资源模型。
+一个平台最重要的不是 User 表，而是 Resource Graph：用户拥有哪些资源，资源之间有什么关系，资源可以被哪些动作操作。</p><p>第二，权限系统应该从一开始就细粒度设计。
+不要等到生态做大后再补权限。粗粒度权限一旦形成，很难迁移。</p><p>第三，API 不只是技术接口，而是生态边界。
+API 决定第三方能创造什么，也决定平台愿意开放到什么程度。</p><p>第四，Webhook 和事件系统是平台生态的神经网络。
+没有事件，第三方只能轮询；有了事件，平台才能成为响应式生态。</p><p>第五，App 安装和授权体验是信任产品的一部分。
+权限说明、风险提示、资源选择、撤销入口、日志展示，都不是后台细节，而是用户信任的核心界面。</p><p>第六，AI Agent 会迫使所有平台重做授权模型。
+过去的权限系统是为人类点击和传统应用设计的；未来的权限系统要为自动化代理、跨平台任务和动态决策设计。</p><p>一个成熟的下一代平台，应该至少具备这些能力：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>资源建模
+</span></span><span class=line><span class=cl>细粒度权限
+</span></span><span class=line><span class=cl>应用注册
+</span></span><span class=line><span class=cl>用户授权
+</span></span><span class=line><span class=cl>组织治理
+</span></span><span class=line><span class=cl>短期凭证
+</span></span><span class=line><span class=cl>Webhook 事件
+</span></span><span class=line><span class=cl>审计日志
+</span></span><span class=line><span class=cl>权限撤销
+</span></span><span class=line><span class=cl>异常检测
+</span></span><span class=line><span class=cl>Marketplace
+</span></span><span class=line><span class=cl>Agent 执行边界
+</span></span></code></pre></td></tr></table></div></div><p>这不是单个功能，而是一套平台操作系统能力。</p><hr><h2 id=十四这个模式的终局互联网资源的可组合化>十四、这个模式的终局：互联网资源的可组合化</h2><p>如果继续往前看，这个模式的终局可能是互联网资源的可组合化。</p><p>过去，应用是孤岛。
+后来，API 打通了孤岛。
+再后来，OAuth 让身份可以跨站使用。
+现在，App 授权让资源可以被第三方有限操作。
+未来，AI Agent 可能让资源在用户意图下被动态编排。</p><p>互联网会越来越像一个由资源、权限和代理组成的网络。</p><p>用户不再只是“访问网站”，而是在不同平台上拥有一组资源。
+应用不再只是“提供页面”，而是围绕资源提供能力。
+平台不再只是“存储数据”，而是管理资源生命周期和授权边界。
+Agent 不再只是“回答问题”，而是代表用户跨平台执行任务。</p><p>在这个网络里，真正关键的不是某个 App，而是授权协议、资源模型和执行治理。</p><p>GitHub Apps 的启示就在这里：当一个平台愿意把自己的核心资源以细粒度、可授权、可审计的方式开放出来，它就从一个封闭产品变成了一个可编程生态。</p><p>这正是下一代互联网的重要方向。</p><p>不是所有数据都必须去中心化，也不是所有平台都必须完全开放。更现实、更可落地的路径，是构建一种托管式、可授权、可治理的数据主权模型。</p><p>在这种模型里：</p><p>平台负责安全和基础设施；
+用户负责授权和选择；
+开发者负责扩展和创新；
+Agent 负责执行和编排；
+权限系统负责边界和信任。</p><p>这可能是未来十年互联网架构最值得关注的底层变化之一。</p><p>GitHub Apps 不是终点。它只是让我们提前看到了一个方向：
+<strong>互联网正在从账号网络，走向资源网络；从数据占有，走向数据授权；从应用互联，走向代理协作。</strong></p><p>谁能设计好这套资源授权系统，谁就有机会定义下一代互联网的基础秩序。</p></section><footer class=article-footer><section class=article-tags><a href=/tags/github-apps/>GitHub Apps</a>
+<a href=/tags/%E6%95%B0%E6%8D%AE%E6%8E%88%E6%9D%83/>数据授权</a>
+<a href=/tags/%E4%BA%92%E8%81%94%E7%BD%91%E8%8C%83%E5%BC%8F/>互联网范式</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><footer class=site-footer><section class=copyright>&copy;
+2017 -
+2026 雨的味道</section><section class=powerby><a style=display:none href=https://beian.miit.gov.cn/ target=_blank>晋ICP备15000230号-1</a><br>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.34.2>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

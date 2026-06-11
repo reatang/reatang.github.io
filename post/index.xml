@@ -1,9 +1,414 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 雨的味道</title><link>https://reatang.com/post/</link><description>Recent content in Posts on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 01 Jun 2026 01:41:00 +0800</lastBuildDate><atom:link href="https://reatang.com/post/index.xml" rel="self" type="application/rss+xml"/><item><title>庆祝博客又又又一次复活了</title><link>https://reatang.com/p/hello-world/</link><pubDate>Sun, 07 Jul 2024 00:00:00 +0000</pubDate><guid>https://reatang.com/p/hello-world/</guid><description>&lt;img src="https://reatang.com/p/hello-world/cover.jpg" alt="Featured image of post 庆祝博客又又又一次复活了" /&gt;&lt;p&gt;博客挂了两年，终于是在Github上复活了&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 雨的味道</title><link>https://reatang.com/post/</link><description>Recent content in Posts on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 12 Jun 2026 00:15:51 +0800</lastBuildDate><atom:link href="https://reatang.com/post/index.xml" rel="self" type="application/rss+xml"/><item><title>庆祝博客又又又一次复活了</title><link>https://reatang.com/p/hello-world/</link><pubDate>Sun, 07 Jul 2024 00:00:00 +0000</pubDate><guid>https://reatang.com/p/hello-world/</guid><description>&lt;img src="https://reatang.com/p/hello-world/cover.jpg" alt="Featured image of post 庆祝博客又又又一次复活了" /&gt;&lt;p&gt;博客挂了两年，终于是在Github上复活了&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Photo by &lt;a class="link" href="https://unsplash.com/@pawel_czerwinski" target="_blank" rel="noopener"
 &gt;Pawel Czerwinski&lt;/a&gt; on &lt;a class="link" href="https://unsplash.com/" target="_blank" rel="noopener"
 &gt;Unsplash&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</description></item><item><title>OpenClaw + OpenAI Codex OAuth 代理问题解决</title><link>https://reatang.com/p/openclaw-openai-codex-oauth-proxy-fix/</link><pubDate>Mon, 01 Jun 2026 01:41:00 +0800</pubDate><guid>https://reatang.com/p/openclaw-openai-codex-oauth-proxy-fix/</guid><description>&lt;p&gt;折腾了一晚上，各种方案都试了，最后发现根子不在系统代理，也不完全在 Node.js，而在 OpenClaw 的 OAuth token exchange 调用没有显式启用环境变量代理。&lt;/p&gt;
+&lt;/blockquote&gt;</description></item><item><title>【行业观察】从github apps 看下一代互联网的数据授权范式</title><link>https://reatang.com/p/github-apps-data-authorization-paradigm/</link><pubDate>Fri, 12 Jun 2026 00:15:51 +0800</pubDate><guid>https://reatang.com/p/github-apps-data-authorization-paradigm/</guid><description>&lt;h1 id="从-github-apps-看下一代互联网的数据授权范式"&gt;从 GitHub Apps 看下一代互联网的数据授权范式
+&lt;/h1&gt;&lt;h2 id="一一个被低估的架构转折点"&gt;一、一个被低估的架构转折点
+&lt;/h2&gt;&lt;p&gt;互联网平台正在发生一个重要变化：用户不再只是“登录一个网站”，也不再只是“把数据上传给平台”，而是开始以更细粒度的方式，把自己在平台上的某些资源、某些操作能力，授权给第三方应用、自动化系统和智能代理。&lt;/p&gt;
+&lt;p&gt;GitHub Apps 是这个变化中非常清晰的样板。&lt;/p&gt;
+&lt;p&gt;表面上看，GitHub Apps 只是 GitHub 的一种应用集成机制。开发者可以创建一个 App，让它读取仓库、评论 Pull Request、管理 Issue、监听 Webhook、执行自动化流程。但如果从更高层的互联网架构来看，它代表的不只是一个开发者工具，而是一种新的资源授权模型：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;平台托管资源，用户拥有授权权利，第三方应用获得有限能力，所有操作通过标准 API 和事件系统完成。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这一步非常重要。它意味着互联网正在从“账号中心化”走向“资源中心化”，从“平台拥有数据”走向“用户可授权的数据使用权”，从“粗暴的登录态信任”走向“可声明、可限制、可撤销、可审计的能力系统”。&lt;/p&gt;
+&lt;p&gt;这可能是下一代互联网处理用户数据所有权、应用生态和 AI Agent 执行权的基础结构之一。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="二旧模式的问题账号即权限登录即托付"&gt;二、旧模式的问题：账号即权限，登录即托付
+&lt;/h2&gt;&lt;p&gt;早期互联网处理第三方集成的方式非常粗糙。&lt;/p&gt;
+&lt;p&gt;一种方式是让用户直接把账号密码交给第三方。比如某些早期邮箱客户端、爬虫工具、同步工具，会要求用户输入目标网站账号和密码。第三方拿到账号密码后，理论上就可以模拟用户做任何事。这种方式的本质是：用户把自己的完整身份交给了第三方。&lt;/p&gt;
+&lt;p&gt;另一种方式是 API Token。用户生成一个长期有效的令牌，交给脚本、CI/CD、第三方服务。这个模式比账号密码稍好，但很多早期 Token 权限过大、有效期过长、撤销不方便、审计不充分。一旦泄露，损害范围很难控制。&lt;/p&gt;
+&lt;p&gt;这两种模式有一个共同问题：&lt;strong&gt;权限边界和用户真实意图不匹配。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用户可能只是想让某个工具读取一个仓库的 Issue，但它获得了整个账号的访问能力。用户可能只是想让某个自动化系统在一个项目里评论 PR，但它拿到了所有项目的读写权限。用户可能只是想同步一个日历，但第三方可以读取全部邮箱、联系人和文件。&lt;/p&gt;
+&lt;p&gt;这是一种典型的“账号级信任”模型：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;用户账号
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └── 第三方获得账号级访问能力
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └── 可访问大量资源
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └── 风险边界模糊
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这种模式在小规模互联网时代还能勉强运行，但当平台上的资源越来越重要，第三方生态越来越复杂，自动化系统越来越强，尤其是 AI Agent 开始代表用户执行动作时，它就变得非常危险。&lt;/p&gt;
+&lt;p&gt;因为未来的问题不只是“谁能看我的数据”，而是：&lt;/p&gt;
+&lt;p&gt;谁能代表我行动？
+能在哪些资源上行动？
+能执行哪些动作？
+这些动作是否可撤销？
+出了问题是否可追踪？
+第三方是否能越权？
+授权是否能被动态收回？&lt;/p&gt;
+&lt;p&gt;这就需要一种新的架构范式。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="三新模式的核心资源能力授权事件"&gt;三、新模式的核心：资源、能力、授权、事件
+&lt;/h2&gt;&lt;p&gt;以 GitHub Apps 为代表的新模式，可以抽象成四个核心对象：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Resource：资源
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Capability：能力
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Grant：授权
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Event：事件
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;资源是平台中被管理的对象，比如 GitHub 的 Repository、Issue、Pull Request、Branch、Workflow；Notion 的 Page、Database；Google Workspace 的 File、Calendar、Mail；Slack 的 Channel、Message、Workspace；Shopify 的 Product、Order、Customer。&lt;/p&gt;
+&lt;p&gt;能力是对资源的操作声明，比如读取、写入、评论、创建、删除、管理、订阅事件、触发流程。&lt;/p&gt;
+&lt;p&gt;授权是用户或组织对某个应用授予的能力集合。它不是无限制的账号访问，而是绑定在具体资源和具体操作上的许可。&lt;/p&gt;
+&lt;p&gt;事件是资源状态变化后对外部系统的通知机制。比如 Pull Request 被打开、Issue 被评论、订单被支付、文档被修改、日程被创建。事件让第三方应用不需要不断轮询平台，而是可以围绕平台资源构建响应式系统。&lt;/p&gt;
+&lt;p&gt;于是新的架构变成：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;用户 / 组织
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └── 拥有资源
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └── 安装或授权 App
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └── App 获得有限能力
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └── 通过 API 操作资源
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └── 通过 Webhook 接收事件
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └── 所有行为可撤销、可审计、可治理
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这是一种比传统 OAuth 登录更进一步的模型。它不仅解决“你是谁”，还解决“你可以对哪些资源做什么”。&lt;/p&gt;
+&lt;p&gt;身份认证回答的是 authentication：你是谁。
+权限授权回答的是 authorization：你能做什么。
+资源授权回答的是 delegation：谁可以代表你，对哪些资源，执行哪些动作。&lt;/p&gt;
+&lt;p&gt;GitHub Apps 的价值就在于，它把这种 delegation 做成了平台级基础设施。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="四为什么这个模式会成为资源型网站的标准"&gt;四、为什么这个模式会成为资源型网站的标准
+&lt;/h2&gt;&lt;p&gt;资源型网站有一个共同特征：用户在平台上沉淀了高价值资源。&lt;/p&gt;
+&lt;p&gt;GitHub 沉淀代码、Issue、PR、CI 记录和工程协作关系。
+Notion 沉淀知识库、数据库、项目文档和团队流程。
+Slack 沉淀组织沟通、频道上下文和工作流。
+Google Workspace 沉淀邮件、文件、日历和联系人。
+Shopify 沉淀商品、订单、客户和交易数据。
+Stripe 沉淀支付、订阅、发票和账务关系。
+Figma 沉淀设计稿、组件、评论和协作状态。&lt;/p&gt;
+&lt;p&gt;当平台中的资源足够重要，就必然会产生第三方扩展需求：&lt;/p&gt;
+&lt;p&gt;有人想分析这些资源；
+有人想同步这些资源；
+有人想自动化处理这些资源；
+有人想基于这些资源构建垂直产品；
+有人想让 AI 读取这些资源并代表用户行动。&lt;/p&gt;
+&lt;p&gt;如果平台完全封闭，生态就无法生长。
+如果平台完全开放，用户数据和平台安全会失控。
+如果只提供粗粒度 Token，风险无法治理。&lt;/p&gt;
+&lt;p&gt;因此，平台需要一种中间结构：既开放，又可控；既允许第三方创新，又不放弃安全治理；既让用户授权，又不让用户承担全部复杂性。&lt;/p&gt;
+&lt;p&gt;这就是 GitHub Apps / Slack Apps / Notion Integrations / Google OAuth Scopes / Shopify Apps 这类机制的本质原因。&lt;/p&gt;
+&lt;p&gt;它们不是偶然出现的功能，而是资源型平台发展到一定阶段后的必然架构形态。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="五从平台拥有数据到用户授权数据"&gt;五、从“平台拥有数据”到“用户授权数据”
+&lt;/h2&gt;&lt;p&gt;这个模式最值得关注的地方，是它改变了数据所有权的表达方式。&lt;/p&gt;
+&lt;p&gt;过去我们说“用户拥有数据”，很多时候只是一句口号。因为数据实际存放在平台数据库里，接口由平台控制，导出能力由平台决定，第三方访问由平台审批，用户能做的只是登录、上传、删除。&lt;/p&gt;
+&lt;p&gt;但在 App 授权模式里，用户的数据权利开始被产品化、接口化和操作化。&lt;/p&gt;
+&lt;p&gt;用户可以看到：&lt;/p&gt;
+&lt;p&gt;哪些 App 被安装了；
+它们能访问哪些资源；
+它们拥有哪些权限；
+它们是否能读、写、管理、删除；
+它们是否能接收事件；
+它们能否被移除；
+授权是否可以缩小范围。&lt;/p&gt;
+&lt;p&gt;这让“数据所有权”第一次变成了一组具体的控制面板。&lt;/p&gt;
+&lt;p&gt;当然，这并不等于用户完全拥有数据。平台仍然掌握存储、API、风控、商业规则和最终解释权。但它至少比传统平台模式更进一步：用户不再只是被动的数据提供者，而是成为资源授权关系中的主动参与者。&lt;/p&gt;
+&lt;p&gt;更准确地说，这是一种：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;托管式用户数据主权。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;数据仍然托管在平台，平台仍然负责身份、权限、安全、审计和接口稳定性。但用户拥有一定程度的资源授权权，第三方通过标准化协议接入，生态围绕资源展开。&lt;/p&gt;
+&lt;p&gt;它不是完全去中心化，也不是彻底的平台封闭，而是一种现实可行的中间形态。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="六这个模式的架构本质capability-based-platform"&gt;六、这个模式的架构本质：Capability-Based Platform
+&lt;/h2&gt;&lt;p&gt;如果从系统架构角度看，GitHub Apps 这类模式可以理解为一种 capability-based platform。&lt;/p&gt;
+&lt;p&gt;传统 RBAC 关注的是角色：管理员、成员、访客、维护者。
+而 capability model 更关注能力：读取某资源、写入某资源、订阅某事件、执行某动作。&lt;/p&gt;
+&lt;p&gt;二者并不冲突。平台内部仍然可以用 RBAC 管理人和组织，但对第三方应用而言，更适合使用能力模型。&lt;/p&gt;
+&lt;p&gt;因为第三方 App 不应该拥有“像某个人一样”的完整身份，而应该只拥有完成任务所需的能力。&lt;/p&gt;
+&lt;p&gt;这符合最小权限原则：&lt;/p&gt;
+&lt;p&gt;一个代码审查机器人不需要管理组织成员；
+一个 Issue 同步工具不需要读取私有代码；
+一个日历助手不需要访问全部邮件；
+一个订单分析工具不需要修改支付账户；
+一个 AI 写作助手不需要删除用户文档。&lt;/p&gt;
+&lt;p&gt;这种能力化设计有几个关键架构要点。&lt;/p&gt;
+&lt;p&gt;第一，权限必须是显式声明的。
+App 在创建或安装时，需要声明自己要哪些能力。&lt;/p&gt;
+&lt;p&gt;第二，权限必须是资源绑定的。
+不是“访问整个账号”，而是访问某些仓库、某些频道、某些文档、某些数据库。&lt;/p&gt;
+&lt;p&gt;第三，权限必须是操作绑定的。
+读、写、管理、删除、执行、订阅，应该被拆开。&lt;/p&gt;
+&lt;p&gt;第四，权限必须是可撤销的。
+用户或组织管理员应该可以随时移除 App 或缩小授权范围。&lt;/p&gt;
+&lt;p&gt;第五，权限必须是可审计的。
+平台需要记录 App 何时访问了什么资源，执行了什么动作。&lt;/p&gt;
+&lt;p&gt;第六，权限最好是短期化的。
+长期凭证会扩大泄露风险，短期 token 可以显著降低攻击面。&lt;/p&gt;
+&lt;p&gt;这些原则共同构成了下一代资源平台的权限底座。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="七为什么它比-oauth-登录更重要"&gt;七、为什么它比 OAuth 登录更重要
+&lt;/h2&gt;&lt;p&gt;很多人会把 GitHub Apps 简单理解为 OAuth 的一种变体。但从架构意义上看，它比“用 GitHub 登录”要重要得多。&lt;/p&gt;
+&lt;p&gt;OAuth 登录主要解决的是身份委托：用户允许某个网站知道“我是谁”，或者读取一些基础身份信息。&lt;/p&gt;
+&lt;p&gt;而 GitHub Apps 解决的是资源操作委托：用户或组织允许某个应用对特定资源执行特定动作。&lt;/p&gt;
+&lt;p&gt;这两者差别很大。&lt;/p&gt;
+&lt;p&gt;“用 GitHub 登录某网站”通常只涉及身份、邮箱、头像、用户名。
+“安装一个 GitHub App”则可能涉及仓库、Issue、Pull Request、Webhook、Actions、组织权限和自动化流程。&lt;/p&gt;
+&lt;p&gt;前者是身份生态。
+后者是资源生态。&lt;/p&gt;
+&lt;p&gt;下一代互联网真正有价值的，不只是身份互通，而是资源互操作。&lt;/p&gt;
+&lt;p&gt;因为身份只是入口，资源才是生产力。&lt;/p&gt;
+&lt;p&gt;代码、文档、日历、邮件、订单、支付、设计稿、CRM、知识库、聊天记录、任务流，这些资源才是用户和组织真正沉淀价值的地方。&lt;/p&gt;
+&lt;p&gt;因此，谁能提供稳定、安全、细粒度、可组合的资源授权系统，谁就有机会成为下一代互联网生态的基础设施。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="八平台视角从产品到资源操作系统"&gt;八、平台视角：从产品到资源操作系统
+&lt;/h2&gt;&lt;p&gt;当一个平台发展到 GitHub、Notion、Slack、Shopify 这样的阶段，它就不再只是一个产品，而逐渐变成一个资源操作系统。&lt;/p&gt;
+&lt;p&gt;操作系统的核心能力是什么？&lt;/p&gt;
+&lt;p&gt;管理资源。
+管理权限。
+调度事件。
+提供 API。
+允许应用运行。
+隔离风险。
+维护生态秩序。&lt;/p&gt;
+&lt;p&gt;现代互联网平台也是如此。&lt;/p&gt;
+&lt;p&gt;GitHub 管理软件工程资源。
+Notion 管理知识和工作流资源。
+Slack 管理组织沟通资源。
+Shopify 管理商业交易资源。
+Google Workspace 管理办公生产力资源。&lt;/p&gt;
+&lt;p&gt;这些平台的 App 生态，本质上就是“应用运行在平台资源之上”。&lt;/p&gt;
+&lt;p&gt;GitHub Apps 不是简单的插件机制，而是 GitHub 作为工程操作系统开放给外部应用的能力边界。&lt;/p&gt;
+&lt;p&gt;当平台完成这种转变后，它的竞争力也会发生变化。&lt;/p&gt;
+&lt;p&gt;过去，平台竞争的是核心功能。
+后来，平台竞争的是网络效应。
+再后来，平台竞争的是 API 和生态。
+未来，平台竞争的是资源授权模型和 Agent 执行边界。&lt;/p&gt;
+&lt;p&gt;一个平台如果没有好的授权模型，就很难承载复杂生态。因为第三方越多，风险越大；自动化越强，权限越敏感；AI Agent 越普及，误操作和越权风险越高。&lt;/p&gt;
+&lt;p&gt;所以，权限系统不是后台功能，而是平台战略核心。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="九开发者视角从调用-api-到嵌入工作流"&gt;九、开发者视角：从调用 API 到嵌入工作流
+&lt;/h2&gt;&lt;p&gt;对开发者来说，这个模式也改变了应用开发方式。&lt;/p&gt;
+&lt;p&gt;过去开发者调用平台 API，更多是在“取数据”或“同步数据”。但 GitHub Apps 这类机制让开发者可以真正嵌入用户工作流。&lt;/p&gt;
+&lt;p&gt;比如一个代码审查 App，可以在 PR 创建时自动触发分析，在 Review 阶段留下评论，在合并前做风险检查，在合并后生成发布说明。&lt;/p&gt;
+&lt;p&gt;它不只是读取 GitHub 数据，而是参与 GitHub 工作流。&lt;/p&gt;
+&lt;p&gt;这就是事件驱动加资源授权带来的新能力：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;资源变化
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └── 事件触发
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └── App 处理
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └── 调用 API 回写结果
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; └── 用户继续在原平台完成工作
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这种模式的优势在于，第三方应用不需要把用户从原平台拉走，而是成为原平台工作流的一部分。&lt;/p&gt;
+&lt;p&gt;最好的第三方 App 不是另建一个孤岛，而是在用户已有的资源上下文里增强能力。&lt;/p&gt;
+&lt;p&gt;这也是为什么 Slack App、GitHub App、Notion Integration、Figma Plugin、Shopify App 都非常有生命力。它们不是单纯的独立应用，而是附着在高频、高价值、高上下文密度的平台资源之上。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="十商业视角生态扩张与平台控制的平衡"&gt;十、商业视角：生态扩张与平台控制的平衡
+&lt;/h2&gt;&lt;p&gt;从商业角度看，App 授权模式解决了一个经典矛盾：&lt;/p&gt;
+&lt;p&gt;平台想开放生态，但不想失去控制。
+开发者想接入资源，但不想被平台完全阻断。
+用户想获得更多工具，但不想失去数据安全。&lt;/p&gt;
+&lt;p&gt;App 模式在三者之间建立了一种制度化契约。&lt;/p&gt;
+&lt;p&gt;平台提供 API、权限系统、审核机制、Marketplace、计费能力和风控规则。
+开发者基于平台资源创造增量价值。
+用户通过安装、授权、付费、撤销来表达选择。&lt;/p&gt;
+&lt;p&gt;这让平台从单一产品收入，扩展为生态收入、交易收入、分发收入和开发者网络效应。&lt;/p&gt;
+&lt;p&gt;但这种模式也存在天然张力。&lt;/p&gt;
+&lt;p&gt;平台既是裁判，又是运动员。
+平台可以决定哪些权限开放，哪些 API 收费，哪些应用能上架，哪些场景被限制。
+平台还可能在第三方验证市场后，自己下场做官方功能。&lt;/p&gt;
+&lt;p&gt;因此，App 生态的健康程度，取决于平台是否能长期维持可信的边界：&lt;/p&gt;
+&lt;p&gt;API 是否稳定？
+权限是否透明？
+审核是否公平？
+商业规则是否可预期？
+竞争性应用是否被允许？
+数据迁移是否被支持？
+开发者是否能获得合理回报？&lt;/p&gt;
+&lt;p&gt;如果平台过度控制，生态会萎缩。
+如果平台过度开放，安全和体验会失控。
+真正成熟的平台，需要在开放性、安全性和商业利益之间形成稳定制度。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="十一安全视角最小权限只是起点"&gt;十一、安全视角：最小权限只是起点
+&lt;/h2&gt;&lt;p&gt;这个模式虽然比旧模式先进，但并不意味着它天然安全。&lt;/p&gt;
+&lt;p&gt;它只是提供了更好的安全表达能力。真正的安全还取决于实现质量、默认配置、用户理解、审计机制和治理能力。&lt;/p&gt;
+&lt;p&gt;常见风险包括：&lt;/p&gt;
+&lt;p&gt;权限申请过大。
+很多 App 为了开发方便，会请求远超实际需要的权限。&lt;/p&gt;
+&lt;p&gt;用户授权疲劳。
+用户可能看不懂权限说明，只是一路点击同意。&lt;/p&gt;
+&lt;p&gt;权限长期不清理。
+组织安装了很多 App，但多年无人审计。&lt;/p&gt;
+&lt;p&gt;第三方供应链风险。
+App 自身被攻击后，攻击者可以利用它已有权限访问平台资源。&lt;/p&gt;
+&lt;p&gt;Webhook 泄露风险。
+事件数据被发送到外部服务，如果处理不当，会造成敏感信息泄露。&lt;/p&gt;
+&lt;p&gt;Token 管理风险。
+即使 token 是短期的，签发、缓存、刷新和日志处理仍然可能出问题。&lt;/p&gt;
+&lt;p&gt;权限模型不够细。
+如果平台只提供粗粒度权限，App 仍然可能获得过大的访问面。&lt;/p&gt;
+&lt;p&gt;所以，下一代资源授权系统需要进一步升级。&lt;/p&gt;
+&lt;p&gt;它不只要做到“安装时授权”，还要做到“运行时治理”。&lt;/p&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;p&gt;按任务临时授权。
+按时间自动过期。
+按资源动态缩小范围。
+高风险操作二次确认。
+异常行为自动冻结。
+敏感数据脱敏传递。
+完整操作日志可查询。
+组织级授权审计和策略管理。
+App 权限使用情况可视化。&lt;/p&gt;
+&lt;p&gt;未来，一个成熟平台应该不仅告诉用户“这个 App 申请了哪些权限”，还应该告诉用户：&lt;/p&gt;
+&lt;p&gt;它实际用了哪些权限；
+多久没使用某些权限；
+访问了哪些关键资源；
+是否出现异常调用；
+哪些权限可以安全收回。&lt;/p&gt;
+&lt;p&gt;权限不应该只是静态声明，而应该成为持续治理对象。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="十二ai-agent-时代授权模型将从应用访问升级为代理行动"&gt;十二、AI Agent 时代：授权模型将从“应用访问”升级为“代理行动”
+&lt;/h2&gt;&lt;p&gt;如果说 GitHub Apps 是资源授权模式的样板，那么 AI Agent 会把这个模式推向更深层。&lt;/p&gt;
+&lt;p&gt;传统 App 通常执行确定性任务。比如同步 Issue、发送通知、生成报告、运行检查。&lt;/p&gt;
+&lt;p&gt;但 AI Agent 的特点是：它可以根据上下文做判断，并代表用户执行一系列动作。&lt;/p&gt;
+&lt;p&gt;它可能读取你的邮件，理解对话背景，然后回复客户。
+它可能读取你的代码仓库，修改代码，提交 PR。
+它可能读取你的日历和聊天记录，安排会议。
+它可能读取你的账单和合同，提出付款建议。
+它可能访问多个平台，完成跨系统任务。&lt;/p&gt;
+&lt;p&gt;这时，权限问题会变得更复杂。&lt;/p&gt;
+&lt;p&gt;传统问题是：&lt;/p&gt;
+&lt;p&gt;这个 App 能不能读取某个资源？&lt;/p&gt;
+&lt;p&gt;Agent 时代的问题是：&lt;/p&gt;
+&lt;p&gt;这个 Agent 能不能代表我做决定？
+它能不能创建、修改、删除资源？
+它执行动作前是否需要确认？
+它可以连续调用几个系统？
+它是否能把一个平台的数据带到另一个平台？
+它能不能基于我的历史数据推断敏感信息？
+它失败后责任如何界定？
+它的每一步推理和行动是否可追踪？&lt;/p&gt;
+&lt;p&gt;因此，AI Agent 需要的不只是 OAuth，也不只是 API Token，而是更强的委托执行架构。&lt;/p&gt;
+&lt;p&gt;未来的授权系统可能会出现几个新特征。&lt;/p&gt;
+&lt;p&gt;第一，任务级授权。
+用户不是授予一个 App 长期权限，而是授权一次任务：“帮我整理这三个仓库的安全问题，并生成 PR，但提交前需要我确认。”&lt;/p&gt;
+&lt;p&gt;第二，意图级权限。
+权限不只描述 API 能力，还描述用户意图。例如“只能为会议安排日程，不能读取私人日历详情”。&lt;/p&gt;
+&lt;p&gt;第三，运行时确认。
+低风险动作自动执行，高风险动作需要用户确认。&lt;/p&gt;
+&lt;p&gt;第四，跨平台权限编排。
+Agent 需要同时访问 GitHub、Slack、Notion、Google Calendar、Linear 等系统。授权系统需要支持跨资源、跨平台的任务链。&lt;/p&gt;
+&lt;p&gt;第五，行动日志。
+Agent 的每一步读取、判断、调用、写入都需要记录，方便回溯和问责。&lt;/p&gt;
+&lt;p&gt;第六，可撤销执行。
+部分动作需要支持回滚，比如撤回评论、关闭 PR、恢复文档版本、取消日程。&lt;/p&gt;
+&lt;p&gt;这意味着，GitHub Apps 这类模式可能只是第一阶段。下一阶段会是：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;User → Agent → Permission Broker → Resource Platforms
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;也就是说，未来可能会出现一种新的基础设施：权限代理层。它连接用户、AI Agent 和各类资源平台，负责授权、策略、审计、确认、回滚和合规。&lt;/p&gt;
+&lt;p&gt;谁能成为这个权限代理层，谁就可能成为 AI 时代的新入口。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="十三对互联网架构师的启示"&gt;十三、对互联网架构师的启示
+&lt;/h2&gt;&lt;p&gt;对互联网架构师来说，这个趋势至少带来六个启示。&lt;/p&gt;
+&lt;p&gt;第一，未来的系统不应该只设计用户账号，而应该设计资源模型。
+一个平台最重要的不是 User 表，而是 Resource Graph：用户拥有哪些资源，资源之间有什么关系，资源可以被哪些动作操作。&lt;/p&gt;
+&lt;p&gt;第二，权限系统应该从一开始就细粒度设计。
+不要等到生态做大后再补权限。粗粒度权限一旦形成，很难迁移。&lt;/p&gt;
+&lt;p&gt;第三，API 不只是技术接口，而是生态边界。
+API 决定第三方能创造什么，也决定平台愿意开放到什么程度。&lt;/p&gt;
+&lt;p&gt;第四，Webhook 和事件系统是平台生态的神经网络。
+没有事件，第三方只能轮询；有了事件，平台才能成为响应式生态。&lt;/p&gt;
+&lt;p&gt;第五，App 安装和授权体验是信任产品的一部分。
+权限说明、风险提示、资源选择、撤销入口、日志展示，都不是后台细节，而是用户信任的核心界面。&lt;/p&gt;
+&lt;p&gt;第六，AI Agent 会迫使所有平台重做授权模型。
+过去的权限系统是为人类点击和传统应用设计的；未来的权限系统要为自动化代理、跨平台任务和动态决策设计。&lt;/p&gt;
+&lt;p&gt;一个成熟的下一代平台，应该至少具备这些能力：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;资源建模
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;细粒度权限
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;应用注册
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;用户授权
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;组织治理
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;短期凭证
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Webhook 事件
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;审计日志
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;权限撤销
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;异常检测
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Marketplace
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Agent 执行边界
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这不是单个功能，而是一套平台操作系统能力。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="十四这个模式的终局互联网资源的可组合化"&gt;十四、这个模式的终局：互联网资源的可组合化
+&lt;/h2&gt;&lt;p&gt;如果继续往前看，这个模式的终局可能是互联网资源的可组合化。&lt;/p&gt;
+&lt;p&gt;过去，应用是孤岛。
+后来，API 打通了孤岛。
+再后来，OAuth 让身份可以跨站使用。
+现在，App 授权让资源可以被第三方有限操作。
+未来，AI Agent 可能让资源在用户意图下被动态编排。&lt;/p&gt;
+&lt;p&gt;互联网会越来越像一个由资源、权限和代理组成的网络。&lt;/p&gt;
+&lt;p&gt;用户不再只是“访问网站”，而是在不同平台上拥有一组资源。
+应用不再只是“提供页面”，而是围绕资源提供能力。
+平台不再只是“存储数据”，而是管理资源生命周期和授权边界。
+Agent 不再只是“回答问题”，而是代表用户跨平台执行任务。&lt;/p&gt;
+&lt;p&gt;在这个网络里，真正关键的不是某个 App，而是授权协议、资源模型和执行治理。&lt;/p&gt;
+&lt;p&gt;GitHub Apps 的启示就在这里：当一个平台愿意把自己的核心资源以细粒度、可授权、可审计的方式开放出来，它就从一个封闭产品变成了一个可编程生态。&lt;/p&gt;
+&lt;p&gt;这正是下一代互联网的重要方向。&lt;/p&gt;
+&lt;p&gt;不是所有数据都必须去中心化，也不是所有平台都必须完全开放。更现实、更可落地的路径，是构建一种托管式、可授权、可治理的数据主权模型。&lt;/p&gt;
+&lt;p&gt;在这种模型里：&lt;/p&gt;
+&lt;p&gt;平台负责安全和基础设施；
+用户负责授权和选择；
+开发者负责扩展和创新；
+Agent 负责执行和编排；
+权限系统负责边界和信任。&lt;/p&gt;
+&lt;p&gt;这可能是未来十年互联网架构最值得关注的底层变化之一。&lt;/p&gt;
+&lt;p&gt;GitHub Apps 不是终点。它只是让我们提前看到了一个方向：
+&lt;strong&gt;互联网正在从账号网络，走向资源网络；从数据占有，走向数据授权；从应用互联，走向代理协作。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;谁能设计好这套资源授权系统，谁就有机会定义下一代互联网的基础秩序。&lt;/p&gt;</description></item><item><title>OpenClaw + OpenAI Codex OAuth 代理问题解决</title><link>https://reatang.com/p/openclaw-openai-codex-oauth-proxy-fix/</link><pubDate>Mon, 01 Jun 2026 01:41:00 +0800</pubDate><guid>https://reatang.com/p/openclaw-openai-codex-oauth-proxy-fix/</guid><description>&lt;p&gt;折腾了一晚上，各种方案都试了，最后发现根子不在系统代理，也不完全在 Node.js，而在 OpenClaw 的 OAuth token exchange 调用没有显式启用环境变量代理。&lt;/p&gt;
 &lt;p&gt;结论先放前面：&lt;strong&gt;OpenClaw 的 &lt;code&gt;fetchWithSsrFGuard&lt;/code&gt; 默认是 &lt;code&gt;STRICT&lt;/code&gt; 模式，不会自动读取 &lt;code&gt;HTTP_PROXY&lt;/code&gt; / &lt;code&gt;HTTPS_PROXY&lt;/code&gt;。&lt;/strong&gt; 这会导致 &lt;code&gt;https://auth.openai.com/oauth/token&lt;/code&gt; 这个请求直接裸连，在受限网络环境里自然会失败。&lt;/p&gt;
 &lt;h2 id="现象"&gt;现象
 &lt;/h2&gt;&lt;p&gt;执行 OpenAI Codex OAuth 登录：&lt;/p&gt;
