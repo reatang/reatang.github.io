@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" width="720" height="380" role="img" aria-label="连续五次运行的吞吐衰减：普通解码从 14.3 仅降到 13.5 tok/s，DFlash2 从 40.3 暴跌到 21.4 tok/s">
+<style>
+  .surface { fill: #fcfcfb; }
+  .tp { fill: #0b0b0b; }
+  .ts { fill: #52514e; }
+  .tm { fill: #7a7873; }
+  .grid { stroke: #e5e4e0; stroke-width: 1; }
+  .axis { stroke: #c9c7c1; stroke-width: 1; }
+  .l1 { stroke: #2a78d6; }
+  .l2 { stroke: #eb6834; }
+  .d1 { fill: #2a78d6; }
+  .d2 { fill: #eb6834; }
+  .ring { stroke: #fcfcfb; stroke-width: 2; }
+  .band { fill: #eb6834; opacity: 0.08; }
+  text { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; }
+  @media (prefers-color-scheme: dark) {
+    .surface { fill: #1a1a19; }
+    .tp { fill: #ffffff; }
+    .ts { fill: #c3c2b7; }
+    .tm { fill: #9b998f; }
+    .grid { stroke: #2e2e2c; }
+    .axis { stroke: #46453f; }
+    .l1 { stroke: #3987e5; }
+    .l2 { stroke: #d95926; }
+    .d1 { fill: #3987e5; }
+    .d2 { fill: #d95926; }
+    .ring { stroke: #1a1a19; }
+    .band { fill: #d95926; opacity: 0.13; }
+  }
+</style>
+<rect class="surface" width="720" height="380" rx="6"/>
+<text class="tp" x="24" y="32" font-size="15" font-weight="600">峰值不等于稳态：连续五次运行的衰减</text>
+<text class="ts" x="24" y="52" font-size="12">同一代码任务背靠背连跑，中间不留空闲 · 输出长度全程 1400 token</text>
+
+<rect class="s1" x="500" y="24" width="10" height="10" rx="2" fill="none"/>
+<rect class="d1" x="500" y="24" width="10" height="10" rx="2"/>
+<text class="ts" x="516" y="33" font-size="12">普通解码</text>
+<rect class="d2" x="592" y="24" width="10" height="10" rx="2"/>
+<text class="ts" x="608" y="33" font-size="12">DFlash2</text>
+
+<g>
+  <line class="grid" x1="70" y1="300" x2="690" y2="300"/>
+  <line class="grid" x1="70" y1="244" x2="690" y2="244"/>
+  <line class="grid" x1="70" y1="188" x2="690" y2="188"/>
+  <line class="grid" x1="70" y1="132" x2="690" y2="132"/>
+  <line class="grid" x1="70" y1="76"  x2="690" y2="76"/>
+  <text class="tm" x="62" y="304" font-size="11" text-anchor="end">0</text>
+  <text class="tm" x="62" y="248" font-size="11" text-anchor="end">10</text>
+  <text class="tm" x="62" y="192" font-size="11" text-anchor="end">20</text>
+  <text class="tm" x="62" y="136" font-size="11" text-anchor="end">30</text>
+  <text class="tm" x="62" y="80"  font-size="11" text-anchor="end">40</text>
+  <text class="tm" x="24" y="66" font-size="11">tok/s</text>
+</g>
+<line class="axis" x1="70" y1="300" x2="690" y2="300"/>
+
+<!-- sustained band 16-21 tok/s -->
+<rect class="band" x="70" y="182.4" width="620" height="28.0" rx="2"/>
+
+<polyline class="l1" fill="none" stroke-width="2" points="90,219.8 230,221.8 370,225.1 510,225.0 650,224.3"/>
+<polyline class="l2" fill="none" stroke-width="2" points="90,74.1 230,191.3 370,210.0 510,198.6 650,180.3"/>
+
+<g class="ring">
+  <circle class="d1" cx="90"  cy="219.8" r="4.5"/><circle class="d1" cx="230" cy="221.8" r="4.5"/>
+  <circle class="d1" cx="370" cy="225.1" r="4.5"/><circle class="d1" cx="510" cy="225.0" r="4.5"/>
+  <circle class="d1" cx="650" cy="224.3" r="4.5"/>
+  <circle class="d2" cx="90"  cy="74.1"  r="4.5"/><circle class="d2" cx="230" cy="191.3" r="4.5"/>
+  <circle class="d2" cx="370" cy="210.0" r="4.5"/><circle class="d2" cx="510" cy="198.6" r="4.5"/>
+  <circle class="d2" cx="650" cy="180.3" r="4.5"/>
+</g>
+
+<text class="tp" x="104" y="72"  font-size="12" text-anchor="start" font-weight="600">40.3</text>
+<text class="tp" x="650" y="168" font-size="12" text-anchor="middle" font-weight="600">21.4</text>
+<text class="tp" x="90"  y="212" font-size="11" text-anchor="middle">14.3</text>
+<text class="tp" x="650" y="242" font-size="11" text-anchor="middle">13.5</text>
+
+<text class="ts" x="104" y="92" font-size="11">休息充分时的峰值</text>
+<text class="ts" x="392" y="176" font-size="11" text-anchor="middle">持续负载稳态区 16–21 tok/s</text>
+
+<g class="ts" font-size="11" text-anchor="middle">
+  <text x="90" y="320">第 1 次</text><text x="230" y="320">第 2 次</text><text x="370" y="320">第 3 次</text>
+  <text x="510" y="320">第 4 次</text><text x="650" y="320">第 5 次</text>
+</g>
+<text class="ts" x="24" y="350" font-size="11">DFlash2 衰减 −47%，普通解码仅 −6%。约两分钟空闲后速度恢复。</text>
+<text class="tm" x="24" y="366" font-size="11">规划长时间编码会话应按 16–21 tok/s 估算，而不是 40。</text>
+</svg>

@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>OMLX on 雨的味道</title><link>https://reatang.com/tags/omlx/</link><description>Recent content in OMLX on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 26 Aug 2026 18:10:00 +0800</lastBuildDate><atom:link href="https://reatang.com/tags/omlx/index.xml" rel="self" type="application/rss+xml"/><item><title>【本地部署】64GB Mac 跑 Qwen3.8-27B：oMLX Profile 配置与 DFlash2 投机解码实测</title><link>https://reatang.com/p/qwen38-27b-omlx-dflash-mac/</link><pubDate>Wed, 26 Aug 2026 18:10:00 +0800</pubDate><guid>https://reatang.com/p/qwen38-27b-omlx-dflash-mac/</guid><description>&lt;p&gt;把 Qwen3.8-27B 跑在 Mac 上不难，难的是知道该期待多少速度、以及哪些加速选项真的有用。这篇记录一次完整的本地部署：环境、配置、实测数据。&lt;/p&gt;
+&lt;p&gt;结论先放这里：&lt;strong&gt;DFlash2 投机解码在代码生成上值得开（16.4 → 30–45 tok/s），在中文散文上完全不值得开&lt;/strong&gt;。而决定这件事的是任务类型，不是模型权重——这一点和很多人的直觉相反。&lt;/p&gt;
+&lt;h2 id="一运行环境"&gt;一、运行环境
+&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;项目&lt;/th&gt;
+&lt;th&gt;值&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;芯片&lt;/td&gt;
+&lt;td&gt;Apple M5 Pro，20 核 GPU&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;内存&lt;/td&gt;
+&lt;td&gt;64 GB 统一内存&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;推理服务&lt;/td&gt;
+&lt;td&gt;oMLX 0.6.3rc3 (build 2475)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;主模型&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;orcarouter/Qwen3.8-27B-Uncensored-MLX&lt;/code&gt; 4-bit，15.70 GB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;草稿模型&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;z-lab/Qwen3.8-27B-DFlash2&lt;/code&gt;，3.85 GB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;对照模型&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;mlx-community/Qwen3.8-27B-4bit&lt;/code&gt;，15.70 GB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;模型权重按 commit 钉死，避免上游更新导致数据不可比：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;drafter : 50307d4c4cde6860d4eee73e2547cd786fe8e8a4
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;official: 3e6447f082e89cc7f0bc6e5441afd38dfce760ff
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;内存占用很宽松：主模型 15.7 GB + 草稿模型 3.85 GB，加上 KV cache 也就 25 GB 左右，64 GB 机器毫无压力。所以&lt;strong&gt;没必要为了省内存去用 2-bit&lt;/strong&gt;，4-bit 是速度和质量的平衡点。&lt;/p&gt;
+&lt;p&gt;上下文我固定在 32K 而不是模型原生的 262K。长上下文吃统一内存、拉长 prefill，日常编码和问答 32K 足够。&lt;/p&gt;
+&lt;h2 id="二omlx-的-profile-机制"&gt;二、oMLX 的 Profile 机制
+&lt;/h2&gt;&lt;p&gt;这是整套配置的基础。oMLX 的 Profile 是挂在基座模型上的一组命名参数，开启 &lt;code&gt;expose_as_model&lt;/code&gt; 后会以 &lt;code&gt;&amp;lt;模型ID&amp;gt;:&amp;lt;Profile名&amp;gt;&lt;/code&gt; 的形式出现在 &lt;code&gt;/v1/models&lt;/code&gt; 里，客户端直接当成不同模型来选：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Qwen3.8-27B-Uncensored-MLX:chat
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Qwen3.8-27B-Uncensored-MLX:code
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Qwen3.8-27B-Uncensored-MLX:reason
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;好处是&lt;strong&gt;不用碰基座模型的 System Default 配置&lt;/strong&gt;。同一份权重，按任务切参数，实验配置和稳定配置互不干扰——某个 Profile 配坏了，其他的照常工作。&lt;/p&gt;
+&lt;p&gt;管理走 admin API，是标准的增删改查：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;POST /admin/api/login
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;GET /admin/api/models/&lt;span class="o"&gt;{&lt;/span&gt;model_id&lt;span class="o"&gt;}&lt;/span&gt;/profiles
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;POST /admin/api/models/&lt;span class="o"&gt;{&lt;/span&gt;model_id&lt;span class="o"&gt;}&lt;/span&gt;/profiles &lt;span class="c1"&gt;# 新建&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;PUT /admin/api/models/&lt;span class="o"&gt;{&lt;/span&gt;model_id&lt;span class="o"&gt;}&lt;/span&gt;/profiles/&lt;span class="o"&gt;{&lt;/span&gt;name&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="c1"&gt;# 更新&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;DELETE /admin/api/models/&lt;span class="o"&gt;{&lt;/span&gt;model_id&lt;span class="o"&gt;}&lt;/span&gt;/profiles/&lt;span class="o"&gt;{&lt;/span&gt;name&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="三dflash2-是什么以及它什么时候有用"&gt;三、DFlash2 是什么，以及它什么时候有用
+&lt;/h2&gt;&lt;p&gt;投机解码的原理：一个小的草稿模型一次猜 N 个 token，再由 27B 主模型&lt;strong&gt;一次性验证&lt;/strong&gt;这批猜测。猜对的部分直接采纳，猜错的丢弃重来。&lt;/p&gt;
+&lt;p&gt;关键在于：&lt;strong&gt;主模型验证 N 个 token 的成本，远低于逐个生成 N 个 token&lt;/strong&gt;。所以只要草稿猜得够准，就是净赚。&lt;/p&gt;
+&lt;p&gt;于是全部收益都压在一个指标上——&lt;strong&gt;draft acceptance（接受率）&lt;/strong&gt;。这是实测数据：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;任务类型&lt;/th&gt;
+&lt;th style="text-align: right"&gt;接受率&lt;/th&gt;
+&lt;th style="text-align: right"&gt;每轮产出 token&lt;/th&gt;
+&lt;th&gt;DFlash 是否划算&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;长 Python 模块&lt;/td&gt;
+&lt;td style="text-align: right"&gt;76.4%&lt;/td&gt;
+&lt;td style="text-align: right"&gt;4.23&lt;/td&gt;
+&lt;td&gt;划算&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;开放式中文散文&lt;/td&gt;
+&lt;td style="text-align: right"&gt;~38%&lt;/td&gt;
+&lt;td style="text-align: right"&gt;1.61&lt;/td&gt;
+&lt;td&gt;不划算&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;块大小设为 5，意味着每轮猜 5 个 token。代码任务每轮能落袋 4.23 个，草稿和验证的固定开销被摊薄；散文每轮只有 1.61 个，大部分算力打了水漂。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码结构性强——缩进、括号、&lt;code&gt;import&lt;/code&gt; 语句、常见的函数签名，草稿模型很容易猜中；开放式中文写作发散，下一个词的可能性太多。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="四一个反直觉的发现"&gt;四、一个反直觉的发现
+&lt;/h2&gt;&lt;p&gt;我用的是社区 abliterate（去拒答）版本的权重，而草稿模型是针对&lt;strong&gt;上游官方权重&lt;/strong&gt;训练的。按常理，权重分布不一致会拉低接受率。&lt;/p&gt;
+&lt;p&gt;实测把这个假设推翻了：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;目标模型&lt;/th&gt;
+&lt;th style="text-align: right"&gt;散文接受率&lt;/th&gt;
+&lt;th style="text-align: right"&gt;代码接受率&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Uncensored（abliterated）&lt;/td&gt;
+&lt;td style="text-align: right"&gt;37.8%&lt;/td&gt;
+&lt;td style="text-align: right"&gt;&lt;strong&gt;76.4%&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;官方 4-bit（上游权重）&lt;/td&gt;
+&lt;td style="text-align: right"&gt;~38%&lt;/td&gt;
+&lt;td style="text-align: right"&gt;76.3%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;两个模型的接受率几乎完全一样。&lt;/strong&gt; 差异全部来自任务类型，和权重是否被改造过无关。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://reatang.com/p/qwen38-27b-omlx-dflash-mac/dflash-acceptance.svg"
+loading="lazy"
+alt="draft 接受率对比：同一任务下两种权重几乎相同，跨任务差异巨大"
+&gt;&lt;/p&gt;
+&lt;p&gt;原因其实很直白：&lt;strong&gt;abliteration 改的是&amp;quot;要不要拒绝回答&amp;quot;，不是&amp;quot;怎么写 Python&amp;quot;&lt;/strong&gt;。草稿模型需要预测的是后者，而那部分能力压根没被动过。&lt;/p&gt;
+&lt;p&gt;所以那句流传的说法——&amp;ldquo;改造过的权重配不上官方 drafter&amp;rdquo;——至少在代码任务上不成立。如果你也在跑社区微调版本，值得自己测一次再下结论。&lt;/p&gt;
+&lt;h2 id="五实测数据"&gt;五、实测数据
+&lt;/h2&gt;&lt;p&gt;工作负载：让模型写一个线程安全的泛型 LRU 缓存，带 8 个以上 pytest 测试，输出 1400 token。&lt;/p&gt;
+&lt;h3 id="代码任务dflash-大幅领先"&gt;代码任务：DFlash 大幅领先
+&lt;/h3&gt;&lt;p&gt;四组配对测试（同一时刻跑两个配置，交替先后顺序）：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align: right"&gt;组&lt;/th&gt;
+&lt;th style="text-align: right"&gt;普通解码&lt;/th&gt;
+&lt;th style="text-align: right"&gt;DFlash2&lt;/th&gt;
+&lt;th style="text-align: right"&gt;提升&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align: right"&gt;1&lt;/td&gt;
+&lt;td style="text-align: right"&gt;16.37&lt;/td&gt;
+&lt;td style="text-align: right"&gt;30.58&lt;/td&gt;
+&lt;td style="text-align: right"&gt;+86.8%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: right"&gt;2&lt;/td&gt;
+&lt;td style="text-align: right"&gt;15.84&lt;/td&gt;
+&lt;td style="text-align: right"&gt;34.37&lt;/td&gt;
+&lt;td style="text-align: right"&gt;+117.0%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: right"&gt;3&lt;/td&gt;
+&lt;td style="text-align: right"&gt;16.89&lt;/td&gt;
+&lt;td style="text-align: right"&gt;41.45&lt;/td&gt;
+&lt;td style="text-align: right"&gt;+145.5%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: right"&gt;4&lt;/td&gt;
+&lt;td style="text-align: right"&gt;16.63&lt;/td&gt;
+&lt;td style="text-align: right"&gt;45.15&lt;/td&gt;
+&lt;td style="text-align: right"&gt;+171.5%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;img src="https://reatang.com/p/qwen38-27b-omlx-dflash-mac/dflash-code-paired.svg"
+loading="lazy"
+alt="代码任务四组配对测试：普通解码稳定在 16 tok/s，DFlash2 从 30.6 升至 45.2 tok/s"
+&gt;&lt;/p&gt;
+&lt;p&gt;配对差均值 &lt;strong&gt;+21.46 tok/s&lt;/strong&gt;，四组方向一致。运行时快照确认 DFlash 真实生效（&lt;code&gt;fallback_ar: false&lt;/code&gt;），不是静默回退到普通引擎。&lt;/p&gt;
+&lt;h3 id="中文散文没有收益"&gt;中文散文：没有收益
+&lt;/h3&gt;&lt;p&gt;同样的配对方法，五组的差值是 −3.81、−1.54、−0.74、&lt;strong&gt;+0.07&lt;/strong&gt;、−3.57 —— &lt;strong&gt;符号都不一致&lt;/strong&gt;。这不是&amp;quot;提升很小&amp;quot;，而是&lt;strong&gt;没有稳定效应&lt;/strong&gt;。散文就该走普通解码。&lt;/p&gt;
+&lt;h3 id="峰值不等于稳态"&gt;峰值不等于稳态
+&lt;/h3&gt;&lt;p&gt;这条最容易踩坑。连续跑五次同样的代码任务，不给机器喘息：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;第几次&lt;/th&gt;
+&lt;th style="text-align: right"&gt;1&lt;/th&gt;
+&lt;th style="text-align: right"&gt;2&lt;/th&gt;
+&lt;th style="text-align: right"&gt;3&lt;/th&gt;
+&lt;th style="text-align: right"&gt;4&lt;/th&gt;
+&lt;th style="text-align: right"&gt;5&lt;/th&gt;
+&lt;th style="text-align: right"&gt;衰减&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;普通解码&lt;/td&gt;
+&lt;td style="text-align: right"&gt;14.33&lt;/td&gt;
+&lt;td style="text-align: right"&gt;13.96&lt;/td&gt;
+&lt;td style="text-align: right"&gt;13.38&lt;/td&gt;
+&lt;td style="text-align: right"&gt;13.40&lt;/td&gt;
+&lt;td style="text-align: right"&gt;13.52&lt;/td&gt;
+&lt;td style="text-align: right"&gt;−6%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DFlash2&lt;/td&gt;
+&lt;td style="text-align: right"&gt;40.34&lt;/td&gt;
+&lt;td style="text-align: right"&gt;19.41&lt;/td&gt;
+&lt;td style="text-align: right"&gt;16.08&lt;/td&gt;
+&lt;td style="text-align: right"&gt;18.11&lt;/td&gt;
+&lt;td style="text-align: right"&gt;21.38&lt;/td&gt;
+&lt;td style="text-align: right"&gt;&lt;strong&gt;−47%&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;img src="https://reatang.com/p/qwen38-27b-omlx-dflash-mac/dflash-decay.svg"
+loading="lazy"
+alt="连续五次运行的衰减曲线：DFlash2 从 40.3 跌到 21.4，普通解码几乎持平"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;DFlash 衰减得比普通解码猛烈得多&lt;/strong&gt;，而且这是 DFlash 自身的性质——不论它先跑还是后跑，结果都一样。合理的解释是：它跑得快，单位时间做的计算就多，机器进入降速状态也更快。&lt;/p&gt;
+&lt;p&gt;输出长度全程稳定在 1400 token，所以这不是长度差异造成的假象。约两分钟空闲后速度会恢复。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;实践含义&lt;/strong&gt;：交互式使用（问一句、看一会儿、再问一句）基本感受不到；批量循环会明显掉速。规划长时间编码会话时，按 &lt;strong&gt;16–21 tok/s&lt;/strong&gt; 估算，别按 40。&lt;/p&gt;
+&lt;p&gt;顺带一提，如果你要自己测速度，&lt;strong&gt;别用连续跑 N 次取平均&lt;/strong&gt;——那只是在衰减曲线上采样。正确做法是两个配置紧邻着跑成一对、交替先后顺序、每对之间冷却两分钟，然后比较&lt;strong&gt;配对差值&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id="六生产配置"&gt;六、生产配置
+&lt;/h2&gt;&lt;p&gt;最终三个 Profile，客户端只靠 model ID 选行为：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Model ID&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;th&gt;配置要点&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;:chat&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;对话、写作、翻译&lt;/td&gt;
+&lt;td&gt;关思考，关 DFlash，temp 0.7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;:code&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;代码、JSON、结构化输出&lt;/td&gt;
+&lt;td&gt;关思考，&lt;strong&gt;开 DFlash&lt;/strong&gt;，temp 0.2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;:reason&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;多步推理、复杂分析&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;开思考&lt;/strong&gt;，8K 输出预算&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="code-的完整配置"&gt;&lt;code&gt;:code&lt;/code&gt; 的完整配置
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;span class="lnt"&gt;32
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-json" data-lang="json"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;code&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;api_name&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;code&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;expose_as_model&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;settings&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;max_context_window&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;32768&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;max_tokens&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;4096&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;temperature&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mf"&gt;0.2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;top_p&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mf"&gt;0.9&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;top_k&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;enable_thinking&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;chat_template_kwargs&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;enable_thinking&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;forced_ct_kwargs&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;enable_thinking&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;dflash_enabled&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;dflash_draft_model&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;/绝对路径/Qwen3.8-27B-DFlash2&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;dflash_block_size&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;dflash_draft_quant_enabled&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;dflash_draft_quant_weight_bits&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;dflash_draft_quant_activation_bits&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;dflash_draft_quant_group_size&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;64&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;dflash_max_ctx&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;8192&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;dflash_in_memory_cache&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;dflash_verify_mode&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;dflash&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;turboquant_kv_enabled&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;qwen35_ane_prefill_enabled&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;mtp_enabled&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;vlm_mtp_enabled&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;specprefill_enabled&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;几个要点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;dflash_block_size: 5&lt;/code&gt;&lt;/strong&gt; —— 量化模型官方建议不超过 5。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;dflash_draft_model&lt;/code&gt; 必须是绝对路径。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;enable_thinking&lt;/code&gt; 要同时写在 &lt;code&gt;settings&lt;/code&gt; 和 &lt;code&gt;chat_template_kwargs&lt;/code&gt; 里&lt;/strong&gt;，再用 &lt;code&gt;forced_ct_kwargs&lt;/code&gt; 强制生效，否则客户端可能覆盖掉。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;其余加速项全部显式设为 &lt;code&gt;false&lt;/code&gt;。&lt;/strong&gt; 这样任何速度变化都能归因到 DFlash 一项上，而不是几个开关混在一起说不清。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="reason-要当心"&gt;&lt;code&gt;:reason&lt;/code&gt; 要当心
+&lt;/h3&gt;&lt;p&gt;思考模式会把绝大部分预算花在隐藏推理上。实测一次约 800 字的中文写作请求：生成 5,647 token，其中 &lt;strong&gt;5,068 token（89.7%）是思考内容&lt;/strong&gt;，耗时 413 秒。&lt;/p&gt;
+&lt;p&gt;所以 &lt;code&gt;:reason&lt;/code&gt; 只留给真正需要多步推理的任务，日常问答走 &lt;code&gt;:chat&lt;/code&gt;，否则等待时间会非常难受。&lt;/p&gt;
+&lt;p&gt;另外这个 Profile 目前&lt;strong&gt;没开 DFlash&lt;/strong&gt;——不是测出来不行，而是压根还没测过。推理文本的可预测性介于代码和散文之间，接受率是多少不好凭空判断，等实测。&lt;/p&gt;
+&lt;h3 id="mtp-用不了"&gt;MTP 用不了
+&lt;/h3&gt;&lt;p&gt;oMLX 有原生 MTP（多 token 预测）支持，但这个模型用不了，运行时给的原因很明确：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Config declares MTP layers but the weight files contain neither
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mtp.* tensors nor native nextn layers.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;config 里声明了 MTP 层，但权重文件里既没有 &lt;code&gt;mtp.*&lt;/code&gt; 张量也没有原生 nextn 层——转换时丢了。官方 4-bit 版本同样如此。&lt;/p&gt;
+&lt;h2 id="七客户端接入"&gt;七、客户端接入
+&lt;/h2&gt;&lt;p&gt;任何 OpenAI 兼容客户端：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Base URL: http://127.0.0.1:1234/v1
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;API Key: 本地 key
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Model: Qwen3.8-27B-Uncensored-MLX:code
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;冷启动需要载入 15.7 GB 权重，首次请求会等几秒；oMLX 默认 15 分钟空闲后卸载模型。如果介意这个延迟，可以在 UI 里把模型 pin 住常驻——代价是 15.7 GB 内存一直被占着，看你机器上还跑什么。&lt;/p&gt;
+&lt;h2 id="八小结"&gt;八、小结
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;4-bit 是 64 GB Mac 的合理选择&lt;/strong&gt;，装得下更高精度，但没必要。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;投机解码不是无条件加速，是一场关于&amp;quot;输出可预测性&amp;quot;的赌局。&lt;/strong&gt; 代码赌赢（76% 接受率，快 2–2.7 倍），开放式散文赌输（38%，没收益）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;接受率由任务类型决定，不由权重是否被改造决定。&lt;/strong&gt; 社区 abliterate 版本一样能吃到 DFlash 的红利。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;投机解码不改变输出内容&lt;/strong&gt;——每个 token 都经过主模型验证，所以这份速度不以质量为代价。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;区分峰值和稳态。&lt;/strong&gt; 40 tok/s 是休息充分时的数字，持续负载下按 16–21 tok/s 规划。&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

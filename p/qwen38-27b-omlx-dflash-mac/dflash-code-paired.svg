@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" width="720" height="380" role="img" aria-label="代码任务四组配对测试：普通解码稳定在 16 tok/s 左右，DFlash2 从 30.6 升到 45.2 tok/s">
+<style>
+  .surface { fill: #fcfcfb; }
+  .tp { fill: #0b0b0b; }
+  .ts { fill: #52514e; }
+  .tm { fill: #7a7873; }
+  .grid { stroke: #e5e4e0; stroke-width: 1; }
+  .axis { stroke: #c9c7c1; stroke-width: 1; }
+  .s1 { fill: #2a78d6; }
+  .s2 { fill: #eb6834; }
+  text { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; }
+  @media (prefers-color-scheme: dark) {
+    .surface { fill: #1a1a19; }
+    .tp { fill: #ffffff; }
+    .ts { fill: #c3c2b7; }
+    .tm { fill: #9b998f; }
+    .grid { stroke: #2e2e2c; }
+    .axis { stroke: #46453f; }
+    .s1 { fill: #3987e5; }
+    .s2 { fill: #d95926; }
+  }
+</style>
+<rect class="surface" width="720" height="380" rx="6"/>
+<text class="tp" x="24" y="32" font-size="15" font-weight="600">代码任务：DFlash2 配对提速</text>
+<text class="ts" x="24" y="52" font-size="12">生成 1400 token 的 Python 模块 · 同一时刻跑两个配置 · 交替先后顺序</text>
+
+<!-- legend -->
+<rect class="s1" x="500" y="24" width="10" height="10" rx="2"/>
+<text class="ts" x="516" y="33" font-size="12">普通解码</text>
+<rect class="s2" x="592" y="24" width="10" height="10" rx="2"/>
+<text class="ts" x="608" y="33" font-size="12">DFlash2</text>
+
+<!-- gridlines + y axis: 0..50 -->
+<g>
+  <line class="grid" x1="60" y1="300" x2="690" y2="300"/>
+  <line class="grid" x1="60" y1="252" x2="690" y2="252"/>
+  <line class="grid" x1="60" y1="204" x2="690" y2="204"/>
+  <line class="grid" x1="60" y1="156" x2="690" y2="156"/>
+  <line class="grid" x1="60" y1="108" x2="690" y2="108"/>
+  <text class="tm" x="52" y="304" font-size="11" text-anchor="end">0</text>
+  <text class="tm" x="52" y="256" font-size="11" text-anchor="end">10</text>
+  <text class="tm" x="52" y="208" font-size="11" text-anchor="end">20</text>
+  <text class="tm" x="52" y="160" font-size="11" text-anchor="end">30</text>
+  <text class="tm" x="52" y="112" font-size="11" text-anchor="end">40</text>
+  <text class="tm" x="24" y="80" font-size="11">tok/s</text>
+</g>
+<line class="axis" x1="60" y1="300" x2="690" y2="300"/>
+
+<!-- bars: y = 300 - v*4.8 ; pairs at x = 100,250,400,550 -->
+<!-- pair1 16.37 / 30.58 -->
+<rect class="s1" x="96"  y="221.4" width="46" height="78.6" rx="4"/>
+<rect class="s2" x="144" y="153.2" width="46" height="146.8" rx="4"/>
+<text class="tp" x="119" y="214" font-size="11" text-anchor="middle">16.4</text>
+<text class="tp" x="167" y="146" font-size="11" text-anchor="middle" font-weight="600">30.6</text>
+<text class="ts" x="143" y="320" font-size="11" text-anchor="middle">第 1 组</text>
+<text class="tm" x="143" y="336" font-size="11" text-anchor="middle">+87%</text>
+
+<!-- pair2 15.84 / 34.37 -->
+<rect class="s1" x="246" y="223.9" width="46" height="76.1" rx="4"/>
+<rect class="s2" x="294" y="135.0" width="46" height="165.0" rx="4"/>
+<text class="tp" x="269" y="216" font-size="11" text-anchor="middle">15.8</text>
+<text class="tp" x="317" y="128" font-size="11" text-anchor="middle" font-weight="600">34.4</text>
+<text class="ts" x="293" y="320" font-size="11" text-anchor="middle">第 2 组</text>
+<text class="tm" x="293" y="336" font-size="11" text-anchor="middle">+117%</text>
+
+<!-- pair3 16.89 / 41.45 -->
+<rect class="s1" x="396" y="218.9" width="46" height="81.1" rx="4"/>
+<rect class="s2" x="444" y="101.0" width="46" height="199.0" rx="4"/>
+<text class="tp" x="419" y="211" font-size="11" text-anchor="middle">16.9</text>
+<text class="tp" x="467" y="94" font-size="11" text-anchor="middle" font-weight="600">41.5</text>
+<text class="ts" x="443" y="320" font-size="11" text-anchor="middle">第 3 组</text>
+<text class="tm" x="443" y="336" font-size="11" text-anchor="middle">+146%</text>
+
+<!-- pair4 16.63 / 45.15 -->
+<rect class="s1" x="546" y="220.2" width="46" height="79.8" rx="4"/>
+<rect class="s2" x="594" y="83.3"  width="46" height="216.7" rx="4"/>
+<text class="tp" x="569" y="213" font-size="11" text-anchor="middle">16.6</text>
+<text class="tp" x="617" y="76" font-size="11" text-anchor="middle" font-weight="600">45.2</text>
+<text class="ts" x="593" y="320" font-size="11" text-anchor="middle">第 4 组</text>
+<text class="tm" x="593" y="336" font-size="11" text-anchor="middle">+172%</text>
+
+<text class="ts" x="24" y="366" font-size="11">配对差均值 +21.5 tok/s，四组方向一致 · draft 接受率 76.4%</text>
+</svg>
