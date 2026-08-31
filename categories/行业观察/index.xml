@@ -1,4 +1,78 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>行业观察 on 雨的味道</title><link>https://reatang.com/categories/%E8%A1%8C%E4%B8%9A%E8%A7%82%E5%AF%9F/</link><description>Recent content in 行业观察 on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 12 Jun 2026 00:15:51 +0800</lastBuildDate><atom:link href="https://reatang.com/categories/%E8%A1%8C%E4%B8%9A%E8%A7%82%E5%AF%9F/index.xml" rel="self" type="application/rss+xml"/><item><title>【行业观察】从github apps 看下一代互联网的数据授权范式</title><link>https://reatang.com/p/github-apps-data-authorization-paradigm/</link><pubDate>Fri, 12 Jun 2026 00:15:51 +0800</pubDate><guid>https://reatang.com/p/github-apps-data-authorization-paradigm/</guid><description>&lt;h1 id="从-github-apps-看下一代互联网的数据授权范式"&gt;从 GitHub Apps 看下一代互联网的数据授权范式
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>行业观察 on 雨的味道</title><link>https://reatang.com/categories/%E8%A1%8C%E4%B8%9A%E8%A7%82%E5%AF%9F/</link><description>Recent content in 行业观察 on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 31 Aug 2026 00:48:44 +0800</lastBuildDate><atom:link href="https://reatang.com/categories/%E8%A1%8C%E4%B8%9A%E8%A7%82%E5%AF%9F/index.xml" rel="self" type="application/rss+xml"/><item><title>【行业观察】AI时代，给孩子留一点自己思考的时间</title><link>https://reatang.com/p/cognitive-autonomy-for-children/</link><pubDate>Mon, 31 Aug 2026 00:48:44 +0800</pubDate><guid>https://reatang.com/p/cognitive-autonomy-for-children/</guid><description>&lt;p&gt;我平时工作在软件和AI行业里，同时也是一名家长。&lt;/p&gt;
+&lt;p&gt;最近一年，我越来越习惯让AI参与工作：让它分析问题、设计方案、编写代码，再通过测试和一套稳定的验证机制来确认结果。过去需要逐行阅读的代码，现在有些已经可以直接合并。&lt;/p&gt;
+&lt;p&gt;作为从业者，我能清楚感受到AI带来的效率，也愿意学习怎样与它更好地协作。但作为家长，我偶尔也会想到另一个问题：如果AI从一开始就在孩子身边，他会怎样理解“思考”这件事？&lt;/p&gt;
+&lt;p&gt;这不是一种对AI的排斥。我知道孩子会生活在与我们不同的环境里，也不希望用我们熟悉的方式限制他们。只是因为比一些人更早接触到这种变化，我想把自己看到的事情慢慢说出来，和其他家长一起想一想。&lt;/p&gt;
+&lt;p&gt;身处其中，很容易产生一种感觉：AI已经无处不在，所有人都在经历同样的变化。&lt;/p&gt;
+&lt;p&gt;但当我把视线从行业里移开，又会发现并不是这样。&lt;/p&gt;
+&lt;p&gt;生活中还有很多人只是听说过AI，并没有真正和它交流过，也没有让它参与自己的工作和生活。我们在行业里讨论模型能力、智能代理和自动化决策时，更多人的日常可能还没有发生明显变化。&lt;/p&gt;
+&lt;p&gt;这让我意识到，行业里的“未来”，并不等于每个人的“现在”。&lt;/p&gt;
+&lt;p&gt;所以，当我们讨论AI会给下一代带来什么时，也许不必急着得出结论。我们可以先把各自看到的变化放在一起，再慢慢想一想：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当AI逐渐成为孩子们习以为常的工具，我们希望他们怎样使用它？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="一孩子面对的ai可能和我们理解的并不一样"&gt;一、孩子面对的AI，可能和我们理解的并不一样
+&lt;/h2&gt;&lt;p&gt;我们这一代人大多是在成年之后接触AI的。&lt;/p&gt;
+&lt;p&gt;我们知道没有AI时，学习、写作和工作是什么样子。遇到一个问题，我们会先查资料、自己分析，再慢慢形成答案。这个过程可能不够快，却为我们留下了一个参照：我知道哪些部分是自己想出来的，哪些部分是工具提供的。&lt;/p&gt;
+&lt;p&gt;孩子们可能不同。&lt;/p&gt;
+&lt;p&gt;对他们来说，AI未必是一项需要专门学习的新技术。它可能只是搜索框里自然出现的回答，是学习软件里的辅导老师，是手机中随时可以对话的助手。&lt;/p&gt;
+&lt;p&gt;他们不会刻意区分“使用AI之前”和“使用AI之后”，就像今天的孩子很少把互联网看作一项新技术一样。&lt;/p&gt;
+&lt;p&gt;这本身并没有问题。每一代人都会拥有上一代没有的工具，好的工具也的确能够降低学习门槛，让孩子更容易接触知识、表达想法和探索世界。&lt;/p&gt;
+&lt;p&gt;只是，当工具变得足够自然，有些原本需要亲自经历的思考过程，也可能变得不再明显。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="二答案变得容易之后什么仍然值得保留"&gt;二、答案变得容易之后，什么仍然值得保留
+&lt;/h2&gt;&lt;p&gt;过去，一个孩子遇到问题，可能会先猜一猜，试一试，翻找一些资料，再慢慢整理出自己的理解。&lt;/p&gt;
+&lt;p&gt;他会走弯路，也会得到不成熟的答案。但在这些停顿、犹豫和修改中，他逐渐知道自己是怎样思考的。&lt;/p&gt;
+&lt;p&gt;现在，AI可以很快给出一个完整、清晰，甚至比孩子自己表达得更好的答案。&lt;/p&gt;
+&lt;p&gt;答案可能没有错，效率也确实更高。真正值得关注的，并不是孩子有没有使用AI，而是他是否还有机会经历答案产生之前的过程：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;我最初是怎么理解这个问题的？&lt;/li&gt;
+&lt;li&gt;我为什么相信这个答案？&lt;/li&gt;
+&lt;li&gt;有没有其他可能？&lt;/li&gt;
+&lt;li&gt;如果AI的说法和我的感受不同，我应该怎样判断？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些问题不会让孩子远离AI。相反，它们会帮助孩子更好地使用AI，而不是只接收一个看起来足够完整的结果。&lt;/p&gt;
+&lt;p&gt;我们真正希望保留的，也许不是某一种旧的学习方式，而是孩子形成问题、作出判断和改变想法的能力。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="三作为家长我开始在意一种认知权"&gt;三、作为家长，我开始在意一种“认知权”
+&lt;/h2&gt;&lt;p&gt;我们经常讨论隐私权、选择权和数据权利。随着AI越来越多地参与信息整理和建议，一种不太容易被看见的权利也会变得重要。&lt;/p&gt;
+&lt;p&gt;我暂且把它称为“认知权”。这不是一个已经成熟的概念，只是我在工作与育儿之间，逐渐意识到的一件事。&lt;/p&gt;
+&lt;p&gt;它不是要求每个人都理解复杂系统的全部细节，也不是要求孩子凡事都独立完成。它更接近一种朴素的状态：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;一个人在获得工具帮助的同时，仍然有机会形成自己的问题，保留自己的判断，并知道最后的选择为什么属于自己。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;从这个角度看，认知权既是一种能力，也需要环境为它留出空间。&lt;/p&gt;
+&lt;p&gt;如果孩子有自己的想法，却总被要求直接采用更标准、更高效的答案，他很难建立对判断的信心。反过来，如果我们只告诉孩子“你要独立思考”，却从不教他怎样查证、比较和修正，独立思考也很容易变成一句空话。&lt;/p&gt;
+&lt;p&gt;因此，我想做的并不是把AI挡在孩子之外，而是在他与AI共同成长时，尽量陪他听见自己的声音。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="四我想先从几个小习惯开始"&gt;四、我想先从几个小习惯开始
+&lt;/h2&gt;&lt;p&gt;这件事未必需要先变成一门课程，也不必立即找到一套完整的制度。&lt;/p&gt;
+&lt;p&gt;作为家长，我现在也没有一套完整的方法。下面这些更像是我想和孩子一起尝试的小习惯。&lt;/p&gt;
+&lt;h3 id="1-在问ai之前先说说自己的想法"&gt;1. 在问AI之前，先说说自己的想法
+&lt;/h3&gt;&lt;p&gt;不要求正确，也不要求完整。哪怕只是一个猜测，也让孩子先拥有自己的起点。&lt;/p&gt;
+&lt;h3 id="2-把ai的回答当作讨论材料"&gt;2. 把AI的回答当作讨论材料
+&lt;/h3&gt;&lt;p&gt;可以问孩子：“哪一部分你最认同？哪一部分你还不确定？”这样，AI的回答就不再是终点，而是比较和思考的对象。&lt;/p&gt;
+&lt;h3 id="3-偶尔完整经历一次没有ai的过程"&gt;3. 偶尔完整经历一次没有AI的过程
+&lt;/h3&gt;&lt;p&gt;有些任务可以充分使用AI，有些任务也可以暂时不用，让孩子体验从困惑、尝试到理解的完整过程。两种经验同时存在，孩子才更容易理解工具究竟帮助了什么。&lt;/p&gt;
+&lt;h3 id="4-允许孩子得到不够漂亮的答案"&gt;4. 允许孩子得到不够漂亮的答案
+&lt;/h3&gt;&lt;p&gt;一个由孩子自己形成、尚不成熟的答案，有时比一个立刻获得的标准答案更有价值。因为前者留下了继续生长的空间。&lt;/p&gt;
+&lt;p&gt;这些习惯并不是为了降低效率，也未必每一次都要做到。它们只是提醒我：当AI很快给出答案时，可以陪孩子多停留一会儿，让效率和成长都有自己的位置。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="五陪孩子认识ai不只是教会他怎样提问"&gt;五、陪孩子认识AI，不只是教会他怎样提问
+&lt;/h2&gt;&lt;p&gt;现在，越来越多的产品开始把AI教育带给更小的孩子。我们会教他们怎样写提示词，怎样让AI生成图片、整理知识和完成任务。&lt;/p&gt;
+&lt;p&gt;这些能力当然有用。&lt;/p&gt;
+&lt;p&gt;但如果AI会成为孩子这一代的基础工具，那么我们陪伴他的方式也许可以再多一点：除了怎样获得更好的答案，也和他聊聊怎样提出自己的问题；除了怎样使用AI，也让他知道有时可以先不用；除了关注最终结果，也听听他经过了怎样的判断过程。&lt;/p&gt;
+&lt;p&gt;未来的孩子不需要重复我们这一代所有的学习方式。他们会发展出属于自己的方法。&lt;/p&gt;
+&lt;p&gt;我希望自己能做的，是在这些新方法形成的过程中，陪孩子保留几种可能：可以借助AI，也可以对它提出疑问；可以接受建议，也可以重新想想问题；可以追求效率，也可以为了真正理解而多停留一会儿。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="结语"&gt;结语
+&lt;/h2&gt;&lt;p&gt;AI会怎样改变下一代的学习和生活，现在还没有人能够给出完整答案。&lt;/p&gt;
+&lt;p&gt;也许很多家庭今天还没有频繁使用AI，也暂时感受不到这种变化。但它很可能会以一种自然的方式，慢慢进入孩子的搜索、学习和表达之中。&lt;/p&gt;
+&lt;p&gt;作为家长，我不想因此焦虑，也不想急着为孩子划出一条不能越过的界线。我更愿意先和他一起认识这个新工具，也在这个过程中继续认识我们自己。&lt;/p&gt;
+&lt;p&gt;下一次，当孩子准备向AI提问时，我们可以先陪他停一会儿，然后问一句：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“在看它的答案之前，你自己是怎么想的？”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;也许只是几十秒，也许他的想法还不成熟。&lt;/p&gt;
+&lt;p&gt;但这段属于他自己的思考时间，可能就是我今天能够陪他守住的一小块空间。&lt;/p&gt;</description></item><item><title>【行业观察】从github apps 看下一代互联网的数据授权范式</title><link>https://reatang.com/p/github-apps-data-authorization-paradigm/</link><pubDate>Fri, 12 Jun 2026 00:15:51 +0800</pubDate><guid>https://reatang.com/p/github-apps-data-authorization-paradigm/</guid><description>&lt;h1 id="从-github-apps-看下一代互联网的数据授权范式"&gt;从 GitHub Apps 看下一代互联网的数据授权范式
 &lt;/h1&gt;&lt;h2 id="一一个被低估的架构转折点"&gt;一、一个被低估的架构转折点
 &lt;/h2&gt;&lt;p&gt;互联网平台正在发生一个重要变化：用户不再只是“登录一个网站”，也不再只是“把数据上传给平台”，而是开始以更细粒度的方式，把自己在平台上的某些资源、某些操作能力，授权给第三方应用、自动化系统和智能代理。&lt;/p&gt;
 &lt;p&gt;GitHub Apps 是这个变化中非常清晰的样板。&lt;/p&gt;
