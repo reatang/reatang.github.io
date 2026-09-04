@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Plugin on 雨的味道</title><link>https://reatang.com/tags/plugin/</link><description>Recent content in Plugin on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 04 Sep 2026 17:00:00 +0800</lastBuildDate><atom:link href="https://reatang.com/tags/plugin/index.xml" rel="self" type="application/rss+xml"/><item><title>【产业观察】半年后再看：当 Harness 成为操作系统，Agent 平台与个人助手的边界消失了</title><link>https://reatang.com/p/agent-harness-as-operating-system/</link><pubDate>Fri, 04 Sep 2026 17:00:00 +0800</pubDate><guid>https://reatang.com/p/agent-harness-as-operating-system/</guid><description>&lt;p&gt;今年三月，我写了&lt;a class="link" href="https://reatang.com/p/agent-platform-vs-personal-ai-assistant/" &gt;《隐形的结构：为何 Agent 平台难以破圈，而个人助手终将爆发》&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;半年过去，那篇文章读起来已经像在描述另一个时代。不是因为结论错了，而是因为它描述现实的坐标系失效了。&lt;/p&gt;
+&lt;p&gt;这半年发生了三件事，每一件都足以改写那篇文章的前提：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;模型对 Agent 的理解，快得惊人。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Harness 长成了操作系统的样子。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;沙箱从&amp;quot;可选项&amp;quot;变成了&amp;quot;运行边界&amp;quot;本身。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;与此同时，Skills、MCP、Plugin 三层接口先后标准化，操作系统的轮廓越来越清晰。&lt;/p&gt;
+&lt;p&gt;本文先做一次诚实的回看，再逐一拆解这三个变量和协议层的变化，最后给出一个新的结构图。&lt;/p&gt;
+&lt;h2 id="一回看对了什么错在哪里"&gt;一、回看：对了什么，错在哪里
+&lt;/h2&gt;&lt;h3 id="对了的部分"&gt;对了的部分
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;可视化编排平台确实退场了。&lt;/strong&gt;
+最典型的例子是 OpenAI 的 Agent Builder：2025 年 10 月 DevDay 上线，拖拽节点、连接工具、配置护栏，标准的&amp;quot;Agent 平台&amp;quot;形态。2026 年 6 月宣布废弃，11 月 30 日关停，寿命八个月。官方给出的迁移路径只有两条：要么进代码（Agents SDK），要么进对话（Workspace Agents）。&lt;/p&gt;
+&lt;p&gt;这正是半年前那篇文章的核心判断：&lt;strong&gt;平台卡在普通用户、程序员、专家三类人群的夹缝中，谁都不需要它。&lt;/strong&gt; 中间形态没有活路，只剩两端。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;从构建权到结果权&amp;quot;&amp;ldquo;目标驱动而非流程可视化&amp;quot;都发生了。&lt;/strong&gt; 只是现在读起来像常识，不像预测。&lt;/p&gt;
+&lt;h3 id="错了的部分"&gt;错了的部分
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;&amp;ldquo;现实牢固停留在流程层，多 Agent 协作是组合幻想&amp;rdquo;，这一条错得最彻底。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;到今年年中，子 Agent 分发、后台长时运行、多小时无人值守的任务，已经是 Claude Code、Codex、OpenClaw 这类工具的日常用法。我自己六月那篇 OpenClaw 排障记录，就是在用那篇文章所说的&amp;quot;幻想&amp;quot;干活。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;不确定性成本&amp;quot;的解法判断反了。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;那篇文章认为出路是限制模型职责，让它只做&amp;quot;自然语言到参数的映射&amp;rdquo;。实际发生的是反方向：模型被赋予了更大的自主权，而失败率被两件事压了下去。一是模型本身对长程任务的理解能力，二是 Harness 提供的验证回路。测试、类型检查、自我修正，把每一步的错误在当步就消化掉，而不是累积到流程末端。&lt;/p&gt;
+&lt;p&gt;真正的解释变量不是&amp;quot;任务是否高频刚需&amp;rdquo;，而是**&amp;ldquo;这个领域有没有便宜的验证器&amp;rdquo;**。编程有编译器和测试，所以编程先爆发。这一点那篇文章完全没看到。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Skills 的形态和我描述的不一样。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;我把 Skills 理解为薄的任务封装。现在的 SKILL.md 是给 Agent 读的方法论文档，Agent 拿着它全权执行。讽刺的是，这恰好是那篇文章第五节所说的&amp;quot;视角市场&amp;rdquo;，只是我没意识到这两者是同一个东西。&lt;/p&gt;
+&lt;h2 id="二变量一模型对-agent-的理解"&gt;二、变量一：模型对 Agent 的理解
+&lt;/h2&gt;&lt;p&gt;半年前，&amp;ldquo;Agent&amp;quot;是工程师在模型外面搭的脚手架。现在，模型自己知道自己是 Agent。&lt;/p&gt;
+&lt;p&gt;几个信号：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;任务时间跨度在指数增长。&lt;/strong&gt; METR 今年一月更新的 Time Horizon 1.1 显示，前沿模型能以 50% 可靠性独立完成的任务长度，2024 到 2025 年每四个月翻一倍，快于此前六年每七个月翻一倍的长期趋势。METR 把任务集扩大了三分之一，八小时以上的任务翻了一倍，趋势没有变。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;系统提示词在缩短。&lt;/strong&gt; Anthropic 把 Claude Code 的系统提示从大约一万 token 压到两千左右。这不是省钱，这是模型把原本要靠提示词教的东西内化了：怎么用工具、怎么规划、什么时候该问、什么时候该停。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;模型开始为 Harness 而训练。&lt;/strong&gt; DeepSeek V4-Pro 的定位是&amp;quot;面向 agentic workloads&amp;rdquo;，和 Harness 同日发布。模型厂商已经不把模型当成孤立的对话引擎来训练，而是当成运行在某个运行时里的进程来训练。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;但 Harness 的差异依然巨大。&lt;/strong&gt; 同一个模型换不同的 Harness，在基准测试上能相差 15 到 20 分。这说明模型和 Harness 是协同进化的关系：模型内化一部分，Harness 承担另一部分，两者的边界在动态移动。&lt;/p&gt;
+&lt;p&gt;半年前我说&amp;quot;每增加一层规划，便增加一层失败概率&amp;quot;。这句话在数学上仍然成立，但它的系数变了。当单步失败率从 10% 降到 1%，十步流程的成功率从 35% 变成 90%。&lt;strong&gt;不确定性成本没有消失，它被模型能力和验证回路一起压到了可以承受的量级。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="三变量二harness-长成了操作系统"&gt;三、变量二：Harness 长成了操作系统
+&lt;/h2&gt;&lt;p&gt;这是这半年最重要的结构变化，也是让&amp;quot;平台 vs 助手&amp;quot;二分法失效的直接原因。&lt;/p&gt;
+&lt;h3 id="什么是-harness"&gt;什么是 Harness
+&lt;/h3&gt;&lt;p&gt;先给一个现在被广泛接受的类比：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;模型是 CPU&lt;/li&gt;
+&lt;li&gt;上下文窗口是内存&lt;/li&gt;
+&lt;li&gt;Harness 是操作系统&lt;/li&gt;
+&lt;li&gt;Agent 是应用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Harness 决定模型看到什么、能做什么、动作如何被验证、记忆如何持久化、成本和风险如何被限制。它是控制平面。&lt;/p&gt;
+&lt;p&gt;半年前，Harness 这个词还只在少数工程师之间流传。现在它是主战场。当模型本身走向商品化，&lt;strong&gt;Harness 成了产品差异、用户黏性和切换成本的载体。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id="deepseek-harness一切皆插件"&gt;DeepSeek Harness：一切皆插件
+&lt;/h3&gt;&lt;p&gt;8 月 13 日，DeepSeek 开源了 DeepSeek Harness（dsh）。48 小时内 GitHub 星标超过九万五千，MIT 协议，开发者预览版。&lt;/p&gt;
+&lt;p&gt;它的设计哲学只有一句话：&lt;strong&gt;Everything is a plugin. Every run is traceable.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;具体来说，以下所有东西都是可插拔的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;模型&lt;/li&gt;
+&lt;li&gt;工具&lt;/li&gt;
+&lt;li&gt;Skills&lt;/li&gt;
+&lt;li&gt;会话&lt;/li&gt;
+&lt;li&gt;沙箱&lt;/li&gt;
+&lt;li&gt;存储&lt;/li&gt;
+&lt;li&gt;循环（Agent loop 本身）&lt;/li&gt;
+&lt;li&gt;调度&lt;/li&gt;
+&lt;li&gt;UI&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;底层是一个叫 Cordis 的微内核，负责插件的挂载、卸载和依赖管理。插件可以在运行中增减，不需要重启，官方称之为&amp;quot;时空可组合性&amp;quot;。&lt;/p&gt;
+&lt;p&gt;更关键的是它的会话设计：&lt;strong&gt;模型看到的一切都记录在一条 append-only 的会话日志里&lt;/strong&gt;，包括系统提示、推理过程、工具调用和结果、子 Agent 调度、每一次上下文注入。恢复、分叉、搜索、回放，全部基于这同一条事件流。&lt;/p&gt;
+&lt;p&gt;它还可以把 Claude Code 或 Codex 当作子 Agent 来调用。&lt;/p&gt;
+&lt;h3 id="为什么这是操作系统"&gt;为什么这是操作系统
+&lt;/h3&gt;&lt;p&gt;把上面的清单换个说法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;append-only 会话日志，就是内核的 journal&lt;/li&gt;
+&lt;li&gt;循环和调度插件，就是进程调度器&lt;/li&gt;
+&lt;li&gt;子 Agent，就是子进程&lt;/li&gt;
+&lt;li&gt;沙箱插件，就是进程隔离和权限模型&lt;/li&gt;
+&lt;li&gt;工具和 MCP，就是系统调用和驱动&lt;/li&gt;
+&lt;li&gt;Skills，就是用户空间的程序&lt;/li&gt;
+&lt;li&gt;UI 插件，就是 shell&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Armin Ronacher 的评价是，这是他第一次看到一个新东西让他想回头重新审视自己的设计选择。我理解他的感受。DeepSeek Harness 不是又一个 Agent 框架，它是第一个把&amp;quot;Agent 运行时&amp;quot;当作操作系统来设计的开源实现。&lt;/p&gt;
+&lt;h3 id="二分法的消解"&gt;二分法的消解
+&lt;/h3&gt;&lt;p&gt;回到半年前的那篇文章。我把&amp;quot;Agent 平台&amp;quot;和&amp;quot;个人 AI 助手&amp;quot;当作两种对立的产品形态：前者卖构建能力，后者卖结果。&lt;/p&gt;
+&lt;p&gt;现在看，它们是&lt;strong&gt;同一个运行时的不同配置&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;接上 UI 插件和对话循环，它是个人助手&lt;/li&gt;
+&lt;li&gt;接上调度插件和沙箱插件，它是自动化平台&lt;/li&gt;
+&lt;li&gt;把别的 Harness 当子 Agent 挂进来，它是多 Agent 编排器&lt;/li&gt;
+&lt;li&gt;跑在用户自己的机器上，接本地模型，它是一台个人计算机&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;OpenClaw 走的是同一条路。9 月 2 日发布的 2.0 版本，把会话状态、凭证、权限全部集中到一个 Gateway 里，会话存储从文件迁到 SQLite，浏览器成为统一工作区，还加了多人共享的云端会话。这已经不是&amp;quot;一个助手&amp;quot;，这是一个带用户权限模型的运行时。&lt;/p&gt;
+&lt;p&gt;半年前我说，Agent 平台若想成为主流，必须学会&lt;strong&gt;隐藏系统&lt;/strong&gt;。现在系统被隐藏的方式很清楚了：&lt;strong&gt;它沉到了操作系统层。&lt;/strong&gt; 用户面对的是助手，构建者面对的是插件系统，两者在同一个内核上。&lt;/p&gt;
+&lt;h2 id="四变量三沙箱成为运行边界"&gt;四、变量三：沙箱成为运行边界
+&lt;/h2&gt;&lt;p&gt;如果说 Harness 的操作系统化是这半年的正面故事，沙箱的迅猛发展就是它的反面推动力。&lt;/p&gt;
+&lt;h3 id="为什么突然必需"&gt;为什么突然必需
+&lt;/h3&gt;&lt;p&gt;OpenClaw 的经历是最好的教材。今年一月爆红，几周内星标超过十三万。紧接着：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个关键 RCE 漏洞（CVE-2026-25253）&lt;/li&gt;
+&lt;li&gt;三到四万个暴露在公网的实例，93% 没有鉴权&lt;/li&gt;
+&lt;li&gt;技能市场 ClawHub 被投毒，2857 个 Skills 里确认了 341 个恶意的，占比约 12%，伪装成&amp;quot;钱包追踪器&amp;quot;之类的名字，实际安装键盘记录器和窃密木马&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;三月还有另一条线：一个叫 hackerbot-claw 的自主攻击 Agent，自动扫描配置错误的 GitHub Actions，从 Trivy 一路打到 LiteLLM，波及六十多个包，潜在暴露五十万条凭证。&lt;strong&gt;攻击方也用上了 Agent。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;学术界的结论更直接。SandboxEscapeBench 这篇论文的发现是：只要沙箱存在漏洞，前沿模型有能力识别并利用它逃逸。另有研究者演示了 Claude Code 在主要的拒绝列表拦下它后，自己找到了替代的二进制路径绕过沙箱。&lt;/p&gt;
+&lt;p&gt;半年前那篇文章讨论&amp;quot;不确定性成本&amp;quot;时，指的是任务失败。现在的不确定性成本换了位置：&lt;strong&gt;从&amp;quot;流程会不会失败&amp;quot;变成了&amp;quot;边界会不会被突破&amp;quot;。&lt;/strong&gt; 模型越强，这个成本越高。&lt;/p&gt;
+&lt;h3 id="行业如何收敛"&gt;行业如何收敛
+&lt;/h3&gt;&lt;p&gt;答案出奇地一致：&lt;strong&gt;硬件隔离的 microVM。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Firecracker 的冷启动约 125 毫秒，快照恢复不到 28 毫秒，内存开销不到 5 MiB。&amp;ldquo;VM 太慢&amp;quot;这个反对理由在 2026 年已经不成立。于是几乎所有平台在几个月内完成了收敛：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;E2B、Vercel Sandbox、Fly.io Sprites 全部基于 Firecracker&lt;/li&gt;
+&lt;li&gt;AWS Bedrock AgentCore 每个会话一个 microVM，最长八小时，用完销毁&lt;/li&gt;
+&lt;li&gt;Modal 在 GPU 负载上用 gVisor&lt;/li&gt;
+&lt;li&gt;Cloudflare 用 V8 isolate 做亚毫秒级启动&lt;/li&gt;
+&lt;li&gt;Docker 直接在 macOS 和 Windows 上集成原生 hypervisor 做 Agent 沙箱&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Anthropic 五月公开了自己的容器化方案，按产品分层：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Claude.ai 云端用 gVisor&lt;/li&gt;
+&lt;li&gt;Claude Code 本地用 macOS 的 Seatbelt 和 Linux 的 bubblewrap&lt;/li&gt;
+&lt;li&gt;Cowork 直接跑整机虚拟机&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一条原则贯穿所有层：&lt;strong&gt;凭证永远不进沙箱。&lt;/strong&gt; 无论沙箱内部被什么方式攻破，都拿不到密钥。Claude Code 后来还发布了 sandbox-runtime，把整个进程连同所有工具、hook、MCP server 一起包进去，而不只是 Bash。&lt;/p&gt;
+&lt;h3 id="沙箱就是权限模型"&gt;沙箱就是权限模型
+&lt;/h3&gt;&lt;p&gt;有一句话精确描述了当前的状态：&lt;strong&gt;开发者看到的是容器，安全团队看到的是跑着容器的 VM，两层互相不可见。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这正是操作系统的进程隔离在 Agent 时代的复刻。运行边界、资源限制、网络出口策略、凭证隔离，这些不是附加的安全功能，它们就是操作系统的核心职责。Harness 之所以能被称为操作系统，一半的理由来自沙箱。&lt;/p&gt;
+&lt;h2 id="五协议层skills-与-mcp-的标准化"&gt;五、协议层：Skills 与 MCP 的标准化
+&lt;/h2&gt;&lt;p&gt;操作系统需要标准的接口。这半年，三个接口先后定型：Skills 定义了&amp;quot;程序&amp;rdquo;，MCP 定义了&amp;quot;系统调用&amp;quot;，Agent Plugins 定义了&amp;quot;安装包&amp;quot;。&lt;/p&gt;
+&lt;h3 id="skills应用层的开放标准"&gt;Skills：应用层的开放标准
+&lt;/h3&gt;&lt;p&gt;Anthropic 2025 年 10 月提出 Agent Skills，12 月通过 agentskills.io 变成开放规范，交给 Linux 基金会下的 Agentic AI Foundation 托管。到今年三月，OpenAI、微软、JetBrains、Cursor、Gemini CLI 等约 40 个平台实现了兼容，三大市场合计的 Skills 数量超过 49 万。&lt;/p&gt;
+&lt;p&gt;规范刻意极简：一个文件夹，一个 SKILL.md，两个必填字段 name 和 description，其余可选。&lt;/p&gt;
+&lt;p&gt;它的本质是&lt;strong&gt;给 Agent 读的方法论&lt;/strong&gt;，而不是给模型调的函数。这就是半年前我说的&amp;quot;视角市场&amp;quot;：专家把自己的工作方式写成文档，Agent 照着做。只是它没有变成一个&amp;quot;市场&amp;quot;，它变成了一个文件格式。&lt;/p&gt;
+&lt;p&gt;而 ClawHub 的投毒事件说明，应用商店的老问题一个都没少：签名、审核、权限声明、沙箱运行。操作系统三十年前踩过的坑，Agent 生态正在重新踩一遍。&lt;/p&gt;
+&lt;h3 id="mcp从应用关注点到基础设施关注点"&gt;MCP：从应用关注点到基础设施关注点
+&lt;/h3&gt;&lt;p&gt;MCP 去年 12 月被捐给 AAIF，今年三月月度 SDK 下载量接近一亿。&lt;/p&gt;
+&lt;p&gt;7 月 28 日的版本是一次重写。协议层变成无状态：取消 initialize 握手和会话 ID，所有上下文随每次请求携带，普通 HTTP 基础设施可以直接路由 MCP 流量。服务端发起的采样和请求被&amp;quot;多轮往返请求&amp;quot;取代，状态全部放在负载里而不是连接里。同时引入了正式的废弃政策、MCP Apps 扩展（服务端渲染 UI）和 Tasks 扩展（长时任务）。&lt;/p&gt;
+&lt;p&gt;一句话概括：&lt;strong&gt;MCP 从&amp;quot;应用怎么连工具&amp;quot;变成了&amp;quot;基础设施怎么承载 Agent 流量&amp;quot;。&lt;/strong&gt; 它在往系统调用层沉。&lt;/p&gt;
+&lt;h3 id="agent-plugins安装包的标准化进行中"&gt;Agent Plugins：安装包的标准化进行中
+&lt;/h3&gt;&lt;p&gt;Skills 是程序，MCP 是系统调用，中间还缺一样东西：&lt;strong&gt;把它们打包、分发、安装的格式。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;8 月 6 日，Agent Plugins 1.0.0 发布。指导委员会由 Amazon、Cursor、微软、OpenAI、Vercel 组成，Google 同日宣布加入，章程规定任何单一厂商不得占多数席位。首批客户端是 ChatGPT、Codex、Cursor、GitHub Copilot、Kiro 和 VS Code。&lt;/p&gt;
+&lt;p&gt;规范同样极简。一个 plugin 就是一个文件夹：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;plugin.json，必填字段只有 $schema 和 name&lt;/li&gt;
+&lt;li&gt;skills/ 目录，放 Agent Skills&lt;/li&gt;
+&lt;li&gt;mcp.json，配置 MCP server&lt;/li&gt;
+&lt;li&gt;以反向域名命名的客户端私有扩展目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;它没有发明新东西，只是把已经定型的 Skills 和 MCP 装进同一个盒子，让不同客户端用同一套规则发现和校验。这就是操作系统里的 deb 或 rpm。&lt;/p&gt;
+&lt;p&gt;值得注意的是两个缺席和一个空白。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Anthropic 不在委员会里。&lt;/strong&gt; Claude Code 的 .claude-plugin 格式早于这个标准，把 skills、hooks、MCP 配置、子 Agent、斜杠命令、LSP 定义打包在一起，比 Agent Plugins 1.0 的范围大得多。结果是市面上同时存在六种 manifest 格式：Agent Plugins、Claude、Copilot、Cursor、Codex，以及旧的 OpenPlugin。标准没有取代它们，而是成了第六种。VS Code 目前的做法是四种格式同时自动识别。这是标准化进程中的典型状态：先有事实标准，再有协商标准，两者并存一段时间。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;DeepSeek Harness 的 plugin 和 Agent Plugins 的 plugin 不是同一层。&lt;/strong&gt; 前者是内核模块：模型、沙箱、调度、循环都可以替换。后者是用户空间的应用包：Skills 加 MCP 配置。两者恰好对应操作系统的两个扩展点，内核模块和应用程序，只是名字撞了。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.0 明确不管的东西，恰恰是最要命的东西。&lt;/strong&gt; 规范文档列出的未来工作包括：权限与审批、来源验证、签名与发布者绑定、密钥管理、沙箱要求、安装与分发机制、审计。换句话说，1.0 只定义了包的目录结构，没有定义包的信任模型。而 ClawHub 12% 恶意 Skills 的事故已经证明，没有信任模型的包格式就是攻击面。&lt;/p&gt;
+&lt;p&gt;包管理器的历史在这里重演。apt 和 npm 都是先有格式，后有签名，再有权限声明，每一步都由一次事故推动。Agent Plugins 现在处于&amp;quot;有格式&amp;quot;的阶段。&lt;/p&gt;
+&lt;h2 id="六新的结构图"&gt;六、新的结构图
+&lt;/h2&gt;&lt;p&gt;把三个变量放到一起，现在的 Agent 技术栈长这样：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;内核层：Harness 运行时&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;会话日志、Agent loop、调度、子 Agent 管理&lt;/li&gt;
+&lt;li&gt;代表：DeepSeek Harness、Claude Agent SDK、OpenClaw Gateway&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;系统调用与隔离层&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MCP、工具注册、沙箱、凭证隔离、网络出口策略&lt;/li&gt;
+&lt;li&gt;代表：MCP 2026-07-28、Firecracker、gVisor、Seatbelt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;用户空间&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Skills、UI、对话循环&lt;/li&gt;
+&lt;li&gt;Agent Plugins 是这一层的安装包格式，marketplace 是软件源&lt;/li&gt;
+&lt;li&gt;用户看到的&amp;quot;个人助手&amp;quot;就在这一层&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;硬件层&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;模型，越来越多地为运行在 Harness 里而训练&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;半年前那篇文章问的是&amp;quot;Agent 平台如何破圈&amp;quot;。现在的答案是：&lt;strong&gt;平台没有破圈，平台沉到了内核层，变得不可见。&lt;/strong&gt; 用户面对的依然是助手。个人助手不是 Agent 平台的对立面，它是 Agent 操作系统的默认 shell。&lt;/p&gt;
+&lt;h2 id="七什么没有变"&gt;七、什么没有变
+&lt;/h2&gt;&lt;p&gt;两件事依然成立。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;认知无法被商品化。&lt;/strong&gt; 那篇文章第三节的论证是无时效的。Skills 的爆发看起来像是在卖认知，其实卖的是流程和视角，真正的判断力仍然在人的脑子里。49 万个 Skills 里，有价值的那一小撮之所以有价值，是因为写它的人有独特的工作方式，而不是因为它是一个 Skill。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;不确定性成本仍然存在。&lt;/strong&gt; 它只是换了形态：从任务失败变成了边界失效，从&amp;quot;流程跑不通&amp;quot;变成了&amp;quot;跑通了但不该跑&amp;quot;。安全事件是新的失败模式。这半年沙箱的迅猛发展，本质上是在为这种新形态的不确定性买单。&lt;/p&gt;
+&lt;h2 id="八下半年的判断"&gt;八、下半年的判断
+&lt;/h2&gt;&lt;p&gt;写在这里，半年后再来打脸：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Harness 成为模型厂商的主战场。&lt;/strong&gt; 模型继续商品化，差异化转移到运行时。开源 Harness 会像当年的 Linux 一样，成为多数产品的底座。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;沙箱成为默认，不再是选项。&lt;/strong&gt; 没有隔离层的 Agent 产品会被视为不合格，就像今天没有 HTTPS 的网站。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;模型继续内化 Harness 的知识。&lt;/strong&gt; 系统提示词继续缩短，Harness 的价值从&amp;quot;教模型怎么做&amp;quot;转向&amp;quot;限制模型能做什么&amp;quot;和&amp;quot;记录模型做了什么&amp;quot;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Plugin 标准的下一步是信任模型。&lt;/strong&gt; 签名、权限声明、来源验证会在 2.0 之前由至少一次公开事故逼出来。六种 manifest 格式会收敛到两种：一种协商标准，一种事实标准。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;个人计算机重新出现。&lt;/strong&gt; 本地模型加本地 Harness 加本地沙箱，在一台 64GB 的 Mac 上跑一个完整的 Agent 操作系统，这不是极客玩具，这是下一代个人计算的形态。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="结语"&gt;结语
+&lt;/h2&gt;&lt;p&gt;半年前我写道：只有当用户感受不到结构的存在时，结构才算真正成熟。&lt;/p&gt;
+&lt;p&gt;现在我知道那个结构叫什么了。它不是平台，也不是助手。它是操作系统。操作系统的成熟标志，从来都是没人再谈论它。&lt;/p&gt;
+&lt;h2 id="参考"&gt;参考
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://deepseek.com/harness/en/" target="_blank" rel="noopener"
+&gt;DeepSeek Harness 官方文档&lt;/a&gt;，&lt;a class="link" href="https://github.com/deepseek-ai/deepseek-harness" target="_blank" rel="noopener"
+&gt;GitHub 仓库&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://www.theregister.com/ai-and-ml/2026/08/14/deepseeks-innovative-harness-treats-everything-as-a-plug-in/5288095" target="_blank" rel="noopener"
+&gt;The Register：DeepSeek&amp;rsquo;s innovative harness treats everything as a plug-in&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://www.infoq.com/news/2026/08/deep-seek-harness/" target="_blank" rel="noopener"
+&gt;InfoQ：The Open-Sourcing of DeepSeek Harness&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://www.philschmid.de/agent-harness-2026" target="_blank" rel="noopener"
+&gt;Philipp Schmid：The importance of Agent Harness in 2026&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://developers.openai.com/api/docs/deprecations" target="_blank" rel="noopener"
+&gt;OpenAI Agent Builder 废弃通知&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://www.opensourceforu.com/2026/09/openclaw-2-0-revamps-personal-ai-agent-setup/" target="_blank" rel="noopener"
+&gt;OpenClaw 2.0 发布&lt;/a&gt;，&lt;a class="link" href="https://hivesecurity.gitlab.io/blog/openclaw-ai-agent-security-crisis-2026/" target="_blank" rel="noopener"
+&gt;OpenClaw 安全危机回顾&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://simonwillison.net/2026/May/30/how-we-contain-claude/" target="_blank" rel="noopener"
+&gt;Simon Willison：How we contain Claude&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://emirb.github.io/blog/microvm-2026/" target="_blank" rel="noopener"
+&gt;Your Container Is Not a Sandbox: The State of MicroVM Isolation in 2026&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://arxiv.org/abs/2603.02277" target="_blank" rel="noopener"
+&gt;Quantifying Frontier LLM Capabilities for Container Sandbox Escape&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://code.claude.com/docs/en/sandbox-environments" target="_blank" rel="noopener"
+&gt;Claude Code 沙箱环境文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://metr.org/blog/2026-1-29-time-horizon-1-1/" target="_blank" rel="noopener"
+&gt;METR：Time Horizon 1.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://modelcontextprotocol.io/specification/2026-07-28/changelog" target="_blank" rel="noopener"
+&gt;MCP 2026-07-28 规范变更&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation" target="_blank" rel="noopener"
+&gt;Linux 基金会：Agentic AI Foundation 成立&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://agent-plugins.org/" target="_blank" rel="noopener"
+&gt;Agent Plugins 1.0 规范&lt;/a&gt;，&lt;a class="link" href="https://www.digitalapplied.com/blog/agent-plugins-1-0-open-standard-portable-ai-skills" target="_blank" rel="noopener"
+&gt;Agent Plugins 1.0: What the Standard Actually Fixes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://code.claude.com/docs/en/plugin-marketplaces" target="_blank" rel="noopener"
+&gt;Claude Code 插件市场文档&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://anomity.ai/blog/agent-skills-open-standard-adoption-governance/" target="_blank" rel="noopener"
+&gt;Agent Skills 开放标准与采用情况&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://snyk.io/blog/poisoned-security-scanner-backdooring-litellm/" target="_blank" rel="noopener"
+&gt;LiteLLM 供应链攻击分析&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>
