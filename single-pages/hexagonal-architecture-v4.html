@@ -23,6 +23,11 @@
   .cap{background:#081722;border:1px solid #173248;border-radius:14px;padding:13px 15px;color:#9fb3c3;font-size:13px;line-height:1.65}
   .cap b{color:#f1f7fb}
   .cap strong{color:#72e5b4}
+  .glossary{margin-top:18px;background:#081722;border:1px solid #173248;border-radius:18px;padding:18px 20px 16px}
+  .glossary h2{margin:0 0 12px;font-size:18px;color:#f1f7fb}
+  .glossary ul{margin:0;padding-left:1.2em}
+  .glossary li{margin:10px 0;color:#a8bdcd;line-height:1.75;font-size:14px}
+  .glossary b{color:#ffffff}
   .foot{margin-top:12px;color:#70899d;font-size:12px;line-height:1.7}
   .node{filter:drop-shadow(0 9px 16px rgba(0,0,0,.22))}
   .t-title{font-weight:800;fill:#fff}
@@ -58,13 +63,11 @@
     <filter id="glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   </defs>
 
-  <!-- REAL WORLD canvas -->
   <rect x="18" y="18" width="1524" height="984" rx="26" fill="url(#gReal)" opacity=".33" stroke="#7d5132" stroke-width="1.3"/>
   <text x="54" y="62" class="t-title" font-size="18">REAL WORLD · 现实世界 / 技术世界</text>
   <text x="54" y="86" class="t-real" font-size="13">变化快 · 有 I/O · 有协议 · 有框架 · 有厂商 · 有失败与延迟</text>
   <text x="1502" y="62" text-anchor="end" class="t-muted" font-size="12">这些东西都不应该成为业务规则的一部分</text>
 
-  <!-- Digital world hex -->
   <polygon points="780,112 1100,296 1100,664 780,848 460,664 460,296"
            fill="url(#gDigital)" stroke="#65d7ff" stroke-width="3"/>
   <polygon points="780,133 1082,306 1082,654 780,827 478,654 478,306"
@@ -72,46 +75,39 @@
   <text x="780" y="170" text-anchor="middle" class="t-title" font-size="21">DIGITAL WORLD · 数字业务世界</text>
   <text x="780" y="194" text-anchor="middle" class="t-digi" font-size="13">稳定 · 可推理 · 可单测 · 只描述“业务是什么”，不描述“技术怎么做”</text>
 
-  <!-- Core -->
   <rect x="600" y="332" width="360" height="248" rx="34" fill="url(#gCore)" stroke="#b4a9ff" stroke-width="2.2" class="node"/>
   <text x="780" y="380" text-anchor="middle" class="t-title" font-size="25">业务核心</text>
-  <text x="780" y="412" text-anchor="middle" class="t-label" font-size="17">Domain Model + Use Cases</text>
+  <text x="780" y="412" text-anchor="middle" class="t-label" font-size="17">Domain Model + Application / Use Cases</text>
   <line x1="650" y1="434" x2="910" y2="434" stroke="#7f73c8"/>
   <text x="780" y="468" text-anchor="middle" class="t-muted" font-size="14">订单 / 商品 / 金额 / 库存 / 支付状态</text>
   <text x="780" y="496" text-anchor="middle" class="t-muted" font-size="14">创建订单 · 取消订单 · 计算价格 · 确认支付</text>
   <rect x="661" y="520" width="238" height="37" rx="18" fill="#211f50" stroke="#7c71d2"/>
   <text x="780" y="544" text-anchor="middle" fill="#dcd7ff" font-size="13">纯业务语义，不认识外部技术</text>
 
-  <!-- Ports inside boundary -->
-  <!-- 1 inbound -->
   <g class="node">
     <rect x="472" y="250" width="185" height="82" rx="14" fill="url(#gPort)" stroke="#72e5b4" stroke-width="1.8"/>
     <text x="564" y="278" text-anchor="middle" class="t-port" font-size="12">DRIVING PORT</text>
     <text x="564" y="302" text-anchor="middle" class="t-label mono" font-size="14">PlaceOrder</text>
     <text x="564" y="321" text-anchor="middle" class="t-muted" font-size="11">“我要下单”</text>
   </g>
-  <!-- 2 persistence -->
   <g class="node">
     <rect x="903" y="242" width="185" height="82" rx="14" fill="url(#gPort)" stroke="#72e5b4" stroke-width="1.8"/>
     <text x="995" y="270" text-anchor="middle" class="t-port" font-size="12">DRIVEN PORT</text>
     <text x="995" y="294" text-anchor="middle" class="t-label mono" font-size="14">OrderStore</text>
     <text x="995" y="313" text-anchor="middle" class="t-muted" font-size="11">“保存 / 查询订单”</text>
   </g>
-  <!-- 3 third party -->
   <g class="node">
     <rect x="994" y="603" width="180" height="82" rx="14" fill="url(#gPort)" stroke="#72e5b4" stroke-width="1.8"/>
     <text x="1084" y="631" text-anchor="middle" class="t-port" font-size="12">DRIVEN PORT</text>
     <text x="1084" y="655" text-anchor="middle" class="t-label mono" font-size="14">PaymentGateway</text>
     <text x="1084" y="674" text-anchor="middle" class="t-muted" font-size="11">“发起支付”</text>
   </g>
-  <!-- 4 MQ -->
   <g class="node">
     <rect x="689" y="745" width="190" height="82" rx="14" fill="url(#gPort)" stroke="#72e5b4" stroke-width="1.8"/>
     <text x="784" y="773" text-anchor="middle" class="t-port" font-size="12">DRIVEN PORT</text>
     <text x="784" y="797" text-anchor="middle" class="t-label mono" font-size="13">EventPublisher</text>
     <text x="784" y="816" text-anchor="middle" class="t-muted" font-size="11">“发布领域事件”</text>
   </g>
-  <!-- 5 file -->
   <g class="node">
     <rect x="383" y="599" width="190" height="82" rx="14" fill="url(#gPort)" stroke="#72e5b4" stroke-width="1.8"/>
     <text x="478" y="627" text-anchor="middle" class="t-port" font-size="12">DRIVEN PORT</text>
@@ -119,15 +115,12 @@
     <text x="478" y="670" text-anchor="middle" class="t-muted" font-size="11">“保存业务文档”</text>
   </g>
 
-  <!-- Core depends on ports / all arrows stay digital -->
   <path d="M657 291 C690 310 704 330 717 348" fill="none" stroke="#d5caff" stroke-width="2.2" marker-end="url(#arrDep)"/>
   <path d="M960 365 C974 347 983 334 989 324" fill="none" stroke="#d5caff" stroke-width="2.2" marker-end="url(#arrDep)"/>
   <path d="M944 540 C1001 564 1034 585 1066 603" fill="none" stroke="#d5caff" stroke-width="2.2" marker-end="url(#arrDep)"/>
   <path d="M780 580 L783 745" fill="none" stroke="#d5caff" stroke-width="2.2" marker-end="url(#arrDep)"/>
   <path d="M617 536 C560 560 524 580 500 599" fill="none" stroke="#d5caff" stroke-width="2.2" marker-end="url(#arrDep)"/>
 
-  <!-- Adapters straddling outside -->
-  <!-- UI -->
   <g class="node">
     <rect x="112" y="192" width="260" height="122" rx="18" fill="#142433" stroke="#ffb75d" stroke-width="1.8"/>
     <text x="136" y="219" class="t-real" font-size="12">① 用户 / UI / HTTP</text>
@@ -138,7 +131,6 @@
   <path d="M372 253 C416 254 438 260 472 273" fill="none" stroke="#65d7ff" stroke-width="3" marker-end="url(#arrIn)"/>
   <text x="417" y="239" text-anchor="middle" class="t-digi" font-size="11">翻译</text>
 
-  <!-- DB -->
   <g class="node">
     <rect x="1194" y="172" width="252" height="128" rx="18" fill="#142433" stroke="#ffb75d" stroke-width="1.8"/>
     <text x="1218" y="200" class="t-real" font-size="12">② 数据库 / 持久化</text>
@@ -152,7 +144,6 @@
   <path d="M1088 278 C1138 260 1166 249 1194 243" fill="none" stroke="#72e5b4" stroke-width="3" marker-end="url(#arrOut)"/>
   <path d="M1322 300 L1337 319" fill="none" stroke="#ffb75d" stroke-width="2"/>
 
-  <!-- third-party API -->
   <g class="node">
     <rect x="1224" y="510" width="260" height="126" rx="18" fill="#142433" stroke="#ffb75d" stroke-width="1.8"/>
     <text x="1248" y="538" class="t-real" font-size="12">③ 第三方系统 / API</text>
@@ -166,7 +157,6 @@
   <path d="M1174 645 C1193 624 1207 603 1224 585" fill="none" stroke="#72e5b4" stroke-width="3" marker-end="url(#arrOut)"/>
   <path d="M1356 636 L1365 670" fill="none" stroke="#ffb75d" stroke-width="2"/>
 
-  <!-- MQ -->
   <g class="node">
     <rect x="885" y="866" width="270" height="108" rx="18" fill="#142433" stroke="#ffb75d" stroke-width="1.8"/>
     <text x="910" y="893" class="t-real" font-size="12">④ 消息队列 / 事件系统</text>
@@ -175,7 +165,6 @@
   </g>
   <path d="M830 827 C848 844 869 858 891 873" fill="none" stroke="#72e5b4" stroke-width="3" marker-end="url(#arrOut)"/>
 
-  <!-- File system -->
   <g class="node">
     <rect x="105" y="690" width="275" height="112" rx="18" fill="#142433" stroke="#ffb75d" stroke-width="1.8"/>
     <text x="130" y="718" class="t-real" font-size="12">⑤ 文件 / 对象存储</text>
@@ -184,7 +173,6 @@
   </g>
   <path d="M380 741 C414 711 440 691 459 681" fill="none" stroke="#72e5b4" stroke-width="3" marker-end="url(#arrOut)"/>
 
-  <!-- Principle callout -->
   <g>
     <rect x="104" y="390" width="303" height="188" rx="20" fill="#0a1722" stroke="#35546a"/>
     <text x="132" y="424" class="t-title" font-size="16">边界真正隔离的是什么？</text>
@@ -195,19 +183,16 @@
     <text x="132" y="562" class="t-digi mono" font-size="12">PublishEvent / StoreDocument</text>
   </g>
 
-  <!-- Translation membrane label -->
   <g filter="url(#glow)">
     <rect x="640" y="218" width="280" height="40" rx="20" fill="#08252a" stroke="#72e5b4"/>
     <text x="780" y="243" text-anchor="middle" class="t-port" font-size="13">PORT = 边界契约 / 业务语言</text>
   </g>
 
-  <!-- Dependency direction strip -->
   <rect x="453" y="899" width="390" height="72" rx="16" fill="#101627" stroke="#7c6bd0"/>
   <text x="648" y="926" text-anchor="middle" fill="#d8d0ff" font-size="13">代码依赖方向</text>
-  <text x="648" y="949" text-anchor="middle" class="t-label" font-size="14">Adapter  →  Port  →  Core</text>
+  <text x="648" y="949" text-anchor="middle" class="t-label" font-size="14">Adapter → Port → Core</text>
   <text x="648" y="967" text-anchor="middle" class="t-muted" font-size="10">核心不能反向 import JPA / Kafka / SDK / HTTP</text>
 
-  <!-- Replacement proof -->
   <rect x="1190" y="806" width="286" height="164" rx="18" fill="#0a1722" stroke="#35546a"/>
   <text x="1218" y="837" class="t-title" font-size="15">“解耦成功”的验证方式</text>
   <text x="1218" y="868" class="t-muted" font-size="12">REST → gRPC</text>
@@ -216,7 +201,6 @@
   <text x="1218" y="937" class="t-muted" font-size="12">S3 → OSS / Local</text>
   <text x="1218" y="960" class="t-port" font-size="12">核心业务代码：0 修改</text>
 
-  <!-- small note -->
   <text x="56" y="978" class="t-muted" font-size="11">六边形的“六条边”没有语义；需要几类外部交互，就可以有几个 Port / Adapter。</text>
 </svg>
 </div>
@@ -226,6 +210,22 @@
   <div class="cap"><b>Port 是业务自己的话</b><br><code>OrderStore</code>、<code>PaymentGateway</code> 描述“业务需要什么”，不能叫 <code>JpaRepository</code>、<code>KafkaProducer</code> 这类技术名字。</div>
   <div class="cap"><b>Adapter 是翻译官</b><br>它可以知道 Spring、MyBatis、Kafka、S3、第三方 SDK；它把这些现实技术翻译成 Port 所定义的业务契约。</div>
 </div>
+
+<div class="glossary">
+  <h2>整个六边形架构中的参与者，可以归为五类</h2>
+  <div style="color:#8fa8ba;font-size:13px;line-height:1.8;margin:0 0 12px;max-width:1120px">
+    它们共同围绕一个目标协作：<b style="color:#eaf2f8">让数字世界中的业务逻辑，不直接依赖现实世界中的技术实现。</b>
+    Domain 保持业务规则纯粹，Application 组织业务用例，Ports 定义边界契约，Adapters 负责跨越边界做技术翻译，而 UI、数据库及外部系统则存在于边界之外。
+  </div>
+  <ul>
+    <li><b>Domain（领域 / 业务逻辑）</b>：位于架构最核心的位置，表达业务本身的规则、概念和约束。它回答的是“业务是什么、规则是什么”，不关心数据来自 HTTP、数据库还是消息队列。</li>
+    <li><b>Application（应用服务）</b>：负责组织和协调一个完整的业务用例。它驱动 Domain 完成业务行为，并通过 Port 使用外部能力，但自身不承载数据库、网络协议、SDK 等技术细节。</li>
+    <li><b>Ports（端口）</b>：数字世界与现实世界之间的边界契约。输入端口描述“系统能够提供什么能力”，输出端口描述“业务核心需要外界提供什么能力”，两者都使用业务语言表达。</li>
+    <li><b>Adapters（适配器）</b>：边界两侧的“翻译器”。它把 HTTP、SQL、MQ、文件、第三方 SDK 等现实世界的技术语言，转换成 Port 所定义的业务语言，或者反向转换。</li>
+    <li><b>用户界面（UI）和外部系统</b>：属于现实世界，包括用户、Web/API 客户端、数据库、消息系统、文件存储和第三方服务等。它们不会直接进入业务核心，而是始终通过 Adapter → Port 与核心发生交互。</li>
+  </ul>
+</div>
+
 <div class="foot">这版特意把五类典型外部依赖画在“现实世界”中：UI/HTTP、数据库、第三方 API、消息系统、文件/对象存储。它们都可以独立替换；如果替换时需要修改领域模型或用例，说明边界仍然被技术细节穿透。</div>
 </div>
 </body>
