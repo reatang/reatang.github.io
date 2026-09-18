@@ -1,4 +1,159 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MCP on 雨的味道</title><link>https://reatang.com/tags/mcp/</link><description>Recent content in MCP on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 04 Sep 2026 17:00:00 +0800</lastBuildDate><atom:link href="https://reatang.com/tags/mcp/index.xml" rel="self" type="application/rss+xml"/><item><title>【产业观察】半年后再看：当 Harness 成为操作系统，Agent 平台与个人助手的边界消失了</title><link>https://reatang.com/p/agent-harness-as-operating-system/</link><pubDate>Fri, 04 Sep 2026 17:00:00 +0800</pubDate><guid>https://reatang.com/p/agent-harness-as-operating-system/</guid><description>&lt;p&gt;今年三月，我写了&lt;a class="link" href="https://reatang.com/p/agent-platform-vs-personal-ai-assistant/" &gt;《隐形的结构：为何 Agent 平台难以破圈，而个人助手终将爆发》&lt;/a&gt;。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MCP on 雨的味道</title><link>https://reatang.com/tags/mcp/</link><description>Recent content in MCP on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 18 Sep 2026 13:07:00 +0800</lastBuildDate><atom:link href="https://reatang.com/tags/mcp/index.xml" rel="self" type="application/rss+xml"/><item><title>【AI架构】数据、行为与 AI：传统信息系统接入 Agent 平台的两条路</title><link>https://reatang.com/p/workflow-vs-agent-for-information-systems/</link><pubDate>Fri, 18 Sep 2026 13:07:00 +0800</pubDate><guid>https://reatang.com/p/workflow-vs-agent-for-information-systems/</guid><description>&lt;p&gt;传统信息系统只有两个元素：&lt;strong&gt;数据&lt;/strong&gt;和&lt;strong&gt;行为&lt;/strong&gt;。数据是表和文件，行为是围绕数据的增删改查和业务规则。三十年来技术栈换了好几轮，信息系统的骨架一直是这两样。&lt;/p&gt;
+&lt;p&gt;现在多了第三个元素：&lt;strong&gt;AI&lt;/strong&gt;。它和前两个在性质上不同：数据是确定的，行为是确定的，AI 是不确定的。它读数据、调行为，还会自己决定下一步调哪个。所以&amp;quot;AI 放在系统的哪个位置&amp;quot;这个问题，在技术上只有一个含义：&lt;strong&gt;控制流归谁。&lt;/strong&gt; 是系统决定什么时候用 AI，还是 AI 决定什么时候用系统。&lt;/p&gt;
+&lt;p&gt;这正是这几年吵个不停的 Agent 模式与 Workflow 模式之争。我原本以为它是个理念问题，直到自己做了一个小应用，发现它落到代码里是一组非常具体的架构取舍。&lt;/p&gt;
+&lt;h2 id="一出发点一个小应用"&gt;一、出发点：一个小应用
+&lt;/h2&gt;&lt;p&gt;我有一台跑着 ComfyUI 的远端主机，上面有一个图生视频工作流。之前每次出片都要手动上传图片、粘提示词、改参数、排队、下载，同一张图试过哪些提示词、哪条效果好，全靠笔记。&lt;/p&gt;
+&lt;p&gt;于是我花几天做了个本地应用。它把物料组织成一棵树：一张图片下挂多条提示词，一条提示词下挂多次生成任务，每个任务对应一个视频。生成走自己的串行队列，完成后把视频拉回本机。写提示词的活交给一个能看图的&amp;quot;管家&amp;quot;智能体，它理解我沉淀的带变量的元提示词模板和项目里的 SKILL，产出的提示词直接存到图片下。我再用五星评分作为评价体系。&lt;/p&gt;
+&lt;p&gt;按三元素拆开：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;数据&lt;/strong&gt;：图片、提示词、任务、评分，以及它们之间的谱系。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;行为&lt;/strong&gt;：生提示词工作流、生视频工作流、评价打分。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AI&lt;/strong&gt;：管家，看图写提示词。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;它是一个&amp;quot;传统信息系统 + 一个 AI 附件&amp;quot;的教科书样本。功能齐了，我却觉得哪里不对。&lt;/p&gt;
+&lt;h2 id="二思考点逐项对齐到-agent-平台"&gt;二、思考点：逐项对齐到 Agent 平台
+&lt;/h2&gt;&lt;p&gt;不对的地方在于，深挖每一项基本功能，几乎每一项在现有的 Agent 平台上都有对应物：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;我做的&lt;/th&gt;
+&lt;th&gt;平台上的对应物&lt;/th&gt;
+&lt;th&gt;平台能否替代&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;元提示词的 &lt;code&gt;{{变量}}&lt;/code&gt; 模板&lt;/td&gt;
+&lt;td&gt;Dify、Coze 的提示词变量&lt;/td&gt;
+&lt;td&gt;能&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;管家的&amp;quot;对话 + 工具 + SKILL&amp;quot;&lt;/td&gt;
+&lt;td&gt;Agent 节点 + 工具插件 + Skills 目录&lt;/td&gt;
+&lt;td&gt;能&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;串行队列、失败重试、超时兜底&lt;/td&gt;
+&lt;td&gt;工作流引擎的执行器&lt;/td&gt;
+&lt;td&gt;能&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;参数表单由配置生成&lt;/td&gt;
+&lt;td&gt;工具节点的参数 schema&lt;/td&gt;
+&lt;td&gt;能&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;图片 → 提示词 → 任务的物料树与谱系&lt;/td&gt;
+&lt;td&gt;无&lt;/td&gt;
+&lt;td&gt;不能&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;五星评分与按评分排序&lt;/td&gt;
+&lt;td&gt;无&lt;/td&gt;
+&lt;td&gt;不能&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;带类型参数映射的 ComfyUI 调用&lt;/td&gt;
+&lt;td&gt;只有&amp;quot;扔整个 JSON&amp;quot;的粗粒度插件&lt;/td&gt;
+&lt;td&gt;勉强&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;只有三样东西平台没有：物料的管理，评分体系，和一个像样的 ComfyUI 调用节点。&lt;/strong&gt; 换句话说，我做的不是一个产品，是一个平台插件加一个数据库。&lt;/p&gt;
+&lt;p&gt;这个发现的第一层结论是业务模式的对齐：与其自己重造对话界面、工作流引擎和模板系统，不如交给平台，自己只做平台缺的那些。第二层是商业价值的对齐：放进平台，价值来自被调用和被分发，而不是来自入口。这一层是商业判断，本文不展开。&lt;/p&gt;
+&lt;p&gt;对齐之后，真正的技术问题才浮出来：&lt;strong&gt;数据平台和 Agent 平台，谁持有控制流？&lt;/strong&gt; 这个问题有且只有两个答案。&lt;/p&gt;
+&lt;h2 id="三方法论两条路线两种模式"&gt;三、方法论：两条路线，两种模式
+&lt;/h2&gt;&lt;p&gt;先把两个词说清楚。Workflow 模式是&lt;strong&gt;人写控制流，模型填节点&lt;/strong&gt;；Agent 模式是&lt;strong&gt;模型写控制流，人给工具和目标&lt;/strong&gt;。区别只有一个：谁决定下一步。&lt;/p&gt;
+&lt;p&gt;一个已有的数据管理平台要和 Agent 平台结合，两条路正好对应这两种模式。&lt;/p&gt;
+&lt;h3 id="路线一数据平台为主agent-平台供给工作流workflow-模式"&gt;路线一：数据平台为主，Agent 平台供给工作流（Workflow 模式）
+&lt;/h3&gt;&lt;p&gt;拓扑是&lt;strong&gt;数据平台 → API → Agent 平台上发布的应用&lt;/strong&gt;。信息系统保持主体：它拥有界面、流程和事务边界。AI 能力从平台购买：Dify 的应用发布成接口，Coze 的 Bot 发布成接口，n8n 的工作流挂一个 Webhook。信息系统在流程里预留的位置上调一下，拿到结果继续走。&lt;/p&gt;
+&lt;p&gt;技术上要处理的事情：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;契约是固定的。&lt;/strong&gt; 平台上的应用被当作一个纯函数：输入是图片和实例化后的模板文本，输出是一组提示词的 JSON。schema 由数据平台定义，平台应用照着填。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;上下文由数据平台组装。&lt;/strong&gt; 图片缩放、转 base64、模板渲染、已有提示词列表，全部在调用前准备好。AI 只看到这一次调用需要的东西，上下文天然最小化。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;同步或异步由数据平台决定。&lt;/strong&gt; 短任务阻塞等结果，长任务用平台的回调或 SSE，但状态机始终在数据平台这边。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;写回在数据平台的事务内。&lt;/strong&gt; 结果落库、幂等、失败回滚，都是信息系统自己的事，平台不参与。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;供应商可抽象。&lt;/strong&gt; 一个 provider 接口，Dify、Coze、n8n 各是一个实现，切换不动业务代码。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对应到我的小应用：界面和账本不变，管家不再自己跑 LangChain，而是把图片和元提示词发给 Dify 上的一个 Agent 应用，拿回提示词存进账本。生视频工作流照旧走自己的串行队列，评分照旧。&lt;/p&gt;
+&lt;p&gt;这条路的特征：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;稳定。&lt;/strong&gt; 每一次 AI 调用都在系统自己的事务边界内，出了问题在自己的日志里查。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数据不出门。&lt;/strong&gt; AI 只看到你传给它的那一小段上下文。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;基本没有扩展性。&lt;/strong&gt; AI 只能做系统预先留好位置的事。每一个新的 AI 用例，都要在数据平台开一个新入口、写一段新逻辑，再到 Agent 平台新建一个应用。AI 在这里做的是填空题，题目是系统出的。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;无法跨系统组合。&lt;/strong&gt; AI 看不到这个系统之外的任何东西，也看不到这个系统的全貌。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="路线二agent-平台为主数据平台以-mcp-供给数据与行为agent-模式"&gt;路线二：Agent 平台为主，数据平台以 MCP 供给数据与行为（Agent 模式）
+&lt;/h3&gt;&lt;p&gt;拓扑反过来：&lt;strong&gt;Agent 平台 → MCP → 数据平台&lt;/strong&gt;。信息系统退到后面变成无头服务，通过 MCP 把自己暴露出去。对话和编排在平台上发生，信息系统只回答&amp;quot;给我这个&amp;quot;和&amp;quot;帮我做这个&amp;quot;。&lt;/p&gt;
+&lt;p&gt;MCP 的三个原语和信息系统的三元素几乎一一对应：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;数据 → resources。&lt;/strong&gt; 图片、提示词、任务以资源暴露。图片作为资源之后，平台上的多模态模型可以直接读图，&amp;ldquo;管家看图&amp;quot;不再需要自己维护。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;行为 → tools。&lt;/strong&gt; 账本的增删改查、打分、建任务、查状态、取消。每个 ComfyUI 工作流按参数映射生成一个 tool，映射文件里的类型、范围、默认值直接转成 JSON Schema，平台自动拿到带校验的表单。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;方法论 → prompts。&lt;/strong&gt; 元提示词天然对应 MCP 的 prompt 原语，&lt;code&gt;{{变量}}&lt;/code&gt;、枚举、默认值原样映射成 arguments。SKILL 目录也可以作为 prompts 或 resources 暴露。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;技术上要处理的事情，比路线一多得多：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;长任务要改形态。&lt;/strong&gt; MCP 工具是请求响应式的，生视频不能靠一次调用等完。建任务立即返回 ID，再提供一个查状态的 tool 让平台轮询，或者用 MCP 的 Tasks 扩展。串行、取消、重启恢复这些语义仍然留在数据平台，藏在工具后面。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;副作用要标注。&lt;/strong&gt; 哪些工具只读、哪些有副作用、哪些不可逆，要通过 tool 的注解告诉平台。&amp;ldquo;管家不允许直接建任务&amp;quot;这条约束，在这里变成不暴露那个 tool，或者在 tool 上加审批开关。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;schema 要写给模型看。&lt;/strong&gt; 工具的名字、描述、参数说明，决定了模型会不会用、用得对不对。这是一种新的 API 设计，面向的读者不是程序员。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;传输与鉴权要补。&lt;/strong&gt; 平台只认 Streamable HTTP。原来跑在本机没有鉴权的服务，接任何非本机平台前必须加 token 或 OAuth。局域网可达性也要重新考虑。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;系统要无头化。&lt;/strong&gt; 前端从主角降级为账本管理台，评分、谱系这些需要界面的能力保留在自家前端，对话与生成的入口交给平台。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;幂等要显式。&lt;/strong&gt; 模型可能重试、可能重复调用，每个有副作用的工具都得能安全地被调两次。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对应到我的小应用：管家退位，平台的 Agent 节点接上 MCP 之后就是管家。自家后端变成&amp;quot;素材与实验账本服务&amp;rdquo;，参数映射机制以 tool 的形式暴露，串行队列藏在建任务的 tool 后面。&lt;/p&gt;
+&lt;p&gt;这条路的特征：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;可迁移性极强。&lt;/strong&gt; 一份 MCP 实现，Dify、n8n、Coze、Claude、ChatGPT 全能接，不押注任何平台。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;用例开放。&lt;/strong&gt; AI 能做什么不再由系统预先规定，而由它拿到的工具和上下文决定。跨系统组合成为可能：一个 Agent 同时拿着你的账本工具和别人的网盘工具。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;改动不小。&lt;/strong&gt; 上面那六条不是加功能，是重构边界。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;控制力不高。&lt;/strong&gt; 什么时候调、调几次、按什么顺序调，由平台上的模型决定。审计日志一半在你这、一半在平台。工具返回的内容对模型来说是数据，但模型可能把它当指令，注入面从界面转移到了工具返回值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="两条路是镜像"&gt;两条路是镜像
+&lt;/h3&gt;&lt;p&gt;把两条路并排放，每一个维度都是相反的：稳定对开放，控制对迁移，改动小对改动大，上下文最小化对上下文由模型决定。&lt;strong&gt;路线一放弃的是 AI 的可能性，路线二放弃的是对控制流的主权。&lt;/strong&gt; 没有一条能在所有维度上占优。&lt;/p&gt;
+&lt;p&gt;实践里还有两种混合形态，值得单独说：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;路线二上补路线一的控制平面。&lt;/strong&gt; 在 MCP 前面加一层网关：统一鉴权、统一审计、工具白名单、对高风险工具加审批。控制流仍然归模型，但每一步都经过你的检查点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;路线一上开一个只读的 MCP。&lt;/strong&gt; 系统主体不变，但把数据以 resources 暴露出去，让外部 Agent 能看不能改。扩展性补回一部分，主权不丢。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="四观察产业现状所有人都在两条路上同时走"&gt;四、观察产业现状：所有人都在两条路上同时走
+&lt;/h2&gt;&lt;p&gt;这场争论在产业里打了两年多，几条线索都很清楚。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Agent 平台自己在两条路上同时走。&lt;/strong&gt; Dify 在 1.6 之后既能把 MCP 当工具接入，也能把自己的应用发布成 MCP。n8n 同时有 MCP 客户端节点和 MCP Server 触发器。Coze 也加了 MCP 插件。这意味着平台既是路线二的宿主，也是路线一的供应商：它接你的 MCP，也让你以 API 调它。平台没有替你选边，它两边都要。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;MCP 规范在主动补路线二的短板。&lt;/strong&gt; 今年 7 月的版本把协议改成无状态，让普通 HTTP 基础设施能直接承载；引入 Tasks 扩展处理长时任务；引入 MCP Apps 扩展让服务端能渲染界面。我在&lt;a class="link" href="https://reatang.com/p/agent-harness-as-operating-system/" &gt;上一篇文章&lt;/a&gt;里把这些当作&amp;quot;协议往系统调用层沉&amp;quot;的证据。换个角度看，它们恰好对应路线二最被诟病的三个问题：状态、长任务、没有界面。协议在降低走路线二的代价。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Skills 的标准化把&amp;quot;方法论&amp;quot;变成了文件格式。&lt;/strong&gt; SKILL.md 是给 Agent 读的方法论文档，正好落在 prompts 这一层。我的小应用里那个手工维护的 skills 目录，在路线二下不需要任何改造就能被平台的 Agent 读到。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;SaaS 厂商的轨迹是从路线一走向两条并行。&lt;/strong&gt; 2023 到 2024 年几乎全行业在自己界面里嵌 Copilot，AI 是一个功能点，用例由厂商枚举。2025 年 MCP 定型之后，同一批厂商成批发布官方 MCP Server：GitHub、Atlassian、Notion、Stripe、Cloudflare、Linear、Sentry、Figma。路线一守自己的入口，路线二在别人的入口上不缺席。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;企业内部在用网关找回控制力。&lt;/strong&gt; 路线二最大的代价是控制力流失，于是 MCP 网关这类东西开始出现：统一鉴权、统一审计、限流、工具级授权，所有 Agent 平台对内部系统的调用都经过它。这就是上面说的第一种混合形态在企业里的落地。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;分界线每一代模型都在往路线二移，但路线一没有消失。&lt;/strong&gt; Anthropic 2024 年底那篇讲如何构建 Agent 的文章立场很明确：能用工作流解决的就不上 Agent，Agent 留给步骤无法预先写出来的任务。两年过去，这条线的位置变了，原则没变。变化的原因有两个：模型越强，写不出 SOP 的任务越多能直接交给 Agent；同时 Agent 让写工作流变得极便宜，让 Agent 探索几次，把稳定下来的路径固化成工作流，成本降了一个数量级。&lt;strong&gt;Agent 越强，工作流反而越多&lt;/strong&gt;，因为 Agent 成了工作流的生产者。&lt;/p&gt;
+&lt;p&gt;把这些放在一起：&lt;strong&gt;平台两条路都走，协议在补路线二的短板，企业在路线二上加控制平面，模型能力在把分界线往路线二推，但路线一始终是生产环境的默认。&lt;/strong&gt; 争论没有结束，格局已经稳定。&lt;/p&gt;
+&lt;h2 id="五最终结论没有结论只有场景"&gt;五、最终结论：没有结论，只有场景
+&lt;/h2&gt;&lt;p&gt;写到这里，读者大概期待一个&amp;quot;所以应该选哪条&amp;quot;的答案。我没有。两条路的代价都是真实的，没有一条在所有场景下占优。能给出的只有判断变量，而且都是技术变量。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;用例能不能枚举。&lt;/strong&gt; 能枚举的，路线一够用，AI 只需要在几个明确的位置做明确的事。不能枚举的，只能走路线二，路线一的填空题模式会把&amp;quot;事先没想到的组合&amp;quot;这部分价值全部锁死。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;副作用的比例和可逆性。&lt;/strong&gt; 系统里的行为大多只读或可逆，路线二的控制力损失可以接受。行为大多不可逆、事务要求强，路线一或者带网关的路线二。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;有没有便宜的验证器。&lt;/strong&gt; 编程有编译器和测试，Agent 的每一步都能被当步验证，所以编程领域最早全面走路线二。图生视频没有便宜的验证器，好不好只有人看了才知道。这时候人工评分就是验证器，账本就是验证器产生的数据。没有账本，Agent 的探索没有沉淀的地方。这也是为什么评分体系必须留在数据平台，不能交给 Agent 平台。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;需不需要多平台。&lt;/strong&gt; 只接一个平台，路线一的供应商抽象够用。要同时被多个平台调用，路线二的一份 MCP 实现是唯一不重复劳动的办法。&lt;/p&gt;
+&lt;p&gt;对照到我自己的小应用：用例完全开放，我自己都说不清管家下一步该帮我干什么；账本的行为大多可逆，不可逆的只有删除，可以不暴露；验证器是我自己的评分，留在账本里；将来大概率要同时接 Dify 和 n8n。四个变量全部指向路线二。所以它会变成一个 MCP 服务，账本、评分和参数映射留在自己手里，对话和编排交给平台。&lt;/p&gt;
+&lt;p&gt;但生视频那条链路我会继续用 Workflow 模式跑：参数映射定义节点绑定，串行队列保证可预测，任务快照保证可追溯。它是路线二里的一个 tool，tool 的内部是路线一。&lt;strong&gt;Agent 模式探路，Workflow 模式跑量，评分是两者之间的沉淀通道。&lt;/strong&gt; 管家试出的高分提示词，抽象成带变量的元提示词模板，下次就不需要管家了。&lt;/p&gt;
+&lt;p&gt;换一个场景，比如一个流程固定、审计严格的内部系统，四个变量全部反转，它应该走路线一，把 Agent 平台当作供应商藏在自己的流程后面。&lt;/p&gt;
+&lt;h2 id="结语"&gt;结语
+&lt;/h2&gt;&lt;p&gt;&amp;ldquo;AI 该放在信息系统的哪个位置&amp;rdquo;，答案是&amp;quot;控制流归谁&amp;rdquo;。Workflow 模式把控制流留给系统，换来稳定和可控；Agent 模式把控制流交给模型，换来开放和可迁移。两条路各有真实的代价，每个系统都得按自己的场景选，或者像平台那样两边都站。&lt;/p&gt;
+&lt;p&gt;我能给的唯一通用建议是：&lt;strong&gt;不管选哪条，先把数据和行为整理成平台无关的接口。&lt;/strong&gt; 路线一需要它来隔离供应商，路线二需要它来暴露 MCP。它是两条路唯一的公共前提，也是唯一不会因为选错路而浪费的投入。&lt;/p&gt;
+&lt;h2 id="参考"&gt;参考
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener"
+&gt;Anthropic：Building effective agents&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://modelcontextprotocol.io/specification/2026-07-28/changelog" target="_blank" rel="noopener"
+&gt;MCP 2026-07-28 规范变更&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://modelcontextprotocol.io/specification/latest/server/tools" target="_blank" rel="noopener"
+&gt;MCP 规范：Tools 与 annotations&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://dify.ai/blog/dify-plugin-system-design-and-implementation" target="_blank" rel="noopener"
+&gt;Dify 插件系统设计与实现&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://marketplace.dify.ai/plugin/langgenius/comfyui" target="_blank" rel="noopener"
+&gt;Dify Marketplace：ComfyUI 插件&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://community.n8n.io/t/n8n-nodes-comfyui-toolkit-non-blocking-comfyui-nodes-with-session-tracking/281174" target="_blank" rel="noopener"
+&gt;n8n-nodes-comfyui-toolkit：非阻塞节点与会话跟踪&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://agentskills.io/" target="_blank" rel="noopener"
+&gt;Agent Skills 开放规范&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;本站：&lt;a class="link" href="https://reatang.com/p/agent-harness-as-operating-system/" &gt;《半年后再看：当 Harness 成为操作系统》&lt;/a&gt;、&lt;a class="link" href="https://reatang.com/p/agent-platform-vs-personal-ai-assistant/" &gt;《隐形的结构：为何 Agent 平台难以破圈》&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>【产业观察】半年后再看：当 Harness 成为操作系统，Agent 平台与个人助手的边界消失了</title><link>https://reatang.com/p/agent-harness-as-operating-system/</link><pubDate>Fri, 04 Sep 2026 17:00:00 +0800</pubDate><guid>https://reatang.com/p/agent-harness-as-operating-system/</guid><description>&lt;p&gt;今年三月，我写了&lt;a class="link" href="https://reatang.com/p/agent-platform-vs-personal-ai-assistant/" &gt;《隐形的结构：为何 Agent 平台难以破圈，而个人助手终将爆发》&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;半年过去，那篇文章读起来已经像在描述另一个时代。不是因为结论错了，而是因为它描述现实的坐标系失效了。&lt;/p&gt;
 &lt;p&gt;这半年发生了三件事，每一件都足以改写那篇文章的前提：&lt;/p&gt;
 &lt;ol&gt;
