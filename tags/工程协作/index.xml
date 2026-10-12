@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>工程协作 on 雨的味道</title><link>https://reatang.com/tags/%E5%B7%A5%E7%A8%8B%E5%8D%8F%E4%BD%9C/</link><description>Recent content in 工程协作 on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 13 Oct 2026 00:30:00 +0800</lastBuildDate><atom:link href="https://reatang.com/tags/%E5%B7%A5%E7%A8%8B%E5%8D%8F%E4%BD%9C/index.xml" rel="self" type="application/rss+xml"/><item><title>【AI编程】把大目标拆成能认领、能验证、能交接的任务</title><link>https://reatang.com/p/task-splitting-methodology/</link><pubDate>Tue, 13 Oct 2026 00:30:00 +0800</pubDate><guid>https://reatang.com/p/task-splitting-methodology/</guid><description>&lt;h2 id="一个越来越普遍的卡点"&gt;一个越来越普遍的卡点
+&lt;/h2&gt;&lt;p&gt;这两年工程团队的工作方式变了一个量级。以前一个大目标拆给三五个人，大家坐在一起，边界不清楚可以当面问，验收不严格可以靠默契兜底。现在不一样了：同一个目标可能同时有人类工程师、多个 AI 执行者、几条互相依赖的仓库线在推进。执行者的上下文是有限的，会话会断，接手的人未必参与过前期讨论，甚至未必是人。&lt;/p&gt;
+&lt;p&gt;于是一种新的卡点浮现出来，而且在越来越多的团队里重复上演：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;任务拆了，但没人能单独开工。&lt;/strong&gt; 子任务写着&amp;quot;完善 X 模块&amp;quot;，接手者打开后发现要先读完半个仓库才知道从哪下手。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ldquo;完成&amp;quot;经不起追问。&lt;/strong&gt; PR 合了、CI 绿了、issue 关了，合到一起一跑，功能并不存在。问起来，每个人都能拿出自己那块的证据，但没有一份证据覆盖整体。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;交接等于重做。&lt;/strong&gt; 换一个执行者，或者 AI 会话一断，前面积累的判断、踩过的坑、剩下的缺口全部归零。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;并行变成互相等待。&lt;/strong&gt; 依赖写成&amp;quot;等 A 做完&amp;rdquo;，A 做完的定义又没人说清，结果一条线上的所有人都在等一个谁也说不清的时刻。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些问题的共同点是：协作从&amp;quot;靠默契&amp;quot;变成了&amp;quot;靠书面&amp;quot;，但书面的那部分没有跟上。任务描述还是写给&amp;quot;随时能来问我&amp;quot;的同事看的，而真正执行它的人或模型，根本没有这个条件。&lt;/p&gt;
+&lt;p&gt;我们在几条并行推进的大型工程线上把这些坑挨个踩了一遍，然后把有效的做法沉淀成一套方法。它不新鲜，但每一条背后都有一次真实的返工。下面把精华和落地方式写出来，去掉了项目细节，文末附上可以直接复制的父任务和子任务模板。&lt;/p&gt;
+&lt;h2 id="核心判断任务是否拆好了只看三件事"&gt;核心判断：任务是否&amp;quot;拆好了&amp;quot;，只看三件事
+&lt;/h2&gt;&lt;p&gt;一个任务拆分是否合格，不看条目多不多、分得匀不匀，只看三个问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;能不能认领&lt;/strong&gt;：一个没参与过前期讨论的人，只读这条任务和它列出的材料，能否开工？&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;能不能独立验证&lt;/strong&gt;：做完之后，什么样的实现错误会让验收失败？如果答不上来，验收就是摆设。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;能不能交接&lt;/strong&gt;：做到一半换人，接手者能否不丢信息地继续？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;三个问题都能回答&amp;quot;是&amp;quot;，才算拆好了。下面的所有实操，都是围绕这三点展开。&lt;/p&gt;
+&lt;h2 id="一先写最终结果再划边界"&gt;一、先写最终结果，再划边界
+&lt;/h2&gt;&lt;p&gt;很多拆分从一开始就错了：拿到一个大目标，直接按模块、按目录、按人头分。这样分出来的任务，每个人都在做&amp;quot;自己那块&amp;quot;，但没人对最终的整体负责。&lt;/p&gt;
+&lt;p&gt;正确的顺序是先让父任务回答四个问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;完成之后，用户或调用方&lt;strong&gt;能做什么&lt;/strong&gt;？&lt;/li&gt;
+&lt;li&gt;这个能力在&lt;strong&gt;哪些真实环境&lt;/strong&gt;下成立？&lt;/li&gt;
+&lt;li&gt;哪些能力&lt;strong&gt;明确不在&lt;/strong&gt;本次范围内？&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;什么证据齐备&lt;/strong&gt;后，这个父任务才可以关闭？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;写清这四条，再去核对当前代码、已有的 issue 和 PR，找出真实缺口。已经有人在做的就引用，不要再建一份平行清单。需求还不清楚的部分，老老实实标成&amp;quot;待决项&amp;quot;，不要把猜测写成已确定的方案。&lt;/p&gt;
+&lt;h2 id="二一个子任务只交付一个可验证的结果"&gt;二、一个子任务只交付一个可验证的结果
+&lt;/h2&gt;&lt;p&gt;拆分的切口应该是&lt;strong&gt;行为、接口、事务或故障边界&lt;/strong&gt;，而不是文件目录。标题用&amp;quot;动作 + 对象 + 结果&amp;quot;的格式，比如&amp;quot;取消等待后仍保持持久写入顺序&amp;quot;，而不是&amp;quot;完善存储模块&amp;quot;。前者能验，后者不能。&lt;/p&gt;
+&lt;p&gt;每个子任务要能说清自己的输入、产出、修改范围和验证方式。不要求每项都能独立发布：底层能力、适配层、完整链路可以分别交付，但父任务必须保留最终的集成验收，不能因为拆了就把整体要求拆没了。&lt;/p&gt;
+&lt;p&gt;遇到下面几种情况，要继续拆：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;边界未知&lt;/strong&gt;。不知道真实的调用链、恢复点在哪里，就先建一个只读调查任务，交付固定的代码版本、精确到行的位置、调用关系、已有测试和证据缺口。注意：调查完成不等于能力通过，这是两件事。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;一个任务含多个独立结果&lt;/strong&gt;。比如&amp;quot;空库启用&amp;quot;和&amp;quot;已有数据迁移&amp;quot;，要分开。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;测试和实现合起来超预算&lt;/strong&gt;。只有当测试接口、夹具和失败断言能被固定下来时，才按职责拆开：测试任务交付一个能编译、会真实失败的用例，实现任务依赖这个提交，两者联合验收后才算完成。失败的 stub 不能合进正式分支。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;有一种假拆分要警惕：只为了减少文件数而搬代码、造抽象或换执行者。这不是拆分，是把复杂度挪了个地方。该做的是重新缩小真实的责任边界。&lt;/p&gt;
+&lt;h2 id="三依赖写成需要什么产出而不是等谁做完"&gt;三、依赖写成&amp;quot;需要什么产出&amp;quot;，而不是&amp;quot;等谁做完&amp;quot;
+&lt;/h2&gt;&lt;p&gt;&amp;ldquo;依赖 A 任务&amp;quot;这种写法几乎没有信息量。每条前置都要写明：需要什么能力、对应哪个任务、哪个提交已被接受、验收证据在哪。&lt;/p&gt;
+&lt;p&gt;一个反直觉但非常重要的规则：&lt;strong&gt;issue 关闭、PR 已开、单项 CI 通过，都不足以证明前置就绪。&lt;/strong&gt; 还要确认那个提交已经进入了指定的集成分支。我们不止一次遇到&amp;quot;前置明明关了，拉下来代码里却没有&amp;quot;的情况。&lt;/p&gt;
+&lt;p&gt;先画依赖图，再排批次（wave）。没有相互依赖、没有公共写入冲突的任务可以并行，不必把一条线上的前置重构排在另一条线全部收尾之后。但共享的接口、依赖锁文件、模块导出、集成分支，要指定&lt;strong&gt;唯一的整合者&lt;/strong&gt;，并明确编译、数据库、端口这些资源是否需要串行。&lt;/p&gt;
+&lt;p&gt;父任务要并行委派时，先声明并发上限。我们用过的一个配置是&amp;quot;最多 3 个开发任务 + 1 个集成槽位&amp;rdquo;。wave 编号表示&amp;quot;最早可以开始的批次&amp;quot;，不是&amp;quot;这一批同时启动的数量&amp;quot;。也不要递归委派，一层就够了。&lt;/p&gt;
+&lt;h2 id="四把预算写进任务里"&gt;四、把预算写进任务里
+&lt;/h2&gt;&lt;p&gt;这是整套方法里最有争议、也最有效的一条。&lt;/p&gt;
+&lt;p&gt;每个小任务默认有硬预算：&lt;strong&gt;读取与修改的来源并集不超过 8 个具体文件，累计上下文不超过 40k tokens。&lt;/strong&gt; 适用的指令文件、测试、依赖声明、外部接口源码、被读取的契约文件全部计入。不允许用目录、通配符、生成的摘要或截断的输出来隐藏实际读取范围。&lt;/p&gt;
+&lt;p&gt;预算统计覆盖输入、输出、分析、编辑和消息的全部消耗。换会话或换执行者，不能让同一个未完成的职责归零重算。&lt;/p&gt;
+&lt;p&gt;接近上限时先交接。发现第九个必要来源，或者冒出一个新的接口边界，说明当初的拆分有问题，应该保留证据缺口、重新拆，而不是硬撑着做完。确实需要别的预算，由父任务明确记录，执行中不允许静默放宽。&lt;/p&gt;
+&lt;p&gt;这条规则的价值在于：它逼着拆分者在开工前真正想清楚边界。一个任务如果列不出 8 个以内的具体文件，大概率是边界还没想清楚，或者藏着一个该先做的调查。&lt;/p&gt;
+&lt;h2 id="五验收要能回答什么错误会让它失败"&gt;五、验收要能回答&amp;quot;什么错误会让它失败&amp;quot;
+&lt;/h2&gt;&lt;p&gt;&amp;ldquo;测试通过&amp;quot;不是验收条件。验收必须能回答：&lt;strong&gt;什么样的实现错误会让它失败？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;具体写法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;固定候选提交、依赖版本、配置和运行环境。命令可以直接复制，预期写成退出码、实际发现的测试名、结果数量或明确的断言。不要把旧任务的测试数量硬套到新基线上。&lt;/li&gt;
+&lt;li&gt;行为变更要&lt;strong&gt;先拿到真实的失败&lt;/strong&gt;，再实现、再转绿。编译失败、零测试、跳过、服务没启动、只打印了 PASS，这些都不算行为证据。文档、依赖注册这类非行为任务按仓库对应等级验证即可，不用制造无意义的红灯。&lt;/li&gt;
+&lt;li&gt;对安全、持久化、并发、迁移这类关键不变量，要写&lt;strong&gt;变异对照&lt;/strong&gt;：故意破坏哪个生产行为、必须命中哪条断言。变异要能成功编译、执行到指定测试、在指定断言上失败。超时和环境故障不算命中。恢复之后要核对源码，并重新跑通受影响的测试。&lt;/li&gt;
+&lt;li&gt;需要真实数据库、容器、节点故障、旧版本二进制的验收，必须用对应的真实环境。模型、mock、内存实现只能证明各自的范围。一条路径上的证据不能直接推导到另一条路径上。&lt;/li&gt;
+&lt;li&gt;单项验收通过后，整合者要在&lt;strong&gt;最终组合提交&lt;/strong&gt;上复跑受影响的门禁。既有的断言、故障场景和兼容要求不能因为拆了任务就消失。发布或切换还要满足父任务的端到端、升级回滚和性能要求。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="六认领与交接claim-和-handoff"&gt;六、认领与交接：Claim 和 Handoff
+&lt;/h2&gt;&lt;p&gt;同一个子任务只保留一个活动的 Claim。每个任务用独立的分支或工作目录。接手前先看最新的认领和交接记录，不能只凭&amp;quot;看起来没人做&amp;quot;就接管。到期、释放、重新分配都要按父任务定的规则留痕。&lt;/p&gt;
+&lt;p&gt;Claim 要写清：执行者和机器、子任务和基准版本、分支标识、前置的接受证据、本次范围、占用的资源槽位、开始时间和预计交付。&lt;/p&gt;
+&lt;p&gt;Handoff 固定四段：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Done&lt;/strong&gt;：实际完成的结果，提交或 PR 链接，命令、退出码和候选版本。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Not done&lt;/strong&gt;：仍缺的验收、未证明的能力、明确的阻塞。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Next command&lt;/strong&gt;：下一条可以直接执行的命令，或者在等哪个前置产出。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Gotcha&lt;/strong&gt;：兼容和恢复风险、共享资源、来源和上下文累计用量、接手注意事项。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;父任务用一组固定状态表达进度：待前置、可认领、执行中、待验收、已接受、阻塞。&lt;/p&gt;
+&lt;p&gt;两条容易混淆的边界：&lt;strong&gt;Handoff 结束的是认领，不自动代表任务完成&lt;/strong&gt;；&lt;strong&gt;PR 合并和 issue 关闭也不自动代表能力已验收&lt;/strong&gt;。验收者核对最终提交和全部交付条件后标记&amp;quot;已接受&amp;rdquo;，父任务满足整体关闭条件后才关闭。&lt;/p&gt;
+&lt;h2 id="发布任务前的五个自检"&gt;发布任务前的五个自检
+&lt;/h2&gt;&lt;p&gt;把任务发出去之前，最后过一遍：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;别人只读这条 issue 和列出的来源，能不能开工？&lt;/li&gt;
+&lt;li&gt;前置是否具体到&amp;quot;需要什么产出、证据在哪&amp;quot;？&lt;/li&gt;
+&lt;li&gt;验收能不能发现错误？&lt;/li&gt;
+&lt;li&gt;所有原始需求是否仍有人负责？&lt;/li&gt;
+&lt;li&gt;证据不足时，执行者是否知道该停在哪里？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;五条里有一条答不上来，就还没到发布的时候。&lt;/p&gt;
+&lt;h2 id="写在最后"&gt;写在最后
+&lt;/h2&gt;&lt;p&gt;这套方法看起来繁琐，但每一条约束都对应一次真实的返工。它的本质是把&amp;quot;默契&amp;quot;变成&amp;quot;书面契约&amp;quot;：边界写明、依赖写明、预算写明、验收写明、交接写明。&lt;/p&gt;
+&lt;p&gt;它对人有用，对 AI 执行者更有用。当执行者的上下文有限、不能随时回头问人时，一条写清楚的任务就是全部。只读调查、硬预算、可失败的验收、四段式交接，这些不是官僚流程，是让协作在信息不完整的条件下依然能收敛的工程手段。&lt;/p&gt;
+&lt;p&gt;如果你的团队也在多人、多线、多执行者的协作里反复返工，不妨从&amp;quot;验收能不能发现错误&amp;quot;和&amp;quot;8 个文件 40k 预算&amp;quot;这两条开始试。下面两份模板可以直接复制到你的 issue 系统里开干。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="附录-a父任务模板"&gt;附录 A：父任务模板
+&lt;/h2&gt;&lt;p&gt;父任务是唯一的汇总入口。详细证据放子任务，这里只维护目标、基线、约定、依赖表和关闭条件。拆分或替换子任务时保留旧到新的映射和原验收，不靠关闭旧任务消除缺口。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;span class="lnt"&gt;32
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-markdown" data-lang="markdown"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gh"&gt;# [项目/主题] &amp;lt;最终要交付的结果&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;## 目标与范围
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 完成后可观察的行为：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 本次包含 / 明确不包含：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 真实运行环境与兼容要求：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;## 已核实基线
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 仓库、基准 commit、指定集成分支：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 现有能力与证据链接：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 缺口、待决项、已有相关 issue/PR：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;## 交付与协作约定
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 提交方式、PR base、必需检查、合并/发布权限：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 来源与上下文预算、并发上限、共享资源限制：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 整合者、Claim 释放/接管规则：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;## 任务与依赖
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;| ID / 子 issue | 可验证结果 | 前置产出 | 责任仓库 / 范围 | 最早 wave | 状态 / 当前负责者 | 已接受提交 / 证据 |
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;| --- | --- | --- | --- | --- | --- | --- |
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;| &amp;lt;ID / 链接&amp;gt; | &amp;lt;一句话&amp;gt; | &amp;lt;ID + 需要什么，或无&amp;gt; | &amp;lt;仓库 / 边界&amp;gt; | &amp;lt;编号&amp;gt; | &amp;lt;状态&amp;gt; | &amp;lt;链接&amp;gt; |
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;## 整体验收与关闭条件
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 需求 → 子任务 → 验收的对应关系：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 最终组合提交与真实全链路验收：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 适用的安全、故障、性能、旧数据与回滚门禁：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 尚未证明的能力、解除阻塞所需证据：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 发布/切换条件与失败后的恢复方式：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;## 当前进度
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;维护上表作为唯一汇总入口；详细证据放子 issue。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;拆分或替换任务时保留旧 → 新映射和原验收，不靠关闭旧 issue 消除缺口。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;状态栏建议只用这六个词：待前置、可认领、执行中、待验收、已接受、阻塞。&lt;/p&gt;
+&lt;h2 id="附录-b可执行子任务模板"&gt;附录 B：可执行子任务模板
+&lt;/h2&gt;&lt;p&gt;一个子任务对应一个可验证结果。只读调查类任务的验收是问题清单和可定位证据，不要求产品提交或测试通过。路径和命令还没查明时不要填想象出来的内容，先建一个有边界的调查任务。小型改动可以合并栏目，但目标、边界、前置、验收和交付责任不能省略。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;span class="lnt"&gt;32
+&lt;/span&gt;&lt;span class="lnt"&gt;33
+&lt;/span&gt;&lt;span class="lnt"&gt;34
+&lt;/span&gt;&lt;span class="lnt"&gt;35
+&lt;/span&gt;&lt;span class="lnt"&gt;36
+&lt;/span&gt;&lt;span class="lnt"&gt;37
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-markdown" data-lang="markdown"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gh"&gt;# [&amp;lt;主题&amp;gt;][&amp;lt;ID&amp;gt;] &amp;lt;动作 + 对象 + 可验证结果&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;父任务：&amp;lt;链接&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;类型：&amp;lt;只读调查 / 非行为准备 / 行为实现 / 集成验收&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;仓库 / 基准 commit / 集成分支 / PR base：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;前置：&amp;lt;issue + 所需能力 + 已接受提交 + 证据，或无&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;后继：&amp;lt;谁消费本项产出&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;## 目标
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;一句话说明完成后什么成立，以及产出的接口/契约。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;## 范围与预算
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 读取与修改的具体文件并集：逐项列出，标注只读/修改/新增。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 适用指令、测试、依赖和导出文件已经计入。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 来源 / 累计上下文预算：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 共享文件、构建槽位和外部环境限制：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 不做什么、不能改变的语义：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;## 实施步骤
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;1.&lt;/span&gt; &amp;lt;在哪个文件/真实入口完成什么&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;2.&lt;/span&gt; &amp;lt;错误、取消、重试、恢复等适用边界&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;3.&lt;/span&gt; &amp;lt;如何交付给后继；未知路径先转调查&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;## 验收
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 候选 SHA、依赖和环境：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; &amp;lt;命令&amp;gt; → &amp;lt;发现哪些测试、退出码和具体预期&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; &amp;lt;具名场景&amp;gt; → &amp;lt;正确行为及禁止出现的结果&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 既有回归与最终组合需要复跑的门禁：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 行为失败对照：&amp;lt;实际入口、输入、指定失败断言；不适用时说明&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 变异对照：&amp;lt;破坏位点/行为 → 指定断言 → 恢复验证；按风险填写&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 风险、回滚方式、当前证据不能证明的范围：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;## 交付与停止条件
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 交付物：&amp;lt;只读证据 / commit / PR / 集成验收记录&amp;gt; + Handoff。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 验收者与接受条件：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 前置缺失、必要来源超预算或目标改变时先交接并重拆；保留未完成项。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;-&lt;/span&gt; 提交/推送/合并方式遵守父任务和目标仓库约定，不从其他项目继承权限。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="附录-cclaim-与-handoff"&gt;附录 C：Claim 与 Handoff
+&lt;/h2&gt;&lt;p&gt;认领和交接直接以评论形式贴在子任务下。同一任务只保留一个活动 Claim。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-markdown" data-lang="markdown"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;### Claim
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;执行者 / 机器：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;子任务、基准 SHA、分支 / worktree 标识：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;前置接受证据：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;本次范围、资源槽位、开始时间、预计交付：
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gu"&gt;### Handoff
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Done：实际完成的结果；commit/PR/证据链接；命令、退出码及候选 SHA。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Not done：仍缺的验收、未证明的能力、明确阻塞。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Next command：下一条可执行命令，或等待哪个前置产出。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Gotcha：兼容/恢复风险、共享资源、来源和上下文累计、接手注意事项。
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;当前 Claim：结束；任务状态与下一负责人：
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description></item></channel></rss>
