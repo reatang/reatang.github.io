@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>安全 on 雨的味道</title><link>https://reatang.com/tags/%E5%AE%89%E5%85%A8/</link><description>Recent content in 安全 on 雨的味道</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 25 Oct 2026 12:00:00 +0800</lastBuildDate><atom:link href="https://reatang.com/tags/%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml"/><item><title>【AI架构】拆开 Dify 看企业级 AI 平台：服务、存储、网络与安全的边界</title><link>https://reatang.com/p/dify-enterprise-architecture/</link><pubDate>Sun, 25 Oct 2026 12:00:00 +0800</pubDate><guid>https://reatang.com/p/dify-enterprise-architecture/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;本文依据 &lt;a class="link" href="https://github.com/langgenius/dify" target="_blank" rel="noopener"
+&gt;langgenius/dify&lt;/a&gt; &lt;code&gt;main&lt;/code&gt; 分支在 2026-10-25 公开的 Docker Compose 与环境配置。Dify 迭代很快，组件和配置随版本会变；文中的图表达的是职责和关键调用关系，不是逐函数验证过的调用图，部分组件需要显式启用，并非默认全部运行。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="一它早就不是一个套壳-web-应用了"&gt;一、它早就不是一个&amp;quot;套壳 Web 应用&amp;quot;了
+&lt;/h2&gt;&lt;p&gt;如果只看 Dify 最早的用法，它确实很像一个&amp;quot;给大模型加了一层可视化界面&amp;quot;的 Web 应用：浏览器里配 Prompt、选模型，后端调 LLM API，再把结果送回前端。最简单的聊天应用，四个方块就画完了：&lt;/p&gt;
+&lt;pre class="mermaid"&gt;
+flowchart LR
+U[用户] --&amp;gt; W[Web 前端]
+W --&amp;gt; A[API 服务]
+A --&amp;gt; D[(关系数据库)]
+A --&amp;gt; L[外部大模型 API]
+&lt;/pre&gt;
+&lt;p&gt;但 AI 应用一旦从&amp;quot;聊天窗口&amp;quot;走向承载业务流程，请求—响应这个模型就开始不够用了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;知识库&lt;/strong&gt;要上传、解析、切分、Embedding、建索引，同时还要支撑在线低延迟检索。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Workflow&lt;/strong&gt; 要处理节点依赖、条件分支、循环、并行，并持续往外推流式事件。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;插件和工具&lt;/strong&gt;要装第三方代码、调外部服务，甚至跑用户写的脚本。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Agent&lt;/strong&gt; 可能拿到文件操作、命令执行和更长生命周期的自主任务能力。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;生产环境&lt;/strong&gt;还要稳定性、弹性扩容、资源隔离、持久化、故障恢复和审计。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;先说清楚一点：上面这条演进脉络是我从当前架构&lt;strong&gt;反推&lt;/strong&gt;出来的，不是版本考古，不代表 Dify 真的依次发布过这些部署形态。&lt;/p&gt;
+&lt;p&gt;有意思的是 Dify 应对这些需求的方式。它没有把每个功能都拆成微服务，而是保留一个统一的 Python 业务核心，再把任务执行、插件执行、代码沙箱、Agent Runtime 和基础设施一块块剥出去。最后长成的形态，我会这样概括：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;模块化单体 + 多进程角色 + 独立隔离执行服务 + 专用存储组件。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="二服务架构一个业务核心多种运行角色"&gt;二、服务架构：一个业务核心，多种运行角色
+&lt;/h2&gt;&lt;h3 id="服务拓扑"&gt;服务拓扑
+&lt;/h3&gt;&lt;pre class="mermaid"&gt;
+flowchart TB
+Client[浏览器 / 应用客户端 / 外部系统] --&amp;gt; Gateway[Nginx 入口网关]
+subgraph Presentation[接入层]
+Web[Web / Next.js]
+Gateway --&amp;gt; Web
+end
+subgraph Business[核心业务层]
+API[API Server / Flask]
+Workflow[Workflow Engine]
+Knowledge[RAG / 知识库服务]
+App[应用、会话、权限等业务模块]
+API --&amp;gt; Workflow
+API --&amp;gt; Knowledge
+API --&amp;gt; App
+end
+Gateway --&amp;gt; API
+Web --&amp;gt; API
+subgraph Jobs[后台任务层]
+Redis[(Redis / Broker 与缓存)]
+Worker[Celery Worker]
+Beat[Celery Beat]
+Beat --&amp;gt; Redis
+Redis --&amp;gt; Worker
+end
+API --&amp;gt; Redis
+subgraph Runtime[独立执行服务]
+Plugin[Plugin Daemon]
+Sandbox[Code Sandbox]
+Agent[Agent Backend]
+AgentShell[Local Sandbox]
+SSRF[SSRF Proxy]
+AgentProxy[Agent SSRF Proxy]
+Agent --&amp;gt; AgentShell
+AgentShell --&amp;gt; AgentProxy
+Sandbox --&amp;gt; SSRF
+end
+Workflow --&amp;gt; Plugin
+Workflow --&amp;gt; Sandbox
+API --&amp;gt; Agent
+Worker --&amp;gt; Plugin
+subgraph Storage[数据与存储]
+SQL[(关系数据库)]
+Vector[(向量数据库)]
+Object[(文件或对象存储)]
+end
+API --&amp;gt; SQL
+Worker --&amp;gt; SQL
+Knowledge --&amp;gt; Vector
+Worker --&amp;gt; Vector
+API --&amp;gt; Object
+Worker --&amp;gt; Object
+Plugin --&amp;gt; External[模型 / 工具 / 外部 API]
+Agent --&amp;gt; Plugin
+&lt;/pre&gt;
+&lt;p&gt;读这张图要注意两点：&lt;code&gt;Workflow Engine&lt;/code&gt;、&lt;code&gt;RAG&lt;/code&gt;、应用管理都是 API 代码内部的&lt;strong&gt;逻辑模块&lt;/strong&gt;，不是三个容器；箭头表示业务依赖，不代表每条线都是一次网络 RPC。&lt;code&gt;api_websocket&lt;/code&gt;、KnowledgeFS 这类可选部署模式我没画进去。&lt;/p&gt;
+&lt;h3 id="每个服务管什么"&gt;每个服务管什么
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;服务&lt;/th&gt;
+&lt;th&gt;主要职责&lt;/th&gt;
+&lt;th&gt;为什么要单独存在&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;nginx&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;HTTP 入口、反向代理与路由&lt;/td&gt;
+&lt;td&gt;统一外部入口&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;web&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;控制台、Workflow 可视化编辑、应用前端&lt;/td&gt;
+&lt;td&gt;展示层与业务处理分离&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;api&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;HTTP API、应用与工作流编排、权限、核心业务&lt;/td&gt;
+&lt;td&gt;领域逻辑只维护一份&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;worker&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;文档处理、索引构建等后台任务&lt;/td&gt;
+&lt;td&gt;把耗时工作移出请求链路&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;worker_beat&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;定时任务调度&lt;/td&gt;
+&lt;td&gt;定时触发维护和后台工作&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;redis&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;缓存、Celery Broker、部分临时状态&lt;/td&gt;
+&lt;td&gt;解耦请求与后台消费&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;plugin_daemon&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;插件生命周期与运行&lt;/td&gt;
+&lt;td&gt;插件代码不进 API 主进程&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;sandbox&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Workflow 代码节点执行&lt;/td&gt;
+&lt;td&gt;承载高风险的代码运行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;ssrf_proxy&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;代理并约束受控组件的出站请求&lt;/td&gt;
+&lt;td&gt;管住出站访问风险&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;agent_backend&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;独立的 Agent 执行后端&lt;/td&gt;
+&lt;td&gt;Agent 运行边界独立化&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;local_sandbox&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Agent 的 Shell 与工作空间&lt;/td&gt;
+&lt;td&gt;隔离命令和文件操作&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;agent_ssrf_proxy&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Agent 沙箱专用出站代理&lt;/td&gt;
+&lt;td&gt;对 Agent 网络访问做更细的规则&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;关系库 / 向量库 / 文件存储&lt;/td&gt;
+&lt;td&gt;各自承载不同类型的数据&lt;/td&gt;
+&lt;td&gt;一致性、检索、大文件各司其职&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;这张表里最值得记住的一件事是：&lt;strong&gt;企业级架构不等于全部微服务。&lt;/strong&gt; Compose 里 &lt;code&gt;api&lt;/code&gt; 和 &lt;code&gt;worker&lt;/code&gt; 用的是同一个后端镜像，只是启动模式不同。业务模型集中维护，进程却能按 HTTP 压力和后台负载分别扩缩。这是一个非常务实的复杂度折中：拆运行时，不拆领域模型。&lt;/p&gt;
+&lt;h3 id="一次-workflow-运行经过哪里"&gt;一次 Workflow 运行经过哪里
+&lt;/h3&gt;&lt;p&gt;以一个带知识检索、LLM 和代码节点的 Workflow 为例：&lt;/p&gt;
+&lt;pre class="mermaid"&gt;
+sequenceDiagram
+participant C as 客户端
+participant A as API / Workflow
+participant V as 向量数据库
+participant P as Plugin Daemon
+participant S as Code Sandbox
+participant DB as 关系数据库
+C-&amp;gt;&amp;gt;A: 提交 Workflow 执行请求
+A-&amp;gt;&amp;gt;DB: 加载应用与 Workflow 配置
+A-&amp;gt;&amp;gt;V: 检索知识片段
+V--&amp;gt;&amp;gt;A: 候选文本
+A-&amp;gt;&amp;gt;P: 调用模型或插件能力
+P--&amp;gt;&amp;gt;A: 模型或工具结果
+A-&amp;gt;&amp;gt;S: 执行代码节点
+S--&amp;gt;&amp;gt;A: 执行结果
+A-&amp;gt;&amp;gt;DB: 记录运行数据
+A--&amp;gt;&amp;gt;C: 返回结果或流式事件
+&lt;/pre&gt;
+&lt;p&gt;这里有一个常见误解：以为每次 Workflow 运行都丢给 Celery Worker 执行。不是。Workflow 引擎负责图调度：加载节点和连线、维护上下文、判断依赖是否满足、处理分支循环、收集输出和事件，它是 &lt;strong&gt;API 后端的一部分&lt;/strong&gt;。Celery 主要承担文档处理、定时任务这类异步工作，具体走哪个队列取决于任务类型和配置。&lt;/p&gt;
+&lt;h3 id="rag-其实是两套负载"&gt;RAG 其实是两套负载
+&lt;/h3&gt;&lt;pre class="mermaid"&gt;
+flowchart LR
+subgraph Offline[离线文档入库]
+File[文档上传] --&amp;gt; Task[异步处理任务]
+Task --&amp;gt; Parse[解析 / 清洗 / 分段]
+Parse --&amp;gt; Embedding[Embedding]
+Embedding --&amp;gt; Index[索引构建]
+end
+subgraph Online[在线检索]
+Query[用户 Query] --&amp;gt; Retrieve[语义 / 关键词检索]
+Retrieve --&amp;gt; Rank[重排 / 筛选]
+Rank --&amp;gt; Context[上下文拼装]
+Context --&amp;gt; LLM[LLM 生成]
+end
+Index --&amp;gt; Vector[(向量索引)]
+Vector --&amp;gt; Retrieve
+File --&amp;gt; Object[(文件存储)]
+Parse --&amp;gt; Meta[(元数据)]
+&lt;/pre&gt;
+&lt;p&gt;上传一份文档可能触发几分钟的解析和索引，而用户的一次检索要求的是毫秒到秒级的响应。&lt;strong&gt;吞吐型负载和延迟型负载被拆到不同的运行角色上&lt;/strong&gt;，是 Dify 从&amp;quot;能跑&amp;quot;走向&amp;quot;可运营&amp;quot;的关键一步：两者终于不必共用同一套资源配置。&lt;/p&gt;
+&lt;h2 id="三存储按数据的性质分层别把一切塞进一个库"&gt;三、存储：按数据的性质分层，别把一切塞进一个库
+&lt;/h2&gt;&lt;p&gt;存储是 Dify 架构里最容易被忽略、却最直接决定可靠性的部分。它面对的至少是四种性质完全不同的数据：事务记录、临时状态、向量索引、非结构化文件。&lt;/p&gt;
+&lt;h3 id="四类存储"&gt;四类存储
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;存储&lt;/th&gt;
+&lt;th&gt;典型内容&lt;/th&gt;
+&lt;th&gt;核心要求&lt;/th&gt;
+&lt;th&gt;运维关注点&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;关系数据库（通常 PostgreSQL）&lt;/td&gt;
+&lt;td&gt;应用定义、用户与租户、Workflow 配置、会话、运行记录、文档元数据&lt;/td&gt;
+&lt;td&gt;事务、一致性、可查询&lt;/td&gt;
+&lt;td&gt;备份、迁移、索引、连接池&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Redis&lt;/td&gt;
+&lt;td&gt;缓存、Celery Broker、部分协调与临时状态&lt;/td&gt;
+&lt;td&gt;低延迟、高频读写&lt;/td&gt;
+&lt;td&gt;内存、过期与持久化策略、Broker 可靠性&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;向量数据库（Weaviate / Qdrant / Milvus / pgvector 等）&lt;/td&gt;
+&lt;td&gt;Embedding 与相似度检索索引&lt;/td&gt;
+&lt;td&gt;ANN 检索性能&lt;/td&gt;
+&lt;td&gt;维度、索引重建、内存与磁盘&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;文件存储（本地 / OpenDAL 适配的后端）&lt;/td&gt;
+&lt;td&gt;上传文件、解析产物、业务生成文件&lt;/td&gt;
+&lt;td&gt;大对象存取、生命周期&lt;/td&gt;
+&lt;td&gt;共享访问、权限、备份与清理&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;当前 &lt;a class="link" href="https://github.com/langgenius/dify/blob/main/docker/.env.example" target="_blank" rel="noopener"
+&gt;&lt;code&gt;docker/.env.example&lt;/code&gt;&lt;/a&gt; 里的默认值是：关系库 PostgreSQL（&lt;code&gt;DB_TYPE=postgresql&lt;/code&gt;），向量库 Weaviate（&lt;code&gt;VECTOR_STORE=weaviate&lt;/code&gt;），文件存储走 OpenDAL 的文件系统后端（&lt;code&gt;STORAGE_TYPE=opendal&lt;/code&gt;、&lt;code&gt;OPENDAL_SCHEME=fs&lt;/code&gt;）。这些是&lt;strong&gt;模板默认值&lt;/strong&gt;，不是唯一选项。&lt;/p&gt;
+&lt;h3 id="关系数据和向量索引为什么要分开"&gt;关系数据和向量索引为什么要分开
+&lt;/h3&gt;&lt;p&gt;两者不是替代关系。关系库里存的是&amp;quot;这个文件属于哪个数据集、切成了哪些分段、索引任务处于什么状态&amp;quot;；向量库里存的是能快速比较语义相似度的向量。&lt;/p&gt;
+&lt;p&gt;麻烦在于它们之间没有一个统一事务。文件上传后，系统先存元数据，再异步解析、切分、生成向量。向量构建中途失败，文件记录不一定要回滚，但必须有明确的处理状态、重试和清理策略；反过来删除一份文档，元数据、向量和原始对象又要联动清理。&lt;/p&gt;
+&lt;p&gt;所以 Dify 的知识库路径本质上是一条&lt;strong&gt;跨多种存储介质的异步数据流水线&lt;/strong&gt;，而不是单库事务。运维上要把索引重建、幂等处理、失败恢复和悬挂对象清理当成日常机制，而不是出事后的补救。&lt;/p&gt;
+&lt;h3 id="文件存储必须和计算节点解耦"&gt;文件存储必须和计算节点解耦
+&lt;/h3&gt;&lt;p&gt;默认的本地文件系统适合单机体验。一旦横向扩展，问题马上出现：多个 API、Worker 实例怎么访问同一份上传文件？容器重建后文件还在吗？异步任务被调度到另一台机器上，原始文件从哪读？&lt;/p&gt;
+&lt;p&gt;生产环境应该用 Dify 支持的外部对象存储或共享存储，让应用实例尽量无状态。文件内容和元数据要在&lt;strong&gt;权限、引用关系、生命周期、备份&lt;/strong&gt;上一起设计，而不是把本地目录复制到每台机器上。&lt;/p&gt;
+&lt;h3 id="插件和-agent-的存储常被漏掉"&gt;插件和 Agent 的存储常被漏掉
+&lt;/h3&gt;&lt;p&gt;除了业务数据，&lt;code&gt;plugin_daemon&lt;/code&gt; 有插件包、工作目录和运行缓存；Agent 沙箱有工作空间和 Home 目录。它们的安全属性和生命周期都跟普通上传文件不一样。&lt;/p&gt;
+&lt;p&gt;当前 Compose 里 &lt;code&gt;local_sandbox&lt;/code&gt; 的工作空间挂的是独立 Volume。这便于管理执行空间，但要清醒：&lt;strong&gt;Volume 不等于隔离、加密或跨租户权限控制。&lt;/strong&gt; 只要是多用户、多租户的自主执行场景，任务级目录隔离、清理策略、用户身份、配额和宿主机文件权限都得逐项验证。&lt;/p&gt;
+&lt;h3 id="存储落地清单"&gt;存储落地清单
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;关系库、Redis、向量库、对象存储&lt;strong&gt;分别&lt;/strong&gt;规划容量、可用性和恢复目标。一个数据库快照不是完整备份。&lt;/li&gt;
+&lt;li&gt;业务库优先保证可靠备份和恢复演练；向量索引要先确认能否由原文和 Embedding 重建，以及重建要多久、花多少钱。&lt;/li&gt;
+&lt;li&gt;给文件、分段、向量、插件包、Agent 工作空间都定好生命周期和删除策略，多租户场景尤其注意资源清理。&lt;/li&gt;
+&lt;li&gt;评估 Redis 同时做缓存和 Broker 的风险，别让缓存驱逐或内存压力影响任务投递。&lt;/li&gt;
+&lt;li&gt;高并发下盯住连接池、慢查询、向量检索 P95/P99、Worker 积压和文件存储错误率。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="四网络重点不是能连通而是谁不该连通"&gt;四、网络：重点不是&amp;quot;能连通&amp;quot;，而是&amp;quot;谁不该连通&amp;quot;
+&lt;/h2&gt;&lt;p&gt;我认为 Dify 网络设计里最有代表性的变化，是把不可信代码和 Agent 执行环境从普通内网里剥出来，再通过受限代理只开放必要的访问。&lt;/p&gt;
+&lt;h3 id="三种信任等级"&gt;三种信任等级
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;入口域&lt;/strong&gt;：Nginx 和必要的 Web/API 路由，对客户端暴露服务端点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;业务域&lt;/strong&gt;：API、Worker、数据库、Redis、向量库、插件服务，承担主要业务协作。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;受限执行域&lt;/strong&gt;：Code Sandbox、Agent Local Sandbox，执行相对不可信的脚本和命令。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这三个域不该拥有同样的网络权限。沙箱如果能随意访问数据库、Redis、Docker 守护进程或云元数据接口，一段恶意代码就能绕过应用层的全部权限控制。&lt;/p&gt;
+&lt;h3 id="ssrf-proxy-在防什么"&gt;SSRF Proxy 在防什么
+&lt;/h3&gt;&lt;p&gt;SSRF（服务端请求伪造）在 AI 工作流里比在传统 Web 里更值得警惕：用户可以配 HTTP 节点、填 URL、调外部工具，模型自己也可能生成要访问的地址。这些请求如果由有内网权限的服务直接发出，就可能打到本不该暴露的内部端点。&lt;/p&gt;
+&lt;p&gt;Dify 的 Compose 里有一个基于 Squid 的 &lt;code&gt;ssrf_proxy&lt;/code&gt;，配合 &lt;code&gt;HTTP_PROXY&lt;/code&gt;、&lt;code&gt;HTTPS_PROXY&lt;/code&gt; 使用。环境模板里的 &lt;code&gt;SSRF_PROXY_ALLOW_PRIVATE_IPS&lt;/code&gt; 默认留空，即&lt;strong&gt;默认拒绝访问私有地址&lt;/strong&gt;，确实要访问某个内网 API 时再显式加白名单。&lt;/p&gt;
+&lt;pre class="mermaid"&gt;
+flowchart LR
+Tool[HTTP 节点 / Sandbox 出站请求] --&amp;gt; Proxy[SSRF Proxy]
+Proxy --&amp;gt; Check{地址与策略检查}
+Check --&amp;gt;|允许| Public[允许的目标服务]
+Check --&amp;gt;|拒绝| Deny[拦截请求]
+&lt;/pre&gt;
+&lt;p&gt;但别由此推断&amp;quot;所有流量都被强制代理&amp;quot;。这是一个&lt;strong&gt;代理控制面&lt;/strong&gt;，实际效果取决于：哪些进程真的走了代理、Docker 网络有没有旁路、HTTP 客户端是否遵守代理环境变量、宿主机和容器上有没有配防火墙。&lt;/p&gt;
+&lt;h3 id="agent-local-sandbox一条更硬的边界"&gt;Agent Local Sandbox：一条更硬的边界
+&lt;/h3&gt;&lt;p&gt;Agent 的风险和代码节点不是一个量级。它会连续执行 Shell 命令、创建文件、下载资源，并在多轮之间保留工作状态。所以 Dify 给 Agent 单独配了三件套：&lt;code&gt;agent_backend&lt;/code&gt;、&lt;code&gt;local_sandbox&lt;/code&gt;、&lt;code&gt;agent_ssrf_proxy&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;最值得注意的是网络划分。官方 &lt;a class="link" href="https://github.com/langgenius/dify/blob/main/docker/docker-compose.yaml" target="_blank" rel="noopener"
+&gt;Compose&lt;/a&gt; 注释写得很明确：&lt;code&gt;local_sandbox&lt;/code&gt; &lt;strong&gt;不加入普通的 &lt;code&gt;default&lt;/code&gt; 网络&lt;/strong&gt;，只加入 &lt;code&gt;agent_sandbox_network&lt;/code&gt; 和 &lt;code&gt;local_sandbox_proxy_network&lt;/code&gt;。Agent Backend 通过受限执行接口和它通信，它要访问其他服务，必须走 Agent 专用的 Squid 代理，而这个代理的&lt;a class="link" href="https://github.com/langgenius/dify/blob/main/docker/ssrf_proxy/squid-agent.conf.template" target="_blank" rel="noopener"
+&gt;配置模板&lt;/a&gt;只放行特定的 Agent 接口和文件传输路径。&lt;/p&gt;
+&lt;pre class="mermaid"&gt;
+flowchart TB
+API[API / Worker] --&amp;gt; Agent[Agent Backend]
+Agent --&amp;gt;|受控 Shell API| Local[Local Sandbox]
+Local --&amp;gt;|HTTP / HTTPS Proxy| Proxy[Agent SSRF Proxy]
+Proxy --&amp;gt;|允许的 Agent 接口| Agent
+Proxy --&amp;gt;|允许的文件 API| API
+Local -.-x DB[(业务数据库)]
+Local -.-x Redis[(Redis)]
+Local -.-x Internal[其他内部服务]
+&lt;/pre&gt;
+&lt;p&gt;图里的虚线叉号是&lt;strong&gt;预期的隔离边界&lt;/strong&gt;，不是对所有协议、所有路径都验证过的结论。代理环境变量本身拦不住所有出站，生产部署仍然要检查容器路由、网络策略和实际可达性。&lt;/p&gt;
+&lt;p&gt;这背后的思路一句话就能说完：&lt;strong&gt;不因为沙箱要执行代码，就把整个内网交给它；只开放完成任务所必需的那几个接口。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id="生产环境怎么加固"&gt;生产环境怎么加固
+&lt;/h3&gt;&lt;p&gt;在 Kubernetes 或独立 VPC 里，可以在官方配置之上再往前走：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;入口只暴露必需的 HTTPS 端口，数据库、Redis、插件调试端口一律不对公网开放。&lt;/li&gt;
+&lt;li&gt;API、Worker、存储和不同沙箱分属不同命名空间或网络策略，默认拒绝、按需放行。&lt;/li&gt;
+&lt;li&gt;出站统一走专用的 Egress Gateway 或代理，重点处理 DNS 重绑定、重定向、私网 CIDR、云厂商元数据地址和代理绕过。&lt;/li&gt;
+&lt;li&gt;跨主机、跨集群的服务通信用 TLS 和服务身份认证，内网同样最小权限。&lt;/li&gt;
+&lt;li&gt;定期做 SSRF 和网络隔离的回归测试，确认沙箱能访问哪些 IP、端口和 URL 路径。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些是我推荐的企业安全措施，&lt;strong&gt;官方 Compose 并没有全部替你做好&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id="五安全把信任边界落到进程网络和凭据上"&gt;五、安全：把信任边界落到进程、网络和凭据上
+&lt;/h2&gt;&lt;h3 id="代码执行不能和主-api-共享进程权限"&gt;代码执行不能和主 API 共享进程权限
+&lt;/h3&gt;&lt;p&gt;Workflow 代码节点和 Agent Shell 命令是两个最高风险的执行入口。应用层做了输入校验，也不能把它们当普通函数调用来信任。Dify 把它们放进独立的 &lt;code&gt;sandbox&lt;/code&gt; 和 &lt;code&gt;local_sandbox&lt;/code&gt;，为资源限制、出站控制和独立扩容留出了边界。&lt;/p&gt;
+&lt;p&gt;但&lt;strong&gt;跑在容器里不等于天然安全。&lt;/strong&gt; 沙箱真正的强度取决于 Linux 权限、Capabilities、Seccomp、只读文件系统、资源配额、宿主机挂载、镜像供应链，以及有没有用更强的虚拟化隔离。看到服务名叫 sandbox 就放心，是最危险的误判。&lt;/p&gt;
+&lt;h3 id="内部服务调用要有身份"&gt;内部服务调用要有身份
+&lt;/h3&gt;&lt;p&gt;API 与 Plugin Daemon、Agent Backend 之间用内部 API Key 或 Token 认证。环境模板明确写了 &lt;code&gt;DIFY_AGENT_API_TOKEN&lt;/code&gt; 的示例值只能用于开发，生产必须更换，Agent Backend 那边也要配上匹配的 Token，&lt;a class="link" href="https://github.com/langgenius/dify/releases" target="_blank" rel="noopener"
+&gt;Release Notes&lt;/a&gt; 里也记录了这一要求。&lt;/p&gt;
+&lt;p&gt;它防的是&amp;quot;进了容器网络就能随便调高权限内部服务&amp;quot;。但 Token 的价值完全取决于凭据管理：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不要把示例密钥带上生产，也不要把真实密钥提交进 Git。&lt;/li&gt;
+&lt;li&gt;用 Secret Manager、Kubernetes Secret 或类似机制注入，并定期轮换。&lt;/li&gt;
+&lt;li&gt;API、插件、Agent、沙箱各用各的凭据，别让所有服务共享一把高权限密钥。&lt;/li&gt;
+&lt;li&gt;调试接口、内部管理接口和文件传输 API 单独做访问控制和审计日志。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="插件就是供应链边界"&gt;插件就是供应链边界
+&lt;/h3&gt;&lt;p&gt;插件带来了扩展性，也带来了第三方代码和依赖。独立的 Plugin Daemon 让插件和主业务进程分开，配置里也有插件大小、执行超时、签名校验（如 &lt;code&gt;FORCE_VERIFYING_SIGNATURE&lt;/code&gt;）等参数。&lt;/p&gt;
+&lt;p&gt;但&lt;strong&gt;签名校验不等于代码审计，执行超时也替代不了沙箱化。&lt;/strong&gt; 企业落地时要对插件来源、版本锁定、依赖漏洞、网络权限、文件权限和敏感凭据注入定统一标准，低信任来源的插件走单独的审核流程和运行环境。&lt;/p&gt;
+&lt;h3 id="多租户有租户字段不等于隔离完成"&gt;多租户：有租户字段不等于隔离完成
+&lt;/h3&gt;&lt;p&gt;Dify 面向多应用、多用户、多组织，租户隔离要端到端成立，至少得检查四件事：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;关系数据查询始终携带租户 / 应用身份；&lt;/li&gt;
+&lt;li&gt;文件和向量检索按归属与授权范围过滤；&lt;/li&gt;
+&lt;li&gt;缓存键、任务上下文和日志不跨租户混用；&lt;/li&gt;
+&lt;li&gt;插件密钥、模型供应商凭据、Agent 工作目录互不泄露。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这是从架构风险推出来的审查项，不代表 Dify 的所有接口都已经通过了多租户渗透测试。&lt;/p&gt;
+&lt;h3 id="ai-特有的风险网络代理管不了"&gt;AI 特有的风险，网络代理管不了
+&lt;/h3&gt;&lt;p&gt;网络和代码执行都隔离好了，AI 平台依然要面对 Prompt Injection、工具调用越权、知识库内容污染、敏感信息经由模型上下文泄露。&lt;strong&gt;代理只能限制请求能去哪，判断不了这次调用是否符合业务授权。&lt;/strong&gt; 高风险工具还得叠加参数校验、业务权限检查、人工审批、最小权限凭据和审计记录。&lt;/p&gt;
+&lt;h2 id="六从单机-compose-到生产部署的五步"&gt;六、从单机 Compose 到生产部署的五步
+&lt;/h2&gt;&lt;p&gt;把官方 Compose 原样放上服务器，能撑住一部分低负载场景，但它不自带高可用，也不自带企业级安全。正式上生产，我会按这个顺序推进：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第一步，业务进程解耦。&lt;/strong&gt; API 和 Worker 分别水平扩容，给 CPU 密集的文档解析、Embedding 和普通后台任务设好队列与并发参数，Workflow 请求延迟单独监控。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第二步，状态外置。&lt;/strong&gt; 数据库、Redis、向量库、对象存储交给有备份恢复能力的服务，确保 API/Worker 实例随时可替换，不会丢本地文件。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第三步，执行安全域隔离。&lt;/strong&gt; 插件、代码执行、Agent Shell 各自设计网络边界、身份凭据和资源限额，限制出站，并实测是否存在直连内部数据库和云元数据接口的路径。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第四步，可观测与恢复。&lt;/strong&gt; 为 API 延迟、Workflow 节点耗时、Celery 积压、向量检索、模型供应商错误率、插件异常、存储耗尽、被拒绝的出站请求建指标和日志链路，并演练数据库恢复、队列积压处理和索引重建。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第五步，变更治理。&lt;/strong&gt; 固定镜像版本，跟踪官方迁移脚本和 Release Notes。Agent Runtime、插件 Daemon、向量库或数据库升级前先核对配置变化和兼容性，再灰度。&lt;/p&gt;
+&lt;h2 id="结语"&gt;结语
+&lt;/h2&gt;&lt;p&gt;Dify 值得研究，不是因为它堆了多少容器，而是它给不同性质的工作划了不同的边界：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;同步业务和后台任务&lt;/strong&gt;分开，用户请求和批量索引各自调度；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;关系存储、向量检索、文件存储和缓存&lt;/strong&gt;分开，一致性、检索效率和大对象存储各自优化；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;业务进程和不可信执行环境&lt;/strong&gt;分开，脚本、插件、Agent 操作可以施加不同的权限和资源控制；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;普通内网和受限沙箱网络&lt;/strong&gt;分开，有执行能力的组件不能直接摸到高价值内部服务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以我更愿意把 Dify 看成一套逐步强化的 &lt;strong&gt;AI 应用运行平台&lt;/strong&gt;，而不是一个大模型聊天 Web UI。它真正的企业级价值在于可扩展和可隔离同时成立：新的 AI 能力能接进来，接进来之后还能被治理、观测和约束。&lt;/p&gt;
+&lt;p&gt;但也要说清楚：&lt;strong&gt;企业级不是 &lt;code&gt;docker compose up&lt;/code&gt; 成功之后就自动拥有的属性。&lt;/strong&gt; 高可用、租户隔离、凭据治理、审计、灾备、出站安全和供应链控制，都要结合自己的安全等级和部署环境，一项一项去实现、去验证。&lt;/p&gt;
+&lt;h2 id="参考"&gt;参考
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/langgenius/dify" target="_blank" rel="noopener"
+&gt;Dify 官方仓库&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/langgenius/dify/blob/main/docker/docker-compose.yaml" target="_blank" rel="noopener"
+&gt;Docker Compose：服务及网络拓扑&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/langgenius/dify/blob/main/docker/.env.example" target="_blank" rel="noopener"
+&gt;环境变量模板：数据库、Redis、向量库、文件存储、沙箱与代理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/langgenius/dify/blob/main/docker/README.md" target="_blank" rel="noopener"
+&gt;Docker 部署说明&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/langgenius/dify/tree/main/api/core/workflow" target="_blank" rel="noopener"
+&gt;Workflow 核心代码&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/langgenius/dify/tree/main/api/tasks" target="_blank" rel="noopener"
+&gt;异步任务代码&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/langgenius/dify/tree/main/dify-agent" target="_blank" rel="noopener"
+&gt;Agent 代码&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/langgenius/dify/blob/main/docker/ssrf_proxy/squid-agent.conf.template" target="_blank" rel="noopener"
+&gt;Agent 专用 Squid 配置&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/langgenius/dify/releases" target="_blank" rel="noopener"
+&gt;Dify Release Notes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;本站：&lt;a class="link" href="https://reatang.com/p/workflow-vs-agent-for-information-systems/" &gt;《数据、行为与 AI：传统信息系统接入 Agent 平台的两条路》&lt;/a&gt;、&lt;a class="link" href="https://reatang.com/p/agent-harness-as-operating-system/" &gt;《半年后再看：当 Harness 成为操作系统》&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>
